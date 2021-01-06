@@ -29,7 +29,7 @@ public class PlayerControll : MonoBehaviour
         //플레이어 움직임 관련
         if (Input.GetKey(KeyCode.D))
         {
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
+           // transform.Translate(Vector3.right * speed * Time.deltaTime);
             if (GMScript.isInvenOpen)
             {
                 GMScript.isInvenOpen = false;
@@ -40,7 +40,7 @@ public class PlayerControll : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
+          //  transform.Translate(Vector3.left * speed * Time.deltaTime);
             if (GMScript.isInvenOpen)
             {
                 GMScript.isInvenOpen = false;
@@ -50,7 +50,7 @@ public class PlayerControll : MonoBehaviour
 
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(Vector3.down * speed * Time.deltaTime);
+           // transform.Translate(Vector3.down * speed * Time.deltaTime);
             if (GMScript.isInvenOpen)
             {
                 GMScript.isInvenOpen = false;
@@ -60,7 +60,7 @@ public class PlayerControll : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(Vector3.up * speed * Time.deltaTime);
+           // transform.Translate(Vector3.up * speed * Time.deltaTime);
             if (GMScript.isInvenOpen)
             {
                 GMScript.isInvenOpen = false;
