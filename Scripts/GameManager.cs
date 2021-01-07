@@ -27,6 +27,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject container;
     public GameObject inventory;
+
+    // from playercontoller
+    public GameObject BuyChicken; // for moving control
+    public bool isBuyOpen;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +45,9 @@ public class GameManager : MonoBehaviour
         checkContainerDetect();
         InvenDetect();
         changeStaminaUI(); //스태미나 감소
+
+        // from playercontoller
+        BuyUIDetect();
 
         //24시간 지나면 하루 지남 + UI 켰을때는 시간 안감
         if (!isTimerStoped)
@@ -160,6 +168,13 @@ public class GameManager : MonoBehaviour
             }
             vendorDetectScript.containerChanged = false;
         }
+    }
+
+    // from playercontoller
+    void BuyUIDetect()
+    {
+        if(BuyChicken.activeSelf == true){  isBuyOpen = true;  }
+        else{  isBuyOpen = false;  }
     }
 
     //UI 시간 관련

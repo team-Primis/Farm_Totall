@@ -12,11 +12,13 @@ public class PlayerMove : MonoBehaviour
     public float speed = 1.0f;
     static public PlayerMove instance;//static: 이 스크립트를 사용하는 객체는 instance 변수를 공유하게 됨.
 
-
+    GameManager GMScript;
   
     // Start is called before the first frame update
     void Start()
     {
+        GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         if(instance==null)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -34,7 +36,10 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if(GMScript.isBuyOpen == false) // from playercontoller - 닭구매창 떠있으면 플레이어 정지
+        {
+            Move();
+        }
     }
 
     void Move()
