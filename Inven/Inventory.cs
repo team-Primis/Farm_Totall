@@ -13,23 +13,23 @@ public class Inventory : MonoBehaviour {
     // I버튼을 누르면 활성화/비활성화 되는 부울 변수
     public GUISkin skin;
 
-	// Use this for initialization
-	void Start () {
-        for(int i=0; i<slotX*slotY; i++)
+    // Use this for initialization
+    void Start()
+    {
+        for (int i = 0; i < slotX * slotY; i++)
         {
+            //처음에 슬롯 갯수만큼 슬롯 칸에 빈 오브젝트 추가
+
+            //일단 빈 공간 만들기
             slots.Add(new Item());
             // 아이템 슬롯칸에 빈 오브젝트 추가하기
             inventory.Add(new Item());
             // 인벤토리에 추가
         }
         db = GameObject.FindGameObjectWithTag("Database").GetComponent<itemDatabase>();
-        // 디비 변수에 "Database" 태그를 가진 오브젝트를 연결합니다.
-        // 그리고 그 중 가져오는 컴포넌트는 "itemDatabse"라는 속성입니다.
 
-        //inventory[0] = db.items[0];
-       // inventory[1] = db.items[1];
-        for(int i=0;/*db.items[i]!=null*/i<slotX*slotY; i++)
-            // 반복문을 이용하여 전체 인벤토리에 저장토록 합니다.
+        //db랑 비교해서, 가지고 있는 것들을 인벤에 표시
+        for (int i = 0; i < slotX * slotY; i++)
         {
             if (db.items[i] != null)
             {
@@ -38,29 +38,27 @@ public class Inventory : MonoBehaviour {
             }
             else
             {
-                // 디비의 아이템칸이 비어있다면 다른 행동을 하도록 유도합니다.
+                // 디비의 아이템칸이 비어있다면 ?
 
             }
         }
-        // 인벤토리에 db에 저장되어있는 0번째 아이템을 가져오도록 합니다.
 
-        /* for(int i=0; i<n; i++) {
-         *      inventory.Add(db.items[i]);
-         * }
-         * 식으로 응용 가능하겠죠?
-         */
     }
+
+       
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.O))
-            // 만약 Inventory(I)버튼이 눌리면 아래 내용을 실행합니다.
+            //inventory.Add(db.items[0]) : DB의 0번째 아이템을 인벤토리에 추가
+
+
+            if (Input.GetKeyDown(KeyCode.O))
         {
             showInventory = !showInventory;
-            // showInventory 앞에 느낌표는 낫(Not)연산자이며, 참>거짓, 거짓>참으로 바꿔주는 연산자입니다.
-            // 누를때마다 참>거짓>참>거짓으로 바뀌겠죠
+            // 키를 누를때마다 인벤창이 꺼졌다 켜졌다 함
         }
     }
+
     void OnGUI()
     {
         GUI.skin = skin;
@@ -81,7 +79,7 @@ public class Inventory : MonoBehaviour {
 
                 for (int i = 0; i < slotX; i++)
                 {
-                    Rect slotRect = new Rect(i * 52 + 100, j * 52 + 30, 50, 50);
+                    Rect slotRect = new Rect(i * 102 + 100, j * 102 + 30, 100, 100);
                     // 박스 분할하기
                     GUI.Box(slotRect, "", skin.GetStyle("slot background"));
                     // 각 박스의 생성 위치를 설정해주는 곳입니다. skin.GetStyle은 이전에 만들었던 skin을 불러오는 것임
@@ -91,7 +89,7 @@ public class Inventory : MonoBehaviour {
                     if (slots[k].itemName != null)
                     {
                         GUI.DrawTexture(slotRect, slots[k].itemIcon);
-                        Debug.Log(slots[k].itemName);
+                       // Debug.Log(slots[k].itemName);
                     }
 
                     k++;
