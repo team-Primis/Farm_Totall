@@ -11,17 +11,17 @@ public class itemDatabase : MonoBehaviour {
     {
         //sprites = Resources.LoadAll<Sprite>("ItemIcons/34x34icons180709");
 
-        // items.Add(new Item(이름, 아이템아이디, 설명, 공격력, 공속, 방어력, 회피력, 아이템 속성여부));
-        items.Add(new Item("0", "Iron Sword", 1001, "This sword is normal style sword", 10, 1, 0, 0, Item.ItemType.Weapon));
-        // 위와 같이 원하는 아이템을 모두 추가해줍니다.(수업 중 예시니까 조금만 만들거임 ' ㅅ'
-        items.Add(new Item("1","Iron Spear", 1011, "This spear is normal style spear", 12, 2, 0, 0, Item.ItemType.Weapon));
+        // items.Add(new Item(string img, string name, int id, string def, ItemType type))
+        //items. Add(new Item(이미지이름, 이름, 아이템번호, 설명, 타입)
+        items.Add(new Item("0", "potato", 1001, "This is delicious", Item.ItemType.Use));
+        items.Add(new Item("0", "sweetPotato", 1002, "This is delicious", Item.ItemType.Use));
+        items.Add(new Item("0", "pumpkin", 1003, "This is delicious", Item.ItemType.Use));
+        items.Add(new Item("0", "sprinkler", 2001, "This is for watering plants", Item.ItemType.Tool));
 
-        items.Add(new Item("2","Boxing Gloves", 2001, "This Gloves is fast gloves", 10, 1, 0, 1, Item.ItemType.Weapon));
-        items.Add(new Item("3","Drill Gloves", 2002, "This Gloves is Drill gloves", 13, 2, 0, 1, Item.ItemType.Weapon));
 
-        
+
+
         // 원하는 만큼 만들어주면 됨(물론 나중에 디비가 생긴다면 이거 안해도 되는건데, 우리는 디비 없이 할거니까 해야됨
-        // 아무튼 해야됨 ㅇㅇㅇㅇㅋ
     }
 
 }
