@@ -8,7 +8,6 @@ public class PlayerControll : MonoBehaviour
 {
     //플레이어관련 : 움직임, 보유 돈, 보유 씨앗, 달걀 관련
 
-    private float speed = 1.5f;
     public int money = 2000;
     public bool isMoneyChanged = false;
 
@@ -81,7 +80,7 @@ public class PlayerControll : MonoBehaviour
                 GMScript.isInvenStateChanged = true;
             }
         }
-
+        /*
         //체력 감소에 대한 코드 : 10번 행동이 끝나면 1칸씩 준다
         if (Input.GetKeyDown(KeyCode.Space)) {
             laborCount--;
@@ -96,6 +95,7 @@ public class PlayerControll : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     // from playercontoller
