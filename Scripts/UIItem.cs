@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIItem : MonoBehaviour, IPointerClickHandler, IDragHandler
+public class UIItem : MonoBehaviour, IPointerClickHandler
 {
     public Item item;
     public Image spriteImage;
@@ -39,34 +39,41 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IDragHandler
     //실제 인벤의 내용이 바뀌진 않으므로 신경쓰지 않아도 됌.
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(this.item != null)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
-            //특정 아이템을 클릭한 다음 이 칸을 누른다면 둘이 모양 바꿔줌
-            if(selectedItem.item != null)
+            
+            if (this.item != null)
             {
-                Item clone = new Item(selectedItem.item);
-                selectedItem.UpdateItem(this.item);
-                UpdateItem(clone);
+                //특정 아이템을 클릭한 다음 이 칸을 누른다면 둘이 모양 바꿔줌
+                if (selectedItem.item != null)
+                {
+                    Item clone = new Item(selectedItem.item);
+                    selectedItem.UpdateItem(this.item);
+                    UpdateItem(clone);
+                }
+                else
+                {
+                    selectedItem.UpdateItem(this.item);
+                    UpdateItem(null);
+                }
             }
-            else
+            //전에 뭔가 선택 후 빈공간 누름
+            else if (selectedItem.item != null)
             {
-                selectedItem.UpdateItem(this.item);
-                UpdateItem(null);
+                UpdateItem(selectedItem.item);
+                selectedItem.UpdateItem(null);
             }
-        }
-        //전에 뭔가 선택 후 빈공간 누름
-        else if(selectedItem != null)
-        {
-            UpdateItem(selectedItem.item);
-            selectedItem.UpdateItem(null);
         }
     }
 
-   
+    public bool isObject;
  
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Dragging in :" + transform.position);
+        transform.position = Input.mousePosition;
+        
     }
+
+   
 }
