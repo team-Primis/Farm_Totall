@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIItem : MonoBehaviour, IPointerClickHandler
+public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public Item item;
     public Image spriteImage;
@@ -76,6 +76,17 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (this.item != null)
+        {
+            tool.GenerateToolTip(this.item);
+            tool.gameObject.SetActive(true);
+        }
+    }
 
-   
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        tool.gameObject.SetActive(false);
+    }
 }

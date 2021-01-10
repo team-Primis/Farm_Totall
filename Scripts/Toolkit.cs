@@ -10,6 +10,7 @@ public class Toolkit : MonoBehaviour
     void Start()
     {
         toolText = GetComponentInChildren<Text>();
+        gameObject.SetActive(false);
         toolText.gameObject.SetActive(false);
     }
 
