@@ -20,8 +20,7 @@ public class GameManager : MonoBehaviour
     public float timer = 0;
     public bool isTimerStoped = false;
 
-    public bool isInvenOpen;
-    public bool isInvenStateChanged;
+ 
 
     public GameObject[] staminaObj;
 
@@ -43,7 +42,6 @@ public class GameManager : MonoBehaviour
     {
         checkVendorDetect(); //자판기 들어갔다 나옴
         checkContainerDetect();
-        InvenDetect();
         changeStaminaUI(); //스태미나 감소
 
         // from playercontoller
@@ -119,21 +117,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void InvenDetect() {
-        if (isInvenStateChanged)
-        {
-            if (isInvenOpen) {
-                inventory.SetActive(true);
-                isTimerStoped = true;
-            }
-            else
-            {
-                inventory.SetActive(false);
-                isTimerStoped = false;
-            }
-            isInvenStateChanged = false;
-        }
-    }
+    
     //자판기에 가까이 가면 자판기 UI 띄워줌
     void checkVendorDetect() {
         if (vendorDetectScript.venderchanged == true)
