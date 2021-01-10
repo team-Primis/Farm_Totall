@@ -29,57 +29,7 @@ public class PlayerControll : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //플레이어 움직임 관련
-        if (Input.GetKey(KeyCode.D))
-        {
-           // transform.Translate(Vector3.right * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-          //  transform.Translate(Vector3.left * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-           // transform.Translate(Vector3.down * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-           // transform.Translate(Vector3.up * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-
-        }
-
-        if (Input.GetKey(KeyCode.I))
-        {
-            if (!GMScript.isTimerStoped)
-            {
-                GMScript.isInvenOpen = true;
-                GMScript.isInvenStateChanged = true;
-            }
-        }
+        
         /*
         //체력 감소에 대한 코드 : 10번 행동이 끝나면 1칸씩 준다
         if (Input.GetKeyDown(KeyCode.Space)) {
