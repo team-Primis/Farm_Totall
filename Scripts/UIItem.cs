@@ -9,12 +9,14 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
     public Item item;
     public Image spriteImage;
     private UIItem selectedItem;
+    private Toolkit tool;
 
     private void Awake()
     {
         spriteImage = gameObject.GetComponent<Image>();
         UpdateItem(null); //처음엔 빈칸으로 시작하기!
         selectedItem = GameObject.Find("selectedItem").GetComponent<UIItem>();
+        tool = GameObject.Find("Tooltip").GetComponent<Toolkit>();
     }
 
     //인벤의 보이는 부분을 업데이트 하는 함수.
@@ -39,6 +41,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
     //실제 인벤의 내용이 바뀌진 않으므로 신경쓰지 않아도 됌.
     public void OnPointerClick(PointerEventData eventData)
     {
+        //오른 버튼이 클릭되면 드래그로 위치 바꾸기 가능
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             
@@ -64,9 +67,15 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
                 selectedItem.UpdateItem(null);
             }
         }
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            if (this.item != null)
+            {
+                tool.GenerateToolTip(this.item);
+            }
+        }
     }
 
-    public bool isObject;
  
 
     public void OnDrag(PointerEventData eventData)
