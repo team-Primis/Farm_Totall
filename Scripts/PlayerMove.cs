@@ -50,7 +50,6 @@ public class PlayerMove : MonoBehaviour
     
         if (Input.GetKey(KeyCode.W))
         {
-            
             anim.SetBool("BackWalk", true);
             moveZ += 1f;
             

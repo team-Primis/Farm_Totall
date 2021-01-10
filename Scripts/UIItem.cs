@@ -37,7 +37,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    //클릭해서 눈에 보이는 위치 바꾸기 = 눈에 보이는 이미지 바꾸기
+    //클릭해서 눈에 보이는 위치 바꾸기 = 객체 바꾸기 & 눈에 보이는 이미지 바꾸기
     //실제 인벤의 내용이 바뀌진 않으므로 신경쓰지 않아도 됌.
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -76,13 +76,6 @@ public class UIItem : MonoBehaviour, IPointerClickHandler
         }
     }
 
- 
-
-    public void OnDrag(PointerEventData eventData)
-    {
-        transform.position = Input.mousePosition;
-        
-    }
 
    
 }
