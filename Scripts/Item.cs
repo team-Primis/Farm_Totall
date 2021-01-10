@@ -9,9 +9,17 @@ using UnityEngine;
 public class Item 
 {
     public int id;
-    public string name;
+    public string Kname; //한국 이름
+    public string Ename; //영어 이름 : 상점 등 때문에 한국 이름이 필요한데, 변수 처리 시 영어가 용이해서 둘 다 넣음
     public string description;
     public Sprite icon;
+    public int count;
+    public Category category;
+    public enum Category
+    {
+        //item : 소모품, tool : 도구
+        item,tool
+    }
 
     //Dictionary ) key : value로 값 저장 -> 체력회복 : 5 , 속도  :2 이런 느낌
     public Dictionary<string, int> stats = new Dictionary<string, int>();
@@ -21,21 +29,37 @@ public class Item
     public Item(Item item)
     {
         this.id = item.id;
-        this.name = item.name;
+        this.Kname = item.Kname;
+        this.Ename = item.Ename;
         this.description = item.description;
         this.stats = item.stats;
+        this.count = item.count;
+        this.category = item.category;
 
         //아이템의 아이콘을 가져오는 방법 : 스프라이트를 "Assets/Resources/Sprites/Items" 위치에서 item.name 이라는 이름의 스프라이트 가져옴
-        this.icon = Resources.Load<Sprite>("Sprites/Items/" + item.name);
+        this.icon = Resources.Load<Sprite>("Sprites/Items/" + item.Ename);
     }
 
-    public Item(int id, string name, string description, Dictionary<string,int> stat)
+    public Item(int id, string Kname, string Ename, string description, Category cat, Dictionary<string,int> stat)
     {
         this.id = id;
-        this.name = name;
+        this.Kname = Kname;
+        this.Ename = Ename;
         this.description = description;
         this.stats = stat;
-        this.icon = Resources.Load<Sprite>("Sprites/Items/" + name);
+        this.category = cat;
+        this.icon = Resources.Load<Sprite>("Sprites/Items/" + Ename);
+
+    }
+
+    public Item(int id, string Kname, string Ename, string description, Category cat)
+    {
+        this.id = id;
+        this.Kname = Kname;
+        this.Ename = Ename;
+        this.description = description;
+        this.category = cat;
+        this.icon = Resources.Load<Sprite>("Sprites/Items/" + Ename);
 
     }
 }

@@ -48,7 +48,7 @@ public class inventory : MonoBehaviour
         characterItems.Add(itemToAdd);
         inventoryUI.AddNewItem(itemToAdd);
         
-        Debug.Log("Added item : " + itemToAdd.name);
+        Debug.Log("Added item : " + itemToAdd.Kname);
 
     }
 
@@ -63,7 +63,7 @@ public class inventory : MonoBehaviour
         if(ItemToRemove != null)
         {
             characterItems.Remove(ItemToRemove);
-            Debug.Log("Item removed : " + ItemToRemove.name);
+            Debug.Log("Item removed : " + ItemToRemove.Kname);
             inventoryUI.RemoveItem(ItemToRemove);
 
         }

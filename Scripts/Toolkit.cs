@@ -17,16 +17,22 @@ public class Toolkit : MonoBehaviour
     public void GenerateToolTip(Item item)
     {
         string statText = "";
-        if(item.stats.Count > 0)
+        if (item.stats.Count > 0)
         {
-            foreach(var stat in item.stats)
+            //stat 전부 보여주는 코드
+
+            foreach (var stat in item.stats)
             {
-                statText += stat.Key.ToString() + " : " + stat.Value.ToString() + "\n";
+                statText = "물 주기 : ";
+                if (stat.Key == "watering")
+                    statText += stat.Value.ToString();
             }
-            string tooltip = string.Format("<b>{0}</b>\n{1}\n\n<b>{2}</b>", item.name, item.description, statText);
+        }
+            //<b></b> 하면 이 사이는 진한 글씨! 일종의 HTML임
+            string tooltip = string.Format("<b>{0}</b>\n{1}\n\n<b>{2}</b>", item.Kname, item.description, statText);
             toolText.text = tooltip;
             toolText.gameObject.SetActive(true);
             gameObject.SetActive(true);
-        }
+        
     }
 }
