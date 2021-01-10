@@ -7,6 +7,7 @@ public class inventory : MonoBehaviour
     //실제 유저가 가지고 있는 내부 인벤토리에 대한 코드
     public List<Item> characterItems = new List<Item>();
     private itemDatabase db;
+    public UIInventory inventoryUI;
 
     // Start is called before the first frame update
     void Start()
@@ -14,7 +15,8 @@ public class inventory : MonoBehaviour
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
         putInventory(0);
         putInventory(1);
-
+        putInventory(2);
+        putInventory(3);
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
     }
@@ -22,20 +24,30 @@ public class inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            //한번 누르면 열리고 한번 더 누르면 닫힘
+            inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
+        }
     }
 
     //이 아이디를 가진 아이템을 인벤에 넣을떄 쓰는 함수.
     //해당 id가 아이템 데이터베이스에 존재하는지 확인하고 존재 시 인벤(characterItems)에 넣는다
     public void putInventory(int id)
     {
+        //db 확인
         Item itemToAdd = db.GetItem(id);
+        //없을경우
         if(itemToAdd == null)
         {
             Debug.Log("해당 item id가 데이터베이스에 없습니다.");
             return;
         }
+        //있을 경우
+        //캐릭터 인벤에 아이템 추가, 외부 인벤에 그림 바꿈(빈 객체가 있는 칸을 해당 객체의 그림으로 바꿈)
         characterItems.Add(itemToAdd);
+        inventoryUI.AddNewItem(itemToAdd);
+        
         Debug.Log("Added item : " + itemToAdd.name);
 
     }
@@ -52,6 +64,8 @@ public class inventory : MonoBehaviour
         {
             characterItems.Remove(ItemToRemove);
             Debug.Log("Item removed : " + ItemToRemove.name);
+            inventoryUI.RemoveItem(ItemToRemove);
+
         }
         else
         {
