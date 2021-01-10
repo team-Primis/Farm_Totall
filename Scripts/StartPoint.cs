@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartPoint : MonoBehaviour
+public class StartPoint : MonoBehaviour//플레이어가 닿았을 때 맵을 이동시켜줄 포인트 구현. 
 {
     public string startPoint;//맵이 이동하면 플레이어가 있을 위치
     private PlayerMove thePlayer;

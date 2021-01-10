@@ -19,7 +19,7 @@ public class PlayerMove : MonoBehaviour
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
 
-        if(instance==null)
+        if(instance==null)//씬 이동을 할 때마다 플레이어가 복제되는 걸 해결하기 위함.
         {
             DontDestroyOnLoad(this.gameObject);
             boxCollider = GetComponent<BoxCollider2D>();
@@ -40,9 +40,10 @@ public class PlayerMove : MonoBehaviour
         {
             Move();
         }
+        Watering();
     }
 
-    void Move()
+    void Move()//플레이어 이동 함수.
     {
         float moveX = 0f;
         float moveZ = 0f;
@@ -95,5 +96,17 @@ public class PlayerMove : MonoBehaviour
         
 
 
+    }
+
+    void Watering()//물 주는 모션.
+    {
+        if (Input.GetMouseButton(0))//클릭하면 물 주는 애니메이션 재생.
+        {
+            anim.SetBool("Watering", true);
+        }
+        else//클릭 안 하면 애니메이션 재생 안 함.
+        {
+            anim.SetBool("Watering", false);
+        }
     }
 }
