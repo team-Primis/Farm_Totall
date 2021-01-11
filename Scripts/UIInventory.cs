@@ -30,15 +30,28 @@ public class UIInventory : MonoBehaviour
 
     }
 
+    public void UpdateUI(int slot, Item item)
+    {
+        uiitems[slot].UpdateNumUI(item);
+    }
+
     //uiitem의 요소 중, item 객체가 null인것을 찾아서 원하는 item의 객체의 모양으로 바꿈
     public void AddNewItem(Item item)
     {
         UpdateSlot(uiitems.FindIndex(i => i.item == null), item);
     }
 
+
     //item이 있는 인덱스를 찾아서 null객체로 바꿔줌
     public void RemoveItem(Item item)
     {
         UpdateSlot(uiitems.FindIndex(i => i.item == item), null);
+    }
+
+
+    //item의 숫자가 바뀌면 반영해줌
+    public void UpdateItemNumUI(Item item)
+    {
+        UpdateUI(uiitems.FindIndex(i => i.item.id == item.id), item);
     }
 }

@@ -18,6 +18,8 @@ public class inventory : MonoBehaviour
         putInventory(2);
         putInventory(3);
         putInventory(1);
+        putInventory(1);
+        putInventory(2);
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
     }
@@ -59,6 +61,7 @@ public class inventory : MonoBehaviour
         else
         {
             itemToAdd.count++;
+            inventoryUI.UpdateItemNumUI(itemToAdd);
             Debug.Log("Item " + itemToAdd.Ename + "count became " + itemToAdd.count);
         }
 

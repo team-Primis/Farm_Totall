@@ -10,6 +10,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     public Image spriteImage;
     private UIItem selectedItem;
     private Toolkit tool;
+    public Text ItemCountText;
 
     private void Awake()
     {
@@ -29,11 +30,23 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             spriteImage.sprite = this.item.icon;
             spriteImage.color = Color.white;
+            ItemCountText.text = this.item.count.ToString();
+            ItemCountText.color = Color.white;
         }
         //전달받은 객체가 null일경우 그냥 투명하게
         else
         {
             spriteImage.color = Color.clear;
+            ItemCountText.color = Color.clear;
+        }
+    }
+
+    //오브젝트에 해당하는 갯수로 업데이트 해주는 함수
+    public void UpdateNumUI(Item item)
+    {
+        if(this.item != null)
+        {
+            ItemCountText.text = this.item.count.ToString();
         }
     }
 
