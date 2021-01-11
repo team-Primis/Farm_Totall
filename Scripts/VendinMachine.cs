@@ -28,7 +28,6 @@ public class VendinMachine : MonoBehaviour
     public Sprite sweetpSprite;
 
     public int[] seedBought;
-    InvenSeed invenSeedScript;
 
     enum seedNUM { PUMKIN, BLUEFLOWER, POTATO, SWEETP};
 
@@ -137,20 +136,6 @@ public class VendinMachine : MonoBehaviour
 
     void BuySeed() {
 
-        if (seedMoney * buyNum <= playerScript.money)
-        {
-            playerScript.money -= seedMoney*buyNum;
-            seedBought[seedNum] += buyNum;
-            playerScript.isMoneyChanged = true;
-
-            //seedName의 inven에다가 갯수 넣기
-            invenSeedScript = GameObject.Find(seedName).GetComponent<InvenSeed>();
-            invenSeedScript.num += buyNum;
-            invenSeedScript.seedNumChanged = true;
-            
-        }
-        else {
-            Debug.Log("out of money!");
-        }
+        //다시 구현해야됌
     }
 }

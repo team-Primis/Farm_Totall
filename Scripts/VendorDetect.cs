@@ -30,7 +30,7 @@ public class VendorDetect : MonoBehaviour
     void OnTriggerEnter2D(Collider2D coll)
     {
         if (coll.gameObject.CompareTag("vending")) {
-            Debug.Log("entered vending machine!");
+           // Debug.Log("entered vending machine!");
             venderchanged = true;
             isVendTouched = true;
             GMScript.isTimerStoped = true;
@@ -38,7 +38,7 @@ public class VendorDetect : MonoBehaviour
         }
 
         if (coll.gameObject.CompareTag("container")) {
-            Debug.Log("Entered container!");
+         //   Debug.Log("Entered container!");
             isContainerTouched = true;
             containerChanged = true;
             GMScript.isTimerStoped = true;
@@ -50,7 +50,7 @@ public class VendorDetect : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("vending"))
         {
-            Debug.Log("exited vending machine!");
+          //  Debug.Log("exited vending machine!");
             venderchanged = true;
             isVendTouched = false;
             GMScript.isTimerStoped = false;
@@ -58,7 +58,7 @@ public class VendorDetect : MonoBehaviour
 
         if (coll.gameObject.CompareTag("container"))
         {
-            Debug.Log("exited container!");
+          //  Debug.Log("exited container!");
             isContainerTouched = false;
             containerChanged = true;
             GMScript.isTimerStoped = false;
