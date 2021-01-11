@@ -5,15 +5,14 @@ using UnityEngine;
 public class VendorDetect : MonoBehaviour
 {
     //이 클래스에서, 플레이어가 자판기에 부딪혔는지 알려줌
-    public bool isVendTouched = false;
-    public bool venderchanged = false;
+   
 
-    public bool isContainerTouched = false;
-    public bool containerChanged = false;
 
     public GameObject vendingUI;
-    public bool isTriggered = false;
+    public GameObject containerUI;
 
+    public bool isTriggeredVending = false;
+    public bool isTriggerContainer = false;
     GameManager GMScript;
 
 
@@ -27,7 +26,7 @@ public class VendorDetect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isTriggered)
+        if (isTriggeredVending)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -35,30 +34,35 @@ public class VendorDetect : MonoBehaviour
                 vendingUI.gameObject.SetActive(!vendingUI.gameObject.activeSelf);
             }
         }
+        if (isTriggerContainer)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("spacebar touched");
+                containerUI.gameObject.SetActive(!containerUI.gameObject.activeSelf);
+            }
+        }
        
     }
 
     //자판기로 들어갈때 : 자판기 화면 띄움 (GameManager한테 vendtouch를 true로 해줌)
     void OnTriggerEnter2D(Collider2D coll)
-    {/*
+    {
         if (coll.gameObject.CompareTag("vending")) {
-           // Debug.Log("entered vending machine!");
-            venderchanged = true;
-            isVendTouched = true;
+             
+            isTriggeredVending = true;
+
             GMScript.isTimerStoped = true;
             
         }
 
         if (coll.gameObject.CompareTag("container")) {
-         //   Debug.Log("Entered container!");
-            isContainerTouched = true;
-            containerChanged = true;
+            isTriggerContainer = true;
             GMScript.isTimerStoped = true;
             
         }
-        */
-       
-        isTriggered = true;
+        
+
 
     }
 
@@ -66,21 +70,19 @@ public class VendorDetect : MonoBehaviour
     {
         if (coll.gameObject.CompareTag("vending"))
         {
-            
+            isTriggeredVending = false;
+            vendingUI.gameObject.SetActive(false);
             GMScript.isTimerStoped = false;
         }
 
         if (coll.gameObject.CompareTag("container"))
         {
-          //  Debug.Log("exited container!");
-            isContainerTouched = false;
-            containerChanged = true;
+            isTriggerContainer = false;
             GMScript.isTimerStoped = false;
            
         }
 
-        isTriggered = false;
-        vendingUI.gameObject.SetActive(false);
+        
     }
 
     

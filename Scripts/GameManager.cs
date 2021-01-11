@@ -40,8 +40,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkVendorDetect(); //자판기 들어갔다 나옴
-        checkContainerDetect();
+        
         changeStaminaUI(); //스태미나 감소
 
         // from playercontoller
@@ -119,40 +118,8 @@ public class GameManager : MonoBehaviour
 
     
     //자판기에 가까이 가면 자판기 UI 띄워줌
-    void checkVendorDetect() {
-        if (vendorDetectScript.venderchanged == true)
-        {
-            if (vendorDetectScript.isVendTouched == true)
-            {
-                vendingImage.SetActive(true);
-            }
-            else
-            {
-                vendingImage.SetActive(false);
+    
 
-            }
-
-            vendorDetectScript.venderchanged = false;
-
-        }
-    }
-
-    void checkContainerDetect() {
-        if (vendorDetectScript.containerChanged == true) {
-
-            if(vendorDetectScript.isContainerTouched == true)
-            {
-                isTimerStoped = true;
-                container.SetActive(true);
-            }
-            else
-            {
-                container.SetActive(false);
-                isTimerStoped = false;
-            }
-            vendorDetectScript.containerChanged = false;
-        }
-    }
 
     // from playercontoller
     void BuyUIDetect()
