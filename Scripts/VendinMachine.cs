@@ -10,6 +10,7 @@ public class VendinMachine : MonoBehaviour
     public TMP_Text buyText;
     public TMP_Text moneyText;
     public TMP_Text seedNameText;
+    public Text text;
     public int seedNum;
     public bool isBuyNumChanged = false;
     public bool isSeedNameChanged = false;
@@ -70,6 +71,7 @@ public class VendinMachine : MonoBehaviour
     void changeSeedName() {
         if (isSeedNameChanged) {
             seedNameText.text = seedName;
+            text.text = seedName;
         }
     }
     //플러스 버튼

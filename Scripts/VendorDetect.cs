@@ -11,7 +11,12 @@ public class VendorDetect : MonoBehaviour
     public bool isContainerTouched = false;
     public bool containerChanged = false;
 
+    public GameObject vendingUI;
+    public bool isTriggered = false;
+
     GameManager GMScript;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -22,13 +27,20 @@ public class VendorDetect : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
+        if (isTriggered)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Debug.Log("spacebar touched");
+                vendingUI.gameObject.SetActive(!vendingUI.gameObject.activeSelf);
+            }
+        }
+       
     }
 
     //자판기로 들어갈때 : 자판기 화면 띄움 (GameManager한테 vendtouch를 true로 해줌)
     void OnTriggerEnter2D(Collider2D coll)
-    {
+    {/*
         if (coll.gameObject.CompareTag("vending")) {
            // Debug.Log("entered vending machine!");
             venderchanged = true;
@@ -44,15 +56,17 @@ public class VendorDetect : MonoBehaviour
             GMScript.isTimerStoped = true;
             
         }
+        */
+       
+        isTriggered = true;
+
     }
 
     void OnTriggerExit2D(Collider2D coll)
     {
         if (coll.gameObject.CompareTag("vending"))
         {
-          //  Debug.Log("exited vending machine!");
-            venderchanged = true;
-            isVendTouched = false;
+            
             GMScript.isTimerStoped = false;
         }
 
@@ -64,7 +78,14 @@ public class VendorDetect : MonoBehaviour
             GMScript.isTimerStoped = false;
            
         }
+
+        isTriggered = false;
+        vendingUI.gameObject.SetActive(false);
     }
+
+    
+
+   
 
 }
 
