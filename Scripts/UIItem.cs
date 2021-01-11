@@ -24,7 +24,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     public void UpdateItem(Item item)
     {
         this.item = item;
-        //아이템 객체가 존재할 경우, 그 모습으로 바꾸고 잘보이게 하얀색~
+        //아이템 객체가 존재할 경우, a 모습으로 바꾸고 잘보이게 하얀색~
         if(this.item != null)
         {
             spriteImage.sprite = this.item.icon;
