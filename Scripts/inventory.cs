@@ -15,8 +15,12 @@ public class inventory : MonoBehaviour
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
         putInventory(0);
         putInventory(1);
+        putInventory(1);
+        putInventory(1);
+        RemoveItem(1);
         putInventory(2);
         putInventory(3);
+        RemoveItem(0);
         
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
@@ -75,10 +79,19 @@ public class inventory : MonoBehaviour
         Item ItemToRemove = CheckForItem(id);
         if(ItemToRemove != null)
         {
-            characterItems.Remove(ItemToRemove);
-            Debug.Log("Item removed : " + ItemToRemove.Kname);
-            inventoryUI.RemoveItem(ItemToRemove);
-
+            //아이템이 하나밖에 없었는데 제거함 -> 아예 객체 제거
+            if (ItemToRemove.count == 1)
+            {
+                characterItems.Remove(ItemToRemove);
+                Debug.Log("Item removed : " + ItemToRemove.Kname);
+                inventoryUI.RemoveItem(ItemToRemove);
+            }
+            else
+            {
+                ItemToRemove.count--;
+                inventoryUI.UpdateItemNumUI(ItemToRemove);
+                Debug.Log("Item 하나 제거. 현재 갯수 : " + ItemToRemove.count);
+            }
         }
         else
         {
