@@ -16,11 +16,19 @@ public class Chicken : MonoBehaviour
     bool checkx = false;
     bool checky = false;
 
+    public GameManager GMScript; // 시간 사용, 창 유무
+    public SpawnManager SMScript; // 알 소환하려고
+    public float chickTimer; // 확인용...
+    public bool checkEgg = false; // 중복 방지
+
     Animator anim; // Animator 불러오기
 
     // Start is called before the first frame update
     void Start()
     {
+        GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+
         rigid = GetComponent<Rigidbody2D>();
         Invoke("Think", 4); // 생성 후 4초 후부터 움직이기 시작
 
@@ -55,16 +63,41 @@ public class Chicken : MonoBehaviour
         if(Care.activeSelf == true || Choose.activeSelf == true)
         {   ChickenStop();   }
 
+        // 구매창 열렸으면 움직임 멈춤
+        if(GMScript.isBuyOpen == true)
+        {   ChickenStop();   }
+
+        // 기타 UI 열렸으면 움직임 멈춤
+        if(GMScript.vendingImage.activeSelf == true || GMScript.container.activeSelf == true
+                || GMScript.inventory.activeSelf == true)
+        {   ChickenStop();   }
+
         // 애니메이션 MoveX, MoveY
         anim.SetFloat("MoveX", nextMovex);
         anim.SetFloat("MoveY", nextMovey);
+
+        // 하루마다 달걀 낳기
+        chickTimer = GMScript.timer;
+        if(chickTimer <= 1){    checkEgg = true;    } // 날 밝으면 초기화
+        if(chickTimer >= 20) // 밤에
+        {
+            if(checkEgg == true)
+            {
+                LayEgg();
+                checkEgg = false; // 한 번만
+            }
+        }
+
+        // 현재 보유량 반영 - 변수 받아와야 함, 0개면 못 주고 꺼지는 거지...
+        //SeedText.text = String.Format("씨앗({0})", seedNum);
+        //HayText.text = String.Format("건초({0})", hayNum);
     }
 
     void OnTriggerEnter2D(Collider2D coll)
     {
         if(coll.gameObject.name == "Player") // Player가 닿으면
         {    
-            CareText.text = String.Format("무얼 하실 건가요 ({0}/10)", happy);
+            CareText.text = String.Format("무얼 하실 건가요 ({0}/4)", happy);
             Care.SetActive(true); // 선택창 나타남 (ft. 행복도)
         }
     } // 닭을 trigger로 설정
@@ -83,6 +116,16 @@ public class Chicken : MonoBehaviour
 
     void HideHeart()
     {    Heart.SetActive(false);    } // 하트 사라지게
+
+    // 달걀 낳는 조건 - 하루 후 4 이상 → 고급 / 2 이상 → 보통 / 나머지 → 없음
+    void LayEgg()
+    {
+        if(happy>=4)
+        {   SMScript.SpawnGEgg();   }
+        else if(happy>=2)
+        {   SMScript.SpawnNEgg();   }
+        happy = 0;
+    }
 
     // UI Buttons
     public void OnClickFoodButton() // 밥주기 버튼
@@ -115,8 +158,4 @@ public class Chicken : MonoBehaviour
         Heart.SetActive(true); // 하트 나타나고
         Invoke("HideHeart", 1); // 1초 후 사라짐
     }
-
-    // 행복도가 3일 후 "10 이상 → 고급 알", "5 이상 → 보통 알", "5 미만 → 알 없음"
-    // 수정) 하루 후 4 이상 → 고급 / 2 이상 → 보통 / 나머지 → 없음
-    // "시간"
 }

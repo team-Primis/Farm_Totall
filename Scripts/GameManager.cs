@@ -173,8 +173,14 @@ public class GameManager : MonoBehaviour
     // from playercontoller
     void BuyUIDetect()
     {
-        if(BuyChicken.activeSelf == true){  isBuyOpen = true;  }
-        else{  isBuyOpen = false;  }
+        if(BuyChicken.activeSelf == true)
+        {
+            isBuyOpen = true;
+        }
+        else
+        {
+            isBuyOpen = false;
+        }
     }
 
     //UI 시간 관련

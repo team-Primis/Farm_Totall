@@ -9,6 +9,8 @@ public class Center : MonoBehaviour
     public GameObject Player;
     public float dis; // distance btw player & center
 
+    public bool isBuyOpen = false; // 구매창 열렸나 확인
+
     // Start is called before the first frame update
     void Start()
     {    }
@@ -18,6 +20,11 @@ public class Center : MonoBehaviour
     {    
         if(Input.GetKey(KeyCode.Space)) // 스페이스바 눌렀을 때
         {   CallCenter();   } // 구매창 나타낼지 판단
+
+        if(BuyChicken.activeSelf == true)
+        {   isBuyOpen = true;   }
+        else
+        {   isBuyOpen = false;   }
     }
 
     void CallCenter()
