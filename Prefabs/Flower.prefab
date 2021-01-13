@@ -11,12 +11,11 @@ GameObject:
   - component: {fileID: 8512098803626226099}
   - component: {fileID: 4232584584626231371}
   - component: {fileID: -3128200216100984978}
-  - component: {fileID: -15946495772458434}
-  - component: {fileID: -6263478945277626123}
-  - component: {fileID: -1653286281503820278}
+  - component: {fileID: 460710499802388697}
+  - component: {fileID: -3260973781047751324}
   m_Layer: 0
   m_Name: Flower
-  m_TagString: Untagged
+  m_TagString: Plant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,19 +103,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-15946495772458434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6202862282424486260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8571a5a67b020440803d8877f431237, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!61 &-6263478945277626123
+--- !u!61 &460710499802388697
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +115,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_UsedByComposite: 1
+  m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -142,7 +129,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!50 &-1653286281503820278
+--- !u!50 &-3260973781047751324
 Rigidbody2D:
   serializedVersion: 4
   m_ObjectHideFlags: 0
