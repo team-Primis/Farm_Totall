@@ -9,6 +9,8 @@ public class inventory : MonoBehaviour
     private itemDatabase db;
     public UIInventory inventoryUI;
 
+    public Item equipedItem;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +23,7 @@ public class inventory : MonoBehaviour
         putInventory(2);
         putInventory(3);
         RemoveItem(0);
-        
+        Debug.Log("인벤에서 본 모습 : " + characterItems.Count);
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
     }

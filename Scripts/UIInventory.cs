@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class UIInventory : MonoBehaviour
 {
     //인벤토리에 뭐가 있는지 keep track 하고, visible 여부 판단
@@ -52,6 +53,6 @@ public class UIInventory : MonoBehaviour
     //item의 숫자가 바뀌면 반영해줌
     public void UpdateItemNumUI(Item item)
     {
-        UpdateUI(uiitems.FindIndex(i => i.item.id == item.id), item);
+       // UpdateUI(uiitems.FindIndex(i => i.item.id == item.id), item);
     }
 }

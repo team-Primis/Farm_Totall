@@ -78,6 +78,7 @@ public class VendorDetect : MonoBehaviour
         if (coll.gameObject.CompareTag("container"))
         {
             isTriggerContainer = false;
+            containerUI.gameObject.SetActive(false);
             GMScript.isTimerStoped = false;
            
         }
