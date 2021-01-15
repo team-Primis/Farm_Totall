@@ -101,5 +101,13 @@ public class inventory : MonoBehaviour
         }
     }
 
-
+    //아이템 사용 : 아이템일 경우 하나 사라짐
+    public void UseItem(Item item)
+    {
+        if (item.category == Item.Category.item)
+        {
+            RemoveItem(item.id);
+            //아이템 사용 효과 넣기~~
+        }
+    }
 }

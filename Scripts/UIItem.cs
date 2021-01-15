@@ -13,6 +13,9 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     private Toolkit tool;
     public Text ItemCountText;
     private inventory inven;
+
+    public GameObject useBtnPrefab;
+    public GameObject delBtnPrefab;
     
 
     private void Awake()
@@ -96,7 +99,14 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             if (this.item != null)
             {
+                
                 inven.equipedItem = this.item;
+                GameObject useBtn = Instantiate(useBtnPrefab);
+                useBtn.transform.SetParent(this.transform);
+                useBtn.transform.position = transform.position + new Vector3(0, 160, 0);
+                GameObject deleteBtn = Instantiate(delBtnPrefab);
+                deleteBtn.transform.SetParent(this.transform);
+                deleteBtn.transform.position = transform.position + new Vector3(0, 100, 0);
             }
         }
     }
@@ -107,6 +117,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             tool.GenerateToolTip(this.item);
             tool.gameObject.SetActive(true);
+            
         }
     }
 

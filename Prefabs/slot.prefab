@@ -173,6 +173,10 @@ MonoBehaviour:
     category: 0
   spriteImage: {fileID: 0}
   ItemCountText: {fileID: 5760471559365622235}
+  useBtnPrefab: {fileID: 4195013985962663300, guid: 290006b024b98d147a4ea771aaf213c1,
+    type: 3}
+  delBtnPrefab: {fileID: 4690292319277606269, guid: 19545ef44db9ef1428def49d4e6b39af,
+    type: 3}
 --- !u!1 &7223955164427452378
 GameObject:
   m_ObjectHideFlags: 0
