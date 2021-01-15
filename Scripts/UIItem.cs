@@ -32,7 +32,15 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             spriteImage.sprite = this.item.icon;
             spriteImage.color = Color.white;
             ItemCountText.text = this.item.count.ToString();
-            ItemCountText.color = Color.white;
+
+            //아이템의 카테고리면 수량이 보이지 않도록!
+            if (this.item.category == Item.Category.tool)
+            {
+                ItemCountText.color = Color.clear;
+            }
+            else {
+                ItemCountText.color = Color.white;
+            }
         }
         //전달받은 객체가 null일경우 그냥 투명하게
         else
