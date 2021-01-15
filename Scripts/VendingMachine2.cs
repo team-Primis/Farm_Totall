@@ -12,22 +12,13 @@ public class VendingMachine2 : MonoBehaviour
     {
         playerScript = GameObject.Find("Player").GetComponent<PlayerControll>();
 
-
        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            inven.putInventory(0);
-        }
-
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            inven.RemoveItem(0);
-        }
+        
         
     }
 }

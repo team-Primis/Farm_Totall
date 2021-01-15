@@ -12,9 +12,12 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     private UIItem selectedItem;
     private Toolkit tool;
     public Text ItemCountText;
+    private inventory inven;
+    
 
     private void Awake()
     {
+        inven = GameObject.Find("Inventory").GetComponent<inventory>();
         spriteImage = gameObject.GetComponent<Image>();
         UpdateItem(null); //처음엔 빈칸으로 시작하기!
         selectedItem = GameObject.Find("selectedItem").GetComponent<UIItem>();
@@ -93,7 +96,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             if (this.item != null)
             {
-                tool.GenerateToolTip(this.item);
+                inven.equipedItem = this.item;
             }
         }
     }
