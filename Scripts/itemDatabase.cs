@@ -21,7 +21,10 @@ public class itemDatabase : MonoBehaviour
     {
         items = new List<Item>()
         {
-            //item 형식 : item(id, 한국이름, 미국이름, 설명, 아이콘, 스텟)
+            //item 형식 : item(id, 한국이름, 영어이름, 설명, 아이콘, 스텟)
+            //참고로 여기의 영어이름을 통해서 스프라이트 가져옴!
+            //따라서 같은 이름으로 바꾼 스프라이트를 Resources/Sprites/Items 폴더에 넣어줄것
+
             /*
              *특성 설정 (영어로 추가하고, 설명 써주기!) 
              * 미해 : cost - 구매 시 가격 sellingPrice - 판매 시 가격 
@@ -50,8 +53,12 @@ public class itemDatabase : MonoBehaviour
                 {"cost",70 },{"watering",7},{"sellingPrice",150},{"dayToGrow",7}
             }),
             new Item(11,"좋은 달걀","GoodEgg","황금색을 띄는 달걀이다.",Item.Category.item),
-            new Item(12,"평범한 달걀","NormalEgg","평범한 달걀이다. 그래도 먹어도 된다.",Item.Category.item)
+            new Item(12,"평범한 달걀","NormalEgg","평범한 달걀이다. 그래도 먹어도 된다.",Item.Category.item),
            
+            new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool),
+            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있는 물뿌리개 이다.",Item.Category.tool)
+
+
 
         };
     }
