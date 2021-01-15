@@ -53,6 +53,6 @@ public class UIInventory : MonoBehaviour
     //item의 숫자가 바뀌면 반영해줌
     public void UpdateItemNumUI(Item item)
     {
-       // UpdateUI(uiitems.FindIndex(i => i.item.id == item.id), item);
+       UpdateUI(uiitems.FindIndex(i => i.item.id == item.id), item);
     }
 }

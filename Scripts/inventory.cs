@@ -19,10 +19,8 @@ public class inventory : MonoBehaviour
         putInventory(1);
         putInventory(1);
         putInventory(1);
-        RemoveItem(1);
         putInventory(2);
         putInventory(3);
-        RemoveItem(0);
         Debug.Log("인벤에서 본 모습 : " + characterItems.Count);
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
@@ -53,10 +51,10 @@ public class inventory : MonoBehaviour
         //있을 경우
         //캐릭터 인벤에 아이템 추가, 외부 인벤에 그림 바꿈(빈 객체가 있는 칸을 해당 객체의 그림으로 바꿈)
 
-        //해당 아이템을 처음 추가하는 경우
-        if (itemToAdd.count == 0)
+        //해당 아이템을 처음 추가하는 경우 : 인벤토리를 확인했을 때 해당 객체가 없음
+        if (CheckForItem(id) == null)
         {
-            itemToAdd.count++;
+            itemToAdd.count = 1;
             characterItems.Add(itemToAdd);
             inventoryUI.AddNewItem(itemToAdd);
 
