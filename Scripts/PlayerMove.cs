@@ -100,13 +100,42 @@ public class PlayerMove : MonoBehaviour
 
     void Watering()//물 주는 모션.
     {
+
+        anim.SetBool("Watering", false);
+        Vector2 theplayerPosition = this.transform.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
+        Vector2 distance = theplayerPosition - mousePosition;
+
         if (Input.GetMouseButton(0))//클릭하면 물 주는 애니메이션 재생.
         {
-            anim.SetBool("Watering", true);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
+            RaycastHit2D[] hit = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity);
+            for (int i = 0; i < hit.Length; i++)
+            {
+                for (int j = 0; j < hit.Length; j++)
+                {
+                    if (hit[i].transform.tag == "DarkDirt")
+                    {
+
+
+                        if (hit[j].transform.tag != "Plant")
+                        {
+
+                            if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
+                            {
+                                anim.SetBool("Watering", true);
+
+                            }
+                           
+                        }
+
+                    }
+                    
+                }
+            }
         }
-        else//클릭 안 하면 애니메이션 재생 안 함.
-        {
-            anim.SetBool("Watering", false);
-        }
+        
     }
 }
