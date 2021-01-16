@@ -69,14 +69,11 @@ public class Chicken : MonoBehaviour
 
         if(Care.activeSelf == true || Choose.activeSelf == true) // 닭 케어 창이 열렸을 때
         {
-            ChickenStop(); // 말 걸면 움직임 멈춤 (해당 닭만)
             GMScript.isCareOpen = true;
         }
-        else // 닭 케어 창 닫혔을 때
-        {   GMScript.isCareOpen = false;   }
 
-        // 구매창 열렸으면 움직임 멈춤
-        if(GMScript.isBuyOpen == true)
+        // 닭 관련 창 열렸으면 움직임 멈춤
+        if(GMScript.isBuyOpen == true || GMScript.isCareOpen == true)
         {   ChickenStop();   }
 
         // 기타 UI 열렸으면 움직임 멈춤
@@ -91,7 +88,7 @@ public class Chicken : MonoBehaviour
         // 하루마다 달걀 낳기
         chickTimer = GMScript.timer;
         if(chickTimer <= 1){    checkEgg = true;    } // 날 밝으면 초기화
-        if(chickTimer >= 20) // 밤에
+        if(chickTimer >= 30) // 밤에
         {
             if(checkEgg == true)
             {
@@ -154,10 +151,12 @@ public class Chicken : MonoBehaviour
         happy += 1; // 행복도 1 증가
         Heart.SetActive(true); // 하트 나타나고
         Invoke("HideHeart", 1); // 1초 후 사라짐
+        GMScript.isCareOpen = false;
     }
     public void OnClickBackButton() // 취소 버튼
     {
         Care.SetActive(false);
+        GMScript.isCareOpen = false;
     }
     public void OnClickSeedButton() // 씨앗 주기
     {
@@ -165,6 +164,7 @@ public class Chicken : MonoBehaviour
         happy += 2; // 행복도 2 증가
         Heart.SetActive(true); // 하트 나타나고
         Invoke("HideHeart", 1); // 1초 후 사라짐
+        GMScript.isCareOpen = false;
     }
     public void OnClickHayButton() // 건초 주기
     {
@@ -172,5 +172,6 @@ public class Chicken : MonoBehaviour
         happy += 4; // 행복도 4 증가
         Heart.SetActive(true); // 하트 나타나고
         Invoke("HideHeart", 1); // 1초 후 사라짐
+        GMScript.isCareOpen = false;
     }
 }
