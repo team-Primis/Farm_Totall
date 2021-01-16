@@ -12,9 +12,13 @@ public class Chicken : MonoBehaviour
     public GameObject Heart;
     public Text CareText;
     public int nextMovex, nextMovey; // 다음 행동 결정할 변수
+    public float randx, randy; // 미세 방향 조절
     public int happy = 0;
     bool checkx = false;
     bool checky = false;
+
+    public float dis; // distance btw player & chicken
+    public Transform PlayerTF; // position of player
 
     public GameManager GMScript; // 시간 사용, 창 유무
     public SpawnManager SMScript; // 알 소환하려고
@@ -28,6 +32,7 @@ public class Chicken : MonoBehaviour
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        PlayerTF = GameObject.Find("Player").GetComponent<Transform>();
 
         rigid = GetComponent<Rigidbody2D>();
         Invoke("Think", 4); // 생성 후 4초 후부터 움직이기 시작
@@ -38,13 +43,13 @@ public class Chicken : MonoBehaviour
     // Update is called once per frame
     void Update()
     {    
-        // 속도 정의
-        rigid.velocity = new Vector2(nextMovex,nextMovey);
+        // 움직임 부여 방법 수정함 (velocity → translate)
+        transform.Translate(new Vector2(nextMovex*randx,nextMovey*randy)*Time.deltaTime/2);
 
         // 움직임 경계 설정
         if(checkx==false) // x값 경계
         {
-            if(transform.position.x < -8 || transform.position.x > 8) // 8 → 경계값만 수정
+            if(transform.position.x < -35 || transform.position.x > 35) // 35 → 경계값만 수정
             {
                 checkx=true;
                 nextMovex = nextMovex*(-1); // 반대 방향으로
@@ -52,16 +57,23 @@ public class Chicken : MonoBehaviour
         }
         if(checky==false) // y값 경계
         {
-            if(transform.position.y < -4 || transform.position.y > 4) // 4 → 경계값만 수정
+            if(transform.position.y < -35 || transform.position.y > 35) // 35 → 경계값만 수정
             {
                 checky=true;
                 nextMovey = nextMovey*(-1); // 반대 방향으로
             }
         }
 
-        // 말 걸면 움직임 멈춤 (해당 닭만)
-        if(Care.activeSelf == true || Choose.activeSelf == true)
-        {   ChickenStop();   }
+        if(Input.GetKey(KeyCode.Space)) // 스페이스바 눌렀을 때
+        {   HiChicken();   } // 창 나타낼지 판단
+
+        if(Care.activeSelf == true || Choose.activeSelf == true) // 닭 케어 창이 열렸을 때
+        {
+            ChickenStop(); // 말 걸면 움직임 멈춤 (해당 닭만)
+            GMScript.isCareOpen = true;
+        }
+        else // 닭 케어 창 닫혔을 때
+        {   GMScript.isCareOpen = false;   }
 
         // 구매창 열렸으면 움직임 멈춤
         if(GMScript.isBuyOpen == true)
@@ -93,24 +105,27 @@ public class Chicken : MonoBehaviour
         //HayText.text = String.Format("건초({0})", hayNum);
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void HiChicken() // Player가 가까워지면 선택창 나타남
     {
-        if(coll.gameObject.name == "Player") // Player가 닿으면
-        {    
+        dis = Vector2.Distance(PlayerTF.position,transform.position);
+        if(dis < 1.0f)
+        {
             CareText.text = String.Format("무얼 하실 건가요 ({0}/4)", happy);
             Care.SetActive(true); // 선택창 나타남 (ft. 행복도)
         }
-    } // 닭을 trigger로 설정
+    }
 
     void ChickenStop()
     {   nextMovex = 0; nextMovey = 0;   } // 움직임 멈춤
 
     void Think()
     {
+        randx = UnityEngine.Random.Range(0.6f, 1.0f); // 미세 방향 조절
+        randy = UnityEngine.Random.Range(0.6f, 1.0f); // 미세 방향 조절
         checkx=false; checky=false;
-        nextMovex = UnityEngine.Random.Range(-1,2); // -1 이상 2 미만
+        nextMovex = UnityEngine.Random.Range(-1,2); // -1 이상 2 미만 (-1,0,1)
         nextMovey = UnityEngine.Random.Range(-1,2); // -1 후진, 0 정지, 1 전진
-        float time = UnityEngine.Random.Range(1.0f, 4.0f); // 반복 시간 랜덤 부여
+        float time = UnityEngine.Random.Range(4.0f, 7.0f); // 반복 시간 랜덤 부여
         Invoke("Think", time); // 재귀
     }
 

@@ -30,9 +30,9 @@ public class Center : MonoBehaviour
     void CallCenter()
     {
         dis = Vector2.Distance(Player.transform.position,transform.position);
-        if(dis < 1.2f)
+        if(dis < 1.5f)
         {    BuyChicken.SetActive(true);    } // player가 가까우면 구매창 나타남
-    } // 전화기를 trigger로 설정 (rigidbody + collider)
+    }
 
     // UI Buttons
     public void OnClickYesButton()

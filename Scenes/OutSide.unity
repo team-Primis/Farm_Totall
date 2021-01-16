@@ -65201,7 +65201,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.08560228, y: 0}
@@ -65237,7 +65237,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &816678891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65254,6 +65254,7 @@ MonoBehaviour:
   spawnManager: {fileID: 888277095}
   Player: {fileID: 1995171693}
   dis: 0
+  isBuyOpen: 0
 --- !u!212 &816678892
 SpriteRenderer:
   m_ObjectHideFlags: 0
