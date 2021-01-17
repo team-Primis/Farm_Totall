@@ -16,6 +16,10 @@ public class itemDatabase : MonoBehaviour
         return items.Find(item => item.id == id);
     }
 
+    public Item GetItem(string name) {
+        return items.Find(item => item.Ename == name);
+    }
+
     //인게임의 모든 아이템을 여기에 쓸것. 특성은 마음대로 정해도 됨! 쓸게 없으면 특성은 비워도 됌!
     private void BuildDataBase()
     {
@@ -32,7 +36,7 @@ public class itemDatabase : MonoBehaviour
              * 
              * 
              */
-            new Item(0,"호박 씨앗","pumpkinSeed","탐스러운 호박이 자란다",Item.Category.item,
+            new Item(4,"호박 씨앗","pumpkinSeed","탐스러운 호박이 자란다",Item.Category.item,
             new Dictionary<string, int>{
                 //구매가격, 물 주기 , 판매가격, 성장기간
                 {"cost",1000 },{"watering", 5},{"sellingPrice",2000},{"dayToGrow",5}

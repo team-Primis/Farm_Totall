@@ -58,7 +58,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     //오브젝트에 해당하는 갯수로 업데이트 해주는 함수
     public void UpdateNumUI(Item item)
     {
-        if(this.item != null)
+        if(this.item.Ename != null)
         {
             ItemCountText.text = this.item.count.ToString();
         }

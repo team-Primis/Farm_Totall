@@ -18,10 +18,12 @@ public class inventory : MonoBehaviour
     void Start()
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
-        putInventory(0);
+        equipedItem = null;
         putInventory(1);
         putInventory(1);
         putInventory(1);
+        putInventory(4);
+        putInventory(4);
         putInventory(2);
         putInventory(3);
         putInventory(100);
@@ -40,11 +42,24 @@ public class inventory : MonoBehaviour
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
         }
 
+        //인벤토리 아이템 클릭 시 뭐가 클릭됐는지 알려줌
         if (isUIItemClickChanged)
         {
             inventoryUI.MoveEmphasizedSlot(emptrans);
             isUIItemClickChanged = false;
         }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (equipedItem != null && equipedItem.Ename != "")
+            {
+                if (equipedItem.category == Item.Category.item)
+                {
+                    UseItem(equipedItem);
+                }
+            }
+        }
+
             
     }
 
@@ -97,6 +112,7 @@ public class inventory : MonoBehaviour
                 characterItems.Remove(ItemToRemove);
                 Debug.Log("Item removed : " + ItemToRemove.Kname);
                 inventoryUI.RemoveItem(ItemToRemove);
+
             }
             else
             {
@@ -104,6 +120,7 @@ public class inventory : MonoBehaviour
                 inventoryUI.UpdateItemNumUI(ItemToRemove);
                 Debug.Log("Item 하나 제거. 현재 갯수 : " + ItemToRemove.count);
             }
+            
         }
         else
         {
@@ -114,10 +131,11 @@ public class inventory : MonoBehaviour
     //아이템 사용 : 아이템일 경우 하나 사라짐
     public void UseItem(Item item)
     {
-        if (item.category == Item.Category.item)
+        if (item.Ename != null)
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
+            Debug.Log(item.Kname + "을 사용하셨습니다.");
         }
     }
 }

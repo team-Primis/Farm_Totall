@@ -28,6 +28,8 @@ public class VendinMachine : MonoBehaviour
     public Sprite potatoSprite;
     public Sprite sweetpSprite;
 
+    private itemDatabase db;
+
     public int[] seedBought;
 
     enum seedNUM { PUMKIN, BLUEFLOWER, POTATO, SWEETP};
@@ -46,7 +48,7 @@ public class VendinMachine : MonoBehaviour
         buyBtn.onClick.AddListener(BuySeed);
 
         playerScript = GameObject.Find("Player").GetComponent<PlayerControll>();
-        
+        db = GameObject.Find("Database").GetComponent<itemDatabase>();
     }
 
     // Update is called once per frame
@@ -90,6 +92,21 @@ public class VendinMachine : MonoBehaviour
             buyNum--;
             isBuyNumChanged = true;
         }
+    }
+
+    void changeItemToBuy(int id) {
+        //db에서 이 id를 가진 아이템 가져옴
+        // 기왕이면 태그로 하고 싶은데 방법을 찾는중!
+        Item thisItem = db.GetItem(id);
+        foreach(KeyValuePair<string,int> stat in thisItem.stats)
+        {
+            if (stat.Key == "cost")
+            {
+                seedMoney = stat.Value;
+            }
+        }
+
+
     }
 
     //꽃 누름 : 돈 바꿔주고, 갯수도 1개로 초기화
