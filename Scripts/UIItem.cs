@@ -9,13 +9,12 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 {
     public Item item;
     public Image spriteImage;
+  
     private UIItem selectedItem;
     private Toolkit tool;
     public Text ItemCountText;
     private inventory inven;
 
-    public GameObject useBtnPrefab;
-    public GameObject delBtnPrefab;
     
 
     private void Awake()
@@ -26,7 +25,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         selectedItem = GameObject.Find("selectedItem").GetComponent<UIItem>();
         tool = GameObject.Find("Tooltip").GetComponent<Toolkit>();
     }
-
+    
     //인벤의 보이는 부분을 업데이트 하는 함수.
     //item 객체를 전달해주면 그 아이템의 스프라이트로 바꾸고, 전달받은 객체가 null이면 그냥 투명하게 함
     public void UpdateItem(Item item)
@@ -95,18 +94,19 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
                 selectedItem.UpdateItem(null);
             }
         }
+
+        //우클릭을 하면, 장착된 아이템이 바뀌고, 그 아이템의 위치를 강조해준다.
+        //누른 UIitem의 위치를 inven의 변수에 저장하고, 이에 따라서 슬롯 강조 이미지 위치 바뀜
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (this.item != null)
             {
                 
                 inven.equipedItem = this.item;
-                GameObject useBtn = Instantiate(useBtnPrefab);
-                useBtn.transform.SetParent(this.transform);
-                useBtn.transform.position = transform.position + new Vector3(0, 160, 0);
-                GameObject deleteBtn = Instantiate(delBtnPrefab);
-                deleteBtn.transform.SetParent(this.transform);
-                deleteBtn.transform.position = transform.position + new Vector3(0, 100, 0);
+                inven.emptrans = this.transform;
+                inven.isUIItemClickChanged = true;
+
+                
             }
         }
     }
@@ -125,4 +125,6 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         tool.gameObject.SetActive(false);
     }
+
+    
 }

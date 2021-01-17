@@ -11,6 +11,9 @@ public class UIInventory : MonoBehaviour
     public GameObject slotPrefab;
     public Transform slotPanel;
     public int numberOfSlots = 32;
+    public GameObject slot;
+    GameObject newSlot;
+    public Transform EmpTrans; //강조 UI가 있을 위치
 
     private void Awake()
     {
@@ -22,6 +25,21 @@ public class UIInventory : MonoBehaviour
             //instance는 현재 slotPrefab을 가리키고, 이 아래에 UIitem이 위치함
             uiitems.Add(instance.GetComponentInChildren<UIItem>());
         }
+
+        newSlot =  Instantiate(slot);
+        newSlot.transform.SetParent(EmpTrans);
+        newSlot.transform.position = EmpTrans.position;
+        newSlot.gameObject.SetActive(false);
+        
+    }
+
+   
+
+    public void MoveEmphasizedSlot(Transform trans)
+    {
+        newSlot.SetActive(true);
+        EmpTrans.transform.position = trans.position;
+        
     }
 
     //uiitem의 특정 slot을 원하는 item의 모양으로 바꿈

@@ -11,6 +11,9 @@ public class inventory : MonoBehaviour
 
     public Item equipedItem;
 
+    public bool isUIItemClickChanged = false;
+    public Transform emptrans;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +39,13 @@ public class inventory : MonoBehaviour
             //한번 누르면 열리고 한번 더 누르면 닫힘
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
         }
+
+        if (isUIItemClickChanged)
+        {
+            inventoryUI.MoveEmphasizedSlot(emptrans);
+            isUIItemClickChanged = false;
+        }
+            
     }
 
     //이 아이디를 가진 아이템을 인벤에 넣을떄 쓰는 함수.
