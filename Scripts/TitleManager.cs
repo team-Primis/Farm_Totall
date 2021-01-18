@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UI; // 버튼
+using UnityEngine.SceneManagement; // 씬 이동
 
-public class Title : MonoBehaviour
+public class TitleManager : MonoBehaviour
 {
     public Image NewBefore; // 기존에 존제하는 이미지
     public Sprite NewAfter; // 바뀌어질 이미지
@@ -26,5 +27,10 @@ public class Title : MonoBehaviour
     public void ChangeContiImage()
     {
         ContiBefore.sprite = ContiAfter;
+    }
+
+    public void StartNewGame()
+    {
+        SceneManager.LoadScene("OutSide");
     }
 }
