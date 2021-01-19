@@ -52,8 +52,12 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
                 if(keyValue.Key == "cost")
                 {
                     Debug.Log(itemTag + "의 가격은 " + keyValue.Value + "입니다.");
-                    vendingScript.seedMoney = keyValue.Value;
-                    vendingScript.moneyText.text = keyValue.Value.ToString() + "원";
+                    int itemPrice = keyValue.Value;
+
+                    vendingScript.seedMoney = itemPrice;
+                    vendingScript.totalMoney = itemPrice;
+                    vendingScript.moneyText.text = itemPrice.ToString() + "원";
+
                 }
             }
         }
