@@ -59,6 +59,10 @@ public class GameManager : MonoBehaviour
         }
         DateUI(timer); //시간 표시
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("날짜 : " + getDay());
+        }
     }
 
     //UI에서 스태미나 감소 : 관련 오브젝트를 일단 unable하게 만들고, 현재 스태미나 만큼 다시 setactive
@@ -115,10 +119,18 @@ public class GameManager : MonoBehaviour
             isStaminaChanged = false;
         }
     }
-
     
-    //자판기에 가까이 가면 자판기 UI 띄워줌
+    //매개변수에 넣은 만큼 스태미나 줄여줌
+    public void useStamina(int stam)
+    {
+        stamina -= stam;
+        isStaminaChanged = true;
+    }
     
+    public int getDay()
+    {
+        return day;
+    }
 
 
     // from playercontoller

@@ -68794,7 +68794,6 @@ GameObject:
   - component: {fileID: 1396604731}
   - component: {fileID: 1396604734}
   - component: {fileID: 1396604733}
-  - component: {fileID: 1396604732}
   - component: {fileID: 1396604735}
   m_Layer: 5
   m_Name: vendingPanel
@@ -68802,7 +68801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1396604731
 RectTransform:
   m_ObjectHideFlags: 0
@@ -68824,19 +68823,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -23}
   m_SizeDelta: {x: 967.6, y: 618.2}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1396604732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396604730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d123974b922cb046af3e80bad395dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moneyText: {fileID: 1249867607}
 --- !u!114 &1396604733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68889,7 +68875,7 @@ MonoBehaviour:
   seedNameText: {fileID: 1810229922}
   moneyText: {fileID: 1357922545}
   buyNumText: {fileID: 1343743477}
-  leftMoneyText: {fileID: 0}
+  leftMoneyText: {fileID: 1249867607}
   seedMoney: 0
   buyNum: 0
   seedName: 

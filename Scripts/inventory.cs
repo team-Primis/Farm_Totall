@@ -19,15 +19,26 @@ public class inventory : MonoBehaviour
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
         equipedItem = null;
-        putInventory(1);
+        putInventory(1); //1번 id 1개
+        putInventory(1, 3); //1번 id 3개
+        putInventory("pumpkin",3); //이름
+
         putInventory(1);
         putInventory(1);
         putInventory(4);
-        putInventory(4);
+
+        RemoveItem(4); // item 종류에 상관없이 없애버리기
+        UseItem(4); // 소모품 없애기
+
+        
+       
+
         putInventory(2);
         // putInventory(3);
         putInventory(100);
         putInventory(101);
+
+
 
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
@@ -51,16 +62,22 @@ public class inventory : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (equipedItem != null && equipedItem.Ename != "")
+            if (equipedItem != null && equipedItem.Ename != "") // 장착된 상태 
             {
                 if (equipedItem.category == Item.Category.item)
                 {
                     UseItem(equipedItem);
+                 
                 }
             }
         }
 
 
+    }
+
+    public Item GetEqippedITem()
+    {
+        return equipedItem;
     }
 
     //이 아이디를 가진 아이템을 인벤에 넣을떄 쓰는 함수.
@@ -173,6 +190,28 @@ public class inventory : MonoBehaviour
     //아이템 사용 : 아이템일 경우 하나 사라짐
     public void UseItem(Item item)
     {
+        if (item.Ename != null)
+        {
+            RemoveItem(item.id);
+            //아이템 사용 효과 넣기~~
+            Debug.Log(item.Kname + "을 사용하셨습니다.");
+        }
+    }
+
+    public void UseItem(string name)
+    {
+        Item item = db.GetItem(name);
+        if (item.Ename != null)
+        {
+            RemoveItem(item.id);
+            //아이템 사용 효과 넣기~~
+            Debug.Log(item.Kname + "을 사용하셨습니다.");
+        }
+    }
+
+    public void UseItem(int id)
+    {
+        Item item = db.GetItem(id);
         if (item.Ename != null)
         {
             RemoveItem(item.id);

@@ -58,11 +58,20 @@ public class itemDatabase : MonoBehaviour
             }),
             new Item(11,"좋은 달걀","GoodEgg","황금색을 띄는 달걀이다.",Item.Category.item),
             new Item(12,"평범한 달걀","NormalEgg","평범한 달걀이다. 그래도 먹어도 된다.",Item.Category.item),
-           
+
+            new Item(99,"건초","hay","풀이 먹음직스럽게 말랐다.닭이 좋아하게 생겼다",Item.Category.item,
+            new Dictionary<string, int>{
+                {"cost",20 }
+            }), //나중에 상점 추가
+
             new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool),
-            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있는 물뿌리개 이다.",Item.Category.tool)
+            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있는 물뿌리개 이다.",Item.Category.tool),
 
-
+            new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,
+            new Dictionary<string, int>{
+                {"sellingPrice",3000},{"recovery",1}
+            })
+            
 
         };
     }
