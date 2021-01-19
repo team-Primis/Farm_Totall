@@ -59970,8 +59970,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 371.35, y: -51.2}
-  m_SizeDelta: {x: 139.4, y: 308.6}
+  m_AnchoredPosition: {x: 371.35, y: -18.9}
+  m_SizeDelta: {x: 139.4, y: 351.96}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &726741790
 MonoBehaviour:
@@ -60639,7 +60639,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -129.1}
+  m_AnchoredPosition: {x: 0, y: -142}
   m_SizeDelta: {x: 118.1, y: 35.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &852731181
@@ -67798,8 +67798,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -8677984497498471473, guid: b9e13f8742084734280daec295a1eaf4,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: 675e7db437cb78c4c8ac48f7454c96c5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -68890,9 +68889,15 @@ MonoBehaviour:
   seedNameText: {fileID: 1810229922}
   moneyText: {fileID: 1357922545}
   buyNumText: {fileID: 1343743477}
+  leftMoneyText: {fileID: 0}
   seedMoney: 0
   buyNum: 0
   seedName: 
+  totalMoney: 0
+  plusBtn: {fileID: 690774301}
+  minusBtn: {fileID: 1685411352}
+  buyBtn: {fileID: 852731181}
+  rightSide: {fileID: 726741788}
 --- !u!1 &1400127612
 GameObject:
   m_ObjectHideFlags: 0
@@ -69782,7 +69787,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 89.98}
+  m_AnchoredPosition: {x: 0, y: 100.8}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1810229922
@@ -69806,7 +69811,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1d5876047a2f2104f9dd31df5618ac50, type: 3}
-    m_FontSize: 15
+    m_FontSize: 17
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 1
