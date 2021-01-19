@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
 
     // from playercontoller
     public GameObject BuyChicken; // for moving control
-    public bool isBuyOpen;
+    public bool isBuyOpen; // Center
+    public bool isCareOpen = false; // Chicken
 
     // Start is called before the first frame update
     void Start()
@@ -173,8 +174,14 @@ public class GameManager : MonoBehaviour
     // from playercontoller
     void BuyUIDetect()
     {
-        if(BuyChicken.activeSelf == true){  isBuyOpen = true;  }
-        else{  isBuyOpen = false;  }
+        if(BuyChicken.activeSelf == true)
+        {
+            isBuyOpen = true;
+        }
+        else
+        {
+            isBuyOpen = false;
+        }
     }
 
     //UI 시간 관련

@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 9183981511441827766}
   - component: {fileID: 3927136831319689190}
   m_Layer: 0
-  m_Name: Text
+  m_Name: SeedText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 186246402124206697}
   - component: {fileID: 4300742186452877737}
   m_Layer: 0
-  m_Name: Text
+  m_Name: HayText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1017,7 +1017,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.0015239716, y: -0.047189653}
@@ -1051,7 +1051,15 @@ MonoBehaviour:
   CareText: {fileID: 6712352566522724975}
   nextMovex: 0
   nextMovey: 0
+  randx: 0
+  randy: 0
   happy: 0
+  dis: 0
+  PlayerTF: {fileID: 0}
+  GMScript: {fileID: 0}
+  SMScript: {fileID: 0}
+  chickTimer: 0
+  checkEgg: 0
 --- !u!95 &2274530516153896466
 Animator:
   serializedVersion: 3
