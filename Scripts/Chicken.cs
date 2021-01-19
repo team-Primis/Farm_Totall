@@ -70,16 +70,17 @@ public class Chicken : MonoBehaviour
         if(Care.activeSelf == true || Choose.activeSelf == true) // 닭 케어 창이 열렸을 때
         {
             GMScript.isCareOpen = true;
+            ChickenStop(); // 해당 닭만 정지
         }
 
         // 닭 관련 창 열렸으면 움직임 멈춤
-        if(GMScript.isBuyOpen == true || GMScript.isCareOpen == true)
-        {   ChickenStop();   }
+        //if(GMScript.isBuyOpen == true || GMScript.isCareOpen == true)
+        //{   ChickenStop();   }
 
         // 기타 UI 열렸으면 움직임 멈춤
-        if(GMScript.vendingImage.activeSelf == true || GMScript.container.activeSelf == true
-                || GMScript.inventory.activeSelf == true)
-        {   ChickenStop();   }
+        //if(GMScript.vendingImage.activeSelf == true || GMScript.container.activeSelf == true
+        //        || GMScript.inventory.activeSelf == true)
+        //{   ChickenStop();   }
 
         // 애니메이션 MoveX, MoveY
         anim.SetFloat("MoveX", nextMovex);
