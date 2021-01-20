@@ -25,13 +25,13 @@ public class SpawnManager : MonoBehaviour
     public void SpawnNEgg()
     {
         GameObject negg = Instantiate(NormalEgg);
-        negg.transform.position = new Vector2(3,3);
+        negg.transform.position = new Vector2(7,-3);
     }
 
     public void SpawnGEgg()
     {
         GameObject gegg = Instantiate(GoodEgg);
-        gegg.transform.position = new Vector2(3,5);
+        gegg.transform.position = new Vector2(9,-3);
     }
     
     // 닭 및 계란이 생성되는 위치는?

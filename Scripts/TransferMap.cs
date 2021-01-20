@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-public class TransferMap : MonoBehaviour
+public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔을 때 플레이어를 다른 맵으로 이동시켜줌.
 {
     public string transferMapName; //이동할 맵의 이름.
     private PlayerMove thePlayer;
