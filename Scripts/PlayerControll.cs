@@ -32,22 +32,7 @@ public class PlayerControll : MonoBehaviour
     void Update()
     {
         
-        /*
-        //체력 감소에 대한 코드 : 10번 행동이 끝나면 1칸씩 준다
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            laborCount--;
-            if (laborCount == 0)
-            {
-                laborCount = 5;
-                if (GMScript.stamina > 0)
-                {
-                    GMScript.stamina--;
-                    if (GMScript.stamina < 2) speed = 0.5f;
-                    GMScript.isStaminaChanged = true;
-                }
-            }
-        }
-        */
+       
     }
 
     // from playercontoller
