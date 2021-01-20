@@ -20,9 +20,6 @@ public class inventory : MonoBehaviour
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
         equipedItem = null;
         putInventory(1); //1번 id 1개
-        putInventory(1, 3); //1번 id 3개
-        putInventory("pumpkin",3); //이름
-
         putInventory(1);
         putInventory(1);
         putInventory(4);
