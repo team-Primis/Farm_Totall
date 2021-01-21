@@ -15,6 +15,12 @@ public class Test : MonoBehaviour
         //이렇게 인벤토리 가져오고
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
 
+        if(Inven.equipedItem.Ename == "pumpkin") //호박 장착
+        {
+
+        }
+
+
         //Inven.equiptedItem.원하는 특성 // 이렇게 접근 가능
 
 
