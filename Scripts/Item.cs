@@ -37,7 +37,7 @@ public class Item
         this.category = item.category;
 
         //아이템의 아이콘을 가져오는 방법 : 스프라이트를 "Assets/Resources/Sprites/Items" 위치에서 item.name 이라는 이름의 스프라이트 가져옴
-        this.icon = Resources.Load<Sprite>("Sprites/Items/" + item.Ename);
+        this.icon = Resources.Load<Sprite>("Farm_Totall/Sprites/Items/" + item.Ename);
     }
 
     public Item(int id, string Kname, string Ename, string description, Category cat, Dictionary<string,int> stat)
