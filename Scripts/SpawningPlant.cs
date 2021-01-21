@@ -6,18 +6,21 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
 {
     public GameObject[] PlantPrefabs;//배열로 구현하여 인덱스가 0일 때 꽃, 1일 때 호박을 심도록 구현.
     public GameObject thePlayer;
-
+    public inventory Inven;
     // Start is called before the first frame update
     void Start()
     {
-
+        Inven = GameObject.Find("Inventory").GetComponent<inventory>();
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        SpawnPlant(PlantPrefabs[0]);//심을 식물 종류를 어떻게 결정할 수 있을지 몰라서 우선 꽃만 키울 수 있게 해둠. 
+        if (Inven.equipedItem.Ename == "blueFlowerSeed")
+        { SpawnPlant(PlantPrefabs[0]); }
+        if (Inven.equipedItem.Ename == "pumpkinSeed")
+        { SpawnPlant(PlantPrefabs[0]); }//심을 식물 종류를 어떻게 결정할 수 있을지 몰라서 우선 꽃만 키울 수 있게 해둠. 
     }
 
     void SpawnPlant(GameObject PlantPrefabs)//식물 심는 함수.
@@ -28,6 +31,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
 
         Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
         Vector2 distance = theplayerPosition - mousePosition;
+        
         
         if (Input.GetMouseButtonDown(0))//플레이어의 위치를 기준으로 x는 타일 1.5칸, y는 타일 2칸 이하에서
         {
