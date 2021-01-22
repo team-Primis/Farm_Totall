@@ -11,15 +11,15 @@ public class PlayerMove : MonoBehaviour
    public Animator anim;
     public float speed = 1.0f;
     static public PlayerMove instance;//static: 이 스크립트를 사용하는 객체는 instance 변수를 공유하게 됨.
-
+    public inventory Inven;
     GameManager GMScript;
   
     // Start is called before the first frame update
     void Start()
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        if(instance==null)
+        Inven = GameObject.Find("Inventory").GetComponent<inventory>();
+        if (instance==null)
         {
             DontDestroyOnLoad(this.gameObject);
             boxCollider = GetComponent<BoxCollider2D>();
@@ -36,10 +36,13 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GMScript.isBuyOpen == false) // from playercontoller - 닭구매창 떠있으면 플레이어 정지
+        // from playercontoller - 닭 관련 창 떠있으면 플레이어 정지
+        if(GMScript.isBuyOpen == false && GMScript.isCareOpen == false)
         {
             Move();
         }
+        
+        Watering();
     }
 
     void Move()
@@ -50,7 +53,6 @@ public class PlayerMove : MonoBehaviour
     
         if (Input.GetKey(KeyCode.W))
         {
-            
             anim.SetBool("BackWalk", true);
             moveZ += 1f;
             
@@ -94,6 +96,54 @@ public class PlayerMove : MonoBehaviour
 
         
 
+
+    }
+
+    void Watering()//물 주는 모션.
+    {
+
+        anim.SetBool("Watering", false);
+        Vector2 theplayerPosition = this.transform.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
+        Vector2 distance = theplayerPosition - mousePosition;
+
+        if (Inven.equipedItem.Ename != null )
+        {
+            if(Inven.equipedItem.Ename == "waterSprinkle")
+            { 
+            if (Input.GetMouseButton(0))//클릭하면 물 주는 애니메이션 재생.
+            {
+                anim.SetBool("Watering", true);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
+                RaycastHit2D[] hit = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity);
+                    for (int i = 0; i < hit.Length; i++)
+                    {
+                        for (int j = 0; j < hit.Length; j++)
+                        {
+                            if (hit[i].transform.tag == "DarkDirt")
+                            {
+
+
+                                if (hit[j].transform.tag != "Plant")
+                                {
+
+                                    if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
+                                    {
+
+                                        //물 받았다는 bool을 PlantLoad에 설정해서 마우스 클릭 위치에 있는 애를 가져와서 true 시켜줌. 
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
 
     }
 }

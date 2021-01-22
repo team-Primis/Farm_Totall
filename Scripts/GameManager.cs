@@ -20,8 +20,7 @@ public class GameManager : MonoBehaviour
     public float timer = 0;
     public bool isTimerStoped = false;
 
-    public bool isInvenOpen;
-    public bool isInvenStateChanged;
+ 
 
     public GameObject[] staminaObj;
 
@@ -30,7 +29,8 @@ public class GameManager : MonoBehaviour
 
     // from playercontoller
     public GameObject BuyChicken; // for moving control
-    public bool isBuyOpen;
+    public bool isBuyOpen = false; // Center
+    public bool isCareOpen = false; // Chicken
 
     // Start is called before the first frame update
     void Start()
@@ -41,13 +41,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        checkVendorDetect(); //자판기 들어갔다 나옴
-        checkContainerDetect();
-        InvenDetect();
+        
         changeStaminaUI(); //스태미나 감소
-
-        // from playercontoller
-        BuyUIDetect();
 
         //24시간 지나면 하루 지남 + UI 켰을때는 시간 안감
         if (!isTimerStoped)
@@ -62,6 +57,10 @@ public class GameManager : MonoBehaviour
         }
         DateUI(timer); //시간 표시
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Debug.Log("날짜 : " + getDay());
+        }
     }
 
     //UI에서 스태미나 감소 : 관련 오브젝트를 일단 unable하게 만들고, 현재 스태미나 만큼 다시 setactive
@@ -118,63 +117,17 @@ public class GameManager : MonoBehaviour
             isStaminaChanged = false;
         }
     }
-
-    void InvenDetect() {
-        if (isInvenStateChanged)
-        {
-            if (isInvenOpen) {
-                inventory.SetActive(true);
-                isTimerStoped = true;
-            }
-            else
-            {
-                inventory.SetActive(false);
-                isTimerStoped = false;
-            }
-            isInvenStateChanged = false;
-        }
-    }
-    //자판기에 가까이 가면 자판기 UI 띄워줌
-    void checkVendorDetect() {
-        if (vendorDetectScript.venderchanged == true)
-        {
-            if (vendorDetectScript.isVendTouched == true)
-            {
-                vendingImage.SetActive(true);
-            }
-            else
-            {
-                vendingImage.SetActive(false);
-
-            }
-
-            vendorDetectScript.venderchanged = false;
-
-        }
-    }
-
-    void checkContainerDetect() {
-        if (vendorDetectScript.containerChanged == true) {
-
-            if(vendorDetectScript.isContainerTouched == true)
-            {
-                isTimerStoped = true;
-                container.SetActive(true);
-            }
-            else
-            {
-                container.SetActive(false);
-                isTimerStoped = false;
-            }
-            vendorDetectScript.containerChanged = false;
-        }
-    }
-
-    // from playercontoller
-    void BuyUIDetect()
+    
+    //매개변수에 넣은 만큼 스태미나 줄여줌
+    public void useStamina(int stam)
     {
-        if(BuyChicken.activeSelf == true){  isBuyOpen = true;  }
-        else{  isBuyOpen = false;  }
+        stamina -= stam;
+        isStaminaChanged = true;
+    }
+    
+    public int getDay()
+    {
+        return day;
     }
 
     //UI 시간 관련
@@ -194,5 +147,3 @@ public class GameManager : MonoBehaviour
 
     
 }
-
-

@@ -13,6 +13,7 @@ public class PlayerControll : MonoBehaviour
 
     public int laborCount = 5;
     GameManager GMScript;
+    private inventory inven;
 
     public string item; //현재 손에 든 아이템
 
@@ -24,78 +25,14 @@ public class PlayerControll : MonoBehaviour
     void Start()
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        inven = GameObject.Find("Inventory").GetComponent<inventory>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //플레이어 움직임 관련
-        if (Input.GetKey(KeyCode.D))
-        {
-           // transform.Translate(Vector3.right * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-          //  transform.Translate(Vector3.left * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-           // transform.Translate(Vector3.down * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-           // transform.Translate(Vector3.up * speed * Time.deltaTime);
-            if (GMScript.isInvenOpen)
-            {
-                GMScript.isInvenOpen = false;
-                GMScript.isInvenStateChanged = true;
-            }
-
-        }
-
-        if (Input.GetKey(KeyCode.I))
-        {
-            if (!GMScript.isTimerStoped)
-            {
-                GMScript.isInvenOpen = true;
-                GMScript.isInvenStateChanged = true;
-            }
-        }
-        /*
-        //체력 감소에 대한 코드 : 10번 행동이 끝나면 1칸씩 준다
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            laborCount--;
-            if (laborCount == 0)
-            {
-                laborCount = 5;
-                if (GMScript.stamina > 0)
-                {
-                    GMScript.stamina--;
-                    if (GMScript.stamina < 2) speed = 0.5f;
-                    GMScript.isStaminaChanged = true;
-                }
-            }
-        }
-        */
+        
+       
     }
 
     // from playercontoller
@@ -105,11 +42,17 @@ public class PlayerControll : MonoBehaviour
         {
             numGE += 1; // 보유 개수 하나 증가
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
+
+            //미해가 씀 : 인벤에 넣기 : id 11  좋은 달걀 id 12 평범 달걀
+            inven.putInventory(11);
+            
         }
         else if(coll.gameObject.tag == "NormalEgg") // NormalEgg가 닿으면
         {
             numNE += 1; // 보유 개수 하나 증가
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
+
+            inven.putInventory(12);
         }
     } // 계란이 trigger (collider+rigidbody(중력=0))
 }
