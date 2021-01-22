@@ -60331,7 +60331,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.08560228, y: 0}
@@ -60367,7 +60367,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!114 &816678891
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67672,10 +67672,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2de94ee57485fb47b471cf42eeb28bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DirtPrefab: {fileID: 8031959574351605982, guid: 4c57fb86bc439df43bc8693ed20ba85c,
-    type: 3}
-  thePlayer: {fileID: 1995171693}
-  Inven: {fileID: 0}
 --- !u!4 &1051972303
 Transform:
   m_ObjectHideFlags: 0

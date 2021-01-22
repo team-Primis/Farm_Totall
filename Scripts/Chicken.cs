@@ -38,6 +38,8 @@ public class Chicken : MonoBehaviour
         Invoke("Think", 4); // 생성 후 4초 후부터 움직이기 시작
 
         anim = GetComponent<Animator>(); // anim 변수 선언
+
+        checkEgg = true; // 초기 설정
     }
 
     // Update is called once per frame

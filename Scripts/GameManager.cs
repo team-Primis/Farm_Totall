@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
 
     // from playercontoller
     public GameObject BuyChicken; // for moving control
-    public bool isBuyOpen;
+    public bool isBuyOpen = false; // Center
     public bool isCareOpen = false; // Chicken
 
     // Start is called before the first frame update
@@ -43,9 +43,6 @@ public class GameManager : MonoBehaviour
     {
         
         changeStaminaUI(); //스태미나 감소
-
-        // from playercontoller
-        BuyUIDetect();
 
         //24시간 지나면 하루 지남 + UI 켰을때는 시간 안감
         if (!isTimerStoped)
@@ -131,14 +128,6 @@ public class GameManager : MonoBehaviour
     public int getDay()
     {
         return day;
-    }
-
-
-    // from playercontoller
-    void BuyUIDetect()
-    {
-        if(BuyChicken.activeSelf == true){  isBuyOpen = true;  }
-        else{  isBuyOpen = false;  }
     }
 
     //UI 시간 관련

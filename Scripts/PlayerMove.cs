@@ -36,10 +36,12 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GMScript.isBuyOpen == false && GMScript.isCareOpen == false) // from playercontoller - 닭구매창 떠있으면 플레이어 정지
+        // from playercontoller - 닭 관련 창 떠있으면 플레이어 정지
+        if(GMScript.isBuyOpen == false && GMScript.isCareOpen == false)
         {
             Move();
         }
+        
         Watering();
     }
 
