@@ -18,7 +18,8 @@ public class inventory : MonoBehaviour
     void Start()
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
-        equipedItem = null;
+        //잠시 에러 없애기 위함..
+        //equipedItem = null;
         putInventory(1); //1번 id 1개
         putInventory(1);
         putInventory(1);
