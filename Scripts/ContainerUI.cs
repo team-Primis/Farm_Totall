@@ -11,7 +11,7 @@ public class ContainerUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     
@@ -37,9 +37,28 @@ public class ContainerUI : MonoBehaviour
         container[slot].UpdateItem(item);
     }
 
+    public void UpdateUI(Item item)
+    {
+        int slot = container.FindIndex(i => i.item == item);
+        container[slot].UpdateUI(item);
+    }
+
     public void AddNewItem(Item item)
     {
-        UpdateSlot(container.FindIndex(i => i.item == null), item);
+        if (item != null && item.Ename != "")
+        {
+            int slot = container.FindIndex(i => i.item == null);
+            Debug.Log(slot + "번째 슬롯이 비었으므로 아이템 " + item.Kname + "을 추가합니다"); //현재 인덱스 확인 용
+            //빈 공간이 있으면
+            if (slot != -1)
+            {
+                UpdateSlot(slot, item);
+            }
+            else
+            {
+                Debug.Log("보관상자에 저장공간이 부족합니다.");
+            }
+        }
     }
 
     public void RemoveItem(Item item)

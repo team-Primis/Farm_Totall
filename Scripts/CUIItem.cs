@@ -13,37 +13,60 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
     public Item item;
     private ContainerDb container;
     public Image spriteImage;
+    public Text itemText;
 
     // Start is called before the first frame update
     void Start()
     {
-        container = GameObject.Find("container").GetComponent<ContainerDb>();
+        container = GameObject.Find("ContainerPanel").GetComponent<ContainerDb>();
         spriteImage = gameObject.GetComponent<Image>();
-        
+        UpdateItem(null);
     }
 
 
     //해당 아이템이 클릭되면, 보관상자의 selectedItem에 저장 -> 보관상자에서 꺼내기 버튼 OR 단축키 누르면 해당 아이템 꺼내짐
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (item != null && item.Ename != "") {
+        if (item != null && item.Ename != "")
+        {
             container.selectedItem = this.item;
             Debug.Log("selected Item이 " + container.selectedItem.Kname + "으로 바뀌었습니다.");
-            }
+        }
     }
 
-    public void UpdateItem(Item newItem) {
+    public void UpdateUI(Item item)
+    {
+        if (item.Ename != null)
+        {
+            itemText.text = this.item.count.ToString();
+        }
+
+    }
+
+    public void UpdateItem(Item newItem)
+    {
         //담긴 객체 변경
         this.item = newItem;
         //UI 변경
-        if(this.item != null)
+        if (this.item != null)
         {
             spriteImage.sprite = this.item.icon;
             spriteImage.color = Color.white;
+
+            if (this.item.category == Item.Category.item)
+            {
+                itemText.text = this.item.count.ToString();
+                itemText.color = Color.white;
+            }
+            else
+            {
+                itemText.color = Color.clear;
+            }
         }
         else
         {
             spriteImage.color = Color.clear;
+            itemText.color = Color.clear;
         }
     }
 }
