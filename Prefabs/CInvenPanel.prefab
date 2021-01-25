@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4495088191934832128}
   m_Layer: 5
   m_Name: Image
-  m_TagString: containerSlot
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,6 +87,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae48e0759c9c44e419018f9febceab13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  item:
+    id: 0
+    Kname: 
+    Ename: 
+    description: 
+    icon: {fileID: 0}
+    count: 0
+    category: 0
+  spriteImage: {fileID: 0}
 --- !u!1 &4495088192638888054
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,7 +187,7 @@ GameObject:
   - component: {fileID: 4495088193601889608}
   m_Layer: 5
   m_Name: CInvenPanel
-  m_TagString: Untagged
+  m_TagString: containerSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
