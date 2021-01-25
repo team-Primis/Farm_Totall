@@ -5,13 +5,19 @@ using UnityEngine;
 public class ContainerUI : MonoBehaviour
 {
     public bool isItemEnrolled = false; //한번만 실행되게 하는 용 (containerUI랑 CUItem연결용) : 맨 처음에 시도할경우 CUItem이 setActive(false)라 반영이 안됨
-    public GameObject containerObj;
-    public List<CUIItem> container = new List<CUIItem>();
+    private List<CUIItem> container = new List<CUIItem>();
+
+    public GameObject slot;
+    GameObject newSlot;
+    public Transform EmpTrans; //강조 UI가 있을 위치
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        newSlot = Instantiate(slot);
+        newSlot.transform.SetParent(EmpTrans);
+        newSlot.transform.position = EmpTrans.position;
+        newSlot.gameObject.SetActive(false);
     }
 
     
