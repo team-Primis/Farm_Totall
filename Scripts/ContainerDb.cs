@@ -6,14 +6,21 @@ public class ContainerDb : MonoBehaviour
 {
     // Start is called before the first frame update
     private itemDatabase db;
+    public  ContainerUI conUI;
+
+    //빼려고 선택된 아이템
+    public Item selectedItem; 
 
     //아이템을 담아놓을 보관상자
     public List<Item> container = new List<Item>();
     void Start()
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
+       
         PutInContainer(1);
         PutInContainer("pumpkin");
+
+        
     }
 
     // Update is called once per frame
