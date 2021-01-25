@@ -27,7 +27,7 @@ public class SpawningDirt : MonoBehaviour
 
         Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
         Vector2 distance = theplayerPosition - mousePosition;
-
+/*
         if (Inven.equipedItem.Ename == "sickle")
         {
             if (Input.GetMouseButtonDown(0))//플레이어의 위치를 기준으로 x는 타일 1.5칸, y는 타일 2칸 이하에서
@@ -52,6 +52,7 @@ public class SpawningDirt : MonoBehaviour
 
             }
         }
+        */
 
     }
 }

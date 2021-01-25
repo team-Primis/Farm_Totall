@@ -16,11 +16,12 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     // Update is called once per frame
     void Update()
     {
-
+        /*
         if (Inven.equipedItem.Ename == "blueFlowerSeed")
         { SpawnPlant(PlantPrefabs[0]); }
         if (Inven.equipedItem.Ename == "pumpkinSeed")
-        { SpawnPlant(PlantPrefabs[0]); }//심을 식물 종류를 어떻게 결정할 수 있을지 몰라서 우선 꽃만 키울 수 있게 해둠. 
+       { SpawnPlant(PlantPrefabs[0]); }//심을 식물 종류를 어떻게 결정할 수 있을지 몰라서 우선 꽃만 키울 수 있게 해둠. 
+       */
     }
 
     void SpawnPlant(GameObject PlantPrefabs)//식물 심는 함수.

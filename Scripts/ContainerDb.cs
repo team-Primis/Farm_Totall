@@ -27,33 +27,21 @@ public class ContainerDb : MonoBehaviour
         PickUpBtn.onClick.AddListener(PickUp);
 
     }
-
+    //보관상자 -> 인벤 이동
     void PickUp()
     {
         if(selectedItem != null && selectedItem.Ename != "")
         {
             inven.putInventory(selectedItem.id, selectedItem.count);
             RemoveItem(selectedItem.id);
+            selectedItem = null;
+        }
+        else
+        {
+            Debug.Log("선택한 아이템이 없어서 꺼낼 수 없습니다.");
         }
     }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-           
-            PutInContainer("pumpkin",4);
-            PutInContainer(11, 3);
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (selectedItem != null && selectedItem.Ename != "")
-            {
-                RemoveItem(selectedItem.id);
-                selectedItem = null;
-            }
-        }
-    }
+   
 
     public void RemoveItem(int id)
     {
@@ -66,7 +54,7 @@ public class ContainerDb : MonoBehaviour
 
     }
 
-    //해당 id를 가진 아이템을 보관상자에 넣음
+    //해당 id를 가진 아이템을 인벤에서 보관상자에 넣음 (인벤 스크립트에서 호출)
     public void PutInContainer(int id, int num=1)
     {
         Item item = db.GetItem(id);

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class inventory : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class inventory : MonoBehaviour
     public List<Item> characterItems = new List<Item>();
     private itemDatabase db;
     public UIInventory inventoryUI;
+
+    public ContainerDb container;
+    public Button putInBtn;
 
     public Item equipedItem;
 
@@ -18,6 +22,8 @@ public class inventory : MonoBehaviour
     void Start()
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
+
+        putInBtn.onClick.AddListener(PutInContainer);
         //잠시 에러 없애기 위함..
         //equipedItem = null;
         putInventory(1); //1번 id 1개
@@ -40,6 +46,20 @@ public class inventory : MonoBehaviour
 
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
+    }
+
+    void PutInContainer()
+    {
+        if (equipedItem != null && equipedItem.Ename != "")
+        {
+            container.PutInContainer(equipedItem.id, equipedItem.count);
+            RemoveAll(equipedItem.id);
+            equipedItem = null;
+        }
+        else
+        {
+            Debug.Log("선택된 아이템이 없어 넣을 수 없습니다.");
+        }
     }
 
     // Update is called once per frame
@@ -156,6 +176,19 @@ public class inventory : MonoBehaviour
     public Item CheckForItem(string name)
     {
         return characterItems.Find(item => item.Ename == name);
+    }
+
+    public void RemoveAll(int id)
+    {
+        Item Item = CheckForItem(id);
+        if(Item != null)
+        {
+            characterItems.Remove(Item);
+            Debug.Log("Item removed : " + Item.Kname);
+            inventoryUI.RemoveItem(Item);
+        }
+        Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
+
     }
 
     public void RemoveItem(int id)
