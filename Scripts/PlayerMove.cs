@@ -8,7 +8,7 @@ public class PlayerMove : MonoBehaviour
     public string currentMapName; //transferMap 스크립트에 있는 transferMapName 변수의 값을 저장.
     private BoxCollider2D boxCollider;
     //충돌할 때 통과 불가능한 레이어를 설정해줌.
-   public Animator anim;
+    public Animator anim;
     public float speed = 1.0f;
     static public PlayerMove instance;//static: 이 스크립트를 사용하는 객체는 instance 변수를 공유하게 됨.
     public inventory Inven;
@@ -36,8 +36,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // from playercontoller - 닭 관련 창 떠있으면 플레이어 정지
-        if(GMScript.isBuyOpen == false && GMScript.isCareOpen == false)
+        // from playercontoller - 닭 구매 창 떠있으면 플레이어 정지
+        if(GMScript.isBuyOpen == false)
         {
             Move();
         }

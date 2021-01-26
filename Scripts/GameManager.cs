@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     // from playercontoller
     public GameObject BuyChicken; // for moving control
     public bool isBuyOpen = false; // Center
-    public bool isCareOpen = false; // Chicken
 
     // Start is called before the first frame update
     void Start()

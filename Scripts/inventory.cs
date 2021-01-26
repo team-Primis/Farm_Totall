@@ -34,6 +34,7 @@ public class inventory : MonoBehaviour
         // putInventory(3);
         putInventory(100);
         putInventory(101);
+        putInventory(99,3); // 닭 밥 테스트용 건초
 
 
 
