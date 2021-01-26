@@ -99,10 +99,10 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         //누른 UIitem의 위치를 inven의 변수에 저장하고, 이에 따라서 슬롯 강조 이미지 위치 바뀜
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (this.item != null)
+            inven.equipedItem = this.item;
+            if (this.item != null && this.item.Ename!= "")
             {
-                
-                inven.equipedItem = this.item;
+                  
                 inven.emptrans = this.transform;
                 inven.isUIItemClickChanged = true;
 
