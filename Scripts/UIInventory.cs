@@ -42,6 +42,11 @@ public class UIInventory : MonoBehaviour
         
     }
 
+    public void MakeSlotClear()
+    {
+        newSlot.SetActive(false);
+    }
+
     //uiitem의 특정 slot을 원하는 item의 모양으로 바꿈
     public void UpdateSlot(int slot, Item item)
     {

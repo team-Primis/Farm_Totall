@@ -55,6 +55,7 @@ public class inventory : MonoBehaviour
             container.PutInContainer(equipedItem.id, equipedItem.count);
             RemoveAll(equipedItem.id);
             equipedItem = null;
+            ClearSlot();
         }
         else
         {
@@ -71,12 +72,7 @@ public class inventory : MonoBehaviour
             inventoryUI.gameObject.SetActive(!inventoryUI.gameObject.activeSelf);
         }
 
-        //인벤토리 아이템 클릭 시 뭐가 클릭됐는지 알려줌
-        if (isUIItemClickChanged)
-        {
-            inventoryUI.MoveEmphasizedSlot(emptrans);
-            isUIItemClickChanged = false;
-        }
+       
 
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -91,6 +87,16 @@ public class inventory : MonoBehaviour
         }
 
 
+    }
+
+    public void MoveSlot(Transform trans)
+    {
+        inventoryUI.MoveEmphasizedSlot(trans);
+    }
+
+    public void ClearSlot()
+    {
+        inventoryUI.MakeSlotClear();
     }
 
     public Item GetEqippedITem()

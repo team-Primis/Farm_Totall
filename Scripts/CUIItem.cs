@@ -27,8 +27,20 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
     //해당 아이템이 클릭되면, 보관상자의 selectedItem에 저장 -> 보관상자에서 꺼내기 버튼 OR 단축키 누르면 해당 아이템 꺼내짐
     public void OnPointerClick(PointerEventData eventData)
     {
-           container.selectedItem = this.item;
-        
+
+        container.selectedItem = this.item;
+
+        //선택된 아이템이 무엇인지 알려줌
+        if (this.item != null && this.item.Ename!= null)
+        {
+            container.MoveSlot(this.transform);
+
+        }
+        else
+        {
+            container.ClearSlot();
+        }
+
     }
 
     public void UpdateUI(Item item)

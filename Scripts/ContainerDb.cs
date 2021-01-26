@@ -35,6 +35,7 @@ public class ContainerDb : MonoBehaviour
             inven.putInventory(selectedItem.id, selectedItem.count);
             RemoveItem(selectedItem.id);
             selectedItem = null;
+            ClearSlot();
         }
         else
         {
@@ -42,6 +43,17 @@ public class ContainerDb : MonoBehaviour
         }
     }
    
+   
+
+    public void MoveSlot(Transform trans)
+    {
+        conUI.MoveEmphasizedSlot(trans);
+    }
+
+    public void ClearSlot()
+    {
+        conUI.MakeSlotClear();
+    }
 
     public void RemoveItem(int id)
     {

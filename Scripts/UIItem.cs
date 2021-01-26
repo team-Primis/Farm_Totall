@@ -102,11 +102,13 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             inven.equipedItem = this.item;
             if (this.item != null && this.item.Ename!= "")
             {
-                  
-                inven.emptrans = this.transform;
-                inven.isUIItemClickChanged = true;
 
-                
+                inven.MoveSlot(this.transform);
+    
+            }
+            else
+            {
+                inven.ClearSlot();
             }
         }
     }

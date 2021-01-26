@@ -12,7 +12,7 @@ public class ContainerUI : MonoBehaviour
     public Transform EmpTrans; //강조 UI가 있을 위치
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         newSlot = Instantiate(slot);
         newSlot.transform.SetParent(EmpTrans);
@@ -20,8 +20,19 @@ public class ContainerUI : MonoBehaviour
         newSlot.gameObject.SetActive(false);
     }
 
-    
-   void Update()
+    public void MoveEmphasizedSlot(Transform trans)
+    {
+        newSlot.SetActive(true);
+        EmpTrans.transform.position = trans.position;
+
+    }
+
+    public void MakeSlotClear()
+    {
+        newSlot.SetActive(false);
+    }
+
+    void Update()
     {
         //한번도 실행된 적 없고, 현재 컨테이너가 멀쩡히 켜져있으면 한번 실행
         
