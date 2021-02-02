@@ -53,6 +53,7 @@ public class inventory : MonoBehaviour
         if (equipedItem != null && equipedItem.Ename != "")
         {
             container.PutInContainer(equipedItem.id, equipedItem.count);
+            equipedItem.count = 0;
             RemoveAll(equipedItem.id);
             equipedItem = null;
             ClearSlot();
@@ -110,12 +111,15 @@ public class inventory : MonoBehaviour
     {
         //db 확인
         Item itemToAdd = db.GetItem(id);
+
         //없을경우
         if (itemToAdd == null)
         {
             Debug.Log("해당 item id가 데이터베이스에 없습니다.");
             return;
         }
+        Debug.Log("Item " + itemToAdd.Kname + "의 갯수는 " + itemToAdd.count + "입니다.");
+
         //있을 경우
         //캐릭터 인벤에 아이템 추가, 외부 인벤에 그림 바꿈(빈 객체가 있는 칸을 해당 객체의 그림으로 바꿈)
 
@@ -123,8 +127,8 @@ public class inventory : MonoBehaviour
         if (CheckForItem(id) == null)
         {
 
-
-            itemToAdd.count = plusNum;
+            
+            itemToAdd.count += plusNum;
             characterItems.Add(itemToAdd);
             inventoryUI.AddNewItem(itemToAdd);
 
@@ -144,6 +148,7 @@ public class inventory : MonoBehaviour
     {
         //db 확인
         Item itemToAdd = db.GetItem(name);
+
         //없을경우
         if (itemToAdd == null)
         {
@@ -156,7 +161,7 @@ public class inventory : MonoBehaviour
         //해당 아이템을 처음 추가하는 경우 : 인벤토리를 확인했을 때 해당 객체가 없음
         if (CheckForItem(name) == null)
         {
-            itemToAdd.count = plusNum;
+            itemToAdd.count += plusNum;
             characterItems.Add(itemToAdd);
             inventoryUI.AddNewItem(itemToAdd);
 
@@ -235,6 +240,8 @@ public class inventory : MonoBehaviour
         }
     }
 
+   
+    // 0개 이상이면 할거
     public void UseItem(string name)
     {
         Item item = db.GetItem(name);

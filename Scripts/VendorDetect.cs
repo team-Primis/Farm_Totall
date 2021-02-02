@@ -31,7 +31,7 @@ public class VendorDetect : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("spacebar touched");
-                vendingUI.gameObject.SetActive(!vendingUI.gameObject.activeSelf);
+                vendingUI.gameObject.SetActive(!vendingUI.gameObject.activeSelf); //여기에 UI 뜨는거 있음 (자판기)
             }
         }
         if (isTriggerContainer)
@@ -39,7 +39,7 @@ public class VendorDetect : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Debug.Log("spacebar touched");
-                containerUI.gameObject.SetActive(!containerUI.gameObject.activeSelf);
+                containerUI.gameObject.SetActive(!containerUI.gameObject.activeSelf);//여기에 UI 뜨는거 있음 (보관상자)
             }
         }
        

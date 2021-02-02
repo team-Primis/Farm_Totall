@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ContainerDb : MonoBehaviour
 {
     // Start is called before the first frame update
-    private itemDatabase db;
+    private containerDatabase db;
     public  ContainerUI conUI;
     private inventory inven;
 
@@ -20,7 +20,7 @@ public class ContainerDb : MonoBehaviour
     public List<Item> container = new List<Item>();
     void Start()
     {
-        db = GameObject.Find("Database").GetComponent<itemDatabase>();
+        db = GameObject.Find("CDatabase").GetComponent<containerDatabase>();
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
 
         PickUpBtn = GameObject.Find("PickUpBtn").GetComponent<Button>();
