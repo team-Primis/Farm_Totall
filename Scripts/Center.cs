@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // text 편집
 
 public class Center : MonoBehaviour
 {
@@ -10,10 +11,14 @@ public class Center : MonoBehaviour
     public GameObject Player;
     public float dis; // distance btw player & center
 
+    private PlayerControll thePlayerCtr; // for money
+    public Text howRich;
+
     // Start is called before the first frame update
     void Start()
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
     }
 
     // Update is called once per frame
@@ -42,6 +47,7 @@ public class Center : MonoBehaviour
         dis = Vector2.Distance(Player.transform.position,transform.position);
         if(dis < 1.5f)
         {
+            howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
             BuyChicken.SetActive(true); // player가 가까우면 구매창 나타남
             GMScript.isTimerStoped = true; // 구매창과 동시에 시간 정지
         }
@@ -50,12 +56,16 @@ public class Center : MonoBehaviour
     // UI Buttons
     public void OnClickYesButton()
     {
-        BuyChicken.SetActive(false);
+        Debug.Log("닭 구매 완료");
+        thePlayerCtr.money -= 500; // 돈 500원 감소
+        howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
         spawnManager.SpawnChicken(); // spawn chicken
+        BuyChicken.SetActive(false);
         GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
     }
     public void OnClickNoButton()
     {
+        Debug.Log("닭 구매 취소");
         BuyChicken.SetActive(false); // nothing happens
         GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
     }
