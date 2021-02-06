@@ -20,16 +20,17 @@ public class GameManager : MonoBehaviour
     public float timer = 0;
     public bool isTimerStoped = false;
 
- 
-
     public GameObject[] staminaObj;
 
     public GameObject container;
     public GameObject inventory;
 
-    // from playercontoller
-    public GameObject BuyChicken; // for moving control
-    public bool isBuyOpen = false; // Center
+    // from playercontoller (center)
+    public GameObject BuyChicken; // 닭구매창
+    public bool isBuyOpen = false; // 닭구매창이 켜져있는가
+
+    // from menucontrol
+    public bool isMenuOpen; // 일시정지 메뉴 관련
 
     // Start is called before the first frame update
     void Start()

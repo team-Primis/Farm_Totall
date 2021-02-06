@@ -21,6 +21,15 @@ public class Center : MonoBehaviour
     {    
         if(Input.GetKey(KeyCode.Space)) // 스페이스바 눌렀을 때
         {   CallCenter();   } // 구매창 나타낼지 판단
+        
+        if(BuyChicken.activeSelf == true) // 구매창 켜져있는데, 멀어진다면
+        {
+            if(Vector2.Distance(Player.transform.position,transform.position)>2.0f)
+            {
+                BuyChicken.SetActive(false);
+                GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
+            }
+        }
 
         if(BuyChicken.activeSelf == true)
         {   GMScript.isBuyOpen = true;   }

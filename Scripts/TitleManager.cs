@@ -19,18 +19,26 @@ public class TitleManager : MonoBehaviour
     void Update()
     {   }
 
-    public void ChangeNewImage()
+    public void OnClickNewGame()
     {
-        NewBefore.sprite = NewAfter;
-    }
-
-    public void ChangeContiImage()
-    {
-        ContiBefore.sprite = ContiAfter;
-    }
-
-    public void StartNewGame()
-    {
+        Debug.Log("새 게임");
+        NewBefore.sprite = NewAfter; // change button image
         SceneManager.LoadScene("OutSide");
+    }
+
+    public void OnClickContinue()
+    {
+        Debug.Log("이어하기");
+        ContiBefore.sprite = ContiAfter; // change button image
+    }
+
+    public void OnClickQuit()
+    {
+        Debug.Log("게임 종료");
+#if UNITY_EDITOR // 에디터에서 실행 중일 때는 플레이 상태 중단으로 대체
+        UnityEditor.EditorApplication.isPlaying = false;
+#else        
+        Application.Quit(); // 실행된 게임 프로그램 종료 - 에디터에선 동작 X
+#endif
     }
 }

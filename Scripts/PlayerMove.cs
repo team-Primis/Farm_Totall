@@ -36,8 +36,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // from playercontoller - 닭 구매 창 떠있으면 플레이어 정지
-        if(GMScript.isBuyOpen == false)
+        // from menucontrol - 일시정지 창 떠있으면 플레이어 정지
+        if(GMScript.isMenuOpen == false)
         {
             Move();
         }
@@ -109,7 +109,7 @@ public class PlayerMove : MonoBehaviour
         Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
         Vector2 distance = theplayerPosition - mousePosition;
 
-        if (Inven.equipedItem.Ename != null )
+        if (Inven.equipedItem.Ename != "")
         {
             if(Inven.equipedItem.Ename == "waterSprinkle")
             { 

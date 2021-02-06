@@ -94,6 +94,8 @@ public class Chicken : MonoBehaviour
 
         if(Heart.activeSelf == true){   ChickenStop();  } // 하트 있을 땐 해당 닭 정지
 
+        if(GMScript.isMenuOpen == true){   ChickenStop();  } // 일시정지면 닭들 정지
+
         //장착 후 스페이스바 클릭 - 밥 주기
         if(Input.GetKeyDown(KeyCode.Space)) // 스페이스바 눌렀을 때 1번 판단
         {
