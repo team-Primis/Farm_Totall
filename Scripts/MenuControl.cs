@@ -9,8 +9,8 @@ public class MenuControl : MonoBehaviour
     // 서브메뉴(=일시정지) 화면 + Load + Save (2/3 수정 - SaveNLoad 스크립트로)
     // GameManager에 붙임!
 
-    public GameObject menuWindow;
-    //public GameObject player;
+    public GameObject menuWindow; // 직접 넣어줘야 함
+    public GameObject whereSave; // 직접 넣어줘야 함
 
     public GameManager GMScript; // for isMenuOpen
     public SaveNLoad theSaveNLoad;
@@ -62,15 +62,31 @@ public class MenuControl : MonoBehaviour
 
     public void GoSave() // 저장하기
     {
-        theSaveNLoad.CallSave(); // 저장
-        Debug.Log("저장 완료");
-        menuWindow.SetActive(false); // 메뉴 off
-        GMScript.isTimerStoped = false; // 시간 흐르기 시작
+        whereSave.SetActive(true); // 저장할 파일 선택할 UI
+        // 저장 완료 후 whereSave를 다시 false로 바꾼 후 menuWindow false로 해야 함
     }
 
     public void GoTitle() // 타이틀로
     {
         SceneManager.LoadScene("Title");
+    }
+
+    // WhereSave UI의 버튼들
+    public void GoFile1()
+    {
+        /*theSaveNLoad.CallSave(); // 저장*/
+        Debug.Log("File 1 저장 완료");
+        whereSave.SetActive(false);
+        menuWindow.SetActive(false); // 메뉴 off
+        GMScript.isTimerStoped = false; // 시간 흐르기 시작
+    }
+    public void GoFile2()
+    {
+        /*theSaveNLoad.CallSave(); // 저장*/
+        Debug.Log("File 2 저장 완료");
+        whereSave.SetActive(false);
+        menuWindow.SetActive(false); // 메뉴 off
+        GMScript.isTimerStoped = false; // 시간 흐르기 시작
     }
 
     /*public void GameExit() // 종료하기 버튼 - 없앰
