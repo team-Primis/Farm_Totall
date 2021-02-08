@@ -7,6 +7,8 @@ public class SUIItem : MonoBehaviour
 {
     public Item item;
     public Image spriteImage;
+    public Text countText;
+
 
     //슬롯의 내용(아이템 객체) + 눈에 보이는 부분(이미지) 변경
     public void updateItem(Item item)
@@ -17,11 +19,23 @@ public class SUIItem : MonoBehaviour
         if (this.item == null)
         {
             spriteImage.color = Color.clear;
+            countText.color = Color.clear;
             return;
         }
         //아이템이 null 이 아닐 시 : 눈에 보이는 모습을 해당 아이콘 모양으로 바꿔줌
         spriteImage.sprite = item.icon;
         spriteImage.color = Color.white;
+        if (this.item.category == Item.Category.item)
+        {
+            countText.text = item.count.ToString();
+            countText.color = Color.white;
+   
+        }
+        else
+        {
+            countText.color = Color.clear;
+        }
+
 
     }
 }

@@ -96,6 +96,7 @@ MonoBehaviour:
     count: 0
     category: 0
   spriteImage: {fileID: 1221566962643206411}
+  countText: {fileID: 6153645432921767139}
 --- !u!1 &4689410817250969786
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,7 @@ public class SellingUI : MonoBehaviour
         //아이템이 바뀔때(추가, 삭제)만 인벤토리에서 보여주는 내용 갱신
         if(isItemChanged && gameObject.activeSelf)
         {
-           // UpdateAllItem();
+            UpdateAllItem();
             isItemChanged = false;
         }
         
@@ -44,14 +44,13 @@ public class SellingUI : MonoBehaviour
         // i번째의 itemSlotList의 item을 i번째의 inventory.characteritems의 item을 넣고 싶어!
 
 
-        //아이템 객체를 inven에서 가져옴
-        Item item = inven.characterItems[0];
-        if (item.Ename == "") Debug.Log("이름 없음");
-        Debug.Log(item.Ename);
-        // itemSlotList 각각을 갱신함
-       foreach(SUIItem itemUI in itemSlotList)
+      
+
+       for(int i = 0; i < 14; i++)
         {
-            itemUI.updateItem(item);
+            Item item = inven.GetItem(i);
+            itemSlotList[i].updateItem(item);
+
         }
     }
 

@@ -219,6 +219,18 @@ public class inventory : MonoBehaviour
         }
     }
 
+    public Item GetItem(int index)
+    {
+        if (index <= characterItems.Count - 1)
+        {
+            return characterItems[index];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
     //아이템 사용 : 아이템일 경우 하나 사라짐
     public void UseItem(Item item)
     {
