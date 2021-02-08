@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement; // 씬 이동
 
 public class TitleManager : MonoBehaviour
 {
-    public Image NewBefore; // 기존에 존제하는 이미지
-    public Sprite NewAfter; // 바뀌어질 이미지
-    public Image ContiBefore;
-    public Sprite ContiAfter;
+    public Image NewBtImg; // 새 게임 버튼의 이미지
+    public Sprite NewBefore; // original
+    public Sprite NewAfter; // 마우스 닿을 때
+
+    public Image ContiBtImg; // 이어하기 버튼의 이미지
+    public Sprite ContiBefore; // original
+    public Sprite ContiAfter; // 마우스 닿을 때
 
     public GameObject Choice;
     public GameObject WarningTxt;
@@ -22,17 +25,29 @@ public class TitleManager : MonoBehaviour
     void Update()
     {   }
 
+    public void NewEnter()
+    {   NewBtImg.sprite = NewAfter;   } // 마우스 들어오면
+
+    public void NewExit()
+    {   NewBtImg.sprite = NewBefore;   } // 마우스 나가면
+
+    public void ContiEnter()
+    {   ContiBtImg.sprite = ContiAfter;   } // 마우스 들어오면
+
+    public void ContiExit()
+    {   ContiBtImg.sprite = ContiBefore;   } // 마우스 나가면
+
     public void OnClickNewGame()
     {
         Debug.Log("새 게임");
-        NewBefore.sprite = NewAfter; // change button image - 마우스 닿는 동안만으로 수정할 것
+        //NewBtImg.sprite = NewAfter; // change button image - 마우스 닿을 때만으로 수정
         SceneManager.LoadScene("OutSide");
     }
 
     public void OnClickContinue()
     {
         Debug.Log("이어하기");
-        ContiBefore.sprite = ContiAfter; // change button image - 마찬가지
+        //ContiBtImg.sprite = ContiAfter; // change button image - 마우스 닿을 때만으로 수정
         Choice.SetActive(true); // 파일 선택 창 띄우기
     }
 
