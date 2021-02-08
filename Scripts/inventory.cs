@@ -38,7 +38,6 @@ public class inventory : MonoBehaviour
        
 
         putInventory(2);
-        // putInventory(3);
         putInventory(100);
         putInventory(101);
 
@@ -118,7 +117,6 @@ public class inventory : MonoBehaviour
             Debug.Log("해당 item id가 데이터베이스에 없습니다.");
             return;
         }
-        Debug.Log("Item " + itemToAdd.Kname + "의 갯수는 " + itemToAdd.count + "입니다.");
 
         //있을 경우
         //캐릭터 인벤에 아이템 추가, 외부 인벤에 그림 바꿈(빈 객체가 있는 칸을 해당 객체의 그림으로 바꿈)
@@ -133,13 +131,13 @@ public class inventory : MonoBehaviour
             inventoryUI.AddNewItem(itemToAdd);
 
 
-            Debug.Log("Added item : " + itemToAdd.Kname);
+           // Debug.Log("아이템 " + itemToAdd.Kname+"을 "+itemToAdd.count+"개 추가합니다.");
         }
         else
         {
             itemToAdd.count += plusNum;
             inventoryUI.UpdateItemNumUI(itemToAdd);
-            Debug.Log("Item " + itemToAdd.Ename + "count became " + itemToAdd.count);
+         //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
         }
 
     }
@@ -165,20 +163,18 @@ public class inventory : MonoBehaviour
             characterItems.Add(itemToAdd);
             inventoryUI.AddNewItem(itemToAdd);
 
-            Debug.Log("Added item : " + itemToAdd.Kname);
+            // Debug.Log("아이템 " + itemToAdd.Kname+"을 "+itemToAdd.count+"개 추가합니다.");
         }
         else
         {
             itemToAdd.count += plusNum;
             inventoryUI.UpdateItemNumUI(itemToAdd);
-            Debug.Log("Item " + itemToAdd.Ename + "count became " + itemToAdd.count);
+            //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
         }
 
     }
 
-
-
-
+    
     public Item CheckForItem(int id)
     {
         return characterItems.Find(item => item.id == id);
@@ -211,7 +207,7 @@ public class inventory : MonoBehaviour
             if (ItemToRemove.count == 1)
             {
                 characterItems.Remove(ItemToRemove);
-                Debug.Log("Item removed : " + ItemToRemove.Kname);
+                //Debug.Log("아이템 " + ItemToRemove.Kname+"을 인벤토리에서 아예 제거합니다.");
                 inventoryUI.RemoveItem(ItemToRemove);
 
             }
@@ -219,7 +215,7 @@ public class inventory : MonoBehaviour
             {
                 ItemToRemove.count--;
                 inventoryUI.UpdateItemNumUI(ItemToRemove);
-                Debug.Log("Item 하나 제거. 현재 갯수 : " + ItemToRemove.count);
+                //Debug.Log("Item 하나를 제거합니다. 현재 남은 갯수 : " + ItemToRemove.count+"개");
             }
 
         }
@@ -232,7 +228,7 @@ public class inventory : MonoBehaviour
     //아이템 사용 : 아이템일 경우 하나 사라짐
     public void UseItem(Item item)
     {
-        if (item.Ename != null)
+        if (item != null && item.Ename != "")
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
@@ -245,7 +241,7 @@ public class inventory : MonoBehaviour
     public void UseItem(string name)
     {
         Item item = db.GetItem(name);
-        if (item.Ename != null)
+        if (item != null && item.Ename != "")
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
@@ -256,7 +252,7 @@ public class inventory : MonoBehaviour
     public void UseItem(int id)
     {
         Item item = db.GetItem(id);
-        if (item.Ename != null)
+        if (item != null && item.Ename != "")
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~

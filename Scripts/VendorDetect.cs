@@ -10,9 +10,11 @@ public class VendorDetect : MonoBehaviour
 
     public GameObject vendingUI;
     public GameObject containerUI;
+    public GameObject sellingUI;
 
     public bool isTriggeredVending = false;
     public bool isTriggerContainer = false;
+    public bool isTriggerSelling = false;
     GameManager GMScript;
 
 
@@ -30,7 +32,6 @@ public class VendorDetect : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("spacebar touched");
                 vendingUI.gameObject.SetActive(!vendingUI.gameObject.activeSelf); //여기에 UI 뜨는거 있음 (자판기)
             }
         }
@@ -38,8 +39,14 @@ public class VendorDetect : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("spacebar touched");
                 containerUI.gameObject.SetActive(!containerUI.gameObject.activeSelf);//여기에 UI 뜨는거 있음 (보관상자)
+            }
+        }
+        if (isTriggerSelling)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                sellingUI.gameObject.SetActive(!sellingUI.gameObject.activeSelf);
             }
         }
        
@@ -60,6 +67,13 @@ public class VendorDetect : MonoBehaviour
             isTriggerContainer = true;
             GMScript.isTimerStoped = true;
             
+        }
+
+        if (coll.gameObject.CompareTag("sellContainer"))
+        {
+            isTriggerSelling = true;
+            GMScript.isTimerStoped = true;
+
         }
         
 
@@ -82,8 +96,15 @@ public class VendorDetect : MonoBehaviour
             GMScript.isTimerStoped = false;
            
         }
+        if (coll.gameObject.CompareTag("sellContainer"))
+        {
+            isTriggerSelling = false;
+            sellingUI.gameObject.SetActive(false);
+            GMScript.isTimerStoped = false;
 
-        
+        }
+
+
     }
 
     
