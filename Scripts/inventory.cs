@@ -18,6 +18,8 @@ public class inventory : MonoBehaviour
     public bool isUIItemClickChanged = false;
     public Transform emptrans;
 
+    public SellingUI sellingUI;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -129,6 +131,7 @@ public class inventory : MonoBehaviour
             inventoryUI.UpdateItemNumUI(itemToAdd);
          //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
         }
+        sellingUI.isItemChanged = true;
 
     }
 
@@ -161,6 +164,7 @@ public class inventory : MonoBehaviour
             inventoryUI.UpdateItemNumUI(itemToAdd);
             //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
         }
+        sellingUI.isItemChanged = true;
 
     }
 
@@ -183,6 +187,7 @@ public class inventory : MonoBehaviour
             characterItems.Remove(Item);
             //Debug.Log("아이템 " + Item.Kname + "을 인벤토리에서 제거합니다.");
             inventoryUI.RemoveItem(Item);
+            sellingUI.isItemChanged = true;
         }
         else
         {
@@ -239,10 +244,12 @@ public class inventory : MonoBehaviour
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
+            sellingUI.isItemChanged = true;
         }
         
     }
 
+    
    
     // 0개 이상이면 할거
     public void UseItem(string name)
@@ -253,6 +260,8 @@ public class inventory : MonoBehaviour
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
+            sellingUI.isItemChanged = true;
+
         }
     }
 
@@ -264,6 +273,9 @@ public class inventory : MonoBehaviour
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
+            sellingUI.isItemChanged = true;
+
         }
     }
+    
 }

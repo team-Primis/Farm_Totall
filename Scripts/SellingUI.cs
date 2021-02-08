@@ -39,6 +39,7 @@ public class SellingUI : MonoBehaviour
         
     }
 
+
     //모든 내용물을 인벤토리와 동일하게 바꿈
     public void UpdateAllItem()
     {
