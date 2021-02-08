@@ -40,7 +40,7 @@ public class MenuControl : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.F9)) // 임시 - 타이틀 버튼으로 옮길 예정
         {
 	        // 불러오기
-	        theSaveNLoad.CallLoad();
+	        theSaveNLoad.CallLoadF1();
         }
 
         if(menuWindow.activeSelf)
@@ -64,6 +64,7 @@ public class MenuControl : MonoBehaviour
     {
         whereSave.SetActive(true); // 저장할 파일 선택할 UI
         // 저장 완료 후 whereSave를 다시 false로 바꾼 후 menuWindow false로 해야 함
+        // 아래에 구현 중
     }
 
     public void GoTitle() // 타이틀로

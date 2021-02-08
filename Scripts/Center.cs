@@ -56,6 +56,7 @@ public class Center : MonoBehaviour
     // UI Buttons
     public void OnClickYesButton()
     {
+        GMScript.chickenCount += 1; // 닭 번호
         Debug.Log("닭 구매 완료");
         thePlayerCtr.money -= 500; // 돈 500원 감소
         howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";

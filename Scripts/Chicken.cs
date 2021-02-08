@@ -26,6 +26,8 @@ public class Chicken : MonoBehaviour
 
     Animator anim; // Animator 불러오기
 
+    public int theCount; // 닭 저장 및 로드를 위해 추가한 부분
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,8 @@ public class Chicken : MonoBehaviour
         anim = GetComponent<Animator>(); // anim 변수 선언
 
         checkEgg = true; // 초기 설정
+
+        theCount = GMScript.chickenCount;
     }
 
     // Update is called once per frame

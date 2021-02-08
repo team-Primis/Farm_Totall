@@ -28,6 +28,7 @@ public class GameManager : MonoBehaviour
     // from playercontoller (center)
     public GameObject BuyChicken; // 닭구매창
     public bool isBuyOpen = false; // 닭구매창이 켜져있는가
+    public int chickenCount = 0; // 닭 저장 및 로드를 위해 추가한 부분
 
     // from menucontrol
     public bool isMenuOpen; // 일시정지 메뉴 관련

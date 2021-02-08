@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement; // scene 전환
 
 public class SaveNLoad : MonoBehaviour
 {
+    // 현재 GameManager에 붙어있음
+    // 근데 타이틀에도 있어야 함 - titlemanager에도 붙임 or gamemanager을 파괴X
 
     // 직렬화 - 세이브와 로딩에 있어서 필수적인 속성! (컴터가 읽고 쓰기 쉽게)
     [System.Serializable] // class 만들 때 직렬화 필요
@@ -14,49 +16,60 @@ public class SaveNLoad : MonoBehaviour
     {
         // 저장할 것 ~
         // 플레이어 위치 (좌표, 씬) / 닭 개수 (위치는 랜덤? 저장?) / 시간 & Day
-        // 인벤, 상자, 들고 있는 것 / 땅 상태 심어진 것 농작물 상태, 달걀
+        // 인벤, 돈, 상자, 들고 있는 것 / 땅 상태 심어진 것 농작물 상태, 달걀
         // 달걀을 하 랜덤 위치에 스폰해야 하는데...
         // 닭의 경우 행복도, 플레이어의 경우 체력?
         // 농작물 상태를 1, 2, 3으로 해야 할 것 같악 애니메이션으로 넣으면 너무 애매 ㅜ
 
+        // 포함 완료
+        // 플레이어 좌표, 날짜 및 시간(타이머), 스테미나, 보유금액
+
         // Vector3 등의 class는 직렬화가 안 됨 (자료형만 직렬화 가능)
-        public float playerX;
-        public float playerY;
-        public float playerZ;
+        
+        public float playerX; // 플레이어 좌표 (X)
+        public float playerY; // 플레이어 좌표 (Y)
 
-        public int playerLv;
-        public int playerHP;
-        public int playerMP;
+        public int day; // 날짜(DAY)
+        public float timer; // 시간(타이머)
+        public int stamina; // 스테미나
 
-        public int playerCurrentHP;
-        public int playerCurrnetMP;
-        public int playerCurrentEXP;
+        public int money; // 보유금액
 
-        public int playerATK;
-        public int playerDEF;
-        public int playerHPR;
-        public int playerMPR;
+        //public int playerLv;
+        //public int playerHP;
+        //public int playerMP;
 
-        public int added_atk;
-        public int added_def;
-        public int added_hpr;
-        public int added_mpr;
+        //public int playerCurrentHP;
+        //public int playerCurrnetMP;
+        //public int playerCurrentEXP;
 
-        public List<int> playerItemInventory; // 아이템의 ID 값 넣으면 됨
-        public List<int> playerItemInventoryCount; // 몇 개 소지했는지
-        public List<int> playerEquipItem; // 아이템 ID
+        //public int playerATK;
+        //public int playerDEF;
+        //public int playerHPR;
+        //public int playerMPR;
 
-        public string mapName;
-        public string sceneName;
+        //public int added_atk;
+        //public int added_def;
+        //public int added_hpr;
+        //public int added_mpr;
+
+        //public List<int> playerItemInventory; // 아이템의 ID 값 넣으면 됨
+        //public List<int> playerItemInventoryCount; // 몇 개 소지했는지
+        //public List<int> playerEquipItem; // 아이템 ID
+
+        //public string mapName;
+        //public string sceneName;
 
         // Database에 선언한 리스트들
-        public List<bool> swList;
-        public List<string> swNameList;
-        public List<string> varNameList;
-        public List<float> varNumberList;
+        //public List<bool> swList;
+        //public List<string> swNameList;
+        //public List<string> varNameList;
+        //public List<float> varNumberList;
     }
 
-    private PlayerMove thePlayer;
+    private PlayerMove thePlayerMove; // 플레이어 좌표
+    private GameManager theGameManager; // 날짜 및 시간, 스테미나
+    private PlayerControll thePlayerControll; // 보유금액
     //private PlayerStat thePlayerStat;
     //private DatabaseManager theDatabase;
     //private Inventory theInven;
@@ -64,19 +77,26 @@ public class SaveNLoad : MonoBehaviour
 
     public Data data; // Data 이용할 것임
 
-    private Vector3 vector; // player 위치 불러올 곳
+    private Vector2 vector; // player 위치 불러올 곳
 
-    public void CallSave()
+    public void CallSaveF1()
     {
-        thePlayer = FindObjectOfType<PlayerMove>();
+        thePlayerMove = FindObjectOfType<PlayerMove>();
+        theGameManager = FindObjectOfType<GameManager>();
+        thePlayerControll = FindObjectOfType<PlayerControll>();
         //thePlayerStat = FindObjectOfType<PlayerStat>();
         //theDatabase = FindObjectOfType<DatabaseManager>();
         //theInven = FindObjectOfType<Inventory>();
         //theEquip = FindObjectOfType<Equipment>();
 
-        data.playerX = thePlayer.transform.position.x;
-        data.playerY = thePlayer.transform.position.y;
-        data.playerZ = thePlayer.transform.position.z;
+        data.playerX = thePlayerMove.transform.position.x;
+        data.playerY = thePlayerMove.transform.position.y;
+
+        data.day = theGameManager.day;
+        data.timer = theGameManager.timer;
+        data.stamina = theGameManager.stamina;
+
+        data.money = thePlayerControll.money;
 
         //data.playerLv = thePlayerStat.character_Lv;
         //data.playerHP = thePlayerStat.hp;
@@ -93,8 +113,8 @@ public class SaveNLoad : MonoBehaviour
         //data.added_hpr = theEquip.added_hpr;
         //data.added_mpr = theEquip.added_mpr;
 
-        //data.mapName = thePlayer.currentMapName;
-        //data.sceneName = thePlayer.currentSceneName;
+        //data.mapName = thePlayerMove.currentMapName;
+        //data.sceneName = thePlayerMove.currentSceneName;
 
         Debug.Log("기초 저장 성공");
 
@@ -131,7 +151,7 @@ public class SaveNLoad : MonoBehaviour
 
         // 물리적인 파일로 저장
         BinaryFormatter bf = new BinaryFormatter(); // 2진 파일로 변환
-        FileStream file = File.Create(Application.dataPath + "/SaveFile.dat");
+        FileStream file = File.Create(Application.dataPath + "/SaveFile1.dat");
         // FileStream : 파일 입출력기 - 이 프로젝트가 설치된 폴더에 (= Asset 폴더)
         // 경로 + 파일 이름 (확장자는 아무렇게나 써도 됨
         bf.Serialize(file, data); // data class에 담긴 정보를 file 파일에 기록하고 직렬화
@@ -140,17 +160,19 @@ public class SaveNLoad : MonoBehaviour
         Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
     }
 
-    public void CallLoad()
+    public void CallLoadF1()
     {
         // Save와 순서 반대로
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.dataPath + "/SaveFile.dat", FileMode.Open);
+        FileStream file = File.Open(Application.dataPath + "/SaveFile1.dat", FileMode.Open);
         if(file != null && file.Length > 0) // 파일이 있고 내용도 있을 때
         {
             data = (Data)bf.Deserialize(file); // 직렬화된 것을 Data 형식으로 바꿈
 
-            thePlayer = FindObjectOfType<PlayerMove>();
+            thePlayerMove = FindObjectOfType<PlayerMove>();
+            theGameManager = FindObjectOfType<GameManager>();
+            thePlayerControll = FindObjectOfType<PlayerControll>();
             //thePlayerStat = FindObjectOfType<PlayerStat>();
             //theDatabase = FindObjectOfType<DatabaseManager>();
             //theInven = FindObjectOfType<Inventory>();
@@ -159,8 +181,14 @@ public class SaveNLoad : MonoBehaviour
             //thePlayer.currentMapName = data.mapName;
             //thePlayer.currentSceneName = data.sceneName;
 
-            vector.Set(data.playerX, data.playerY, data.playerZ);
-            thePlayer.transform.position = vector;
+            vector.Set(data.playerX, data.playerY);
+            thePlayerMove.transform.position = vector;
+
+            theGameManager.day = data.day;
+            theGameManager.timer = data.timer;
+            theGameManager.stamina = data.stamina;
+
+            thePlayerControll.money = data.money;
 
             //thePlayerStat.character_Lv = data.playerLv;
             //thePlayerStat.hp = data.playerHP;
@@ -224,13 +252,13 @@ public class SaveNLoad : MonoBehaviour
             //theGM.LoadStart();
 
             // scene 이동
-            SceneManager.LoadScene(data.sceneName);
+            //SceneManager.LoadScene(data.sceneName);
             // 다른 씬의 것은 참조 불가, 씬 이동 후의 명령어는 실행 안 됨
             // → 다른 스크립트 이용해서 카메라 설정 ()
         }
         else
         {
-            Debug.Log("저장된 세이브 파일이 없습니다");
+            Debug.Log("저장된 세이브 파일이 없습니다"); // 씁 이거 왜 안 되냐
         }
 
         file.Close();
