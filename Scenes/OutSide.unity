@@ -76614,8 +76614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c5d1a83247bade42aa1c365e7225987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSlotList: []
-  isEnrolled: 0
+  isItemChanged: 1
 --- !u!114 &1916140664
 MonoBehaviour:
   m_ObjectHideFlags: 0
