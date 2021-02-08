@@ -26,17 +26,7 @@ public class inventory : MonoBehaviour
         putInBtn.onClick.AddListener(PutInContainer);
         //잠시 에러 없애기 위함..
         //equipedItem = null;
-        putInventory(1); //1번 id 1개
-        putInventory(1);
-        putInventory(1);
-        putInventory(4);
-
-        RemoveItem(4); // item 종류에 상관없이 없애버리기
-        UseItem(4); // 소모품 없애기
-
-        
-       
-
+        putInventory(1,3); 
         putInventory(2);
         putInventory(100);
         putInventory(101);
@@ -188,14 +178,16 @@ public class inventory : MonoBehaviour
     public void RemoveAll(int id)
     {
         Item Item = CheckForItem(id);
-        if(Item != null)
+        if (Item != null)
         {
             characterItems.Remove(Item);
-            Debug.Log("Item removed : " + Item.Kname);
+            //Debug.Log("아이템 " + Item.Kname + "을 인벤토리에서 제거합니다.");
             inventoryUI.RemoveItem(Item);
         }
-        Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
-
+        else
+        {
+            Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
+        }
     }
 
     public void RemoveItem(int id)
@@ -208,6 +200,8 @@ public class inventory : MonoBehaviour
             {
                 characterItems.Remove(ItemToRemove);
                 //Debug.Log("아이템 " + ItemToRemove.Kname+"을 인벤토리에서 아예 제거합니다.");
+                equipedItem = null;
+                inventoryUI.MakeSlotClear();
                 inventoryUI.RemoveItem(ItemToRemove);
 
             }
@@ -228,12 +222,13 @@ public class inventory : MonoBehaviour
     //아이템 사용 : 아이템일 경우 하나 사라짐
     public void UseItem(Item item)
     {
-        if (item != null && item.Ename != "")
+        if (item != null&&item.Ename!= "")
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
         }
+        
     }
 
    

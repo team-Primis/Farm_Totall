@@ -81,14 +81,14 @@ public class ContainerDb : MonoBehaviour
             item.count = num;
             container.Add(item);
             conUI.AddNewItem(item);
-            Debug.Log(id + "라는 id를 가진 아이템을 보관상자에 추가합니다. ");
+            //Debug.Log(id + "라는 id를 가진 아이템을 보관상자에 추가합니다. ");
         }
         //아이템이 이미 보관상자에 존재할경우
         else
         {
             item.count += num;
             conUI.UpdateUI(item);
-            Debug.Log(id + "라는 id를 가진 아이템을 " + num + "개 더 추가합니다.");
+            //Debug.Log(id + "라는 id를 가진 아이템을 " + num + "개 더 추가합니다.");
         }
     }
 
@@ -107,14 +107,14 @@ public class ContainerDb : MonoBehaviour
             item.count = num;
             container.Add(item);
             conUI.AddNewItem(item);
-            Debug.Log(name + "이라는 이름을 가진 아이템을 보관상자에 추가합니다. ");
+            //Debug.Log(name + "이라는 이름을 가진 아이템을 보관상자에 추가합니다. ");
         }
         //아이템이 이미 보관상자에 존재할경우
         else
         {
             item.count += num;
             conUI.UpdateUI(item);
-            Debug.Log(name + "이라는 아이템을 " + num + "개 더 추가합니다.");
+            //Debug.Log(name + "이라는 아이템을 " + num + "개 더 추가합니다.");
         }
     }
 

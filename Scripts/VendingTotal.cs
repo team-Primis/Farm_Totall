@@ -66,7 +66,7 @@ public class VendingTotal : MonoBehaviour
         {
             playerScript.money -= totalMoney;
             //인벤에 아이템 추가
-            Debug.Log(totalMoney + "원을 사용하여 " + seedName + " " + buyNum + "개를 구매합니다. 잔액 : " + playerScript.money);
+            //Debug.Log(totalMoney + "원을 사용하여 " + seedName + " " + buyNum + "개를 구매합니다. 잔액 : " + playerScript.money);
             leftMoneyText.text = playerScript.money.ToString();
             inven.putInventory(seedName, buyNum);
         }

@@ -34,10 +34,10 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
         Item ClickedItem = db.GetItem(itemTag);
         if (ClickedItem == null)
         {
-            Debug.Log("해당 이름의 아이템은 db에 존재하지 않습니다.");
+            //Debug.Log("From 자판기 : 해당 이름의 아이템은 db에 존재하지 않습니다.");
         }
         else {
-            Debug.Log("item의 태그는 " + itemTag + "입니다.");
+            //Debug.Log("item의 태그는 " + itemTag + "입니다.");
             vendingScript.seedName = itemTag;
             vendingScript.seedNameText.text = ClickedItem.Kname;
 
@@ -51,7 +51,7 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
             {
                 if(keyValue.Key == "cost")
                 {
-                    Debug.Log(itemTag + "의 가격은 " + keyValue.Value + "입니다.");
+                    //Debug.Log(itemTag + "의 가격은 " + keyValue.Value + "입니다.");
                     int itemPrice = keyValue.Value;
 
                     vendingScript.seedMoney = itemPrice;

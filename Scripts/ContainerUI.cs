@@ -65,7 +65,7 @@ public class ContainerUI : MonoBehaviour
         if (item != null && item.Ename != "")
         {
             int slot = container.FindIndex(i => i.item == null);
-            Debug.Log(slot + "번째 슬롯이 비었으므로 아이템 " + item.Kname + "을 추가합니다"); //현재 인덱스 확인 용
+            //Debug.Log(slot + "번째 슬롯이 비었으므로 아이템 " + item.Kname + "을 추가합니다"); //현재 인덱스 확인 용
             //빈 공간이 있으면
             if (slot != -1)
             {
