@@ -9,7 +9,8 @@ public class SellingUI : MonoBehaviour
     private bool isEnrolled;
     public bool isItemChanged = true; //아이템이 추가, 삭제될 경우
 
-
+    public List<Item> sellingList = new List<Item>();
+ 
     void Start()
     {
         inven= GameObject.Find("Inventory").GetComponent<inventory>();
