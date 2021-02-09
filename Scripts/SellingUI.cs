@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SellingUI : MonoBehaviour
 {
@@ -13,11 +14,26 @@ public class SellingUI : MonoBehaviour
     public List<Item> sellingList = new List<Item>();
     public int totalMoney=0;
     public TextMeshProUGUI totalMoneyText;
+
+    public Button sellBtn;
+    private PlayerControll playerScript;
  
     void Start()
     {
         inven= GameObject.Find("Inventory").GetComponent<inventory>();
         totalMoneyTextUpdate();
+        sellBtn.onClick.AddListener(sellItems);
+        playerScript = GameObject.Find("Player").GetComponent<PlayerControll>();
+    }
+
+    void sellItems()
+    {
+        //판매 버튼을 누르면 플레이어 돈이 추가됨.
+        playerScript.playerMoneyChange(totalMoney, true);
+
+        
+        resetMoney();
+
     }
 
     //inventory의 characterItems에 아이템 보관이 되어 있음
@@ -31,13 +47,18 @@ public class SellingUI : MonoBehaviour
         if (isPlus)
         {
             totalMoney += money;
-            totalMoneyTextUpdate();
         }
         else
         {
             totalMoney -= money;
-            totalMoneyTextUpdate();
         }
+        totalMoneyTextUpdate();
+    }
+
+    public void resetMoney()
+    {
+        totalMoney = 0;
+        totalMoneyTextUpdate();
     }
 
 

@@ -14,25 +14,37 @@ public class PlayerControll : MonoBehaviour
     public int laborCount = 5;
     GameManager GMScript;
     private inventory inven;
+    
 
     public string item; //현재 손에 든 아이템
+
+    private CoinText coinTextScript;
 
     // from playercontoller
     public int numGE = 0; // 보유 중인 좋은 알의 개수
     public int numNE = 0; // 보유 중인 보통 알의 개수
+
 
     // Start is called before the first frame update
     void Start()
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
+        coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-       
+    //플레이어의 돈의 수량을 바꾸고, 그에 맞게 UI를 업데이트
+    public void playerMoneyChange(int newMoney, bool isAdded) {
+        if (isAdded)
+        {
+            money += newMoney;
+        }
+        else
+        {
+            money -= newMoney;
+        }
+        coinTextScript.changeText();
+
     }
 
     // from playercontoller
