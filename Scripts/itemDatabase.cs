@@ -64,8 +64,13 @@ public class itemDatabase : MonoBehaviour
                 {"cost",20 }
             }), //나중에 상점 추가
 
-            new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool),
-            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있는 물뿌리개 이다.",Item.Category.tool),
+            new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool,new Dictionary<string, int>{
+                {"sellingPrice",10 }
+            }),
+            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있는 물뿌리개 이다.",Item.Category.tool, 
+            new Dictionary<string, int>{
+                {"sellingPrice",10 }
+            }),
 
             new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,
             new Dictionary<string, int>{
