@@ -24,8 +24,8 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         //해당 칸에 아이템이 존재할때
         if (this.item != null && this.item.Ename != "")
         {
-            int itemMoney; //해당 아이템의 가격
-            itemMoney = this.item.stats["sellingPrice"];
+            int itemMoney; //해당 아이템의 가격 = 1개 판매 가격 * 갯수
+            itemMoney = this.item.stats["sellingPrice"] * this.item.count;
 
             //한번 클릭되면 구매 리스트에 들어감 + 색깔 민트
             if (!isAdded)
@@ -55,7 +55,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
     {
         if (isAdded)
         {
-            inven.RemoveItem(this.item.id);
+            inven.RemoveAll(this.item.id);
             //구매리스트에서 아이템 제거
             sellingUI.sellingList.Remove(this.item);
             //겉에 보이는 아이템 모습 제거 +item 객체 제거
