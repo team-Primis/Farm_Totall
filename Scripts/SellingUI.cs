@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class SellingUI : MonoBehaviour
 {
@@ -10,13 +11,35 @@ public class SellingUI : MonoBehaviour
     public bool isItemChanged = true; //아이템이 추가, 삭제될 경우
 
     public List<Item> sellingList = new List<Item>();
+    public int totalMoney=0;
+    public TextMeshProUGUI totalMoneyText;
  
     void Start()
     {
         inven= GameObject.Find("Inventory").GetComponent<inventory>();
+        totalMoneyTextUpdate();
     }
 
     //inventory의 characterItems에 아이템 보관이 되어 있음
+    public void totalMoneyTextUpdate()
+    {
+        totalMoneyText.text = totalMoney.ToString();
+    }
+
+    public void totalMoneyChange(int money, bool isPlus)
+    {
+        if (isPlus)
+        {
+            totalMoney += money;
+            totalMoneyTextUpdate();
+        }
+        else
+        {
+            totalMoney -= money;
+            totalMoneyTextUpdate();
+        }
+    }
+
 
     void Update()
     {

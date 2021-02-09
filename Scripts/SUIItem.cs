@@ -24,6 +24,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
             //한번 클릭되면 구매 리스트에 들어감 + 색깔 민트
             if (!isAdded)
             {
+                sellingUI.totalMoneyChange(100, true);
                 sellingUI.sellingList.Add(this.item);
                 isAdded = true;
                 spriteBackground.color = new Color32(0, 255, 142, 172);
@@ -31,6 +32,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
             //두번 클릭되면 구매 리스트에서 삭제 + 색깔 원상복귀
             else
             {
+                sellingUI.totalMoneyChange(100, false);
                 sellingUI.sellingList.Remove(this.item);
                 isAdded = false;
                 spriteBackground.color = new Color32(0, 0, 0, 100);
