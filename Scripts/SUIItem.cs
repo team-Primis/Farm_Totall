@@ -13,8 +13,11 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
     public bool isAdded = false;
     public Image spriteBackground;
 
+    private inventory inven;
+
     void Start() {
         updateItem(null);
+        inven = GameObject.Find("Inventory").GetComponent<inventory>();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -43,6 +46,22 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
 
 
             }
+        }
+    }
+
+    
+    //아이템 선택된 것 -> 구매버튼 누르면 삭제되기
+    public void ResetItemSlot()
+    {
+        if (isAdded)
+        {
+            inven.RemoveItem(this.item.id);
+            //구매리스트에서 아이템 제거
+            sellingUI.sellingList.Remove(this.item);
+            //겉에 보이는 아이템 모습 제거 +item 객체 제거
+            updateItem(null);
+            isAdded = false;
+            spriteBackground.color = new Color32(0, 0, 0, 100);
         }
     }
 

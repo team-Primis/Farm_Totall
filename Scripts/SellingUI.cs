@@ -31,8 +31,18 @@ public class SellingUI : MonoBehaviour
         //판매 버튼을 누르면 플레이어 돈이 추가됨.
         playerScript.playerMoneyChange(totalMoney, true);
 
-        
+        //판매창 리셋
+        //돈 다시 0원으로
         resetMoney();
+        //아이템들을 구매 리스트에서 제거
+        foreach(SUIItem sellingItems in itemSlotList)
+        {
+            sellingItems.ResetItemSlot();
+        }
+        //판매창에 바뀐 것 적용
+        UpdateAllItem();
+
+
 
     }
 
@@ -87,10 +97,6 @@ public class SellingUI : MonoBehaviour
     //모든 내용물을 인벤토리와 동일하게 바꿈
     public void UpdateAllItem()
     {
-        // i번째의 itemSlotList의 item을 i번째의 inventory.characteritems의 item을 넣고 싶어!
-
-
-      
 
        for(int i = 0; i < 14; i++)
         {
@@ -100,6 +106,5 @@ public class SellingUI : MonoBehaviour
         }
     }
 
-    
-
+   
 }
