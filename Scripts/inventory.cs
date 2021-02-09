@@ -184,6 +184,7 @@ public class inventory : MonoBehaviour
         Item Item = CheckForItem(id);
         if (Item != null)
         {
+            Item.count = 0;
             characterItems.Remove(Item);
             //Debug.Log("아이템 " + Item.Kname + "을 인벤토리에서 제거합니다.");
             inventoryUI.RemoveItem(Item);

@@ -21,6 +21,7 @@ public class VendingTotal : MonoBehaviour
     public Button plusBtn;
     public Button minusBtn;
     public Button buyBtn;
+    private CoinText coinTextScript;
 
     public GameObject rightSide; // 구매창이 있는 왼쪽부분
 
@@ -32,7 +33,7 @@ public class VendingTotal : MonoBehaviour
         plusBtn.onClick.AddListener(AddBuyNum);
         minusBtn.onClick.AddListener(SubBuyNum);
         buyBtn.onClick.AddListener(buySeed);
-    
+        coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
 
       
     }
@@ -62,12 +63,13 @@ public class VendingTotal : MonoBehaviour
 
     void buySeed()
     {
+        //잔액이 충분히 있다면, 잔액 감소해서 물품 구매, 감소한 돈 반영
         if(playerScript.money >= totalMoney)
         {
             playerScript.money -= totalMoney;
+            coinTextScript.changeText(); 
             //인벤에 아이템 추가
             //Debug.Log(totalMoney + "원을 사용하여 " + seedName + " " + buyNum + "개를 구매합니다. 잔액 : " + playerScript.money);
-            leftMoneyText.text = playerScript.money.ToString();
             inven.putInventory(seedName, buyNum);
         }
         else

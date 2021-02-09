@@ -55,6 +55,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
     {
         if (isAdded)
         {
+            
             inven.RemoveAll(this.item.id);
             //구매리스트에서 아이템 제거
             sellingUI.sellingList.Remove(this.item);
