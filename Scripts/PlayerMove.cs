@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // 씬 관련 (저장 때문에)
 
 public class PlayerMove : MonoBehaviour
 {
@@ -36,6 +37,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentMapName = SceneManager.GetActiveScene().name; // 저장 때문에,,,
+
         // from menucontrol - 일시정지 창 떠있으면 플레이어 정지
         if(GMScript.isMenuOpen == false)
         {

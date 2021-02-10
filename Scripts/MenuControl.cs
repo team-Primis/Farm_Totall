@@ -75,7 +75,7 @@ public class MenuControl : MonoBehaviour
     // WhereSave UI의 버튼들
     public void GoFile1()
     {
-        /*theSaveNLoad.CallSave(); // 저장*/
+        theSaveNLoad.CallSaveF1(); // File 1 저장
         Debug.Log("File 1 저장 완료");
         whereSave.SetActive(false);
         menuWindow.SetActive(false); // 메뉴 off
@@ -83,7 +83,7 @@ public class MenuControl : MonoBehaviour
     }
     public void GoFile2()
     {
-        /*theSaveNLoad.CallSave(); // 저장*/
+        /*theSaveNLoad.CallSaveF2(); // 저장*/
         Debug.Log("File 2 저장 완료");
         whereSave.SetActive(false);
         menuWindow.SetActive(false); // 메뉴 off

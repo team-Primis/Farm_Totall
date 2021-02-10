@@ -6,7 +6,7 @@ using UnityEngine.UI; // text 편집
 public class Center : MonoBehaviour
 {
     public GameObject BuyChicken;
-    public SpawnManager spawnManager;
+    public SpawnManager SMScript;
     public GameManager GMScript;
     public GameObject Player;
     public float dis; // distance btw player & center
@@ -17,8 +17,11 @@ public class Center : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
+        // Find -> gameobject 찾기
+        Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
@@ -56,13 +59,19 @@ public class Center : MonoBehaviour
     // UI Buttons
     public void OnClickYesButton()
     {
-        GMScript.chickenCount += 1; // 닭 번호
-        Debug.Log("닭 구매 완료");
-        thePlayerCtr.money -= 500; // 돈 500원 감소
-        howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
-        spawnManager.SpawnChicken(); // spawn chicken
-        BuyChicken.SetActive(false);
-        GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
+        if(thePlayerCtr.money >= 500)
+        {
+            Debug.Log("닭 구매 완료");
+            thePlayerCtr.money -= 500; // 돈 500원 감소
+            howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
+            SMScript.SpawnChicken(); // spawn chicken
+            BuyChicken.SetActive(false);
+            GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
+        }
+        else // 돈 부족
+        {
+            Debug.Log("돈 부족!");
+        }
     }
     public void OnClickNoButton()
     {

@@ -28,15 +28,16 @@ public class GameManager : MonoBehaviour
     // from playercontoller (center)
     public GameObject BuyChicken; // 닭구매창
     public bool isBuyOpen = false; // 닭구매창이 켜져있는가
-    public int chickenCount = 0; // 닭 저장 및 로드를 위해 추가한 부분
 
     // from menucontrol
-    public bool isMenuOpen; // 일시정지 메뉴 관련
+    public bool isMenuOpen = false; // 일시정지 메뉴 관련
 
     // Start is called before the first frame update
     void Start()
     {
         vendorDetectScript = GameObject.Find("Player").GetComponent<VendorDetect>();
+
+        //DontDestroyOnLoad(gameObject); // 타이틀 버튼 함수 연결하느라...
     }
 
     // Update is called once per frame
@@ -45,16 +46,18 @@ public class GameManager : MonoBehaviour
         
         changeStaminaUI(); //스태미나 감소
 
+        DayUI(day); // 로드 때문에 여기로 옮겼음 (성현이가)
+
         //24시간 지나면 하루 지남 + UI 켰을때는 시간 안감
         if (!isTimerStoped)
         {
-            timer += Time.deltaTime;
+            timer += Time.deltaTime*20;
         }
         if (timer >= 60*24) //1시간 * 24 = 1일
         {
             timer = 0;
             day++;
-            DayUI(day);
+            // DayUI(day);
         }
         DateUI(timer); //시간 표시
 

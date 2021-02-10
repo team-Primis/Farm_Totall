@@ -44,7 +44,7 @@ public class Chicken : MonoBehaviour
 
         checkEgg = true; // 초기 설정
 
-        theCount = GMScript.chickenCount;
+        theCount = SMScript.chickenCount;
     }
 
     // Update is called once per frame
@@ -76,8 +76,8 @@ public class Chicken : MonoBehaviour
         anim.SetFloat("MoveY", nextMovey);
 
         // 하루마다 달걀 낳기
-        chickTimer = GMScript.timer;
-        if(chickTimer <= 1){    checkEgg = true;    } // 날 밝으면 초기화
+        chickTimer = GMScript.timer; // 헷갈릴까봐,,, (확인용)
+        /*if(chickTimer <= 1){    checkEgg = true;    } // 날 밝으면 초기화
         if(chickTimer >= 30) // 밤에
         {
             if(checkEgg == true)
@@ -85,16 +85,24 @@ public class Chicken : MonoBehaviour
                 LayEgg();
                 checkEgg = false; // 한 번만
             }
+        } // 테스트용*/
+        if(chickTimer <= 1) // 날 밝으면
+        {
+            checkEgg = true; // true
+        }
+        else if(chickTimer <= 2) // 그 다음에
+        {
+            if(checkEgg == true) // 한 번만
+            {
+                LayEgg(); // 알 낳고
+                checkEgg = false; // false
+            }
         }
 
         // 현재 먹이 보유량 반영 (from inventory)
-        // 문제가 씨앗이 여러 종류인데 어떻게 선택할 것이냐
-        // 1) 씨앗 대신 닭 모이(씨앗모음) - 자판기에서 따로 팔아야 하는가 else?
-        // 2) 또는 씨앗을 선택하면 그 다음에 고르도록 - 고생길...
-        // 3) 닭 먹이를 장착한 후 스페이스바로 닭 누르기
-        // 3번이 베스트지만 케어창 없애야 하고 마우스 클릭을 쓰다듬기로 바꾸는 등
-        // 엄청난 공사가 필요함 그래서 진행 중...
-        // care&choose창은 필요 없어짐!
+        // 닭 먹이를 장착한 후 스페이스바로 닭 누르기
+        // 마우스 클릭 = 쓰다듬기
+        // care&choose 창 삭제함
 
         if(Heart.activeSelf == true){   ChickenStop();  } // 하트 있을 땐 해당 닭 정지
 
@@ -174,9 +182,9 @@ public class Chicken : MonoBehaviour
     // 달걀 낳는 조건 - 하루 후 4 이상 → 고급 / 2 이상 → 보통 / 나머지 → 없음
     void LayEgg()
     {
-        if(happy>=4)
+        if(happy >= 4)
         {   SMScript.SpawnGEgg();   }
-        else if(happy>=2)
+        else if(happy >= 2)
         {   SMScript.SpawnNEgg();   }
         happy = 0;
     }

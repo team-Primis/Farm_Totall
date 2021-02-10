@@ -17,9 +17,13 @@ public class TitleManager : MonoBehaviour
     public GameObject Choice;
     public GameObject WarningTxt;
 
+    public SaveNLoad theSaveNLoad;
+
     // Start is called before the first frame update
     void Start()
-    {   }
+    {   
+        theSaveNLoad = FindObjectOfType<SaveNLoad>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -40,14 +44,12 @@ public class TitleManager : MonoBehaviour
     public void OnClickNewGame()
     {
         Debug.Log("새 게임");
-        //NewBtImg.sprite = NewAfter; // change button image - 마우스 닿을 때만으로 수정
         SceneManager.LoadScene("OutSide");
     }
 
     public void OnClickContinue()
     {
         Debug.Log("이어하기");
-        //ContiBtImg.sprite = ContiAfter; // change button image - 마우스 닿을 때만으로 수정
         Choice.SetActive(true); // 파일 선택 창 띄우기
     }
 
@@ -69,21 +71,11 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickC1()
     {
-        //저장한 파일이 존재한다면
-        Debug.Log("File 1 이어하기");
-        //SceneManager.LoadScene("OutSide");
-        
-        //저장한 파일이 존재하지 않는다면
-        //WarningTxt.SetActive(true); // 몇 초 동안만
+        theSaveNLoad.CallLoadF1();
     }
 
     public void OnClickC2()
     {
-        //저장한 파일이 존재한다면
-        Debug.Log("File 2 이어하기");
-        //SceneManager.LoadScene("OutSide");
-
-        //저장한 파일이 존재하지 않는다면
-        //WarningTxt.SetActive(true); // 몇 초 동안만
+        //theSaveNLoad.CallLoadF2();
     }
 }

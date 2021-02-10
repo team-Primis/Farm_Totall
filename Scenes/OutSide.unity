@@ -298,30 +298,17 @@ MonoBehaviour:
   data:
     playerX: 0
     playerY: 0
-    playerZ: 0
-    playerLv: 0
-    playerHP: 0
-    playerMP: 0
-    playerCurrentHP: 0
-    playerCurrnetMP: 0
-    playerCurrentEXP: 0
-    playerATK: 0
-    playerDEF: 0
-    playerHPR: 0
-    playerMPR: 0
-    added_atk: 0
-    added_def: 0
-    added_hpr: 0
-    added_mpr: 0
-    playerItemInventory: 
-    playerItemInventoryCount: 
-    playerEquipItem: 
-    mapName: 
-    sceneName: 
-    swList: 
-    swNameList: []
-    varNameList: []
-    varNumberList: []
+    day: 0
+    timer: 0
+    stamina: 0
+    money: 0
+    laborCount: 0
+    item: 
+    chickenCount: 0
+    happy: 
+    checkEgg: 
+    nEggCount: 0
+    gEggCount: 0
 --- !u!1 &33926526
 GameObject:
   m_ObjectHideFlags: 0
@@ -60854,9 +60841,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuyChicken: {fileID: 1625831382}
-  spawnManager: {fileID: 888277095}
+  SMScript: {fileID: 0}
   GMScript: {fileID: 0}
-  Player: {fileID: 1995171693}
+  Player: {fileID: 0}
   dis: 0
   howRich: {fileID: 2143234764}
 --- !u!212 &816678892
@@ -61757,6 +61744,12 @@ MonoBehaviour:
   NormalEgg: {fileID: 550101343670223400, guid: 126fa0475491da341a06ef21e09ee7fb,
     type: 3}
   GoodEgg: {fileID: 1960277678842088088, guid: e899cfabe6fba1145b9d4264ad2cc67d, type: 3}
+  chickenCount: 0
+  chickenList: []
+  nEggCount: 0
+  gEggCount: 0
+  nEggList: []
+  gEggList: []
 --- !u!4 &888277096
 Transform:
   m_ObjectHideFlags: 0

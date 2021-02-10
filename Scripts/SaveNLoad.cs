@@ -8,45 +8,65 @@ using UnityEngine.SceneManagement; // scene 전환
 public class SaveNLoad : MonoBehaviour
 {
     // 현재 GameManager에 붙어있음
-    // 근데 타이틀에도 있어야 함 - titlemanager에도 붙임 or gamemanager을 파괴X
+    // 근데 타이틀에도 있어야 함 - gamemanager를 파괴X
+
+    public bool doLoadF1 = false;
+    public bool doLoadF2 = false;
+
+    void Update()
+    {
+        if(doLoadF1 == true)
+        {
+            doLoadF1 = false;
+            Debug.Log("File 1 로드 시작");
+            Invoke("RealLoadF1", 4); // 씬 바꿀 시간 기다림
+        }
+        else if(doLoadF2 == true)
+        {
+            //doLoadF2 = false;
+            //Debug.Log("File 2 로드 중");
+            //Invoke("RealLoadF2", 4); // 씬 바꿀 시간 기다림
+        }
+    }
 
     // 직렬화 - 세이브와 로딩에 있어서 필수적인 속성! (컴터가 읽고 쓰기 쉽게)
     [System.Serializable] // class 만들 때 직렬화 필요
     public class Data // 모든 세이브 기록들 담을 곳
     {
         // 저장할 것 ~
-        // 플레이어 위치 (좌표, 씬) / 닭 개수 (위치는 랜덤? 저장?) / 시간 & Day
-        // 인벤, 돈, 상자, 들고 있는 것 / 땅 상태 심어진 것 농작물 상태, 달걀
-        // 달걀을 하 랜덤 위치에 스폰해야 하는데...
-        // 닭의 경우 행복도, 플레이어의 경우 체력?
-        // 농작물 상태를 1, 2, 3으로 해야 할 것 같악 애니메이션으로 넣으면 너무 애매 ㅜ
+        // 보관상자, 장착템 / 땅 상태, 심어진 것, 농작물 상태
 
-        // 포함 완료
-        // 플레이어 좌표, 날짜 및 시간(타이머), 스테미나, 보유금액
+        // 포함 완료 ~
+        // 플레이어 좌표, 씬 이름
+        // 날짜(DAY), 시간(타이머), stamina
+        // 보유금액, laborCount
+        // *** 랜덤스폰의 경우 따로 좌표를 저장하지 않고 불러올 때 새로 스폰함 ***
+        // <닭> 닭 개수(theCount), 각 닭의 행복도, 닭 좌표(=랜덤스폰), checkEgg
+        // <달걀> 각 달걀 개수, 달걀 좌표(=랜덤스폰)
+        // <인벤> 인벤템 ID, 인벤템 개수
 
         // Vector3 등의 class는 직렬화가 안 됨 (자료형만 직렬화 가능)
         
         public float playerX; // 플레이어 좌표 (X)
         public float playerY; // 플레이어 좌표 (Y)
+        public string sceneName; // 씬 이름
 
         public int day; // 날짜(DAY)
         public float timer; // 시간(타이머)
-        public int stamina; // 스테미나
+        public int stamina; // stamina
 
         public int money; // 보유금액
+        public int laborCount; // laborCount
 
-        //public int playerLv;
-        //public int playerHP;
-        //public int playerMP;
+        public int chickenCount; // 닭 개수
+        public List<int> happy; // 각 닭의 행복도
+        public List<bool> checkEgg; // checkEgg
 
-        //public int playerCurrentHP;
-        //public int playerCurrnetMP;
-        //public int playerCurrentEXP;
+        public int nEggCount; // 보통 달걀 개수
+        public int gEggCount; // 좋은 달걀 개수
 
-        //public int playerATK;
-        //public int playerDEF;
-        //public int playerHPR;
-        //public int playerMPR;
+        public List<int> characterItemsID; // 인벤템 ID
+        public List<int> characterItemsCnt; // 인벤템 개수
 
         //public int added_atk;
         //public int added_def;
@@ -57,9 +77,6 @@ public class SaveNLoad : MonoBehaviour
         //public List<int> playerItemInventoryCount; // 몇 개 소지했는지
         //public List<int> playerEquipItem; // 아이템 ID
 
-        //public string mapName;
-        //public string sceneName;
-
         // Database에 선언한 리스트들
         //public List<bool> swList;
         //public List<string> swNameList;
@@ -67,56 +84,53 @@ public class SaveNLoad : MonoBehaviour
         //public List<float> varNumberList;
     }
 
-    private PlayerMove thePlayerMove; // 플레이어 좌표
-    private GameManager theGameManager; // 날짜 및 시간, 스테미나
-    private PlayerControll thePlayerControll; // 보유금액
-    //private PlayerStat thePlayerStat;
-    //private DatabaseManager theDatabase;
-    //private Inventory theInven;
-    //private Equipment theEquip;
+    private PlayerMove thePlayerMove; // 플레이어 좌표, 씬 이름
+    private GameManager theGameManager; // 날짜, 시간, stamina
+    private PlayerControll thePlayerControll; // 보유금액, laborCount
+    private SpawnManager theSpawnManager; // 닭 개수, 행복도, checkEgg, 각 달걀 개수
+    private inventory theInventory; // 인벤템 ID, 인벤템 개수
 
     public Data data; // Data 이용할 것임
 
     private Vector2 vector; // player 위치 불러올 곳
 
+    // 나중에 CallSaveF2, CallLoadF2 만들 거임
     public void CallSaveF1()
     {
         thePlayerMove = FindObjectOfType<PlayerMove>();
         theGameManager = FindObjectOfType<GameManager>();
         thePlayerControll = FindObjectOfType<PlayerControll>();
-        //thePlayerStat = FindObjectOfType<PlayerStat>();
-        //theDatabase = FindObjectOfType<DatabaseManager>();
-        //theInven = FindObjectOfType<Inventory>();
-        //theEquip = FindObjectOfType<Equipment>();
+        theSpawnManager = FindObjectOfType<SpawnManager>();
+        theInventory = FindObjectOfType<inventory>();
 
         data.playerX = thePlayerMove.transform.position.x;
         data.playerY = thePlayerMove.transform.position.y;
+        data.sceneName = thePlayerMove.currentMapName;
 
         data.day = theGameManager.day;
         data.timer = theGameManager.timer;
         data.stamina = theGameManager.stamina;
 
         data.money = thePlayerControll.money;
+        data.laborCount = thePlayerControll.laborCount;
 
-        //data.playerLv = thePlayerStat.character_Lv;
-        //data.playerHP = thePlayerStat.hp;
-        //data.playerMP = thePlayerStat.mp;
-        //data.playerCurrentHP = thePlayerStat.currentHP;
-        //data.playerCurrentMP = thePlayerStat.currentMP;
-        //data.playerCurrentEXP = thePlayerStat.currentEXP;
-        //data.playerATK = thePlayerStat.atk;
-        //data.playerDEF = thePlayerStat.def;
-        //data.playerHPR = thePlayerStat.recover_hp;
-        //data.playerMPR = thePlayerStat.recover_mp;
-        //data.added_atk = theEquip.added_atk;
-        //data.added_def = theEquip.added_def;
-        //data.added_hpr = theEquip.added_hpr;
-        //data.added_mpr = theEquip.added_mpr;
+        data.chickenCount = theSpawnManager.chickenCount;
+        for(int i = 0; i < theSpawnManager.chickenCount; i++)
+        {
+            data.happy.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().happy);
+            data.checkEgg.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg);
+        }
 
-        //data.mapName = thePlayerMove.currentMapName;
-        //data.sceneName = thePlayerMove.currentSceneName;
+        data.nEggCount = theSpawnManager.nEggCount;
+        data.gEggCount = theSpawnManager.gEggCount;
 
-        Debug.Log("기초 저장 성공");
+        for(int i = 0; i < theInventory.characterItems.Count; i++)
+        {
+            data.characterItemsID.Add(theInventory.characterItems[i].id);
+            data.characterItemsCnt.Add(theInventory.characterItems[i].count);
+        }
+
+        //Debug.Log("기초 저장 성공");
 
         // 비우지 않으면 로드 할 때마다 똑같은 게 더 생김
         //data.playerItemInventory.Clear();
@@ -151,116 +165,154 @@ public class SaveNLoad : MonoBehaviour
 
         // 물리적인 파일로 저장
         BinaryFormatter bf = new BinaryFormatter(); // 2진 파일로 변환
-        FileStream file = File.Create(Application.dataPath + "/SaveFile1.dat");
+        FileStream file = File.Create(Application.dataPath + "/SaveFile1.txt");
         // FileStream : 파일 입출력기 - 이 프로젝트가 설치된 폴더에 (= Asset 폴더)
-        // 경로 + 파일 이름 (확장자는 아무렇게나 써도 됨
+        // 경로 + 파일 이름 (확장자는 아무렇게나 써도 됨)
         bf.Serialize(file, data); // data class에 담긴 정보를 file 파일에 기록하고 직렬화
         file.Close();
 
         Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
     }
 
-    public void CallLoadF1()
+    public void CallLoadF1() // 씬 로드
     {
         // Save와 순서 반대로
-
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Open(Application.dataPath + "/SaveFile1.dat", FileMode.Open);
-        if(file != null && file.Length > 0) // 파일이 있고 내용도 있을 때
+        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        if (fileInfo.Exists) // 파일이 존재하면
         {
-            data = (Data)bf.Deserialize(file); // 직렬화된 것을 Data 형식으로 바꿈
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.dataPath + "/SaveFile1.txt", FileMode.Open);
+            // 원래) if(file != null && file.Length > 0)
+            if(file.Length > 0) // 내용이 있을 때
+            {
+                doLoadF1 = true;
 
-            thePlayerMove = FindObjectOfType<PlayerMove>();
-            theGameManager = FindObjectOfType<GameManager>();
-            thePlayerControll = FindObjectOfType<PlayerControll>();
-            //thePlayerStat = FindObjectOfType<PlayerStat>();
-            //theDatabase = FindObjectOfType<DatabaseManager>();
-            //theInven = FindObjectOfType<Inventory>();
-            //theEquip = FindObjectOfType<Equipment>();
-
-            //thePlayer.currentMapName = data.mapName;
-            //thePlayer.currentSceneName = data.sceneName;
-
-            vector.Set(data.playerX, data.playerY);
-            thePlayerMove.transform.position = vector;
-
-            theGameManager.day = data.day;
-            theGameManager.timer = data.timer;
-            theGameManager.stamina = data.stamina;
-
-            thePlayerControll.money = data.money;
-
-            //thePlayerStat.character_Lv = data.playerLv;
-            //thePlayerStat.hp = data.playerHP;
-            //thePlayerStat.mp = data.playerMP;
-            //thePlayerStat.currentHP = data.playerCurrentHP;
-            //thePlayerStat.currentMP = data.playerCurrentMP;
-            //thePlayerStat.currentEXP = data.playerCurrentEXP;
-            //thePlayerStat.atk = data.playerATK;
-            //thePlayerStat.def = data.playerDEF;
-            //thePlayerStat.recover_hp = data.playerHPR;
-            //thePlayerStat.recover_mp = data.playerMPR;
-            //theEquip.added_atk = data.added_atk;
-            //theEquip.added_def = data.added_def;
-            //theEquip.added_hpr = data.added_hpr;
-            //theEquip.added_mpr = data.added_mpr;
-
-            //theDatabase.var = data.varNumberList.ToArray(); // List → Array
-            //theDatabase.var_name = data.varNameList.ToArray();
-            //theDatabase.switches = data.swList.ToArray();
-            //theDatabase.switch_name = data.swNameList.ToArray();
-
-            //for(int i = 0; i < theEquip.equipItemList.Length; i++)
-            //{
-            //    for(int x = 0; x < theDatabase.itemList.Count; x++)
-            //    {
-            //        if(data.playerEquipItem[i] == theDatabase.itemList[x].itemID)
-            //        {
-            //             theEquip.equipItemList[i] = theDatabase.itemList[x];
-            //             Debug.Log("장착 아이템 로드됨 : " + theEquip.equipItemList[i].itemID);
-            //             break;
-            //        }
-            //    }
-            //}
-
-            //List<Item> itemsList = new List<Item>();
-            //for(int i = 0; i < data.playerItemInventory.Count; i++)
-            //{
-            //    for(int x = 0; x < theDatabase.itemList.Count; x++)
-            //    {
-            //        if(data.playerItemInventory[i] == theDatabase.itemList[x].itemID)
-            //        {
-            //             itemList.Add(theDatabase.itemList[x]);
-                           // 저장할 땐 ID 값만, 불러올 땐 아이템 통째로
-            //             Debug.Log("인벤토리 로드됨 : " + theDatabase.itemList[x].itemID);
-            //             break;
-            //        }
-            //    }
-            //}
-
-            // 위까지만 하면 아이템이 1개만 들어가므로 개수 고려해 줘야 함
-            //for(int i = 0; i < data.playerItemInventoryCount.Count; i++)
-            //{
-            //    itemList[i].itemCount = data.playerItemInventoryCount[i];
-            //}
-
-            // 반영 (이거 안 하면 그냥 0 나옴(?))
-            //theInven.LoadItem(itemList);
-            //theEquip.ShowTxt();
-
-            //GameManager theGM = FindObjectOfType<GameManager>();
-            //theGM.LoadStart();
-
-            // scene 이동
-            //SceneManager.LoadScene(data.sceneName);
-            // 다른 씬의 것은 참조 불가, 씬 이동 후의 명령어는 실행 안 됨
-            // → 다른 스크립트 이용해서 카메라 설정 ()
+                // 씬 이동
+                Debug.Log("File 1 씬 로드");
+                //thePlayerMove = FindObjectOfType<PlayerMove>();
+                //thePlayerMove.currentMapName = data.sceneName;
+                //SceneManager.LoadScene(data.sceneName);
+                // 다른 씬의 것은 참조 불가, 씬 이동 후의 명령어는 실행 안 됨
+            }
+            else
+            {
+                Debug.Log("File 1 비었음");
+            }
+            file.Close(); // 파일 닫기
         }
         else
         {
-            Debug.Log("저장된 세이브 파일이 없습니다"); // 씁 이거 왜 안 되냐
+            Debug.Log("File 1 없음");
         }
+    }
 
-        file.Close();
+    public void RealLoadF1() // 파일 로드
+    {
+        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        if (fileInfo.Exists) // 파일이 존재하면
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.dataPath + "/SaveFile1.txt", FileMode.Open);
+            // 원래) if(file != null && file.Length > 0)
+            if(file.Length > 0) // 내용이 있을 때
+            {
+                data = (Data)bf.Deserialize(file); // 직렬화된 것을 Data 형식으로 바꿈
+
+                thePlayerMove = FindObjectOfType<PlayerMove>();
+                theGameManager = FindObjectOfType<GameManager>();
+                thePlayerControll = FindObjectOfType<PlayerControll>();
+                theSpawnManager = FindObjectOfType<SpawnManager>();
+                theInventory = FindObjectOfType<inventory>();
+
+                //thePlayer.currentMapName = data.mapName;
+                //thePlayer.currentSceneName = data.sceneName;
+
+                vector.Set(data.playerX, data.playerY);
+                thePlayerMove.transform.position = vector;
+
+                theGameManager.day = data.day;
+                theGameManager.timer = data.timer;
+                theGameManager.stamina = data.stamina;
+
+                thePlayerControll.money = data.money;
+                thePlayerControll.laborCount = data.laborCount;
+
+                theSpawnManager.chickenCount = 0;
+                for(int i = 0; i < data.chickenCount; i++)
+                {
+                    theSpawnManager.SpawnChicken();
+                } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                for(int i = 0; i < data.chickenCount; i++)
+                {
+                    theSpawnManager.chickenList[i].GetComponent<Chicken>().happy = data.happy[i];
+                    theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg = data.checkEgg[i];
+                }
+
+                theSpawnManager.nEggCount = 0;
+                theSpawnManager.gEggCount = 0;
+                for(int i = 0; i < data.nEggCount; i++)
+                {
+                    theSpawnManager.SpawnNEgg();
+                } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                for(int i = 0; i < data.gEggCount; i++)
+                {
+                    theSpawnManager.SpawnGEgg();
+                } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+
+                for(int i = 0; i< data.characterItemsID.Count; i++)
+                {
+                    theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                } // 맨 초기에는 아이템 없음 -> 하나씩 넣기
+
+                //theDatabase.var = data.varNumberList.ToArray(); // List → Array
+                //theDatabase.var_name = data.varNameList.ToArray();
+                //theDatabase.switches = data.swList.ToArray();
+                //theDatabase.switch_name = data.swNameList.ToArray();
+
+                //for(int i = 0; i < theEquip.equipItemList.Length; i++)
+                //{
+                //    for(int x = 0; x < theDatabase.itemList.Count; x++)
+                //    {
+                //        if(data.playerEquipItem[i] == theDatabase.itemList[x].itemID)
+                //        {
+                //             theEquip.equipItemList[i] = theDatabase.itemList[x];
+                //             Debug.Log("장착 아이템 로드됨 : " + theEquip.equipItemList[i].itemID);
+                //             break;
+                //        }
+                //    }
+                //}
+
+                //List<Item> itemsList = new List<Item>();
+                //for(int i = 0; i < data.playerItemInventory.Count; i++)
+                //{
+                //    for(int x = 0; x < theDatabase.itemList.Count; x++)
+                //    {
+                //        if(data.playerItemInventory[i] == theDatabase.itemList[x].itemID)
+                //        {
+                //             itemList.Add(theDatabase.itemList[x]);
+                               // 저장할 땐 ID 값만, 불러올 땐 아이템 통째로
+                //             Debug.Log("인벤토리 로드됨 : " + theDatabase.itemList[x].itemID);
+                //             break;
+                //        }
+                //    }
+                //}
+
+                // 위까지만 하면 아이템이 1개만 들어가므로 개수 고려해 줘야 함
+                //for(int i = 0; i < data.playerItemInventoryCount.Count; i++)
+                //{
+                //    itemList[i].itemCount = data.playerItemInventoryCount[i];
+                //}
+
+                // 반영 (이거 안 하면 그냥 0 나옴(?))
+                //theInven.LoadItem(itemList);
+                //theEquip.ShowTxt();
+
+                //GameManager theGM = FindObjectOfType<GameManager>();
+                //theGM.LoadStart();
+
+                Debug.Log("File 1 로드 완료");
+            }
+            file.Close(); // 파일 닫기
+        }
     }
 }
