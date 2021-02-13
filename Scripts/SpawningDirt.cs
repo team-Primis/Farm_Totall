@@ -17,7 +17,7 @@ public class SpawningDirt : MonoBehaviour
     void Update()
     {
 
-        SpawnDirt();
+       // SpawnDirt();
 
     }
     private void SpawnDirt()

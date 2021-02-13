@@ -104,11 +104,13 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             {
 
                 inven.MoveSlot(this.transform);
+                Debug.Log("slot의 item은 " + this.item.Ename + "입니다");
     
             }
             else
             {
                 inven.ClearSlot();
+                Debug.Log("빈 슬롯");
             }
         }
     }
@@ -117,7 +119,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         if (this.item != null)
         {
-            tool.GenerateToolTip(this.item);
+            //tool.GenerateToolTip(this.item);
             tool.gameObject.SetActive(true);
             
         }

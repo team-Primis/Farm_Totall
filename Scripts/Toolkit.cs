@@ -17,7 +17,7 @@ public class Toolkit : MonoBehaviour
     public void GenerateToolTip(Item item)
     {
         string statText = "";
-        if (item.stats.Count > 0)
+        if (item != null &&item.Ename!= "" && item.stats.Count > 0)
         {
             //stat 전부 보여주는 코드
 

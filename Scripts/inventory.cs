@@ -20,6 +20,8 @@ public class inventory : MonoBehaviour
 
     public SellingUI sellingUI;
 
+    public static inventory instance = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,12 +34,27 @@ public class inventory : MonoBehaviour
         putInventory(2);
         putInventory(100);
         putInventory(101);
-
+        
 
 
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
     }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+
 
     void PutInContainer()
     {

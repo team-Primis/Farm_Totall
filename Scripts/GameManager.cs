@@ -32,10 +32,25 @@ public class GameManager : MonoBehaviour
     public bool isBuyOpen = false; // Center
     public bool isCareOpen = false; // Chicken
 
+    public static GameManager instance = null;
+
     // Start is called before the first frame update
     void Start()
     {
         vendorDetectScript = GameObject.Find("Player").GetComponent<VendorDetect>();
+    }
+
+    void Awake()
+    {
+        if (instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
