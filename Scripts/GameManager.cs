@@ -5,8 +5,6 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    VendorDetect vendorDetectScript;
-    public GameObject vendingImage;
     public bool isStaminaChanged = false;
     public int stamina = 10;
 
@@ -20,12 +18,8 @@ public class GameManager : MonoBehaviour
     public float timer = 0;
     public bool isTimerStoped = false;
 
- 
 
     public GameObject[] staminaObj;
-
-    public GameObject container;
-    public GameObject inventory;
 
     // from playercontoller
     public GameObject BuyChicken; // for moving control
@@ -33,12 +27,6 @@ public class GameManager : MonoBehaviour
     public bool isCareOpen = false; // Chicken
 
     public static GameManager instance = null;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        vendorDetectScript = GameObject.Find("Player").GetComponent<VendorDetect>();
-    }
 
     void Awake()
     {

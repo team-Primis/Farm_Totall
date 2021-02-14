@@ -17,7 +17,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     
 
-    private void Awake()
+     void Awake()
     {
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         spriteImage = gameObject.GetComponent<Image>();
@@ -100,13 +100,21 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             inven.equipedItem = this.item;
-            if (this.item != null && this.item.Ename!= "")
+            if (this.item != null)
             {
+                 if (this.item.Ename == "")
+                {
+                    Debug.Log("이름 없음");
+                }
+                else
+                {
+                    Debug.Log("slot의 item은 " + this.item.Ename + "입니다");
 
+                }
                 inven.MoveSlot(this.transform);
-                Debug.Log("slot의 item은 " + this.item.Ename + "입니다");
     
             }
+            
             else
             {
                 inven.ClearSlot();
