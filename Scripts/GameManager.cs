@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         changeStaminaUI(); //스태미나 감소
 
         //24시간 지나면 하루 지남 + UI 켰을때는 시간 안감
-        if (!isTimerStoped)
+        if (!isTimerStoped && !isCareOpen)
         {
             timer += Time.deltaTime;
         }

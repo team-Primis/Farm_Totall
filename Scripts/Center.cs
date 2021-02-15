@@ -10,10 +10,16 @@ public class Center : MonoBehaviour
     public GameObject Player;
     public float dis; // distance btw player & center
 
+    //미해테스트
+    PlayerControll playerScript;
+
     // Start is called before the first frame update
     void Start()
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        //from 미해테스트
+        Player = GameObject.Find("Player").gameObject;
+        playerScript = GameObject.Find("Player").GetComponent<PlayerControll>();
     }
 
     // Update is called once per frame
@@ -42,6 +48,10 @@ public class Center : MonoBehaviour
     public void OnClickYesButton()
     {
         BuyChicken.SetActive(false);
+
+        //미해테스트
+        playerScript.playerMoneyChange(500, false);
+        ///
         spawnManager.SpawnChicken(); // spawn chicken
         GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
     }

@@ -11,6 +11,9 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     void Start()
     {
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
+        //미해테스트
+        thePlayer = GameObject.Find("Player").gameObject;
+
     }
 
     // Update is called once per frame
