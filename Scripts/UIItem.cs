@@ -32,7 +32,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         this.item = item;
         //아이템 객체가 존재할 경우, a 모습으로 바꾸고 잘보이게 하얀색~
-        if(this.item != null)
+        if(this.item != null && this.item.Ename != "")
         {
             spriteImage.sprite = this.item.icon;
             spriteImage.color = Color.white;
@@ -58,7 +58,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     //오브젝트에 해당하는 갯수로 업데이트 해주는 함수
     public void UpdateNumUI(Item item)
     {
-        if(this.item.Ename != null)
+        if(this.item != null && this.item.Ename != "")
         {
             ItemCountText.text = this.item.count.ToString();
         }
@@ -72,20 +72,29 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             
-            if (this.item != null)
+            if (this.item != null && this.item.Ename!="")
             {
-                //특정 아이템을 클릭한 다음 이 칸을 누른다면 둘이 모양 바꿔줌
-                if (selectedItem.item != null)
+                //장착된 아이템의 위치를 옮길 경우 , 해당 아이템 장착 해제
+                if (inven.equipedItem == this.item)
                 {
-                    Item clone = new Item(selectedItem.item);
+                    inven.equipedItem = null;
+                    inven.ClearSlot();
+
+                }
+                //특정 아이템을 클릭한 다음 이 칸을 누른다면 둘이 모양 바꿔줌
+                if (selectedItem.item != null &&selectedItem.item.Ename != "")
+                {
+                    Item clone = selectedItem.item;
                     selectedItem.UpdateItem(this.item);
                     UpdateItem(clone);
                 }
+                //아무것도 안클릭하고 이 칸을 누르면, 새롭게 누른 칸에 아이템 옮겨주고, 원래칸은  null
                 else
                 {
                     selectedItem.UpdateItem(this.item);
                     UpdateItem(null);
                 }
+                
             }
             //전에 뭔가 선택 후 빈공간 누름
             else if (selectedItem.item != null)

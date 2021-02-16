@@ -22,6 +22,7 @@ public class inventory : MonoBehaviour
 
     public static inventory instance = null;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -257,7 +258,7 @@ public class inventory : MonoBehaviour
     //아이템 사용 : 아이템일 경우 하나 사라짐
     public void UseItem(Item item)
     {
-        if (item != null&&item.Ename!= "")
+        if (item != null&&item.Ename!= "" && item.count > 0)
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
@@ -273,7 +274,7 @@ public class inventory : MonoBehaviour
     public void UseItem(string name)
     {
         Item item = db.GetItem(name);
-        if (item != null && item.Ename != "")
+        if (item != null && item.Ename != ""&&item.count>0)
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
@@ -286,7 +287,7 @@ public class inventory : MonoBehaviour
     public void UseItem(int id)
     {
         Item item = db.GetItem(id);
-        if (item != null && item.Ename != "")
+        if (item != null && item.Ename != "" && item.count > 0)
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
