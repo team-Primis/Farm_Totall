@@ -110,8 +110,13 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             inven.equipedItem = this.item;
-            if (this.item != null && this.item.Ename != "")
+            if (this.item != null)
             {
+                if (this.item.Ename == "")
+                {
+                    Debug.Log("이름ㄴㄴ");
+                }
+
                 Debug.Log("slot의 item은 " + this.item.Ename + "입니다");
                 inven.MoveSlot(this.transform);
 

@@ -98,6 +98,10 @@ public class inventory : MonoBehaviour
 
 
     }
+    public void renewSlot()
+    {
+        inventoryUI.MakeSlotNull();
+    }
 
     public void MoveSlot(Transform trans)
     {

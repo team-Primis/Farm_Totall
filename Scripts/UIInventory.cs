@@ -10,7 +10,7 @@ public class UIInventory : MonoBehaviour
     private List<UIItem> uiitems = new List<UIItem>();
     public GameObject slotPrefab;
     public Transform slotPanel;
-    public int numberOfSlots = 32;
+    public int numberOfSlots = 14;
     public GameObject slot;
     GameObject newSlot;
     public Transform EmpTrans; //강조 UI가 있을 위치
@@ -52,6 +52,17 @@ public class UIInventory : MonoBehaviour
     {
         uiitems[slot].UpdateItem(item);
 
+    }
+
+    public void MakeSlotNull()
+    {
+        foreach(UIItem uiitem in uiitems)
+        {
+            if (uiitem.item == null || uiitem.item.icon==null)
+            {
+                uiitem.UpdateItem(null);
+            }
+        }
     }
 
     public void UpdateUI(int slot, Item item)
