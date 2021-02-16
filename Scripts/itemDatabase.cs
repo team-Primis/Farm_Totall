@@ -56,11 +56,11 @@ public class itemDatabase : MonoBehaviour
             {
                 {"cost",70 },{"watering",7},{"sellingPrice",150},{"dayToGrow",7}
             }),
-            new Item(11,"좋은 달걀","GoodEgg","황금색을 띄는 달걀이다.",Item.Category.item,
+            new Item(11,"좋은 달걀","GoodEgg","황금색을 띄는 달걀이다. 아주 맛있다.",Item.Category.item,
             new Dictionary<string, int>{
                 {"sellingPrice",100 }
             }),
-            new Item(12,"평범한 달걀","NormalEgg","평범한 달걀이다. 그래도 먹어도 된다.",Item.Category.item,
+            new Item(12,"평범한 달걀","NormalEgg","평범한 달걀이다. 누구나 아는 맛이다.",Item.Category.item,
             new Dictionary<string, int>{
                 {"sellingPrice",50 }
             }),
@@ -73,7 +73,7 @@ public class itemDatabase : MonoBehaviour
             new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool,new Dictionary<string, int>{
                 {"sellingPrice",10 }
             }),
-            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있는 물뿌리개 이다.",Item.Category.tool, 
+            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있다.",Item.Category.tool, 
             new Dictionary<string, int>{
                 {"sellingPrice",10 }
             }),
