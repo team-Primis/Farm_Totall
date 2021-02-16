@@ -134,7 +134,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         if (this.item != null && this.item.Ename != "")
         {
-            //  tool.GenerateToolTip(this.item);
+            tool.GenerateToolTip(this.item);
             tool.gameObject.SetActive(true);
 
         }
