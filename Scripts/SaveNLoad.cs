@@ -136,9 +136,6 @@ public class SaveNLoad : MonoBehaviour
 
                 // 씬 이동
                 Debug.Log("File 1 씬 로드");
-
-                thePlayerMove = FindObjectOfType<PlayerMove>();
-                thePlayerMove.currentMapName = data.sceneName;
                 SceneManager.LoadScene(data.sceneName);
                 // 다른 씬의 것은 참조 불가, 씬 이동 후의 명령어는 실행 안 됨
             }
@@ -171,6 +168,8 @@ public class SaveNLoad : MonoBehaviour
                 thePlayerControll = FindObjectOfType<PlayerControll>();
                 theSpawnManager = FindObjectOfType<SpawnManager>();
                 theInventory = FindObjectOfType<inventory>();
+
+                thePlayerMove.currentMapName = data.sceneName;
 
                 Debug.Log("File 1 로드 시작 - 2");
 
