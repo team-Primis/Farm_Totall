@@ -21,7 +21,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         spriteImage = gameObject.GetComponent<Image>();
-        UpdateItem(null); //처음엔 빈칸으로 시작하기!
+        UpdateItem( null); //처음엔 빈칸으로 시작하기!
         selectedItem = GameObject.Find("selectedItem").GetComponent<UIItem>();
         tool = GameObject.Find("Tooltip").GetComponent<Toolkit>();
     }

@@ -35,13 +35,21 @@ public class PlayerControll : MonoBehaviour
 
     //플레이어의 돈의 수량을 바꾸고, 그에 맞게 UI를 업데이트
     public void playerMoneyChange(int newMoney, bool isAdded) {
+        
         if (isAdded)
         {
             money += newMoney;
         }
         else
         {
-            money -= newMoney;
+            if (money >= newMoney)
+            {
+                money -= newMoney;
+            }
+            else
+            {
+                Debug.Log("잔액이 부족합니다.");
+            }
         }
         coinTextScript.changeText();
 
