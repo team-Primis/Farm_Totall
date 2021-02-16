@@ -31,14 +31,13 @@ public class PlayerMove : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        
+
+        currentMapName = SceneManager.GetActiveScene().name; // 저장 때문에,,, (성현)
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentMapName = SceneManager.GetActiveScene().name; // 저장 때문에,,, (성현)
-
         // from menucontrol - 일시정지 창 떠있으면 플레이어 정지
         if(GMScript.isMenuOpen == false)
         {
