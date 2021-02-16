@@ -17,6 +17,10 @@ public class Center : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameObject canvas2 = GameObject.Find("Canvas2");
+        BuyChicken = canvas2.transform.Find("BuyChicken").gameObject;
+        howRich = canvas2.transform.Find("BuyChicken").transform.Find("HowRich").GetComponent<Text>();
+        
         SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();

@@ -18,7 +18,7 @@ public class SaveNLoad : MonoBehaviour
         if(doLoadF1 == true)
         {
             doLoadF1 = false;
-            Debug.Log("File 1 로드 시작");
+            Debug.Log("File 1 로드 시작 - 1");
             Invoke("RealLoadF1", 4); // 씬 바꿀 시간 기다림
         }
         else if(doLoadF2 == true)
@@ -29,68 +29,13 @@ public class SaveNLoad : MonoBehaviour
         }
     }
 
-    // 직렬화 - 세이브와 로딩에 있어서 필수적인 속성! (컴터가 읽고 쓰기 쉽게)
-    [System.Serializable] // class 만들 때 직렬화 필요
-    public class Data // 모든 세이브 기록들 담을 곳
-    {
-        // 저장할 것 ~
-        // 보관상자, 장착템 / 땅 상태, 심어진 것, 농작물 상태
-
-        // 포함 완료 ~
-        // 플레이어 좌표, 씬 이름
-        // 날짜(DAY), 시간(타이머), stamina
-        // 보유금액, laborCount
-        // *** 랜덤스폰의 경우 따로 좌표를 저장하지 않고 불러올 때 새로 스폰함 ***
-        // <닭> 닭 개수(theCount), 각 닭의 행복도, 닭 좌표(=랜덤스폰), checkEgg
-        // <달걀> 각 달걀 개수, 달걀 좌표(=랜덤스폰)
-        // <인벤> 인벤템 ID, 인벤템 개수
-
-        // Vector3 등의 class는 직렬화가 안 됨 (자료형만 직렬화 가능)
-        
-        public float playerX; // 플레이어 좌표 (X)
-        public float playerY; // 플레이어 좌표 (Y)
-        public string sceneName; // 씬 이름
-
-        public int day; // 날짜(DAY)
-        public float timer; // 시간(타이머)
-        public int stamina; // stamina
-
-        public int money; // 보유금액
-        public int laborCount; // laborCount
-
-        public int chickenCount; // 닭 개수
-        public List<int> happy; // 각 닭의 행복도
-        public List<bool> checkEgg; // checkEgg
-
-        public int nEggCount; // 보통 달걀 개수
-        public int gEggCount; // 좋은 달걀 개수
-
-        public List<int> characterItemsID; // 인벤템 ID
-        public List<int> characterItemsCnt; // 인벤템 개수
-
-        //public int added_atk;
-        //public int added_def;
-        //public int added_hpr;
-        //public int added_mpr;
-
-        //public List<int> playerItemInventory; // 아이템의 ID 값 넣으면 됨
-        //public List<int> playerItemInventoryCount; // 몇 개 소지했는지
-        //public List<int> playerEquipItem; // 아이템 ID
-
-        // Database에 선언한 리스트들
-        //public List<bool> swList;
-        //public List<string> swNameList;
-        //public List<string> varNameList;
-        //public List<float> varNumberList;
-    }
-
     private PlayerMove thePlayerMove; // 플레이어 좌표, 씬 이름
     private GameManager theGameManager; // 날짜, 시간, stamina
     private PlayerControll thePlayerControll; // 보유금액, laborCount
     private SpawnManager theSpawnManager; // 닭 개수, 행복도, checkEgg, 각 달걀 개수
     private inventory theInventory; // 인벤템 ID, 인벤템 개수
 
-    public Data data; // Data 이용할 것임
+    public SNLData data; // SNLData 이용할 것임
 
     private Vector2 vector; // player 위치 불러올 곳
 
@@ -185,13 +130,16 @@ public class SaveNLoad : MonoBehaviour
             // 원래) if(file != null && file.Length > 0)
             if(file.Length > 0) // 내용이 있을 때
             {
+                data = (SNLData)bf.Deserialize(file); // 직렬화된 것을 Data 형식으로 바꿈
+
                 doLoadF1 = true;
 
                 // 씬 이동
                 Debug.Log("File 1 씬 로드");
-                //thePlayerMove = FindObjectOfType<PlayerMove>();
-                //thePlayerMove.currentMapName = data.sceneName;
-                //SceneManager.LoadScene(data.sceneName);
+
+                thePlayerMove = FindObjectOfType<PlayerMove>();
+                thePlayerMove.currentMapName = data.sceneName;
+                SceneManager.LoadScene(data.sceneName);
                 // 다른 씬의 것은 참조 불가, 씬 이동 후의 명령어는 실행 안 됨
             }
             else
@@ -216,7 +164,7 @@ public class SaveNLoad : MonoBehaviour
             // 원래) if(file != null && file.Length > 0)
             if(file.Length > 0) // 내용이 있을 때
             {
-                data = (Data)bf.Deserialize(file); // 직렬화된 것을 Data 형식으로 바꿈
+                data = (SNLData)bf.Deserialize(file); // 직렬화된 것을 Data 형식으로 바꿈
 
                 thePlayerMove = FindObjectOfType<PlayerMove>();
                 theGameManager = FindObjectOfType<GameManager>();
@@ -224,8 +172,7 @@ public class SaveNLoad : MonoBehaviour
                 theSpawnManager = FindObjectOfType<SpawnManager>();
                 theInventory = FindObjectOfType<inventory>();
 
-                //thePlayer.currentMapName = data.mapName;
-                //thePlayer.currentSceneName = data.sceneName;
+                Debug.Log("File 1 로드 시작 - 2");
 
                 vector.Set(data.playerX, data.playerY);
                 thePlayerMove.transform.position = vector;
@@ -263,6 +210,7 @@ public class SaveNLoad : MonoBehaviour
                 {
                     theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
                 } // 맨 초기에는 아이템 없음 -> 하나씩 넣기
+                // 아이템이 도구일 때 제외하는 코드 추가할 것!
 
                 //theDatabase.var = data.varNumberList.ToArray(); // List → Array
                 //theDatabase.var_name = data.varNameList.ToArray();

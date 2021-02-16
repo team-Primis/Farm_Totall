@@ -37,7 +37,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentMapName = SceneManager.GetActiveScene().name; // 저장 때문에,,,
+        currentMapName = SceneManager.GetActiveScene().name; // 저장 때문에,,, (성현)
 
         // from menucontrol - 일시정지 창 떠있으면 플레이어 정지
         if(GMScript.isMenuOpen == false)

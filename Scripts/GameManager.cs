@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
     {
         vendorDetectScript = GameObject.Find("Player").GetComponent<VendorDetect>();
 
-        //DontDestroyOnLoad(gameObject); // 타이틀 버튼 함수 연결하느라...
+        // 성현
+        BuyChicken = GameObject.Find("Canvas2").transform.Find("BuyChicken").gameObject;
+        DontDestroyOnLoad(gameObject); // 타이틀 버튼 함수 연결하느라...
     }
 
     // Update is called once per frame
@@ -46,18 +48,19 @@ public class GameManager : MonoBehaviour
         
         changeStaminaUI(); //스태미나 감소
 
-        DayUI(day); // 로드 때문에 여기로 옮겼음 (성현이가)
+        DayUI(day); // 로드 때문에 여기로 옮겼음 (성현)
 
         //24시간 지나면 하루 지남 + UI 켰을때는 시간 안감
         if (!isTimerStoped)
         {
-            timer += Time.deltaTime*20;
+            //timer += Time.deltaTime;
+            timer += Time.deltaTime*50; // 로드 등 확인 위해 임시로 시간 배속함 (성현)
         }
         if (timer >= 60*24) //1시간 * 24 = 1일
         {
             timer = 0;
             day++;
-            // DayUI(day);
+            // DayUI(day); // 위로 옮겼음 (성현)
         }
         DateUI(timer); //시간 표시
 

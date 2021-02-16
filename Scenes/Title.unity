@@ -420,7 +420,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1d5876047a2f2104f9dd31df5618ac50, type: 3}
-    m_FontSize: 70
+    m_FontSize: 66
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 1101397352}
   - component: {fileID: 1101397351}
   m_Layer: 5
-  m_Name: Text
+  m_Name: F2Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1158,8 +1158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1140, y: -220}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: -1140, y: -240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1101397351
 MonoBehaviour:
@@ -1324,8 +1324,9 @@ MonoBehaviour:
     type: 3}
   ContiAfter: {fileID: -2946272801942437225, guid: df9886ba64aa0144fbd17f8d3e3f12a1,
     type: 3}
-  Choice: {fileID: 317168098}
-  WarningTxt: {fileID: 0}
+  Choice: {fileID: 0}
+  F1Content: {fileID: 0}
+  F2Content: {fileID: 0}
   theSaveNLoad: {fileID: 0}
 --- !u!4 &1422759800
 Transform:
@@ -1994,7 +1995,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 1d5876047a2f2104f9dd31df5618ac50, type: 3}
-    m_FontSize: 70
+    m_FontSize: 66
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -2157,7 +2158,7 @@ GameObject:
   - component: {fileID: 2056679519}
   - component: {fileID: 2056679518}
   m_Layer: 5
-  m_Name: Text
+  m_Name: F1Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2179,8 +2180,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1140, y: -220}
+  m_AnchoredPosition: {x: 0, y: -40}
+  m_SizeDelta: {x: -1140, y: -240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2056679518
 MonoBehaviour:
