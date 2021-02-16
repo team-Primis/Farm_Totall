@@ -9,31 +9,42 @@ public class GrinderRotates : MonoBehaviour
     public Animator anim;
     public float speed = 1.0f;
     
+    
     // Start is called before the first frame update
     void Start()
     {
-            
-            Inven= GameObject.Find("Inventory").GetComponent<inventory>();
-        anim = GetComponent<Animator>();
-            
-        
+        Inven= GameObject.Find("Inventory").GetComponent<inventory>();
+        anim = GetComponent<Animator>(); 
     }
 
     // Update is called once per frame
     void Update()
     {
-        gameObject.SetActive(false);
-        if (Inven.equipedItem.Ename == "sickle")
+        if (Inven.equipedItem != null)
         {
-            gameObject.SetActive(true);
-            if (Input.GetMouseButton(0))//마우스 클릭중에는 낫이 돌아가는 애니메이션 재생.
+            if (Inven.equipedItem.Ename == "sickle")
             {
-                anim.SetBool("GrinderOn", true);
-
+                Debug.Log("낫이 생겼습니다");
+                this.gameObject.SetActive(true);
+                if (Input.GetMouseButton(0))//마우스 클릭중에는 낫이 돌아가는 애니메이션 재생.
+                {
+                    anim.SetBool("GrinderOn", true);
+                }
+                else//마우스 클릭 안 하면 애니메이션 재생 안 함.
+                {
+                    anim.SetBool("GrinderOn", false);
+                }
             }
-            else//마우스 클릭 안 하면 애니메이션 재생 안 함.
-                anim.SetBool("GrinderOn", false);
+            else
+            {
+                Debug.Log("낫이 없어졌습니다");
+                this.gameObject.SetActive(false);
+            }
         }
-
+        else
+        {
+            Debug.Log("선택된 아이템 없음");
+            this.gameObject.SetActive(false);
+        }
     }
 }

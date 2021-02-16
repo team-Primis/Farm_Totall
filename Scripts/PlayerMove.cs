@@ -107,7 +107,7 @@ public class PlayerMove : MonoBehaviour
         Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
         Vector2 distance = theplayerPosition - mousePosition;
 
-        if (Inven.equipedItem.Ename != null )
+        if (Inven.equipedItem != null )
         {
             if(Inven.equipedItem.Ename == "waterSprinkle")
             { 
