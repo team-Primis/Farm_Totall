@@ -1,3 +1,4 @@
+
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,30 +9,25 @@ public class GrinderRotates : MonoBehaviour
     public inventory Inven;
     public Animator anim;
     public float speed = 1.0f;
+    public GameObject grinder; // 미해 ( 스크립트 위치 grinder->player 옮김, 게임오브젝트 넣어서 낫 제어로 바꿈 ( 안그러면 낫 작동 안해서..!)
 
-    public GameObject grinder;
 
     // Start is called before the first frame update
     void Start()
     {
-
-        Inven = GameObject.Find("Inventory").GetComponent<inventory>();
-        anim = GetComponent<Animator>();
-
-
+        Inven= GameObject.Find("Inventory").GetComponent<inventory>();
+        anim = grinder.GetComponent<Animator>(); 
     }
 
-    //이 코드 자체가 낫한테 붙어있기 때문에, 낫이 enable이 false가 되면 아예 작동을 안하는 것.
-    //따라서 가장 처음에 플레이어가 아무것도 들고 있지 안하서 setactive false가 되고, 따라서 Update문이 실행이 안됨.
+    // Update is called once per frame
     void Update()
     {
         if (Inven.equipedItem != null)
         {
             if (Inven.equipedItem.Ename == "sickle")
             {
-                //Debug.Log("낫이 생겼습니다");
-                grinder.gameObject.SetActive(true);
-
+                Debug.Log("낫이 생겼습니다");
+                grinder.SetActive(true);
                 if (Input.GetMouseButton(0))//마우스 클릭중에는 낫이 돌아가는 애니메이션 재생.
                 {
                     anim.SetBool("GrinderOn", true);
@@ -40,44 +36,17 @@ public class GrinderRotates : MonoBehaviour
                 {
                     anim.SetBool("GrinderOn", false);
                 }
-
-
             }
             else
             {
-                // Debug.Log("낫이 없어졌습니다");
-                grinder.gameObject.SetActive(false);
+                Debug.Log("낫이 없어졌습니다");
+                grinder.SetActive(false);
             }
         }
         else
         {
-            //Debug.Log("선택된 아이템 없음");
-            grinder.gameObject.SetActive(false);
+            Debug.Log("선택된 아이템 없음");
+            grinder.SetActive(false);
         }
     }
 }
-
-/*
- * 
- * 
- public GameObject grinder;
-
-  void Update()
-    {
-        if (Inven.equipedItem != null)
-        {
-            if (Inven.equipedItem.Ename == "sickle")
-            {
-                grinder.gameObject.SetActive(true);
-            }
-            else
-            { 
-                grinder.gameObject.SetActive(false);
-            }
-        }
-        else
-        {
-            grinder.gameObject.SetActive(false);
-        }
-    }
- * */

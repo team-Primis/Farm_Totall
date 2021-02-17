@@ -44,7 +44,7 @@ public class PlayerMove : MonoBehaviour
             Move();
         }
         
-        //Watering();
+        Watering();
     }
 
     void Move()

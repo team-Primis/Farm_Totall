@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text DayText;
 
     public float timer = 0;
-    public bool isTimerStoped = false;
+    public bool isTimerStoped = false;//true일 때 멈춤 flase는 작동하는중.
 
 
     public GameObject[] staminaObj;
