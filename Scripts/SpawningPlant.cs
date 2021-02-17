@@ -42,7 +42,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
         
         if (Input.GetMouseButtonDown(0))//플레이어의 위치를 기준으로 x는 타일 1.5칸, y는 타일 2칸 이하에서
         {
-            Debug.Log(distance);
+            //Debug.Log(distance);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
             if (hit.transform != null)

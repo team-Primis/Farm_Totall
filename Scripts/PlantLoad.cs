@@ -37,28 +37,29 @@ public class PlantLoad : MonoBehaviour
 
             i++;
             anim.SetInteger("One", i);
-            if (i >= didItBloomed)
-            {
-                Harvestit();
-
-            }
-
-            if (i >= toMuchWilted)//시든 지 너무 오래 지나면 파괴됨.
-            {
-                Destroy(this.gameObject);
-            }
-
-
-
-
-
+        }
+        if (i >= didItBloomed)
+        {
+            Harvestit();
 
         }
+
+        if (i >= toMuchWilted)//시든 지 너무 오래 지나면 파괴됨.
+        {
+            Destroy(this.gameObject);
+        }
+
+
+
+
+
+
+
     }
 
     void Harvestit()
     {
-        /*
+
         Vector2 theplayerPosition = thePlayer.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -71,39 +72,6 @@ public class PlantLoad : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
             if (hit.collider != null)
             {
-                 Debug.Log("clicked");
-                if (hit.collider.CompareTag("Plant"))
-                {
-                    
-                    
-                        Debug.Log("수확함");
-                        Destroy(this.gameObject);
-                    
-                        
-                }
-            }
-
-        }*/
-
-        Vector2 theplayerPosition = thePlayer.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
-        Vector2 distance = theplayerPosition - mousePosition;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector2 worldPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(worldPoint, Vector2.zero);
-
-            /*
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-            */
-
-            if (hit.collider != null)
-            {
-                Debug.Log("clicked");
                 if (hit.collider.CompareTag("Plant"))
                 {
 
@@ -116,7 +84,8 @@ public class PlantLoad : MonoBehaviour
             }
 
         }
-        
+
+
 
     }
 
