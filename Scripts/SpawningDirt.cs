@@ -11,7 +11,10 @@ public class SpawningDirt : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
+
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
+
+        thePlayer = GameObject.Find("Player").gameObject;
     }
 
     // Update is called once per frame
@@ -41,7 +44,7 @@ public class SpawningDirt : MonoBehaviour
 
                     if (hit.transform == null || hit.collider.CompareTag("Player"))
                     {
-                        Debug.Log("땅 파기");
+                       // Debug.Log("땅 파기");
                         if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
                         {
 

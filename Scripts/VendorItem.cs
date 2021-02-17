@@ -37,7 +37,7 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
             //Debug.Log("From 자판기 : 해당 이름의 아이템은 db에 존재하지 않습니다.");
         }
         else {
-            //Debug.Log("item의 태그는 " + itemTag + "입니다.");
+            Debug.Log("item의 태그는 " + itemTag + "입니다.");
             vendingScript.seedName = itemTag;
             vendingScript.seedNameText.text = ClickedItem.Kname;
 
