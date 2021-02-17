@@ -112,20 +112,12 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             inven.equipedItem = this.item;
             if (this.item != null)
             {
-                if (this.item.Ename == "")
-                {
-                    Debug.Log("이름ㄴㄴ");
-                }
-
-                Debug.Log("slot의 item은 " + this.item.Ename + "입니다");
                 inven.MoveSlot(this.transform);
-
             }
 
             else
             {
                 inven.ClearSlot();
-                Debug.Log("빈 슬롯");
             }
         }
     }

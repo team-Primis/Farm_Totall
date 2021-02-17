@@ -297,7 +297,7 @@ MonoBehaviour:
   - {fileID: 1644534333}
   BuyChicken: {fileID: 1625831382}
   isBuyOpen: 0
-  isCareOpen: 0
+  isMenuOpen: 0
 --- !u!4 &16795483
 Transform:
   m_ObjectHideFlags: 0
@@ -1056,6 +1056,7 @@ Transform:
   - {fileID: 1811743719}
   - {fileID: 1400127614}
   - {fileID: 296928476}
+  - {fileID: 817543016}
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -63793,7 +63794,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 816678891}
         m_MethodName: OnClickYesButton
         m_Mode: 1
         m_Arguments:
@@ -64199,10 +64200,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BuyChicken: {fileID: 1625831382}
-  spawnManager: {fileID: 888277095}
+  SMScript: {fileID: 0}
   GMScript: {fileID: 0}
   Player: {fileID: 1995171693}
   dis: 0
+  howRich: {fileID: 0}
 --- !u!212 &816678892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -64386,6 +64388,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2fc893eefb7229f41a623d6ecd58ebe2, type: 3}
+--- !u!224 &817543016 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7694465308672115875, guid: 26d1116f702db044db614022a1dac99e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1172841283}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &821816689 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4495088193601889611, guid: 2fc893eefb7229f41a623d6ecd58ebe2,
@@ -64726,7 +64734,7 @@ MonoBehaviour:
   equipedItem:
     id: 0
     Kname: 
-    Ename: e
+    Ename: 
     description: 
     icon: {fileID: 0}
     count: 0
@@ -65343,6 +65351,12 @@ MonoBehaviour:
   NormalEgg: {fileID: 550101343670223400, guid: 126fa0475491da341a06ef21e09ee7fb,
     type: 3}
   GoodEgg: {fileID: 1960277678842088088, guid: e899cfabe6fba1145b9d4264ad2cc67d, type: 3}
+  chickenCount: 0
+  chickenList: []
+  nEggCount: 0
+  gEggCount: 0
+  nEggList: []
+  gEggList: []
 --- !u!4 &888277096
 Transform:
   m_ObjectHideFlags: 0
@@ -73139,7 +73153,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 165204917}
     m_Modifications:
     - target: {fileID: 1620391632319540518, guid: 26d1116f702db044db614022a1dac99e,
         type: 3}
@@ -73189,7 +73203,7 @@ PrefabInstance:
     - target: {fileID: 7694465308672115875, guid: 26d1116f702db044db614022a1dac99e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 23
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7694465308672115875, guid: 26d1116f702db044db614022a1dac99e,
         type: 3}
@@ -79385,6 +79399,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1923044082}
   m_CullTransparentMesh: 0
+--- !u!1001 &1925157798
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1960277678842088088, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_Name
+      value: GoodEgg (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626430044904573096, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6705166003422724202, guid: e899cfabe6fba1145b9d4264ad2cc67d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e899cfabe6fba1145b9d4264ad2cc67d, type: 3}
 --- !u!1 &1934288714
 GameObject:
   m_ObjectHideFlags: 0
@@ -80767,7 +80855,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 816678891}
         m_MethodName: OnClickNoButton
         m_Mode: 1
         m_Arguments:

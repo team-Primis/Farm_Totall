@@ -35,7 +35,9 @@ public class inventory : MonoBehaviour
         putInventory(2);
         putInventory(100);
         putInventory(101);
-        
+
+        putInventory(99,3); // 닭 밥 테스트용 건초
+
 
 
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 

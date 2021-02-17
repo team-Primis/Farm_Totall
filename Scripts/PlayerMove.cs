@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; // 씬 관련 (저장 때문에)
 
 public class PlayerMove : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class PlayerMove : MonoBehaviour
     public string currentMapName; //transferMap 스크립트에 있는 transferMapName 변수의 값을 저장.
     private BoxCollider2D boxCollider;
     //충돌할 때 통과 불가능한 레이어를 설정해줌.
-   public Animator anim;
+    public Animator anim;
     public float speed = 1.0f;
     static public PlayerMove instance;//static: 이 스크립트를 사용하는 객체는 instance 변수를 공유하게 됨.
     public inventory Inven;
@@ -30,14 +31,15 @@ public class PlayerMove : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        
+
+        currentMapName = SceneManager.GetActiveScene().name; // 저장 때문에,,, (성현)
     }
 
     // Update is called once per frame
     void Update()
     {
-        // from playercontoller - 닭 관련 창 떠있으면 플레이어 정지
-        if(GMScript.isBuyOpen == false && GMScript.isCareOpen == false)
+        // from menucontrol - 일시정지 창 떠있으면 플레이어 정지
+        if(GMScript.isMenuOpen == false)
         {
             Move();
         }
@@ -109,7 +111,8 @@ public class PlayerMove : MonoBehaviour
         Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
         Vector2 distance = theplayerPosition - mousePosition;
 
-        if ( Inven.equipedItem.Ename != "" )
+
+        if (Inven.equipedItem!= null)
         {
             if(Inven.equipedItem.Ename == "waterSprinkle")
             { 

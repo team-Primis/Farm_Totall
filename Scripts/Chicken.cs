@@ -7,10 +7,7 @@ using System; // String 클래스 사용을 위해서 (Text에서)
 public class Chicken : MonoBehaviour
 {
     Rigidbody2D rigid; // 속력 부여하기 위해서
-    public GameObject Care;
-    public GameObject Choose;
     public GameObject Heart;
-    public Text CareText;
     public int nextMovex, nextMovey; // 다음 행동 결정할 변수
     public float randx, randy; // 미세 방향 조절
     public int happy = 0;
@@ -25,7 +22,11 @@ public class Chicken : MonoBehaviour
     public float chickTimer; // 확인용...
     public bool checkEgg = false; // 중복 방지
 
+    public inventory Inven; // 건초 및 씨앗
+
     Animator anim; // Animator 불러오기
+
+    public int theCount; // 닭 저장 및 로드를 위해 추가한 부분
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +35,16 @@ public class Chicken : MonoBehaviour
         SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         PlayerTF = GameObject.Find("Player").GetComponent<Transform>();
 
+        Inven = GameObject.Find("Inventory").GetComponent<inventory>();
+
         rigid = GetComponent<Rigidbody2D>();
         Invoke("Think", 4); // 생성 후 4초 후부터 움직이기 시작
 
         anim = GetComponent<Animator>(); // anim 변수 선언
 
         checkEgg = true; // 초기 설정
+
+        theCount = SMScript.chickenCount;
     }
 
     // Update is called once per frame
@@ -66,31 +71,13 @@ public class Chicken : MonoBehaviour
             }
         }
 
-        if(Input.GetKey(KeyCode.Space)) // 스페이스바 눌렀을 때
-        {   HiChicken();   } // 창 나타낼지 판단
-
-        if(Care.activeSelf == true || Choose.activeSelf == true) // 닭 케어 창이 열렸을 때
-        {
-            GMScript.isCareOpen = true;
-            ChickenStop(); // 해당 닭만 정지
-        }
-
-        // 닭 관련 창 열렸으면 움직임 멈춤
-        //if(GMScript.isBuyOpen == true || GMScript.isCareOpen == true)
-        //{   ChickenStop();   }
-
-        // 기타 UI 열렸으면 움직임 멈춤
-        //if(GMScript.vendingImage.activeSelf == true || GMScript.container.activeSelf == true
-        //        || GMScript.inventory.activeSelf == true)
-        //{   ChickenStop();   }
-
         // 애니메이션 MoveX, MoveY
         anim.SetFloat("MoveX", nextMovex);
         anim.SetFloat("MoveY", nextMovey);
 
         // 하루마다 달걀 낳기
-        chickTimer = GMScript.timer;
-        if(chickTimer <= 1){    checkEgg = true;    } // 날 밝으면 초기화
+        chickTimer = GMScript.timer; // 헷갈릴까봐,,, (확인용)
+        /*if(chickTimer <= 1){    checkEgg = true;    } // 날 밝으면 초기화
         if(chickTimer >= 30) // 밤에
         {
             if(checkEgg == true)
@@ -98,20 +85,83 @@ public class Chicken : MonoBehaviour
                 LayEgg();
                 checkEgg = false; // 한 번만
             }
+        } // 테스트용*/
+        if(chickTimer <= 1) // 날 밝으면
+        {
+            checkEgg = true; // true
+        }
+        else if(chickTimer <= 2) // 그 다음에
+        {
+            if(checkEgg == true) // 한 번만
+            {
+                LayEgg(); // 알 낳고
+                checkEgg = false; // false
+            }
         }
 
-        // 현재 보유량 반영 - 변수 받아와야 함, 0개면 못 주고 꺼지는 거지...
-        //SeedText.text = String.Format("씨앗({0})", seedNum);
-        //HayText.text = String.Format("건초({0})", hayNum);
+        // 현재 먹이 보유량 반영 (from inventory)
+        // 닭 먹이를 장착한 후 스페이스바로 닭 누르기
+        // 마우스 클릭 = 쓰다듬기
+        // care&choose 창 삭제함
+
+        if(Heart.activeSelf == true){   ChickenStop();  } // 하트 있을 땐 해당 닭 정지
+
+        if(GMScript.isMenuOpen == true){   ChickenStop();  } // 일시정지면 닭들 정지
+
+        //장착 후 스페이스바 클릭 - 밥 주기
+        if(Input.GetKeyDown(KeyCode.Space)) // 스페이스바 눌렀을 때 1번 판단
+        {
+            if(Inven.equipedItem != null && Inven.equipedItem.Ename == "hay") // 장착한 게 건초라면 (미해 : Inven.equippedItem != null 추가. (안그러면 아이템을 들고 있지 않을 때 오류))
+            {
+                FeedHay();
+            }
+            if(Inven.equipedItem != null && Inven.equipedItem.id != 0 &&Inven.equipedItem.id < 5) // 현재 id 1~4가 씨앗임 (미해 : Inven.equippedItem!= null, Inven.equipedItem.id != 0 추가. (아무것도 안들떄 초기 id가 0이라서 계속 먹임))
+            {
+                FeedSeed();
+            }
+        }
     }
 
-    void HiChicken() // Player가 가까워지면 선택창 나타남
+
+    // 쓰다듬기 - 마우스 (좌)클릭
+    void OnMouseDown() // 닭을 클릭했을 때
     {
         dis = Vector2.Distance(PlayerTF.position,transform.position);
-        if(dis < 1.0f)
+        if(dis < 1.5f) // Player가 가깝다면 쓰다듬기 가능
         {
-            CareText.text = String.Format("무얼 하실 건가요 ({0}/4)", happy);
-            Care.SetActive(true); // 선택창 나타남 (ft. 행복도)
+            happy += 1; // 행복도 1 증가
+            Heart.SetActive(true); // 하트 나타나고
+            Debug.Log("Give Love (행복도: "+happy+"/4)");
+            Invoke("HideHeart", 1); // 1초 후 사라짐
+        }
+    }
+
+    void HideHeart() // 하트 사라지게
+    {    Heart.SetActive(false);    }
+
+    void FeedHay()
+    {
+        dis = Vector2.Distance(PlayerTF.position,transform.position);
+        if(dis < 1.0f) // Player가 가깝다면 밥 주기 가능
+        {
+            Inven.RemoveItem(Inven.equipedItem.id); // 해당 건초 개수 하나 감소
+            happy += 4; // 행복도 4 증가
+            Heart.SetActive(true); // 하트 나타나고
+            Debug.Log("Give Hay (행복도: "+happy+"/4)");
+            Invoke("HideHeart", 1); // 1초 후 사라짐
+        }
+    }
+
+    void FeedSeed()
+    {
+        dis = Vector2.Distance(PlayerTF.position,transform.position);
+        if(dis < 1.0f) // Player가 가깝다면 밥 주기 가능
+        {
+            Inven.RemoveItem(Inven.equipedItem.id); // 해당 씨앗 개수 하나 감소
+            happy += 2; // 행복도 2 증가
+            Heart.SetActive(true); // 하트 나타나고
+            Debug.Log("Give Seed (행복도: "+happy+"/4)");
+            Invoke("HideHeart", 1); // 1초 후 사라짐
         }
     }
 
@@ -129,21 +179,18 @@ public class Chicken : MonoBehaviour
         Invoke("Think", time); // 재귀
     }
 
-    void HideHeart()
-    {    Heart.SetActive(false);    } // 하트 사라지게
-
     // 달걀 낳는 조건 - 하루 후 4 이상 → 고급 / 2 이상 → 보통 / 나머지 → 없음
     void LayEgg()
     {
-        if(happy>=4)
+        if(happy >= 4)
         {   SMScript.SpawnGEgg();   }
-        else if(happy>=2)
+        else if(happy >= 2)
         {   SMScript.SpawnNEgg();   }
         happy = 0;
     }
 
     // UI Buttons
-    public void OnClickFoodButton() // 밥주기 버튼
+    /*public void OnClickFoodButton() // 밥주기 버튼
     {
         Choose.SetActive(true);
         Care.SetActive(false);
@@ -161,7 +208,7 @@ public class Chicken : MonoBehaviour
         Care.SetActive(false);
         GMScript.isCareOpen = false;
     }
-    public void OnClickSeedButton() // 씨앗 주기
+    public void OnClickSeedButton() // 씨앗 주기 - 0개면 못 주고 꺼지면서 Log 출력...
     {
         Choose.SetActive(false);
         happy += 2; // 행복도 2 증가
@@ -169,12 +216,12 @@ public class Chicken : MonoBehaviour
         Invoke("HideHeart", 1); // 1초 후 사라짐
         GMScript.isCareOpen = false;
     }
-    public void OnClickHayButton() // 건초 주기
+    public void OnClickHayButton() // 건초 주기 - 0개면 못 주고 꺼지면서 Log 출력...
     {
         Choose.SetActive(false);
         happy += 4; // 행복도 4 증가
         Heart.SetActive(true); // 하트 나타나고
         Invoke("HideHeart", 1); // 1초 후 사라짐
         GMScript.isCareOpen = false;
-    }
+    }*/
 }

@@ -22,6 +22,7 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
         {
             thePlayer.currentMapName=transferMapName;
             SceneManager.LoadScene(transferMapName);
+            thePlayer.transform.position = new Vector2(7.5f, -7.0f); // 저장 때문에,,,
         }
     }
 }
