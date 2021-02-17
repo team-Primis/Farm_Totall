@@ -24,27 +24,34 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         //해당 칸에 아이템이 존재할때
         if (this.item != null && this.item.Ename != "")
         {
-            int itemMoney; //해당 아이템의 가격 = 1개 판매 가격 * 갯수
-            itemMoney = this.item.stats["sellingPrice"] * this.item.count;
-
-            //한번 클릭되면 구매 리스트에 들어감 + 색깔 민트
-            if (!isAdded)
+            if (this.item.stats.ContainsKey("sellingPrice"))
             {
-                
-                sellingUI.totalMoneyChange(itemMoney, true);
-                sellingUI.sellingList.Add(this.item);
-                isAdded = true;
-                spriteBackground.color = new Color32(0, 255, 142, 172);
+                int itemMoney; //해당 아이템의 가격 = 1개 판매 가격 * 갯수
+                itemMoney = this.item.stats["sellingPrice"] * this.item.count;
+
+                //한번 클릭되면 구매 리스트에 들어감 + 색깔 민트
+                if (!isAdded)
+                {
+
+                    sellingUI.totalMoneyChange(itemMoney, true);
+                    sellingUI.sellingList.Add(this.item);
+                    isAdded = true;
+                    spriteBackground.color = new Color32(0, 255, 142, 172);
+                }
+                //두번 클릭되면 구매 리스트에서 삭제 + 색깔 원상복귀
+                else
+                {
+                    sellingUI.totalMoneyChange(itemMoney, false);
+                    sellingUI.sellingList.Remove(this.item);
+                    isAdded = false;
+                    spriteBackground.color = new Color32(0, 0, 0, 100);
+
+
+                }
             }
-            //두번 클릭되면 구매 리스트에서 삭제 + 색깔 원상복귀
             else
             {
-                sellingUI.totalMoneyChange(itemMoney, false);
-                sellingUI.sellingList.Remove(this.item);
-                isAdded = false;
-                spriteBackground.color = new Color32(0, 0, 0, 100);
-
-
+                Debug.Log(item.Ename + "은 비매품입니다.");
             }
         }
     }
@@ -81,12 +88,22 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         }
         //아이템이 null 이 아닐 시 : 눈에 보이는 모습을 해당 아이콘 모양으로 바꿔줌
         spriteImage.sprite = item.icon;
-        spriteImage.color = Color.white;
+
+        //판매 가능한 아이템일 시 ( 판매가가 있음) : 색깔 100%, 판매 불가능일시 색깔 살짝 투명 & 배경 회색
+        if (this.item.stats.ContainsKey("sellingPrice"))
+        {
+            spriteImage.color = Color.white;
+        }
+        else
+        {
+            spriteImage.color = new Color(255, 255, 255, 0.5f);
+
+        }
         if (this.item.category == Item.Category.item)
         {
             countText.text = item.count.ToString();
             countText.color = Color.white;
-   
+
         }
         else
         {
