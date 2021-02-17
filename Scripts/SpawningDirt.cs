@@ -41,7 +41,7 @@ public class SpawningDirt : MonoBehaviour
 
                     if (hit.transform == null || hit.collider.CompareTag("Player"))
                     {
-                        Debug.Log("되네");
+                        Debug.Log("땅 파기");
                         if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
                         {
 

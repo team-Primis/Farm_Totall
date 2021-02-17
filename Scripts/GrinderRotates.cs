@@ -26,7 +26,7 @@ public class GrinderRotates : MonoBehaviour
         {
             if (Inven.equipedItem.Ename == "sickle")
             {
-                Debug.Log("낫이 생겼습니다");
+               // Debug.Log("낫이 생겼습니다");
                 grinder.SetActive(true);
                 if (Input.GetMouseButton(0))//마우스 클릭중에는 낫이 돌아가는 애니메이션 재생.
                 {
@@ -39,13 +39,13 @@ public class GrinderRotates : MonoBehaviour
             }
             else
             {
-                Debug.Log("낫이 없어졌습니다");
+               // Debug.Log("낫이 없어졌습니다");
                 grinder.SetActive(false);
             }
         }
         else
         {
-            Debug.Log("선택된 아이템 없음");
+          //  Debug.Log("선택된 아이템 없음");
             grinder.SetActive(false);
         }
     }

@@ -5,6 +5,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public int speedUp=50; //이걸로 타이머 속도조절
     public bool isStaminaChanged = false;
     public int stamina = 10;
 
@@ -59,7 +60,7 @@ public class GameManager : MonoBehaviour
         if (!isTimerStoped)
         {
             //timer += Time.deltaTime;
-            timer += Time.deltaTime*50; // 로드 등 확인 위해 임시로 시간 배속함 (성현)
+            timer += Time.deltaTime* speedUp; // 로드 등 확인 위해 임시로 시간 배속함 (성현)
         }
         if (timer >= 60*24) //1시간 * 24 = 1일
         {
