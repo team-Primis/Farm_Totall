@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
 
         // 성현
         BuyChicken = GameObject.Find("Canvas2").transform.Find("BuyChicken").gameObject;
-        //DontDestroyOnLoad(gameObject); // 타이틀 버튼 함수 연결하느라...
     }
 
     // Update is called once per frame

@@ -20,6 +20,11 @@ public class MenuControl : MonoBehaviour
     public Text AboutF1;
     public Text AboutF2;
 
+    // center function
+    public GameObject BuyChicken;
+    public SpawnManager SMScript;
+    private PlayerControll thePlayerCtr; // for money
+
     void Start()
     {
         GameObject canvas2 = GameObject.Find("Canvas2");
@@ -33,6 +38,11 @@ public class MenuControl : MonoBehaviour
                 transform.Find("SaveFile1").transform.Find("AboutF1").GetComponent<Text>();
         AboutF2 = canvas2.transform.Find("MenuWindow").transform.Find("WhereSave").
                 transform.Find("SaveFile2").transform.Find("AboutF2").GetComponent<Text>();
+
+        // center function
+        BuyChicken = canvas2.transform.Find("BuyChicken").gameObject;
+        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
     }
 
     void Update()
@@ -54,12 +64,12 @@ public class MenuControl : MonoBehaviour
             }
         }
 
-        // 임시 - 타이틀 버튼으로 옮길 예정
+        /*// 임시 - 타이틀 버튼으로 옮길 예정
         if(Input.GetKeyDown(KeyCode.F9))
         {
 	        // 불러오기
 	        theSaveNLoad.CallLoadF1();
-        }
+        }*/
 
         // 메뉴 on → 시간(menucontrol), 닭(Chicken), 플레이어(playermove) 정지
         if(menuWindow.activeSelf)
@@ -170,4 +180,31 @@ public class MenuControl : MonoBehaviour
         Application.Quit();
 #endif
     }*/
+
+
+    // center function
+    public void CenterYesBtn()
+    {
+        if(thePlayerCtr.money >= 500) // 돈 충분
+        {
+            thePlayerCtr.playerMoneyChange(500, false); // 돈 500원 감소
+
+            Debug.Log("닭 구매 완료");
+            //howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
+            SMScript.SpawnChicken(); // spawn chicken
+            BuyChicken.SetActive(false);
+            GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
+        }
+        else // 돈 부족
+        {
+            thePlayerCtr.playerMoneyChange(500, false); // 잔액 부족 메세지
+        }
+        // 미해에게... playerMoneyChange 함수 쓰려고 했는데 닭 스폰 때문에 이게 최선인 듯...
+    }
+    public void CenterNoBtn()
+    {
+        Debug.Log("닭 구매 취소");
+        BuyChicken.SetActive(false); // nothing happens
+        GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
+    }
 }

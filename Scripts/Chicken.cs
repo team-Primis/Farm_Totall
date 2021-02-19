@@ -111,11 +111,17 @@ public class Chicken : MonoBehaviour
         //장착 후 스페이스바 클릭 - 밥 주기
         if(Input.GetKeyDown(KeyCode.Space)) // 스페이스바 눌렀을 때 1번 판단
         {
-            if(Inven.equipedItem != null && Inven.equipedItem.Ename == "hay") // 장착한 게 건초라면 (미해 : Inven.equippedItem != null 추가. (안그러면 아이템을 들고 있지 않을 때 오류))
+            // 장착한 게 건초라면
+            // (미해 : Inven.equippedItem != null 추가. (안그러면 아이템을 들고 있지 않을 때 오류))
+            if(Inven.equipedItem != null && Inven.equipedItem.Ename == "hay")
             {
                 FeedHay();
             }
-            if(Inven.equipedItem != null && Inven.equipedItem.id != 0 &&Inven.equipedItem.id < 5) // 현재 id 1~4가 씨앗임 (미해 : Inven.equippedItem!= null, Inven.equipedItem.id != 0 추가. (아무것도 안들떄 초기 id가 0이라서 계속 먹임))
+
+            // 장착한 게 씨앗이라면 - 현재 id 1~4가 씨앗임
+            // (미해 : Inven.equippedItem!= null, Inven.equipedItem.id != 0 추가.
+            // (아무것도 안들떄 초기 id가 0이라서 계속 먹임))
+            if(Inven.equipedItem != null && Inven.equipedItem.id != 0 && Inven.equipedItem.id < 5) // 
             {
                 FeedSeed();
             }
