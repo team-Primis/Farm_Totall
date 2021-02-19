@@ -6,13 +6,17 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
 {
     public string transferMapName; //이동할 맵의 이름.
     private PlayerMove thePlayer;
+
+    // 성현
+    public SpawnManager SMScript;
+
     // Start is called before the first frame update
-
-
     void Start()
     {
         thePlayer = FindObjectOfType<PlayerMove>();
         
+        // 성현
+        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -20,9 +24,22 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
     {
         if (collision.gameObject.name == "Player")
         {
-            thePlayer.currentMapName=transferMapName;
-            SceneManager.LoadScene(transferMapName);
-            thePlayer.transform.position = new Vector2(7.5f, -7.0f); // 저장 때문에,,,
+            // 성현
+            SMScript.ClearChicken();
+            SMScript.ClearEgg();
+            Invoke("NowGoIn", 1); // 씬 바뀌기 전에 닭이랑 알 저장할 시간 벌려고 지연시킴
+
+            // 주석 묶은 부분은 지현이가 원래 쓴 부분
+            /*thePlayer.currentMapName=transferMapName;
+            SceneManager.LoadScene(transferMapName);*/
         }
+    }
+
+    // 성현
+    public void NowGoIn()
+    {
+        thePlayer.currentMapName=transferMapName;
+        SceneManager.LoadScene(transferMapName);
+        // 지현이에게... starting point 좌표 조금만 옮겨주면 좋을 것 같아 너무 박혀서 시작하는 듯...☆
     }
 }

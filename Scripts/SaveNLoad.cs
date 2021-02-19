@@ -19,20 +19,20 @@ public class SaveNLoad : MonoBehaviour
         {
             doLoadF1 = false;
             Debug.Log("File 1 로드 시작 - 1");
-            Invoke("RealLoadF1", 4); // 씬 바꿀 시간 기다림
+            Invoke("RealLoadF1", 2); // 씬 바꿀 시간 기다림
         }
         else if(doLoadF2 == true)
         {
             //doLoadF2 = false;
             //Debug.Log("File 2 로드 중");
-            //Invoke("RealLoadF2", 4); // 씬 바꿀 시간 기다림
+            //Invoke("RealLoadF2", 2); // 씬 바꿀 시간 기다림
         }
     }
 
     private PlayerMove thePlayerMove; // 플레이어 좌표, 씬 이름
     private GameManager theGameManager; // 날짜, 시간, stamina
-    private PlayerControll thePlayerControll; // 보유금액, laborCount
-    private SpawnManager theSpawnManager; // 닭 개수, 행복도, checkEgg, 각 달걀 개수
+    private PlayerControll thePlayerControll; // 쓴 돈, laborCount
+    private SpawnManager theSpawnManager; // 닭 개수/행복도/checkEgg/좌표, 달걀 개수/좌표
     private inventory theInventory; // 인벤템 ID, 인벤템 개수
 
     public SNLData data; // SNLData 이용할 것임
@@ -56,7 +56,7 @@ public class SaveNLoad : MonoBehaviour
         data.timer = theGameManager.timer;
         data.stamina = theGameManager.stamina;
 
-        data.money = thePlayerControll.money;
+        data.usedMoney = 2000 - thePlayerControll.money; // 쓴 금액으로 2000은 기본값
         data.laborCount = thePlayerControll.laborCount;
 
         data.chickenCount = theSpawnManager.chickenCount;
@@ -64,10 +64,23 @@ public class SaveNLoad : MonoBehaviour
         {
             data.happy.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().happy);
             data.checkEgg.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg);
+            data.chickenXP.Add(theSpawnManager.chickenList[i].transform.position.x);
+            data.chickenYP.Add(theSpawnManager.chickenList[i].transform.position.y);
         }
-
+        // ----------------------------------------------
         data.nEggCount = theSpawnManager.nEggCount;
+        for (int i = 0; i < theSpawnManager.nEggCount; i++)
+        {
+            data.nEggXP.Add(theSpawnManager.nEggList[i].transform.position.x);
+            data.nEggYP.Add(theSpawnManager.nEggList[i].transform.position.y);
+        }
+        // ----------------------------------------------
         data.gEggCount = theSpawnManager.gEggCount;
+        for (int i = 0; i < theSpawnManager.gEggCount; i++)
+        {
+            data.gEggXP.Add(theSpawnManager.gEggList[i].transform.position.x);
+            data.gEggYP.Add(theSpawnManager.gEggList[i].transform.position.y);
+        }
 
         for(int i = 0; i < theInventory.characterItems.Count; i++)
         {
@@ -180,9 +193,13 @@ public class SaveNLoad : MonoBehaviour
                 theGameManager.timer = data.timer;
                 theGameManager.stamina = data.stamina;
 
-                thePlayerControll.money = data.money;
+                thePlayerControll.money = 2000; // 돈 초기화
+                thePlayerControll.playerMoneyChange(data.usedMoney, false); // 쓴 돈 빼서 업데이트
                 thePlayerControll.laborCount = data.laborCount;
 
+                // 임시
+                theSpawnManager.chickenList.Clear();
+                //
                 theSpawnManager.chickenCount = 0;
                 for(int i = 0; i < data.chickenCount; i++)
                 {
@@ -192,24 +209,44 @@ public class SaveNLoad : MonoBehaviour
                 {
                     theSpawnManager.chickenList[i].GetComponent<Chicken>().happy = data.happy[i];
                     theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg = data.checkEgg[i];
+                    theSpawnManager.chickenList[i].transform.position =
+                                                    new Vector2(data.chickenXP[i], data.chickenYP[i]);
                 }
-
+                // ----------------------------------------------
+                // 임시
+                theSpawnManager.nEggList.Clear();
+                theSpawnManager.gEggList.Clear();
+                //
                 theSpawnManager.nEggCount = 0;
-                theSpawnManager.gEggCount = 0;
                 for(int i = 0; i < data.nEggCount; i++)
                 {
                     theSpawnManager.SpawnNEgg();
                 } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                for(int i = 0; i < data.nEggCount; i++)
+                {
+                    theSpawnManager.nEggList[i].transform.position =
+                                                    new Vector2(data.nEggXP[i], data.nEggYP[i]);
+                }
+                // ----------------------------------------------
+                theSpawnManager.gEggCount = 0;
                 for(int i = 0; i < data.gEggCount; i++)
                 {
                     theSpawnManager.SpawnGEgg();
                 } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                for(int i = 0; i < data.gEggCount; i++)
+                {
+                    theSpawnManager.gEggList[i].transform.position =
+                                                    new Vector2(data.gEggXP[i], data.gEggYP[i]);
+                }
 
-                for(int i = 0; i< data.characterItemsID.Count; i++)
+                for(int i = theInventory.characterItems.Count - 1; i >= 0 ; i--)
+                {
+                    theInventory.RemoveAll(theInventory.characterItems[i].id);
+                } // 아이템 비우기
+                for(int i = 0; i < data.characterItemsID.Count; i++)
                 {
                     theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
-                } // 맨 초기에는 아이템 없음 -> 하나씩 넣기
-                // 아이템이 도구일 때 제외하는 코드 추가할 것!
+                } // 저장된 아이템 목록 하나씩 넣기 (개수 고려됨)
 
                 //theDatabase.var = data.varNumberList.ToArray(); // List → Array
                 //theDatabase.var_name = data.varNameList.ToArray();

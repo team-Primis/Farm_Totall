@@ -20,10 +20,12 @@ public class PlayerControll : MonoBehaviour
 
     private CoinText coinTextScript;
 
-    // from playercontoller
+    /*// from playercontoller - (성현, 0219 제거)
     public int numGE = 0; // 보유 중인 좋은 알의 개수
-    public int numNE = 0; // 보유 중인 보통 알의 개수
+    public int numNE = 0; // 보유 중인 보통 알의 개수*/
 
+    // (성현, 0219 추가)
+    public SpawnManager SMScript;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,9 @@ public class PlayerControll : MonoBehaviour
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
+
+        // (성현, 0219 추가)
+        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
 
     //플레이어의 돈의 수량을 바꾸고, 그에 맞게 UI를 업데이트
@@ -61,7 +66,24 @@ public class PlayerControll : MonoBehaviour
     {
         if(coll.gameObject.tag == "GoodEgg") // GoodEgg가 닿으면
         {
-            numGE += 1; // 보유 개수 하나 증가
+            //numGE += 1; // 보유 개수 하나 증가 (성현, 0219 제거)
+            
+            // (성현, 0219 추가) 리스트에서도 제거
+            int num = SMScript.gEggList.Count;
+            for (int i = 0; i < SMScript.gEggList.Count; i++)
+            {
+                if(SMScript.gEggList[i] == coll.gameObject)
+                num = i;
+            }
+            if(num < SMScript.gEggList.Count) // index 찾았으면
+            {
+                SMScript.gEggList.RemoveAt(num);
+            }
+            else
+            {
+                Debug.Log("GoodEgg Error");
+            }
+
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
 
             //미해가 씀 : 인벤에 넣기 : id 11  좋은 달걀 id 12 평범 달걀
@@ -70,7 +92,24 @@ public class PlayerControll : MonoBehaviour
         }
         else if(coll.gameObject.tag == "NormalEgg") // NormalEgg가 닿으면
         {
-            numNE += 1; // 보유 개수 하나 증가
+            //numNE += 1; // 보유 개수 하나 증가 (성현, 0219 제거)
+
+            // (성현, 0219 추가) 리스트에서도 제거
+            int num = SMScript.nEggList.Count;
+            for (int i = 0; i < SMScript.nEggList.Count; i++)
+            {
+                if(SMScript.nEggList[i] == coll.gameObject)
+                num = i;
+            }
+            if(num < SMScript.nEggList.Count) // index 찾았으면
+            {
+                SMScript.nEggList.RemoveAt(num);
+            }
+            else
+            {
+                Debug.Log("NormalEgg Error");
+            }
+
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
 
             inven.putInventory(12);

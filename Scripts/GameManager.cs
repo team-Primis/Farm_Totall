@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement; // (성현) scene 전환 - 초기 타이틀로의 이동 때문에
 
 public class GameManager : MonoBehaviour
 {
@@ -29,6 +30,10 @@ public class GameManager : MonoBehaviour
     // from menucontrol
     public bool isMenuOpen = false; // 일시정지 메뉴 관련
 
+    // (성현) 게임을 시작하고, didGameStart가 false이면 OutSide -> Title (맨 처음 시작 화면)
+    // 즉 게임 자체의 처음 화면은 OutSide이지만, 플레이 전 Title로 바로 옮겨 주기
+    public bool didGameStart = false; // 초기값이 false (게임 켰을 당시에만 false이고 그 후는 true)
+
     public static GameManager instance = null;
 
     void Awake()
@@ -50,7 +55,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // 성현
+        if (!didGameStart) // 게임 시작 전에는 타이틀로 이동
+        {
+            didGameStart = true;
+            SceneManager.LoadScene("Title");
+        }
+
         changeStaminaUI(); //스태미나 감소
 
         DayUI(day); // 로드 때문에 여기로 옮겼음 (성현)
