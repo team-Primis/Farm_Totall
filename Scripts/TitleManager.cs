@@ -54,7 +54,7 @@ public class TitleManager : MonoBehaviour
     public void OnClickNewGame()
     {
         Debug.Log("새 게임");
-        SceneManager.LoadScene("OutSide");
+        theSaveNLoad.CallNewGame();
     }
 
     public void OnClickContinue()
@@ -133,11 +133,13 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickC1()
     {
+        Debug.Log("File 1 이어하기");
         theSaveNLoad.CallLoadF1();
     }
 
     public void OnClickC2()
     {
+        Debug.Log("File 2 이어하기");
         //theSaveNLoad.CallLoadF2();
     }
 }

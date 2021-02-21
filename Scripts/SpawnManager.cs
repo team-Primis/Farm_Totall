@@ -39,7 +39,7 @@ public class SpawnManager : MonoBehaviour
         if(GoOut)
         {
             GoOut = false;
-            Invoke("LoadSpawn", 1);
+            Invoke("LoadSpawn", 1); // 씬 바꿀 시간 부여
         }
 
     }
@@ -86,7 +86,7 @@ public class SpawnManager : MonoBehaviour
     // 집 나올 땐 닭과 달걀 다 삭제하고 새로 스폰, 위치 불러오기
     public void ClearChicken() // 들어갈 떄
     {
-        // 위치 저장 후 프리팹 삭제
+        // 위치 저장 후 리스트에서 삭제 (프리팹은 씬 이동하면 사라져서 파괴할 필요 없음)
         for (int i = 0; i < chickenCount; i++)
         {
             chickenXp.Add(chickenList[i].transform.position.x);
@@ -94,10 +94,10 @@ public class SpawnManager : MonoBehaviour
             chickenHp.Add(chickenList[i].GetComponent<Chicken>().happy);
             chickenCe.Add(chickenList[i].GetComponent<Chicken>().checkEgg);
         }
-        for (int i = 0; i < chickenCount; i++)
+        /*for (int i = 0; i < chickenCount; i++)
         {
             Destroy(chickenList[i].gameObject);
-        }
+        }*/
         chickenList.Clear();
     }
     public void LoadChicken() // 나올 때
@@ -118,7 +118,7 @@ public class SpawnManager : MonoBehaviour
     }
     public void ClearEgg() // 들어갈 떄
     {
-        // 위치 저장 후 프리팹 삭제
+        // 위치 저장 후 리스트에서 삭제 (프리팹은 씬 이동하면 사라져서 파괴할 필요 없음)
         for (int i = 0; i < nEggCount; i++)
         {
             neggXp.Add(nEggList[i].transform.position.x);
@@ -129,14 +129,14 @@ public class SpawnManager : MonoBehaviour
             geggXp.Add(gEggList[i].transform.position.x);
             geggYp.Add(gEggList[i].transform.position.y);
         }
-        for (int i = 0; i < nEggCount; i++)
+        /*for (int i = 0; i < nEggCount; i++)
         {
             Destroy(nEggList[i].gameObject);
         }
         for (int i = 0; i < gEggCount; i++)
         {
             Destroy(gEggList[i].gameObject);
-        }
+        }*/
         nEggList.Clear();
         gEggList.Clear();
     }

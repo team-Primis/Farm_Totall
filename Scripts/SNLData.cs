@@ -8,7 +8,7 @@ using UnityEngine;
 public class SNLData // 모든 세이브 기록들 담을 곳
 {
     // 저장할 것 ~
-    // 보관상자, 장착템 / 땅 상태, 심어진 것, 농작물 상태
+    // 땅 상태, 심어진 것, 농작물 상태
 
     // 포함 완료 ~
     // 플레이어 좌표, 씬 이름
@@ -16,7 +16,8 @@ public class SNLData // 모든 세이브 기록들 담을 곳
     // 쓴 돈, laborCount
     // <닭> 닭 개수(theCount), 각 닭의 행복도, checkEgg, 닭 좌표
     // <달걀> 각 달걀 개수, 각 달걀 좌표
-    // <인벤> 인벤템 ID, 인벤템 개수
+    // <인벤> 인벤템 ID, 인벤템 개수, 장착템 ID
+    // <상자> 보관템 ID, 보관템 개수
 
     // Vector3 등의 class는 직렬화가 안 됨 (자료형만 직렬화 가능)
         
@@ -47,11 +48,9 @@ public class SNLData // 모든 세이브 기록들 담을 곳
 
     public List<int> characterItemsID; // 인벤템 ID
     public List<int> characterItemsCnt; // 인벤템 개수
+    public List<bool> invenUIEmpty; // 인벤 UI 상태 (빈칸, 즉 null 고려)
+    public int equipedItemID; // 장착템 ID
 
-    //public List<int> playerItemInventory; // 아이템의 ID 값 넣으면 됨
-    //public List<int> playerItemInventoryCount; // 몇 개 소지했는지
-    //public List<int> playerEquipItem; // 아이템 ID
-    //public List<bool> swList;
-    //public List<string> varNameList;
-    //public List<float> varNumberList;
+    public List<int> containerItemsID; // 보관템 ID
+    public List<int> containerItemsCnt; // 보관템 개수
 }

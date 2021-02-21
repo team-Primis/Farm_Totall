@@ -209,4 +209,12 @@ public class MenuControl : MonoBehaviour
         BuyChicken.SetActive(false); // nothing happens
         GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
     }
+
+
+    // SaveNLoad 관련
+    public void WhenRestart()
+    {
+        menuWindow.SetActive(false); // 메뉴 off
+        GMScript.isTimerStoped = false; // 시간 흐르기 시작
+    }
 }
