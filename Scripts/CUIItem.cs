@@ -18,7 +18,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        container = GameObject.Find("ContainerPanel").GetComponent<ContainerDb>();
+        container = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerDb>();
         spriteImage = gameObject.GetComponent<Image>();
         UpdateItem(null);
     }

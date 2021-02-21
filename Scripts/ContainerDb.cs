@@ -18,6 +18,7 @@ public class ContainerDb : MonoBehaviour
 
     //아이템을 담아놓을 보관상자
     public List<Item> container = new List<Item>();
+
     void Start()
     {
         db = GameObject.Find("CDatabase").GetComponent<containerDatabase>();
@@ -26,6 +27,7 @@ public class ContainerDb : MonoBehaviour
         PickUpBtn = GameObject.Find("PickUpBtn").GetComponent<Button>();
         PickUpBtn.onClick.AddListener(PickUp);
 
+        conUI = gameObject.GetComponent<ContainerUI>();
     }
     //보관상자 -> 인벤 이동
     void PickUp()

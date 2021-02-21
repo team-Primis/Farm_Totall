@@ -25,12 +25,14 @@ public class PlayerControll : MonoBehaviour
     public int numNE = 0; // 보유 중인 보통 알의 개수
 
 
+
     // Start is called before the first frame update
     void Start()
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
+
     }
 
     //플레이어의 돈의 수량을 바꾸고, 그에 맞게 UI를 업데이트

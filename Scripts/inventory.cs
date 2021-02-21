@@ -27,10 +27,9 @@ public class inventory : MonoBehaviour
     void Start()
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
-
+        container = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerDb>();
         putInBtn.onClick.AddListener(PutInContainer);
-        //잠시 에러 없애기 위함..
-        //equipedItem = null;
+        
         putInventory(1,3); 
         putInventory(2);
         putInventory(100);
