@@ -27,7 +27,8 @@ public class ContainerDb : MonoBehaviour
         PickUpBtn = GameObject.Find("PickUpBtn").GetComponent<Button>();
         PickUpBtn.onClick.AddListener(PickUp);
 
-        conUI = gameObject.GetComponent<ContainerUI>();
+        conUI = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerUI>();
+
     }
     //보관상자 -> 인벤 이동
     void PickUp()

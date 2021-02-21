@@ -25,7 +25,7 @@ public class DetectPlayer : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Debug.Log("touched " + objectTag);
+                //Debug.Log("touched " + objectTag);
                 
                 panelToOpen.SetActive(!panelToOpen.activeSelf);
                 GMScript.isTimerStoped = panelToOpen.activeSelf;

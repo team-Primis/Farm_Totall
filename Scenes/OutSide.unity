@@ -1053,6 +1053,7 @@ Transform:
   m_LocalPosition: {x: 0.14616977, y: 2.1651466, z: -0.6592549}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 700624496}
   - {fileID: 540539589}
   - {fileID: 1811743719}
   - {fileID: 1400127614}
@@ -1798,7 +1799,7 @@ GameObject:
   - component: {fileID: 280688632}
   - component: {fileID: 280688633}
   - component: {fileID: 280688634}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: selectedItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2029,7 +2030,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 165204917}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &298145185 stripped
 RectTransform:
@@ -2466,7 +2467,7 @@ GameObject:
   - component: {fileID: 331318677}
   - component: {fileID: 331318676}
   - component: {fileID: 331318678}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: InventoryPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3965,7 +3966,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 165204917}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &540937115
 GameObject:
@@ -62983,6 +62984,49 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &700624495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 700624496}
+  - component: {fileID: 700624497}
+  m_Layer: 0
+  m_Name: ContainerItems
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &700624496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700624495}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 18.485474, y: -4.2581787, z: -1.2766317}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 165204917}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &700624497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700624495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 595d2071f75f88040bc49548ccaa67f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &702727329
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65936,7 +65980,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 962667184}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EmpTrans
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75240,7 +75284,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 165204917}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1405261443
 PrefabInstance:
@@ -75371,7 +75415,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1419091511}
   - component: {fileID: 1419091512}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: SlotPanel(layout)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78148,7 +78192,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1811743719
 RectTransform:
@@ -78170,7 +78214,7 @@ RectTransform:
   - {fileID: 352968930}
   - {fileID: 796022838}
   m_Father: {fileID: 165204917}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -78807,7 +78851,7 @@ GameObject:
   - component: {fileID: 1876787109}
   - component: {fileID: 1876787111}
   - component: {fileID: 1876787110}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81374,6 +81418,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6931255504637250714, guid: e0b4de517dc7a4c478f1ce53f2596a75,
+        type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1302993787}
     - target: {fileID: 6931255504637250715, guid: e0b4de517dc7a4c478f1ce53f2596a75,
         type: 3}
       propertyPath: m_Name

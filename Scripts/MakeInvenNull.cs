@@ -8,7 +8,8 @@ public class MakeInvenNull : MonoBehaviour
 
     void Start()
     {
-        inven = GameObject.Find("Inventory").GetComponent<inventory>();    
+        inven = GameObject.Find("Inventory").GetComponent<inventory>();
+       
     }
 
     
