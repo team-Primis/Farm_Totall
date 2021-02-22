@@ -30,7 +30,7 @@ public class MakeInvenNull : MonoBehaviour
         {
             if (items.item == null || items.item.Ename == "" ||items.item.count==0)
             {
-                Debug.Log("해당 슬롯 초기화");
+               // Debug.Log("해당 슬롯 초기화");
                 items.UpdateItem(null);
             }
         }
