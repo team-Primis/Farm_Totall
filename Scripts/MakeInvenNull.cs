@@ -5,11 +5,16 @@ using UnityEngine;
 public class MakeInvenNull : MonoBehaviour
 {
     public inventory inven;
+    public ContainerUI containerUI;
 
     void Start()
     {
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
+        containerUI = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerUI>();
+
        
+        
+
     }
 
     
@@ -19,6 +24,15 @@ public class MakeInvenNull : MonoBehaviour
         {
             Debug.Log("player touched");
             inven.renewSlot();
+        }
+
+        foreach (CUIItem items in containerUI.container)
+        {
+            if (items.item == null || items.item.Ename == "" ||items.item.count==0)
+            {
+                Debug.Log("해당 슬롯 초기화");
+                items.UpdateItem(null);
+            }
         }
 
     }

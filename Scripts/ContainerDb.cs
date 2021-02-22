@@ -29,7 +29,7 @@ public class ContainerDb : MonoBehaviour
         PickUpBtn = GameObject.Find("PickUpBtn").GetComponent<Button>();
         PickUpBtn.onClick.AddListener(PickUp);
 
-        conUI = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerUI>();
+        conUI = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerUI>();
         containerItem = GameObject.Find("ContainerItems").GetComponent<ContainerItems>();
 
     }

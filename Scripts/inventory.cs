@@ -20,6 +20,7 @@ public class inventory : MonoBehaviour
 
     public SellingUI sellingUI;
 
+
     public static inventory instance = null;
 
 
@@ -28,8 +29,9 @@ public class inventory : MonoBehaviour
     void Start()
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
-        container = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerDb>();
-        sellingUI = GameObject.Find("Canvas").transform.Find("sellingPanel").GetComponent<SellingUI>();
+        container = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerDb>();
+        sellingUI = GameObject.Find("Canvas2").transform.Find("sellingPanel").GetComponent<SellingUI>();
+
         putInBtn.onClick.AddListener(PutInContainer);
         
         putInventory(1,3); 

@@ -16,7 +16,7 @@ public class DetectPlayer : MonoBehaviour
 
         objectTag = gameObject.tag;
 
-        panelToOpen = GameObject.Find("Canvas").transform.Find(objectTag+"Panel").gameObject;
+        panelToOpen = GameObject.Find("Canvas2").transform.Find(objectTag+"Panel").gameObject;
     }
 
     void Update()

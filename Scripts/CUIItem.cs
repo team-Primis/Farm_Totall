@@ -18,7 +18,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        container = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerDb>();
+        container = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerDb>();
         spriteImage = gameObject.GetComponent<Image>();
         UpdateItem(null);
     }
@@ -31,13 +31,14 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
         container.selectedItem = this.item;
 
         //선택된 아이템이 무엇인지 알려줌
-        if (this.item != null && this.item.Ename!= null)
+        if (this.item != null && this.item.Ename!= "")
         {
             container.MoveSlot(this.transform);
 
         }
         else
         {
+            Debug.Log("빈슬롯");
             container.ClearSlot();
         }
 
