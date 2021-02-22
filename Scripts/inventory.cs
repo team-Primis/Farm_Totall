@@ -21,6 +21,8 @@ public class inventory : MonoBehaviour
     public bool isUIItemClickChanged = false;
     public Transform emptrans;
 
+    public NoticeText notice;
+
 
 
     public static inventory instance = null;
@@ -43,6 +45,10 @@ public class inventory : MonoBehaviour
         putInventory(101);
 
         putInventory(99,3); // 닭 밥 테스트용 건초
+
+        //안내사항 띄우고 싶을땐 이렇게 쓰기
+        notice = GameObject.Find("Notice").GetComponent<NoticeText>();
+        
 
 
 
@@ -278,6 +284,7 @@ public class inventory : MonoBehaviour
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
+            notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
         }
         
     }
@@ -294,6 +301,7 @@ public class inventory : MonoBehaviour
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
+            notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
 
         }
     }
@@ -307,6 +315,7 @@ public class inventory : MonoBehaviour
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
+            notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
 
         }
     }

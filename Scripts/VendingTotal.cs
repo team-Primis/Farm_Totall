@@ -73,8 +73,8 @@ public class VendingTotal : MonoBehaviour
         }
         else
         {
-            Debug.Log(totalMoney + "가 필요하지만 현재 잔액은 " + playerScript.money + "원 입니다.");
-
+            playerScript.playerMoneyChange(totalMoney, false);
+    
         }
     }
 

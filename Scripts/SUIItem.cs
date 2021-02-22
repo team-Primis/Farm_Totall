@@ -14,10 +14,12 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
     public Image spriteBackground;
 
     private inventory inven;
+    private NoticeText notice;
 
     void Start() {
         updateItem(null);
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
+        notice = GameObject.Find("Notice").GetComponent<NoticeText>();
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -55,6 +57,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
             else
             {
                 Debug.Log(item.Ename + "은 비매품입니다.");
+                notice.WriteMessage(item.Ename + "은 비매품입니다.");
             }
         }
     }

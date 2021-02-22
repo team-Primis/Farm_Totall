@@ -24,6 +24,8 @@ public class PlayerControll : MonoBehaviour
     public int numGE = 0; // 보유 중인 좋은 알의 개수
     public int numNE = 0; // 보유 중인 보통 알의 개수
 
+    private NoticeText notice;
+
 
 
     // Start is called before the first frame update
@@ -32,6 +34,7 @@ public class PlayerControll : MonoBehaviour
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
+        notice = GameObject.Find("Notice").GetComponent<NoticeText>();
 
     }
 
@@ -52,6 +55,7 @@ public class PlayerControll : MonoBehaviour
             else
             {
                 Debug.Log("잔액이 부족합니다.");
+                notice.WriteMessage("잔액이 부족합니다.");
             }
         }
         coinTextScript.changeText();
