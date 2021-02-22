@@ -23,11 +23,13 @@ public class inventory : MonoBehaviour
     public static inventory instance = null;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
         container = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerDb>();
+        sellingUI = GameObject.Find("Canvas").transform.Find("sellingPanel").GetComponent<SellingUI>();
         putInBtn.onClick.AddListener(PutInContainer);
         
         putInventory(1,3); 

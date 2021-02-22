@@ -8,6 +8,7 @@ public class DetectPlayer : MonoBehaviour
     public bool isEntered = false;
     public GameObject panelToOpen;
     public string objectTag;
+    public bool isOpened = false;
 
     void Start()
     {
@@ -29,6 +30,7 @@ public class DetectPlayer : MonoBehaviour
                 
                 panelToOpen.SetActive(!panelToOpen.activeSelf);
                 GMScript.isTimerStoped = panelToOpen.activeSelf;
+                isOpened = true;
 
 
 
@@ -55,6 +57,7 @@ public class DetectPlayer : MonoBehaviour
             isEntered = false;
             panelToOpen.SetActive(false);
             GMScript.isTimerStoped = false;
+            isOpened = false;
         }
     }
 

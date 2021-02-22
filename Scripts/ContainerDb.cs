@@ -15,9 +15,11 @@ public class ContainerDb : MonoBehaviour
 
     public Button PickUpBtn;
 
+    public ContainerItems containerItem;
 
-    //아이템을 담아놓을 보관상자
-    public List<Item> container = new List<Item>();
+   
+
+  
 
     void Start()
     {
@@ -28,6 +30,7 @@ public class ContainerDb : MonoBehaviour
         PickUpBtn.onClick.AddListener(PickUp);
 
         conUI = GameObject.Find("Canvas").transform.Find("containerPanel").GetComponent<ContainerUI>();
+        containerItem = GameObject.Find("ContainerItems").GetComponent<ContainerItems>();
 
     }
     //보관상자 -> 인벤 이동
@@ -63,7 +66,7 @@ public class ContainerDb : MonoBehaviour
         Item itemToRemove = db.GetItem(id);
         if (itemToRemove != null && itemToRemove.Ename != "" )
         {
-            container.Remove(itemToRemove);
+            containerItem.container.Remove(itemToRemove);
             conUI.RemoveItem(itemToRemove);
         }
 
@@ -82,7 +85,7 @@ public class ContainerDb : MonoBehaviour
         if (CheckForItem(id) == null)
         {
             item.count = num;
-            container.Add(item);
+            containerItem.container.Add(item);
             conUI.AddNewItem(item);
             //Debug.Log(id + "라는 id를 가진 아이템을 보관상자에 추가합니다. ");
         }
@@ -108,7 +111,7 @@ public class ContainerDb : MonoBehaviour
         if (CheckForItem(name) == null)
         {
             item.count = num;
-            container.Add(item);
+            containerItem.container.Add(item);
             conUI.AddNewItem(item);
             //Debug.Log(name + "이라는 이름을 가진 아이템을 보관상자에 추가합니다. ");
         }
@@ -123,12 +126,12 @@ public class ContainerDb : MonoBehaviour
 
     public Item CheckForItem(int id)
     {
-        return container.Find(item => item.id == id);
+        return containerItem.container.Find(item => item.id == id);
     }
 
     public Item CheckForItem(string name)
     {
-        return container.Find(item => item.Ename == name);
+        return containerItem.container.Find(item => item.Ename == name);
     }
 
 }
