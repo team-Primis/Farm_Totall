@@ -17,6 +17,8 @@ public class SellingUI : MonoBehaviour
 
     public Button sellBtn;
     private PlayerControll playerScript;
+
+    public bool shouldMakeEmpClear = false; //장착하고 있는 물건 팔때 강조창 없애기 용
  
     void Start()
     {
@@ -41,6 +43,14 @@ public class SellingUI : MonoBehaviour
         }
         //판매창에 바뀐 것 적용
         UpdateAllItem();
+
+        //만약 판매 아이템 목록 중 장착한 아이템이 있다면, 장착한 아이템에서도 해제한다.
+        if (shouldMakeEmpClear)
+        {
+            inven.ClearSlot(); //인벤 강조표시 제거
+            inven.equipedItem = null;
+            shouldMakeEmpClear = false;
+        }
 
 
 

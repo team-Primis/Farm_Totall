@@ -67,16 +67,17 @@ public class ContainerUI : MonoBehaviour
     {
         if (item != null && item.Ename != "")
         {
+            //빈 공간 찾기
             int slot = container.FindIndex(i => i.item == null);
             //Debug.Log(slot + "번째 슬롯이 비었으므로 아이템 " + item.Kname + "을 추가합니다"); //현재 인덱스 확인 용
-            //빈 공간이 있으면
+            //빈 공간이 있으면 그 슬롯을 item의 아이콘으로 바꿔줌
             if (slot != -1)
             {
                 UpdateSlot(slot, item);
             }
             else
             {
-                Debug.Log("보관상자에 저장공간이 부족합니다.");
+                Debug.Log("보관상자에 저장공간이 부족해서 UI에 반영되지 않았습니다.");
             }
         }
     }

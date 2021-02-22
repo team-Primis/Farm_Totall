@@ -405,8 +405,6 @@ MonoBehaviour:
   day: 1
   minute: 0
   seconds: 0
-  TimeText: {fileID: 885221818}
-  DayText: {fileID: 1910064260}
   timer: 0
   isTimerStoped: 0
   staminaObj:
@@ -81423,6 +81421,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931255504637250713, guid: e0b4de517dc7a4c478f1ce53f2596a75,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 13.328037
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931255504637250713, guid: e0b4de517dc7a4c478f1ce53f2596a75,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 3.7643661
       objectReference: {fileID: 0}
     - target: {fileID: 6931255504637250714, guid: e0b4de517dc7a4c478f1ce53f2596a75,
         type: 3}

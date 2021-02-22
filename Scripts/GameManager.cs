@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     public int minute;
     public int  seconds;
 
-    public TMP_Text TimeText;
-    public TMP_Text DayText;
+    private TMP_Text TimeText;
+    private TMP_Text DayText;
 
     public float timer = 0;
     public bool isTimerStoped = false;//true일 때 멈춤 flase는 작동하는중.
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        //싱글턴패턴. 게임매니저가 한번만 생성되게 하기 위함
         if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -42,6 +43,9 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        TimeText = GameObject.Find("HourText").GetComponent<TMP_Text>();
+        DayText = GameObject.Find("DayText").GetComponent<TMP_Text>();
+
 
         // 성현
         BuyChicken = GameObject.Find("Canvas2").transform.Find("BuyChicken").gameObject;

@@ -85,6 +85,7 @@ public class ContainerDb : MonoBehaviour
         if (CheckForItem(id) == null)
         {
             item.count = num;
+            //containerItem이라는 보관상자 아이템 보관스크립트에 추가함
             containerItem.container.Add(item);
             conUI.AddNewItem(item);
             //Debug.Log(id + "라는 id를 가진 아이템을 보관상자에 추가합니다. ");
@@ -97,32 +98,7 @@ public class ContainerDb : MonoBehaviour
             //Debug.Log(id + "라는 id를 가진 아이템을 " + num + "개 더 추가합니다.");
         }
     }
-
-    public void PutInContainer(string name, int num=1)
-    {
-        Item item = db.GetItem(name);
-        //존재하지 않는 아이템을 넣으려고 했을 경우
-        if(item == null)
-        {
-            Debug.Log(name + " 이라는 이름을 가진 아이템은 데이터베이스에 없습니다.");
-            return;
-        }
-        //아이템을 처음 넣을 경우
-        if (CheckForItem(name) == null)
-        {
-            item.count = num;
-            containerItem.container.Add(item);
-            conUI.AddNewItem(item);
-            //Debug.Log(name + "이라는 이름을 가진 아이템을 보관상자에 추가합니다. ");
-        }
-        //아이템이 이미 보관상자에 존재할경우
-        else
-        {
-            item.count += num;
-            conUI.UpdateUI(item);
-            //Debug.Log(name + "이라는 아이템을 " + num + "개 더 추가합니다.");
-        }
-    }
+   
 
     public Item CheckForItem(int id)
     {

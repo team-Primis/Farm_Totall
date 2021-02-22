@@ -6,11 +6,14 @@ using UnityEngine.UI;
 public class inventory : MonoBehaviour
 {
     //실제 유저가 가지고 있는 내부 인벤토리에 대한 코드
-    public List<Item> characterItems = new List<Item>();
     private itemDatabase db;
+    private ContainerDb container;
+    private SellingUI sellingUI;
+
+
+    public List<Item> characterItems = new List<Item>();
     public UIInventory inventoryUI;
 
-    public ContainerDb container;
     public Button putInBtn;
 
     public Item equipedItem;
@@ -18,7 +21,6 @@ public class inventory : MonoBehaviour
     public bool isUIItemClickChanged = false;
     public Transform emptrans;
 
-    public SellingUI sellingUI;
 
 
     public static inventory instance = null;
@@ -34,6 +36,7 @@ public class inventory : MonoBehaviour
 
         putInBtn.onClick.AddListener(PutInContainer);
         
+        //테스트용으로 미리 인벤토리에 넣어놓은것들
         putInventory(1,3); 
         putInventory(2);
         putInventory(100);
@@ -49,6 +52,7 @@ public class inventory : MonoBehaviour
 
     void Awake()
     {
+        //한개만 존재하기 위함 ( 싱글턴 )
         if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -81,6 +85,7 @@ public class inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //I키를 눌렀을때 열리고 닫히게 조절 가능
         if (Input.GetKeyDown(KeyCode.I))
         {
             //한번 누르면 열리고 한번 더 누르면 닫힘
@@ -88,7 +93,7 @@ public class inventory : MonoBehaviour
         }
 
        
-
+        //E키를 눌렀을떄 장착된 아이템이 아이템 카테고리 라면 ( 사용 가능한 아이템 ) 아이템을 사용한다.
         if (Input.GetKeyDown(KeyCode.E))
         {
             if (equipedItem != null && equipedItem.Ename != "") // 장착된 상태 

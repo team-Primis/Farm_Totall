@@ -46,7 +46,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
 
     public void UpdateUI(Item item)
     {
-        if (item.Ename != null)
+        if (item.Ename != "")
         {
             itemText.text = this.item.count.ToString();
         }
@@ -57,15 +57,15 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
     {
         //담긴 객체 변경
         this.item = newItem;
-        //UI 변경
+        //UI 변경 : 이미지 변경, 수량 변경. 카테고리가 아이템인것만 수량 표시
         if (this.item != null)
         {
             spriteImage.sprite = this.item.icon;
             spriteImage.color = Color.white;
+            itemText.text = this.item.count.ToString();
 
             if (this.item.category == Item.Category.item)
             {
-                itemText.text = this.item.count.ToString();
                 itemText.color = Color.white;
             }
             else
@@ -73,6 +73,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
                 itemText.color = Color.clear;
             }
         }
+        //null이 들어오면 그냥 투명하게 유지한다.
         else
         {
             spriteImage.color = Color.clear;

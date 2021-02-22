@@ -37,6 +37,8 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
                     sellingUI.sellingList.Add(this.item);
                     isAdded = true;
                     spriteBackground.color = new Color32(0, 255, 142, 172);
+                    //장착하고 있는 아이템을 선택할 경우, 혹시 판다면 나중에 ui에서 강조표시를 없애줘야해!
+                    if (this.item == inven.equipedItem) sellingUI.shouldMakeEmpClear = true;
                 }
                 //두번 클릭되면 구매 리스트에서 삭제 + 색깔 원상복귀
                 else
@@ -45,7 +47,8 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
                     sellingUI.sellingList.Remove(this.item);
                     isAdded = false;
                     spriteBackground.color = new Color32(0, 0, 0, 100);
-
+                    //장착하고 있는 아이템을 선택해제할 경우, 나중에 ui에서 강조표시를 없애면 안돼!
+                    if (this.item == inven.equipedItem) sellingUI.shouldMakeEmpClear = false;
 
                 }
             }
