@@ -5,7 +5,8 @@ using UnityEngine;
 public class ContainerUI : MonoBehaviour
 {
     public bool isItemEnrolled = false; //한번만 실행되게 하는 용 (containerUI랑 CUItem연결용) : 맨 처음에 시도할경우 CUItem이 setActive(false)라 반영이 안됨
-    public List<CUIItem> container = new List<CUIItem>();
+
+    public List<CUIItem> container = new List<CUIItem>(); // 저장할 때 끌어오려고 public으로 바꿨음 (성현)
 
     public GameObject slot;
     GameObject newSlot;

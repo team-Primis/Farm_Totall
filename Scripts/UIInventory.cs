@@ -7,7 +7,8 @@ public class UIInventory : MonoBehaviour
 {
     //인벤토리에 뭐가 있는지 keep track 하고, visible 여부 판단
 
-    private List<UIItem> uiitems = new List<UIItem>();
+    //private List<UIItem> uiitems = new List<UIItem>();
+    public List<UIItem> uiitems = new List<UIItem>(); // 저장할 때 끌어오려고 public으로 바꿨음 (성현)
     public GameObject slotPrefab;
     public Transform slotPanel;
     public int numberOfSlots = 14;

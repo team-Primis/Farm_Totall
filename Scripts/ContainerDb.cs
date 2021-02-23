@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class ContainerDb : MonoBehaviour
 {
     // Start is called before the first frame update
-    private containerDatabase db;
+    public containerDatabase db;
     public  ContainerUI conUI;
     private inventory inven;
 

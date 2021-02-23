@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Text 클래스 사용을 위해서
 using System; // String 클래스 사용을 위해서 (Text에서)
+using UnityEngine.SceneManagement; // 씬 관련 (달걀 낳기 때문에)
 
 public class Chicken : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class Chicken : MonoBehaviour
 
     public GameManager GMScript; // 시간 사용, 창 유무
     public SpawnManager SMScript; // 알 소환하려고
-    public float chickTimer; // 확인용...
+    //public float chickTimer; // 확인용...
     public bool checkEgg = false; // 중복 방지
 
     public inventory Inven; // 건초 및 씨앗
@@ -76,28 +77,27 @@ public class Chicken : MonoBehaviour
         anim.SetFloat("MoveY", nextMovey);
 
         // 하루마다 달걀 낳기
-        chickTimer = GMScript.timer; // 헷갈릴까봐,,, (확인용)
-        /*if(chickTimer <= 1){    checkEgg = true;    } // 날 밝으면 초기화
-        if(chickTimer >= 30) // 밤에
+        //chickTimer = GMScript.timer; // 헷갈릴까봐,,, (확인용)
+        if(SceneManager.GetActiveScene().name == "OutSide")
         {
-            if(checkEgg == true)
+            if(GMScript.timer <= 4) // 날 밝으면
             {
-                LayEgg();
-                checkEgg = false; // 한 번만
+                if(checkEgg == false) // 한 번만
+                {
+                    checkEgg = true; // true
+                }
             }
-        } // 테스트용*/
-        if(chickTimer <= 1) // 날 밝으면
-        {
-            checkEgg = true; // true
-        }
-        else if(chickTimer <= 2) // 그 다음에
-        {
-            if(checkEgg == true) // 한 번만
+            else if(GMScript.timer <= 8) // 그 다음에
             {
-                LayEgg(); // 알 낳고
-                checkEgg = false; // false
+                if(checkEgg == true) // 한 번만
+                {
+                    LayEgg(); // 알 낳고
+                    checkEgg = false; // false
+                }
             }
         }
+        // INSIDE -> SPAWNMANAGER
+
 
         // 현재 먹이 보유량 반영 (from inventory)
         // 닭 먹이를 장착한 후 스페이스바로 닭 누르기
@@ -111,11 +111,17 @@ public class Chicken : MonoBehaviour
         //장착 후 스페이스바 클릭 - 밥 주기
         if(Input.GetKeyDown(KeyCode.Space)) // 스페이스바 눌렀을 때 1번 판단
         {
-            if(Inven.equipedItem != null && Inven.equipedItem.Ename == "hay") // 장착한 게 건초라면 (미해 : Inven.equippedItem != null 추가. (안그러면 아이템을 들고 있지 않을 때 오류))
+            // 장착한 게 건초라면
+            // (미해 : Inven.equippedItem != null 추가. (안그러면 아이템을 들고 있지 않을 때 오류))
+            if(Inven.equipedItem != null && Inven.equipedItem.Ename == "hay")
             {
                 FeedHay();
             }
-            if(Inven.equipedItem != null && Inven.equipedItem.id != 0 &&Inven.equipedItem.id < 5) // 현재 id 1~4가 씨앗임 (미해 : Inven.equippedItem!= null, Inven.equipedItem.id != 0 추가. (아무것도 안들떄 초기 id가 0이라서 계속 먹임))
+
+            // 장착한 게 씨앗이라면 - 현재 id 1~4가 씨앗임
+            // (미해 : Inven.equippedItem!= null, Inven.equipedItem.id != 0 추가.
+            // (아무것도 안들떄 초기 id가 0이라서 계속 먹임))
+            if(Inven.equipedItem != null && Inven.equipedItem.id != 0 && Inven.equipedItem.id < 5) // 
             {
                 FeedSeed();
             }
@@ -144,7 +150,8 @@ public class Chicken : MonoBehaviour
         dis = Vector2.Distance(PlayerTF.position,transform.position);
         if(dis < 1.0f) // Player가 가깝다면 밥 주기 가능
         {
-            Inven.RemoveItem(Inven.equipedItem.id); // 해당 건초 개수 하나 감소
+            // removeitem -> useitem
+            Inven.UseItem(Inven.equipedItem.id); // 해당 건초 개수 하나 감소
             happy += 4; // 행복도 4 증가
             Heart.SetActive(true); // 하트 나타나고
             Debug.Log("Give Hay (행복도: "+happy+"/4)");
@@ -157,7 +164,7 @@ public class Chicken : MonoBehaviour
         dis = Vector2.Distance(PlayerTF.position,transform.position);
         if(dis < 1.0f) // Player가 가깝다면 밥 주기 가능
         {
-            Inven.RemoveItem(Inven.equipedItem.id); // 해당 씨앗 개수 하나 감소
+            Inven.UseItem(Inven.equipedItem.id); // 해당 씨앗 개수 하나 감소
             happy += 2; // 행복도 2 증가
             Heart.SetActive(true); // 하트 나타나고
             Debug.Log("Give Seed (행복도: "+happy+"/4)");
@@ -188,6 +195,7 @@ public class Chicken : MonoBehaviour
         {   SMScript.SpawnNEgg();   }
         happy = 0;
     }
+
 
     // UI Buttons
     /*public void OnClickFoodButton() // 밥주기 버튼

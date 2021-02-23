@@ -6,13 +6,17 @@ public class TransferMapFromInsideToOutside : MonoBehaviour
 {
     public string transferMapName; //이동할 맵의 이름.
     private PlayerMove thePlayer;
+
+    // 성현
+    public SpawnManager SMScript;
+
     // Start is called before the first frame update
-
-
     void Start()
     {
         thePlayer = FindObjectOfType<PlayerMove>();
 
+        // 성현
+        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
     }
 
     // Update is called once per frame
@@ -20,6 +24,9 @@ public class TransferMapFromInsideToOutside : MonoBehaviour
     {
         if (collision.gameObject.name == "Player")
         {
+            // 성현
+            SMScript.GoOut = true; // 씬 바뀐 후 닭이랑 알 로드하려고
+            
             thePlayer.currentMapName = transferMapName;
             SceneManager.LoadScene(transferMapName);
             thePlayer.transform.position = new Vector2(24, 8);

@@ -1,5 +1,4 @@
-
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // text 편집
@@ -7,24 +6,24 @@ using UnityEngine.UI; // text 편집
 public class Center : MonoBehaviour
 {
     public GameObject BuyChicken;
-    public SpawnManager SMScript;
+    //public SpawnManager SMScript;
     public GameManager GMScript;
     public GameObject Player;
     public float dis; // distance btw player & center
 
-    private PlayerControll thePlayerCtr; // for money
-    public Text howRich;
+    //private PlayerControll thePlayerCtr; // for money
+    //public Text howRich; // 없앰
 
     // Start is called before the first frame update
     void Start()
     {
         GameObject canvas2 = GameObject.Find("Canvas2");
         BuyChicken = canvas2.transform.Find("BuyChicken").gameObject;
-        howRich = canvas2.transform.Find("BuyChicken").transform.Find("HowRich").GetComponent<Text>();
+        //howRich = canvas2.transform.Find("BuyChicken").transform.Find("HowRich").GetComponent<Text>();
         
-        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        //SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
-        thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
+        //thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
         // Find -> gameobject 찾기
         Player = GameObject.Find("Player");
     }
@@ -55,33 +54,11 @@ public class Center : MonoBehaviour
         dis = Vector2.Distance(Player.transform.position,transform.position);
         if(dis < 1.5f)
         {
-            howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
+            //howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
             BuyChicken.SetActive(true); // player가 가까우면 구매창 나타남
             GMScript.isTimerStoped = true; // 구매창과 동시에 시간 정지
         }
     }
 
-    // UI Buttons
-    public void OnClickYesButton()
-    {
-        if(thePlayerCtr.money >= 500)
-        {
-            Debug.Log("닭 구매 완료");
-            thePlayerCtr.money -= 500; // 돈 500원 감소 (미해: 이거 playerControll의 playerMoneyChange 함수로 바꿔주기! & 이 함수 내에서 돈부족 구현해놨어!) 
-            howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
-            SMScript.SpawnChicken(); // spawn chicken
-            BuyChicken.SetActive(false);
-            GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
-        }
-        else // 돈 부족
-        {
-            Debug.Log("돈 부족!");
-        }
-    }
-    public void OnClickNoButton()
-    {
-        Debug.Log("닭 구매 취소");
-        BuyChicken.SetActive(false); // nothing happens
-        GMScript.isTimerStoped = false; // 구매창 꺼지고 시간 정지 해제
-    }
+    // UI Buttons - menucontrol로 옮김
 }
