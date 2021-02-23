@@ -13,7 +13,8 @@ public class SleepTight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sleepUI = GameObject.Find("SleepUI").gameObject;
+        //sleepUI = GameObject.Find("SleepUI").gameObject; sleepUI가 처음에 setActive false라서 참조 못해서 null 에러뜸! 그래서 아래 방법 추천(미해)
+        sleepUI = gameObject.transform.Find("SleepUI").gameObject;
         GMscript = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
