@@ -8,11 +8,12 @@ public class MouseSelect : MonoBehaviour
     public GameObject thePlayer;
     public GameObject vendingUI;
     public GameObject containerUI;
-
+    public GameManager GMscript;
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
+        GMscript=GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -20,6 +21,8 @@ public class MouseSelect : MonoBehaviour
     {
         //if (vendingUI.gameObject==false && containerUI.gameObject==false)
         //{
+        if(GMscript.isTimerStoped==false)
+        {
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);//게임플레이어화면에서의 마우스 위치로 Vector2 타입 마우스 위치 설정.
             mousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기만큼 이동하는 것처럼 보이기 위해 반올림하여 마우스 위치 재설정.
             transform.position = mousePosition;//현 객체(마우스 선택창)의 위치를 마우스 위치로 설정.
@@ -35,6 +38,8 @@ public class MouseSelect : MonoBehaviour
 
             }
 
-       // }
+        }
+
+        // }
     }
 }

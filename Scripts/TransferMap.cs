@@ -32,6 +32,7 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
             // 주석 묶은 부분은 지현이가 원래 쓴 부분
             /*thePlayer.currentMapName=transferMapName;
             SceneManager.LoadScene(transferMapName);*/
+
         }
     }
 

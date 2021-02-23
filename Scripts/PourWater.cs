@@ -9,6 +9,7 @@ public class PourWater : MonoBehaviour
     public GameObject waterPrefab;//물 주면 생성되는 프리펩.
     public GameObject thePlayer;
     public inventory Inven;
+   
     // Start is called before the first frame update
     private void Awake()
     {
@@ -39,27 +40,29 @@ public class PourWater : MonoBehaviour
             {
                 if (Inven.equipedItem.Ename == "waterSprinkle")
                 {
+                  
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
-                    RaycastHit2D[] hit = Physics2D.RaycastAll(ray.origin, ray.direction, Mathf.Infinity);
+                    RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
 
-                    for (int i = 0; i < hit.Length; i++)
+                    if(hit.collider !=null)
                     {
-                        for (int j = 0; j < hit.Length; j++)
+                        if (hit.collider.CompareTag("Plant"))
                         {
-                            if (hit[i].transform.tag != "Water")
+                            if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
                             {
-                                if (hit[i].transform.tag == "Plant" || hit[j].transform.tag == "Plant" )
-                                {
-                                    
-                                    if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
-                                    {
 
-                                        GameObject Watered = Instantiate(waterPrefab);//식물 생성
-                                        Watered.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
+                               // PlantLoad notwateredplant = hit.collider.GetComponent<PlantLoad>();
+                                Debug.Log(hit.collider.tag);
+                                //notwateredplant.iswatered = true;
+                                GameObject Watereded= Instantiate(waterPrefab);//식물 생성s
+                                Watereded.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
 
-                                    }
-                                }
+
                             }
+                            
+                        }
+
+                    
                         }
                     }
 
@@ -69,7 +72,7 @@ public class PourWater : MonoBehaviour
 
 
 
-        }
+        
     }
 }
 

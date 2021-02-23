@@ -12,13 +12,15 @@ public class PlantLoad : MonoBehaviour
     public int didItBloomed;
     public int toMuchWilted;
     public Transform thePlayer;
-
+    public bool iswatered=false;
+    public inventory Inven;
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
     private void Awake()
     {
         anim = GetComponent<Animator>();
         thePlayer = GameObject.Find("Player").GetComponent<Transform>();
+        Inven = GameObject.Find("Inventory").GetComponent<inventory>();
 
     }
 
@@ -29,6 +31,7 @@ public class PlantLoad : MonoBehaviour
         //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
 
         timer += Time.deltaTime;
+        
         if (timer >= 6)
         {
             timer = 0;
@@ -37,10 +40,12 @@ public class PlantLoad : MonoBehaviour
 
             i++;
             anim.SetInteger("One", i);
+            iswatered = false;
         }
         if (i >= didItBloomed)
         {
             Harvestit();
+            
 
         }
 
@@ -75,11 +80,14 @@ public class PlantLoad : MonoBehaviour
                 if (hit.collider.CompareTag("Plant"))
                 {
 
+                    if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
+                    {
 
-                    Debug.Log("수확함");
-                    Destroy(this.gameObject);
+                        Debug.Log("수확함");
+                        Destroy(this.gameObject);
+                        Inven.putInventory(41, 1);
 
-
+                    }
                 }
             }
 
@@ -88,6 +96,8 @@ public class PlantLoad : MonoBehaviour
 
 
     }
+
+   
 
 
 

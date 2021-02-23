@@ -31,6 +31,7 @@ public class TransferMapFromInsideToOutside : MonoBehaviour
             SceneManager.LoadScene(transferMapName);
             thePlayer.transform.position = new Vector2(24, 8);
         }
+
     }
 }
 
