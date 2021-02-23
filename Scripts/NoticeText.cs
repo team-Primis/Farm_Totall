@@ -25,7 +25,7 @@ public class NoticeText : MonoBehaviour
     {
         noticeText.text = message;
         noticeText.gameObject.SetActive(true);
-        Invoke("DeleteMessage", 5f);
+        Invoke("DeleteMessage", 3f);
     }
 
  

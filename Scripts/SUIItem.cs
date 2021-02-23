@@ -62,7 +62,6 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    
     //아이템 선택된 것 -> 구매버튼 누르면 삭제되기
     public void ResetItemSlot()
     {
