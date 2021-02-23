@@ -48,7 +48,7 @@ public class SNLData // 모든 세이브 기록들 담을 곳
 
     public List<int> characterItemsID; // 인벤템 ID
     public List<int> characterItemsCnt; // 인벤템 개수
-    public List<bool> invenUIEmpty; // 인벤 UI 상태 (빈칸, 즉 null 고려)
+    //public List<bool> invenUIEmpty; // 인벤 UI 상태 (빈칸, 즉 null 고려) -> 수정 후 필요X
     public int equipedItemID; // 장착템 ID
 
     public List<int> containerItemsID; // 보관템 ID

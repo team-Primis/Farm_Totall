@@ -41,10 +41,10 @@ public class SaveNLoad : MonoBehaviour
     private PlayerControll thePlayerControll; // 쓴 돈, laborCount
     private SpawnManager theSpawnManager; // 닭 개수/행복도/checkEgg/좌표, 달걀 개수/좌표
     private inventory theInventory; // 인벤템 ID, 인벤템 개수, 장착템 ID
-    private UIInventory theUIInventory; // 인벤 스프라이트 (for inventory) + 인벤 UI 상태
+    private UIInventory theUIInventory; // 인벤 스프라이트 (for inventory) (+ 인벤 UI 상태: 수정 후 필요X)
     private ContainerDb theContainerDb; // 보관템 ID, 보관템 개수
     private ContainerUI theContainerUI; // 상자 스프라이트 (for ContainerDb)
-    private MenuControl theMenuControl; // 일시정지 창 꺼놓기 위해서 - Load에만 사용
+    private MenuControl theMenuControl; // 일시정지 창 꺼놓기 위해서 - Load(+New)에만 사용
 
     public SNLData data; // SNLData 이용할 것임
 
@@ -129,6 +129,8 @@ public class SaveNLoad : MonoBehaviour
         theUIInventory = FindObjectOfType<UIInventory>();
         theContainerDb = GameObject.Find("Canvas2").transform.Find("보관상자").
                             transform.Find("ContainerPanel").GetComponent<ContainerDb>();
+        theContainerUI = GameObject.Find("Canvas2").transform.Find("보관상자").
+                            transform.Find("ContainerPanel").GetComponent<ContainerUI>();
 
         data.playerX = thePlayerMove.transform.position.x;
         data.playerY = thePlayerMove.transform.position.y;
@@ -174,8 +176,8 @@ public class SaveNLoad : MonoBehaviour
 
         data.characterItemsID.Clear();
         data.characterItemsCnt.Clear(); // 비우지 않으면 로드 할 때마다 똑같은 게 더 생김
-        data.invenUIEmpty.Clear();
-        for(int i = 0; i < theInventory.characterItems.Count; i++)
+        //data.invenUIEmpty.Clear(); // 수정 후 필요X
+        /*for(int i = 0; i < theInventory.characterItems.Count; i++)
         {
             data.characterItemsID.Add(theInventory.characterItems[i].id);
             data.characterItemsCnt.Add(theInventory.characterItems[i].count);
@@ -193,14 +195,45 @@ public class SaveNLoad : MonoBehaviour
         if(theInventory.equipedItem != null)
         {   data.equipedItemID = theInventory.equipedItem.id;   }
         else
+        {   data.equipedItemID = 0; }*/
+        // 아래로 수정
+        for(int i = 0; i < theUIInventory.uiitems.Count; i++)
+        {
+            if(theUIInventory.uiitems[i].item != null) // UI 칸이 비어있지 않으면
+            {
+                data.characterItemsID.Add(theUIInventory.uiitems[i].item.id);
+                data.characterItemsCnt.Add(theUIInventory.uiitems[i].item.count);
+            }
+            else // UI 칸이 비어있으면
+            {
+                data.characterItemsID.Add(0);
+                data.characterItemsCnt.Add(0);
+            }
+        }
+        if(theInventory.equipedItem != null)
+        {   data.equipedItemID = theInventory.equipedItem.id;   }
+        else
         {   data.equipedItemID = 0; }
 
         data.containerItemsID.Clear();
         data.containerItemsCnt.Clear();
-        for(int i = 0; i < theContainerDb.container.Count; i++)
+        /*for(int i = 0; i < theContainerDb.container.Count; i++)
         {
             data.containerItemsID.Add(theContainerDb.container[i].id);
             data.containerItemsID.Add(theContainerDb.container[i].count);
+        }*/
+        for(int i = 0; i < theContainerUI.container.Count; i++)
+        {
+            if(theContainerUI.container[i].item != null)
+            {
+                data.containerItemsID.Add(theContainerUI.container[i].item.id);
+                data.containerItemsCnt.Add(theContainerUI.container[i].item.count);
+            }
+            else
+            {
+                data.containerItemsID.Add(0);
+                data.containerItemsCnt.Add(0);
+            }
         }
 
         // 물리적인 파일로 저장
@@ -266,8 +299,8 @@ public class SaveNLoad : MonoBehaviour
                 theUIInventory = FindObjectOfType<UIInventory>();
                 theContainerDb = GameObject.Find("Canvas2").transform.Find("보관상자").
                                     transform.Find("ContainerPanel").GetComponent<ContainerDb>();
-                /*theContainerUI = GameObject.Find("Canvas2").transform.Find("보관상자").
-                                    transform.Find("ContainerPanel").GetComponent<ContainerUI>();*/
+                theContainerUI = GameObject.Find("Canvas2").transform.Find("보관상자").
+                                    transform.Find("ContainerPanel").GetComponent<ContainerUI>();
                 theMenuControl = FindObjectOfType<MenuControl>();
 
                 Debug.Log("File 1 로드 시작 - 2");
@@ -284,7 +317,7 @@ public class SaveNLoad : MonoBehaviour
                 thePlayerControll.money = 2000; // 돈 초기화
                 thePlayerControll.playerMoneyChange(data.usedMoney, false); // 쓴 돈 빼서 업데이트
                 thePlayerControll.laborCount = data.laborCount;
-
+                
                 theSpawnManager.chickenList.Clear();
                 theSpawnManager.chickenCount = 0;
                 for(int i = 0; i < data.chickenCount; i++)
@@ -328,13 +361,13 @@ public class SaveNLoad : MonoBehaviour
                     theInventory.RemoveAll(theInventory.characterItems[i].id);
                 } // 인벤 아이템 비우기
                 theUIInventory.MakeSlotNull(); // 인벤 UI 비우기
-                bool isEquipedOK = false;
+                /*bool isEquipedOK = false;
                 int ind1 = 0;
                 int trashID = 11; // 11, 12 (달걀) - 테스트
                 List<int> trashList = new List<int>(); // 테스트
                 for(int i = 0; i < data.invenUIEmpty.Count; i++) // 인벤템 불러오기
                 {
-                    if(data.invenUIEmpty[i] == false) // 인벤칸이 비어있지 않는다면
+                    if(data.invenUIEmpty[i] == false) // 인벤칸이 비어있지 않다면
                     {
                         theInventory.putInventory(data.characterItemsID[ind1], data.characterItemsCnt[ind1]);
                         if(data.characterItemsID[ind1] == data.equipedItemID)
@@ -362,20 +395,131 @@ public class SaveNLoad : MonoBehaviour
                 if(!isEquipedOK) // 인벤에 없다면 (= null or 클릭된 게 없음)
                 {
                     theInventory.equipedItem = null;
+                } // 장착템 설정*/
+                // 아래로 수정
+                bool isEquipedOK = false;
+                bool notFisrt12 = false;
+                int trashID = 11; // 11, 12 (달걀) - 테스트
+                List<int> trashList = new List<int>(); // 테스트
+                for(int i = 0; i < data.characterItemsID.Count; i++) // 인벤템 불러오기
+                {
+                    if(data.characterItemsID[i] > 0) // 인벤칸이 비어있지 않았다면
+                    {
+                        theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                        if(data.characterItemsID[i] == data.equipedItemID)
+                        {
+                            // 인벤템과 저장된 장착템 ID가 같으면 장착 (인벤에 있는 거라면)
+                            theInventory.equipedItem = theInventory.characterItems[i];
+                            theUIInventory.MoveEmphasizedSlot(theUIInventory.uiitems[i].transform); // 강조
+                            isEquipedOK = true;
+                        }
+                    }
+                    else // 인벤칸이 비어있다면
+                    {
+                        theInventory.putInventory(trashID, 1);
+                        if(trashID == 11)
+                        {
+                            trashList.Add(trashID);
+                            trashID += 1;
+                        }
+                        else if(trashID == 12 && notFisrt12 == false)
+                        {
+                            trashList.Add(trashID);
+                            notFisrt12 = true;
+                        }
+                        
+                    }
+                } // 저장된 아이템 목록 하나씩 넣기 (개수 고려됨)
+                for(int i = 0; i < trashList.Count; i++)
+                {   theInventory.RemoveAll(trashList[i]);    }
+                if(!isEquipedOK) // 인벤에 없다면 (= null or 클릭된 게 없음)
+                {
+                    theInventory.equipedItem = null;
                 } // 장착템 설정
 
-                for(int i = theContainerDb.container.Count -1; i >= 0; i--)
+                /* // 2021.02.23 임시로 제거 (저장템 부분 제외)
+                //bool notFisrt122 = false;
+                //int trashID2 = 11; // 11, 12 (달걀) - 테스트
+                List<int> trashList2 = new List<int>(); // 테스트
+                for(int i = theContainerDb.container.Count - 1; i >= 0; i--)
                 {
                     theContainerDb.RemoveItem(theContainerDb.container[i].id);
-                } // 상자 아이템 비우기
-                /*for(int i = 0; i < data.containerItemsID.Count; i++)
+                } // 상자 비우기
+                theContainerUI.container.Clear();////
+                if(data.containerItemsID.Count > 0) // 저장템이 존재할 때
                 {
-                    theContainerDb.PutInContainer(data.containerItemsID[i], data.containerItemsCnt[i]);
-                } // 상자에 넣기*/
+                    GameObject.Find("Canvas2").transform.Find("보관상자").gameObject.SetActive(true);///
+                    for(int i = 0; i < data.containerItemsID.Count; i++)
+                    {
+                        if(data.containerItemsID[i] > 0) // 저장칸이 비어있지 않았다면
+                        {
+                            Debug.Log("저장 상자 아이템 로드 중 - 1"); // 테스트용
+                            //theContainerDb.PutInContainer(data.containerItemsID[i], data.containerItemsCnt[i]);
+
+                            /////Item item = db.GetItem(id);
+                            //해당 아아템이 존재하지 않음
+                            if (item == null) {
+                                Debug.Log(id + " id 를 가진 아이템은 데이터베이스에 없습니다.");
+                                return;
+                            }
+                            //아이템을 처음 넣을 경우
+                            if (CheckForItem(id) == null)
+                            {
+                                item.count = num;
+                                container.Add(item);
+                                conUI.AddNewItem(item);
+                                //Debug.Log(id + "라는 id를 가진 아이템을 보관상자에 추가합니다. ");
+                            }
+                            //아이템이 이미 보관상자에 존재할경우
+                            else
+                            {
+                                item.count += num;
+                                conUI.UpdateUI(item);
+                                //Debug.Log(id + "라는 id를 가진 아이템을 " + num + "개 더 추가합니다.");
+                            }/////
+                            Item item = FindObjectOfType<containerDatabase>().GetItem(data.containerItemsID[i]);
+                            if(item != null)
+                            {   
+                                if(theContainerDb.CheckForItem(data.containerItemsID[i]) == null)
+                                {
+                                    item.count = data.containerItemsCnt[i];
+                                    theContainerDb.container.Add(item);
+                                    theContainerUI.AddNewItem(item);
+                                }
+                                else
+                                {
+                                    item.count += data.containerItemsCnt[i];
+                                    theContainerUI.UpdateUI(item);
+                                }
+                            }
+
+                            Debug.Log("저장 상자 아이템 로드 중 - 2"); // 테스트용
+                        }
+                        /////else // 저장칸이 비어있다면
+                        {
+                            theContainerDb.PutInContainer(trashID2, 1);
+                            if(trashID2 == 11)
+                            {
+                                trashList2.Add(trashID2);
+                                trashID2 += 1;
+                            }
+                            else if(trashID2 == 12 && notFisrt122 == false)
+                            {
+                                trashList2.Add(trashID);
+                                notFisrt122 = true;
+                            }
+                        } /////임시로 제거 (꼭 다시 넣어야 함!)
+                    } // 상자에 넣기
+                    for(int i = 0; i < trashList2.Count; i++)
+                    {   theContainerDb.RemoveItem(trashList2[i]);    } // 쓰레기템 제거
+                    GameObject.Find("Canvas2").transform.Find("보관상자").gameObject.SetActive(false);///
+                }
+                */
 
                 Debug.Log("File 1 로드 완료");
             }
             file.Close(); // 파일 닫기
         }
     }
+
 }
