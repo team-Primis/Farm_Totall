@@ -5247,7 +5247,7 @@ GameObject:
   - component: {fileID: 697422291}
   m_Layer: 0
   m_Name: BackGround
-  m_TagString: Untagged
+  m_TagString: BackGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -80297,9 +80297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24561614f46bc5e45a24e4729e4d7281, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thePlayer: {fileID: 0}
-  vendingUI: {fileID: 0}
-  containerUI: {fileID: 0}
+  thePlayer: {fileID: 1995171693}
+  vendingUI: {fileID: 1396604730}
+  containerUI: {fileID: 35984299}
   GMscript: {fileID: 0}
 --- !u!212 &2063151356
 SpriteRenderer:
