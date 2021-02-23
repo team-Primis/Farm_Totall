@@ -7,13 +7,14 @@ public class SleepTight : MonoBehaviour
     public Animator anim;
    [SerializeField] public GameObject sleepUI;
     public GameObject thePlayer;
-    
+    public GameManager GMscript;
     public Slider progressbar;
     public GameObject sleepingLoadingUI;
     // Start is called before the first frame update
     void Start()
     {
-        
+        sleepUI = GameObject.Find("SleepUI").gameObject;
+        GMscript = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame

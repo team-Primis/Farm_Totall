@@ -5,10 +5,14 @@ using UnityEngine;
 public class SleepBed : MonoBehaviour
 {
     [SerializeField] public GameObject sleepUI;
-    
+    public GameManager GMscript;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        sleepUI = GameObject.Find("SleepUI").gameObject;
+        GMscript = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -21,11 +25,21 @@ public class SleepBed : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-           CallMenu();
-            Debug.Log("닿아씀");
+            
+                CallMenu();
+                Debug.Log("닿아씀");
+            GMscript.isTimerStoped = true;
+            GMscript.isMenuOpen = true;
+         
         }
+
         else
+        {
             CloseMenu();
+            GMscript.isTimerStoped = false;
+            GMscript.isMenuOpen = false;
+        }
+            
     }
     private void CallMenu()
     {

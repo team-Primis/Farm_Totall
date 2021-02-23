@@ -54,7 +54,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
 
                         GameObject PlantedPlant = Instantiate(PlantPrefabs);//식물 생성
                         PlantedPlant.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.}
-
+                        Inven.UseItem(1);
 
                     }
 
