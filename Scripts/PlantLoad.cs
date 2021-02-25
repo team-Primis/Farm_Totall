@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class PlantLoad : MonoBehaviour
+using UnityEngine.EventSystems;
+public class PlantLoad : MonoBehaviour, IPointerClickHandler
 {
 
     public float timer;
@@ -44,7 +44,7 @@ public class PlantLoad : MonoBehaviour
         }
         if (i >= didItBloomed)
         {
-            Harvestit();
+           // Harvestit();
             
 
         }
@@ -62,7 +62,26 @@ public class PlantLoad : MonoBehaviour
 
     }
 
-    void Harvestit()
+    public void OnPointerClick(PointerEventData eventData)
+    {
+
+        Vector2 theplayerPosition = thePlayer.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
+        Vector2 distance = theplayerPosition - mousePosition;
+        if (Inven.equipedItem != null)
+        {
+            if (Inven.equipedItem.Ename == "waterSprinkle")
+            {
+                if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)
+                {
+                    iswatered = true;
+                }
+            }
+        }
+    }
+    /*void Harvestit()
     {
 
         Vector2 theplayerPosition = thePlayer.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
@@ -95,7 +114,7 @@ public class PlantLoad : MonoBehaviour
 
 
 
-    }
+    }*/
 
    
 

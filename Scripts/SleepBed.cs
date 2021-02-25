@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SleepBed : MonoBehaviour
 {
     [SerializeField] public GameObject sleepUI;
     public GameManager GMscript;
-
+    public GameObject canvass;
 
     // Start is called before the first frame update
     void Start()
     {
-        sleepUI = GameObject.Find("SleepUI").gameObject;
+        sleepUI = GameObject.Find("Canvassleep").transform.Find("SleepTight").transform.Find("SleepUI").gameObject;
         GMscript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        canvass = GameObject.Find("Canvas2").gameObject;
     }
 
     // Update is called once per frame
@@ -27,28 +29,39 @@ public class SleepBed : MonoBehaviour
         {
             
                 CallMenu();
-                Debug.Log("닿아씀");
-            GMscript.isTimerStoped = true;
-            GMscript.isMenuOpen = true;
-         
+                
         }
 
         else
         {
             CloseMenu();
-            GMscript.isTimerStoped = false;
-            GMscript.isMenuOpen = false;
+            
         }
             
     }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            CloseMenu();
+        }
+    }
+
     private void CallMenu()
     {
         sleepUI.SetActive(true);
+        GMscript.isTimerStoped = true;
+        canvass.SetActive(false);
+        
     }
 
     private void CloseMenu()
     {
         sleepUI.SetActive(false);
+        GMscript.isTimerStoped = false;
+        canvass.SetActive(true);
+
     }
 
 }

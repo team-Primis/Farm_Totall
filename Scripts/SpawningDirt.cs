@@ -14,6 +14,7 @@ public class SpawningDirt : MonoBehaviour
 
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
         thePlayer = GameObject.Find("Player").gameObject;
+        
     }
 
     // Update is called once per frame
@@ -21,9 +22,9 @@ public class SpawningDirt : MonoBehaviour
 
  void Update()
     {
-        SpawnDirt();
+        
     }
-    void SpawnDirt()
+   public void SpawnDirt()
     {
         Vector2 theplayerPosition = thePlayer.transform.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -39,19 +40,19 @@ public class SpawningDirt : MonoBehaviour
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
                     RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-
-                    if (hit.collider != null)
+                    Debug.Log(hit.collider.tag);
+                    if (hit.collider == null || hit.collider.CompareTag("Player")) 
                     {
-                        Debug.Log(hit.collider.tag);
-                        if (hit.collider.CompareTag("BackGround")|| hit.collider.CompareTag("Player"))
-                        {
+                        
+                            
                             if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
                             {
-                                GameObject DarkDirt = Instantiate(DirtPrefab);//식물 생성
-                                DarkDirt.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
+
+                            GameObject DarkDirt = Instantiate(DirtPrefab);//식물 생성
+                            DarkDirt.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
 
                             }
-                        }
+                        
                     }
                         
                     
