@@ -48,7 +48,6 @@ public class inventory : MonoBehaviour
 
         //안내사항 띄우고 싶을땐 이렇게 쓰기
         notice = GameObject.Find("Notice").GetComponent<NoticeText>();
-        
 
 
 
@@ -70,9 +69,10 @@ public class inventory : MonoBehaviour
         }
     }
 
+  
 
 
-    void PutInContainer()
+     void PutInContainer()
     {
         if (equipedItem != null && equipedItem.Ename != "")
         {
