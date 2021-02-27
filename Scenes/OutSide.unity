@@ -76611,6 +76611,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MakeInvenNull (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6931255504637250715, guid: e0b4de517dc7a4c478f1ce53f2596a75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b4de517dc7a4c478f1ce53f2596a75, type: 3}
 --- !u!224 &1671067705 stripped
@@ -81193,6 +81198,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MakeInvenNull
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931255504637250715, guid: e0b4de517dc7a4c478f1ce53f2596a75,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e0b4de517dc7a4c478f1ce53f2596a75, type: 3}

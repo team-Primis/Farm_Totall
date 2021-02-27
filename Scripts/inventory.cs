@@ -40,7 +40,8 @@ public class inventory : MonoBehaviour
         putInBtn.onClick.AddListener(PutInContainer);
         
         //테스트용으로 미리 인벤토리에 넣어놓은것들
-        putInventory(1,3); 
+        putInventory(1,3);
+
         putInventory(2);
         putInventory(100);
         putInventory(101);
