@@ -17,12 +17,14 @@ public class ContainerDb : MonoBehaviour
 
     public ContainerItems containerItem;
 
-   
 
+    Item emptyItem;
   
 
     void Start()
     {
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
+
         db = GameObject.Find("CDatabase").GetComponent<containerDatabase>();
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
 
@@ -36,11 +38,11 @@ public class ContainerDb : MonoBehaviour
     //보관상자 -> 인벤 이동
     void PickUp()
     {
-        if(selectedItem != null && selectedItem.Ename != "")
+        if(selectedItem.Ename != "empty")
         {
             inven.putInventory(selectedItem.id, selectedItem.count);
             RemoveItem(selectedItem.id);
-            selectedItem = null;
+            selectedItem = emptyItem;
             ClearSlot();
         }
         else
@@ -64,7 +66,7 @@ public class ContainerDb : MonoBehaviour
     public void RemoveItem(int id)
     {
         Item itemToRemove = db.GetItem(id);
-        if (itemToRemove != null && itemToRemove.Ename != "" )
+        if (itemToRemove != null )
         {
             containerItem.container.Remove(itemToRemove);
             conUI.RemoveItem(itemToRemove);

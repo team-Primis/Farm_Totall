@@ -80,7 +80,7 @@ public class inventory : MonoBehaviour
             container.PutInContainer(equipedItem.id, equipedItem.count);
             equipedItem.count = 0;
             RemoveAll(equipedItem.id);
-            equipedItem = null;
+            equipedItem = emptyItem;
             ClearSlot();
         }
         else

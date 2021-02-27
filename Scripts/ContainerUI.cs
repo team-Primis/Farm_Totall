@@ -16,9 +16,14 @@ public class ContainerUI : MonoBehaviour
 
     public ContainerItems containerItemScript;
 
+    Item emptyItem;
+
+
     // Awake는 어떤 객체가 처음 setActive = true 될때 실행된다. ->따라서 처음 한번만 실행되야 하는 것들으나 여기에 넣었다.
     void Awake()
     {
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
+
         //강조슬롯 관련
         newSlot = Instantiate(slot);
         newSlot.transform.SetParent(EmpTrans);
@@ -60,16 +65,16 @@ public class ContainerUI : MonoBehaviour
 
     public void UpdateUI(Item item)
     {
-        int slot = container.FindIndex(i => i.item == item);
+        int slot = container.FindIndex(i => i.item.id == item.id);
         container[slot].UpdateUI(item);
     }
 
     public void AddNewItem(Item item)
     {
-        if (item != null && item.Ename != "")
+        if (item.Ename != "empty")
         {
             //빈 공간 찾기
-            int slot = container.FindIndex(i => i.item == null);
+            int slot = container.FindIndex(i => i.item.Ename == "empty");
             //Debug.Log(slot + "번째 슬롯이 비었으므로 아이템 " + item.Kname + "을 추가합니다"); //현재 인덱스 확인 용
             //빈 공간이 있으면 그 슬롯을 item의 아이콘으로 바꿔줌
             if (slot != -1)
@@ -85,6 +90,6 @@ public class ContainerUI : MonoBehaviour
 
     public void RemoveItem(Item item)
     {
-        UpdateSlot(container.FindIndex(i => i.item == item), null);
+        UpdateSlot(container.FindIndex(i => i.item == item), emptyItem);
     }
 }

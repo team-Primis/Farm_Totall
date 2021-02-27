@@ -14,13 +14,16 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
     private ContainerDb container;
     public Image spriteImage;
     public Text itemText;
+    Item emptyItem;
 
     // Start is called before the first frame update
     void Start()
     {
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
+
         container = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerDb>();
         spriteImage = gameObject.GetComponent<Image>();
-        UpdateItem(null);
+        UpdateItem(emptyItem);
     }
 
 
@@ -31,7 +34,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
         container.selectedItem = this.item;
 
         //선택된 아이템이 무엇인지 알려줌
-        if (this.item != null && this.item.Ename!= "")
+        if (this.item.Ename != "empty")
         {
             container.MoveSlot(this.transform);
 
@@ -46,7 +49,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
 
     public void UpdateUI(Item item)
     {
-        if (item.Ename != "")
+        if (item.Ename != "empty")
         {
             itemText.text = this.item.count.ToString();
         }
@@ -58,7 +61,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
         //담긴 객체 변경
         this.item = newItem;
         //UI 변경 : 이미지 변경, 수량 변경. 카테고리가 아이템인것만 수량 표시
-        if (this.item != null)
+        if (this.item.Ename != "empty")
         {
             spriteImage.sprite = this.item.icon;
             spriteImage.color = Color.white;
