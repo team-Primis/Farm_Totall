@@ -15,6 +15,7 @@ public class UIInventory : MonoBehaviour
     public GameObject slot;
     GameObject newSlot;
     public Transform EmpTrans; //강조 UI가 있을 위치
+    Item emptyItem;
 
     private void Awake()
     {
@@ -31,10 +32,11 @@ public class UIInventory : MonoBehaviour
         newSlot.transform.SetParent(EmpTrans);
         newSlot.transform.position = EmpTrans.position;
         newSlot.gameObject.SetActive(false);
-        
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
+
     }
 
-   
+
 
     public void MoveEmphasizedSlot(Transform trans)
     {
@@ -59,9 +61,9 @@ public class UIInventory : MonoBehaviour
     {
         foreach(UIItem uiitem in uiitems)
         {
-            if (uiitem.item == null || uiitem.item.icon==null)
+            if (uiitem.item == emptyItem || uiitem.item.icon==null)
             {
-                uiitem.UpdateItem(null);
+                uiitem.UpdateItem(emptyItem);
             }
         }
     }
@@ -74,14 +76,14 @@ public class UIInventory : MonoBehaviour
     //uiitem의 요소 중, item 객체가 null인것을 찾아서 원하는 item의 객체의 모양으로 바꿈
     public void AddNewItem(Item item)
     {
-        UpdateSlot(uiitems.FindIndex(i => i.item == null), item);
+        UpdateSlot(uiitems.FindIndex(i => i.item.Ename=="empty"), item);
     }
 
 
     //item이 있는 인덱스를 찾아서 null객체로 바꿔줌
     public void RemoveItem(Item item)
     {
-        UpdateSlot(uiitems.FindIndex(i => i.item == item), null);
+        UpdateSlot(uiitems.FindIndex(i => i.item == item), emptyItem);
     }
 
 

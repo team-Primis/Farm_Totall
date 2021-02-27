@@ -27,6 +27,7 @@ public class inventory : MonoBehaviour
 
     public static inventory instance = null;
 
+    Item emptyItem;
 
 
     // Start is called before the first frame update
@@ -49,7 +50,7 @@ public class inventory : MonoBehaviour
         //안내사항 띄우고 싶을땐 이렇게 쓰기
         notice = GameObject.Find("Notice").GetComponent<NoticeText>();
 
-
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
 
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
@@ -74,7 +75,7 @@ public class inventory : MonoBehaviour
 
      void PutInContainer()
     {
-        if (equipedItem != null && equipedItem.Ename != "")
+        if (equipedItem != emptyItem)
         {
             container.PutInContainer(equipedItem.id, equipedItem.count);
             equipedItem.count = 0;
@@ -102,7 +103,7 @@ public class inventory : MonoBehaviour
         //E키를 눌렀을떄 장착된 아이템이 아이템 카테고리 라면 ( 사용 가능한 아이템 ) 아이템을 사용한다.
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (equipedItem != null && equipedItem.Ename != "") // 장착된 상태 
+            if (equipedItem != emptyItem) // 장착된 상태 
             {
                 if (equipedItem.category == Item.Category.item)
                 {
@@ -228,9 +229,9 @@ public class inventory : MonoBehaviour
             inventoryUI.RemoveItem(Item);
             sellingUI.isItemChanged = true;
             //만약 삭제한 아이템이 장착하고 있던 아이템이었으면, 장착된 곳에서 삭제하기
-            if(equipedItem != null && equipedItem.id == id)
+            if(equipedItem != emptyItem && equipedItem.id == id)
             {
-                equipedItem = null;
+                equipedItem = emptyItem;
                 ClearSlot();
             }
         }
@@ -239,7 +240,7 @@ public class inventory : MonoBehaviour
             Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
         }
     }
-    //해당 id를 가진 아이템 1개 제거
+    //해당 id를 가진 아이템 1개 제거 : 아이템의 갯수를 1개씩 줄이기. 아이템이 1개-> 0개가 되었을때는 제거.
     public void RemoveItem(int id)
     {
         Item ItemToRemove = CheckForItem(id);

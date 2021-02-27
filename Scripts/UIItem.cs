@@ -15,13 +15,15 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     public Text ItemCountText;
     private inventory inven;
 
-
+    Item emptyItem;
 
     void Awake()
     {
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
+
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         spriteImage = gameObject.GetComponent<Image>();
-        UpdateItem( null); //처음엔 빈칸으로 시작하기!
+        UpdateItem(emptyItem); //처음엔 빈칸으로 시작하기!
         selectedItem = GameObject.Find("selectedItem").GetComponent<UIItem>();
         tool = GameObject.Find("Tooltip").GetComponent<Toolkit>();
     }
@@ -32,7 +34,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         this.item = item;
         //아이템 객체가 존재할 경우, a 모습으로 바꾸고 잘보이게 하얀색~
-        if (this.item != null && this.item.Ename != "")
+        if (this.item.Ename!="empty")
         {
             spriteImage.sprite = this.item.icon;
             spriteImage.color = Color.white;
@@ -59,7 +61,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     //오브젝트에 해당하는 갯수로 업데이트 해주는 함수
     public void UpdateNumUI(Item item)
     {
-        if (this.item != null && this.item.Ename != "")
+        if (this.item.Ename != "empty")
         {
             ItemCountText.text = this.item.count.ToString();
         }
@@ -73,7 +75,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         if (eventData.button == PointerEventData.InputButton.Right)
         {
 
-            if (this.item != null && this.item.Ename != "")
+            if (this.item.Ename != "empty")
             {
                 //장착된 아이템의 위치를 옮길 경우 , 해당 아이템 장착 해제
                 if (inven.equipedItem == this.item)
@@ -83,7 +85,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
                 }
                 //특정 아이템을 클릭한 다음 이 칸을 누른다면 둘이 모양 바꿔줌
-                if (selectedItem.item != null && selectedItem.item.Ename != "")
+                if (selectedItem.item.Ename != "empty")
                 {
                     Item clone = selectedItem.item;
                     selectedItem.UpdateItem(this.item);
@@ -93,15 +95,15 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
                 else
                 {
                     selectedItem.UpdateItem(this.item);
-                    UpdateItem(null);
+                    UpdateItem(emptyItem);
                 }
 
             }
             //전에 뭔가 선택 후 빈공간 누름
-            else if (selectedItem.item != null)
+            else if (selectedItem.item.Ename != "empty")
             {
                 UpdateItem(selectedItem.item);
-                selectedItem.UpdateItem(null);
+                selectedItem.UpdateItem(emptyItem);
             }
         }
 
@@ -110,7 +112,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             inven.equipedItem = this.item;
-            if (this.item != null)
+            if (this.item.Ename != "empty")
             {
                 inven.MoveSlot(this.transform);
             }
@@ -124,7 +126,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (this.item != null && this.item.Ename != "")
+        if (this.item.Ename != "empty")
         {
             tool.GenerateToolTip(this.item);
             tool.gameObject.SetActive(true);
