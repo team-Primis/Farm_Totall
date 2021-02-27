@@ -18,7 +18,7 @@ public class Item
     public enum Category
     {
         //item : 소모품, tool : 도구
-        item,tool
+        item,tool,empty
     }
 
     //Dictionary ) key : value로 값 저장 -> 체력회복 : 5 , 속도  :2 이런 느낌

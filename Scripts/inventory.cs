@@ -227,13 +227,19 @@ public class inventory : MonoBehaviour
             //Debug.Log("아이템 " + Item.Kname + "을 인벤토리에서 제거합니다.");
             inventoryUI.RemoveItem(Item);
             sellingUI.isItemChanged = true;
+            //만약 삭제한 아이템이 장착하고 있던 아이템이었으면, 장착된 곳에서 삭제하기
+            if(equipedItem != null && equipedItem.id == id)
+            {
+                equipedItem = null;
+                ClearSlot();
+            }
         }
         else
         {
             Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
         }
     }
-
+    //해당 id를 가진 아이템 1개 제거
     public void RemoveItem(int id)
     {
         Item ItemToRemove = CheckForItem(id);
@@ -242,11 +248,7 @@ public class inventory : MonoBehaviour
             //아이템이 하나밖에 없었는데 제거함 -> 아예 객체 제거
             if (ItemToRemove.count == 1)
             {
-                characterItems.Remove(ItemToRemove);
-                //Debug.Log("아이템 " + ItemToRemove.Kname+"을 인벤토리에서 아예 제거합니다.");
-                equipedItem = null;
-                inventoryUI.MakeSlotClear();
-                inventoryUI.RemoveItem(ItemToRemove);
+                RemoveAll(id);
 
             }
             else
