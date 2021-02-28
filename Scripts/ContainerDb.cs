@@ -21,7 +21,7 @@ public class ContainerDb : MonoBehaviour
     Item emptyItem;
   
 
-    void Start()
+    void Awake()
     {
         emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
 

@@ -17,13 +17,14 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
     Item emptyItem;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
 
         container = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerDb>();
         spriteImage = gameObject.GetComponent<Image>();
         UpdateItem(emptyItem);
+        Debug.Log("empty로 만듦");
     }
 
 

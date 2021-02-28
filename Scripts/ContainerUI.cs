@@ -86,6 +86,10 @@ public class ContainerUI : MonoBehaviour
                 Debug.Log("보관상자에 저장공간이 부족해서 UI에 반영되지 않았습니다.");
             }
         }
+        else
+        {
+            Debug.Log("빈 객체를 넣을 순 없습니다");
+        }
     }
 
     public void RemoveItem(Item item)
