@@ -29,6 +29,8 @@ public class inventory : MonoBehaviour
 
     Item emptyItem;
 
+    private UIItem selectedItem;
+
 
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,8 @@ public class inventory : MonoBehaviour
 
         //아이템 획득한 걸 반영하고 싶다면 인벤토리 스크립트 참조하고 
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
+
+        selectedItem = GameObject.Find("selectedItem").GetComponent<UIItem>();
     }
 
     void Awake()
@@ -111,6 +115,14 @@ public class inventory : MonoBehaviour
                     UseItem(equipedItem);
                  
                 }
+            }
+        }
+        //장착한 아이템에서 f키를 누르면 1개 분리
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (equipedItem.category == Item.Category.item)
+            {
+                DivideItem(equipedItem.id);
             }
         }
 
@@ -282,7 +294,7 @@ public class inventory : MonoBehaviour
     //아이템 사용 : 아이템일 경우 하나 사라짐
     public void UseItem(Item item)
     {
-        if (item != null&&item.Ename!= "" && item.count > 0)
+        if (item != null&&item.Ename!= "empty" && item.count > 0)
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
@@ -299,7 +311,7 @@ public class inventory : MonoBehaviour
     public void UseItem(string name)
     {
         Item item = db.GetItem(name);
-        if (item != null && item.Ename != ""&&item.count>0)
+        if (item != null && item.Ename != "empty" && item.count>0)
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
@@ -313,7 +325,7 @@ public class inventory : MonoBehaviour
     public void UseItem(int id)
     {
         Item item = db.GetItem(id);
-        if (item != null && item.Ename != "" && item.count > 0)
+        if (item != null && item.Ename != "empty" && item.count > 0)
         {
             RemoveItem(item.id);
             //아이템 사용 효과 넣기~~
@@ -321,6 +333,44 @@ public class inventory : MonoBehaviour
             sellingUI.isItemChanged = true;
             notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
 
+        }
+    }
+
+    public void AddItem(int id)
+    {
+        Item item = db.GetItem(id);
+        if(item != null)
+        {
+            if(item.count > 1)
+            {
+                putInventory(id, 1);
+            }
+           
+        }
+        else
+        {
+            Debug.Log("id가 " + id + "인 아이템이 데이터베이스에 존재하지 않습니다.");
+        }
+    }
+
+    public void DivideItem(int id)
+    {
+        Item itemToDivide = db.GetItem(id);
+        if (itemToDivide != null)
+        {
+            if (itemToDivide.count > 1)
+            {
+                Item dividedItem = new Item(itemToDivide.id, itemToDivide.Kname, itemToDivide.Ename, itemToDivide.description, itemToDivide.category);
+                dividedItem.count--;
+                selectedItem.item = dividedItem;
+                selectedItem.UpdateItem(dividedItem);
+
+            }
+
+        }
+        else
+        {
+            Debug.Log("id가 " + id + "인 아이템이 데이터베이스에 존재하지 않습니다.");
         }
     }
     

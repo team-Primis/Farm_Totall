@@ -80,7 +80,7 @@ public class UIItem : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
                 //장착된 아이템의 위치를 옮길 경우 , 해당 아이템 장착 해제
                 if (inven.equipedItem == this.item)
                 {
-                    inven.equipedItem = null;
+                    inven.equipedItem = emptyItem;
                     inven.ClearSlot();
 
                 }
