@@ -24,7 +24,7 @@ public class CUIItem : MonoBehaviour, IPointerClickHandler
         container = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerDb>();
         spriteImage = gameObject.GetComponent<Image>();
         UpdateItem(emptyItem);
-        Debug.Log("empty로 만듦");
+
     }
 
 

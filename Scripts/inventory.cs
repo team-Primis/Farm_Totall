@@ -62,7 +62,6 @@ public class inventory : MonoBehaviour
 
         //보관상자에 아이템 넣기 관련 스크립트
         containerItemAddScript = GameObject.Find("ContainerItems").GetComponent<ContainerItems>();
-        containerItemAddScript.PutInContainer(11, 2);
     }
 
     void Awake()
