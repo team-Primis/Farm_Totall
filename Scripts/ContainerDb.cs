@@ -74,42 +74,5 @@ public class ContainerDb : MonoBehaviour
 
     }
 
-    //해당 id를 가진 아이템을 인벤에서 보관상자에 넣음 (인벤 스크립트에서 호출)
-    public void PutInContainer(int id, int num=1)
-    {
-        Item item = db.GetItem(id);
-         //해당 아아템이 존재하지 않음
-        if (item == null) {
-            Debug.Log(id + " id 를 가진 아이템은 데이터베이스에 없습니다.");
-            return;
-        }
-        //아이템을 처음 넣을 경우
-        if (CheckForItem(id) == null)
-        {
-            item.count = num;
-            //containerItem이라는 보관상자 아이템 보관스크립트에 추가함
-            containerItem.container.Add(item);
-            conUI.AddNewItem(item);
-            //Debug.Log(id + "라는 id를 가진 아이템을 보관상자에 추가합니다. ");
-        }
-        //아이템이 이미 보관상자에 존재할경우
-        else
-        {
-            item.count += num;
-            conUI.UpdateUI(item);
-            //Debug.Log(id + "라는 id를 가진 아이템을 " + num + "개 더 추가합니다.");
-        }
-    }
-   
-
-    public Item CheckForItem(int id)
-    {
-        return containerItem.container.Find(item => item.id == id);
-    }
-
-    public Item CheckForItem(string name)
-    {
-        return containerItem.container.Find(item => item.Ename == name);
-    }
 
 }

@@ -30,7 +30,7 @@ public class inventory : MonoBehaviour
     Item emptyItem;
 
     private UIItem selectedItem;
-
+    private ContainerItems containerItemAddScript; //컨테이너의 아이템과, 아이템 추가 스크립트
 
     // Start is called before the first frame update
     void Start()
@@ -59,6 +59,8 @@ public class inventory : MonoBehaviour
         //인벤토리스크립트이름.putInventory(아이템코드) 쓰면돼!
 
         selectedItem = GameObject.Find("selectedItem").GetComponent<UIItem>();
+
+        containerItemAddScript = GameObject.Find("ContainerItems").GetComponent<ContainerItems>();
     }
 
     void Awake()
@@ -82,7 +84,7 @@ public class inventory : MonoBehaviour
     {
         if (equipedItem != emptyItem)
         {
-            container.PutInContainer(equipedItem.id, equipedItem.count);
+            containerItemAddScript.PutInContainer(equipedItem.id, equipedItem.count);
             equipedItem.count = 0;
             RemoveAll(equipedItem.id);
             equipedItem = emptyItem;
