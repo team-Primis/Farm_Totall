@@ -51,6 +51,7 @@ public class ContainerUI : MonoBehaviour
         if(gameObject.activeSelf == true && isContainerChanged)
         {
             UpdateAll();
+            Debug.Log("보관상자 업데이트");
             isContainerChanged = false;
         }
     }
@@ -114,7 +115,7 @@ public class ContainerUI : MonoBehaviour
         for(int i = 0; i < container.Count; i++)
         {
             Item item = containerItemScript.GetItem(i);
-            UpdateSlot(i, item);
+            container[i].UpdateItem(item);
         }
     }
 }

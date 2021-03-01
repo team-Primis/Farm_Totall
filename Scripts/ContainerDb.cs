@@ -69,7 +69,8 @@ public class ContainerDb : MonoBehaviour
         if (itemToRemove != null )
         {
             containerItem.container.Remove(itemToRemove);
-            conUI.RemoveItem(itemToRemove);
+            //conUI.RemoveItem(itemToRemove);
+            conUI.isContainerChanged = true;
         }
 
     }

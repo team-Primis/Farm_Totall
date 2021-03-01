@@ -714,6 +714,7 @@ MonoBehaviour:
   slot: {fileID: 4383211923744133964, guid: 4e352e64fd195b14fbf6c03d41a87a34, type: 3}
   EmpTrans: {fileID: 540937116}
   containerItemScript: {fileID: 0}
+  isContainerChanged: 1
 --- !u!114 &35984304
 MonoBehaviour:
   m_ObjectHideFlags: 0
