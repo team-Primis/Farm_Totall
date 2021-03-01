@@ -8,7 +8,6 @@ public class SellingUI : MonoBehaviour
 {
     private inventory inven;
     private List<SUIItem> itemSlotList = new List<SUIItem>();
-    private bool isEnrolled;
     public bool isItemChanged = true; //아이템이 추가, 삭제될 경우
 
     public List<Item> sellingList = new List<Item>();
@@ -19,7 +18,14 @@ public class SellingUI : MonoBehaviour
     private PlayerControll playerScript;
 
     public bool shouldMakeEmpClear = false; //장착하고 있는 물건 팔때 강조창 없애기 용
- 
+
+    void Awake() {
+        foreach (GameObject itemSlot in GameObject.FindGameObjectsWithTag("sellingSlot"))
+        {
+            //itemSlotList가 List라는 자료형이므로, Add를 이용해서 배열 끝에 새로운 SUIItem을 추가할 수 있다.
+            itemSlotList.Add(itemSlot.GetComponentInChildren<SUIItem>());
+        }
+    }
     void Start()
     {
         inven= GameObject.Find("Inventory").GetComponent<inventory>();
@@ -84,20 +90,12 @@ public class SellingUI : MonoBehaviour
 
     void Update()
     {
-        if(!isEnrolled && gameObject.activeSelf)
-        {
-            //sellingSlot 태그가 들어있는 모든 GameObject를 특정 배열에 넣어서, 각각의 요소를 itemSlot이라는 이름으로 접근한다. (foreach)
-            foreach(GameObject itemSlot in GameObject.FindGameObjectsWithTag("sellingSlot"))
-            {
-                //itemSlotList가 List라는 자료형이므로, Add를 이용해서 배열 끝에 새로운 SUIItem을 추가할 수 있다.
-                itemSlotList.Add(itemSlot.GetComponentInChildren<SUIItem>());
-            }
-            isEnrolled = true;
-        }
+        
         //아이템이 바뀔때(추가, 삭제)만 인벤토리에서 보여주는 내용 갱신
         if(isItemChanged && gameObject.activeSelf)
         {
             UpdateAllItem();
+            Debug.Log("아이템 업데이트");
             isItemChanged = false;
         }
         

@@ -11,11 +11,14 @@ public class ContainerItems : MonoBehaviour
     //아이템 추가 관련
     private containerDatabase db;
     private ContainerUI conUI;
+    Item emptyItem;
 
     void Start()
     {
         db = GameObject.Find("CDatabase").GetComponent<containerDatabase>();
         conUI = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerUI>();
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
+
     }
 
 
@@ -35,7 +38,8 @@ public class ContainerItems : MonoBehaviour
             item.count = num;
             //containerItem이라는 보관상자 아이템 보관스크립트에 추가함
             container.Add(item);
-            conUI.AddNewItem(item);
+            //conUI.AddNewItem(item);
+            conUI.isContainerChanged = true;
             //Debug.Log(id + "라는 id를 가진 아이템을 보관상자에 추가합니다. ");
         }
         //아이템이 이미 보관상자에 존재할경우
@@ -56,5 +60,16 @@ public class ContainerItems : MonoBehaviour
     public Item CheckForItem(string name)
     {
         return container.Find(item => item.Ename == name);
+    }
+
+    public Item GetItem(int index) {
+        if(index <= container.Count - 1)
+        {
+            return container[index];
+        }
+        else
+        {
+            return emptyItem;
+        }
     }
 }

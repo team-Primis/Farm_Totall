@@ -15,16 +15,20 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
 
     private inventory inven;
     private NoticeText notice;
+    Item emptyItem;
 
-    void Start() {
-        updateItem(null);
+
+    void Awake() {
+        emptyItem = new Item(1000, "없음", "empty", " ", Item.Category.empty);
+        updateItem(emptyItem);
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         notice = GameObject.Find("Notice").GetComponent<NoticeText>();
+
     }
     public void OnPointerClick(PointerEventData eventData)
     {
         //해당 칸에 아이템이 존재할때
-        if (this.item != null && this.item.Ename != "")
+        if (this.item.Ename != "empty")
         {
             if (this.item.stats.ContainsKey("sellingPrice"))
             {
@@ -72,7 +76,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
             //구매리스트에서 아이템 제거
             sellingUI.sellingList.Remove(this.item);
             //겉에 보이는 아이템 모습 제거 +item 객체 제거
-            updateItem(null);
+            updateItem(emptyItem);
             isAdded = false;
             spriteBackground.color = new Color32(0, 0, 0, 100);
         }
@@ -85,7 +89,8 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         this.item = item;
 
         //null로 바꿀 시 ( 아이템 삭제랑 같은 의미 )
-        if (this.item == null)
+        if (this.item == null) Debug.Log("null");
+        if (this.item.Ename == "empty")
         {
             spriteImage.color = Color.clear;
             countText.color = Color.clear;

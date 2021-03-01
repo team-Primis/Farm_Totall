@@ -129,6 +129,8 @@ public class inventory : MonoBehaviour
             }
         }
 
+     
+
 
     }
     public void renewSlot()
@@ -290,7 +292,7 @@ public class inventory : MonoBehaviour
         }
         else
         {
-            return null;
+            return emptyItem;
         }
     }
 

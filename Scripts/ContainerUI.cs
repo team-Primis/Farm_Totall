@@ -18,6 +18,8 @@ public class ContainerUI : MonoBehaviour
 
     Item emptyItem;
 
+    public bool isContainerChanged = false;
+
 
     // Awake는 어떤 객체가 처음 setActive = true 될때 실행된다. ->따라서 처음 한번만 실행되야 하는 것들으나 여기에 넣었다.
     void Awake()
@@ -42,6 +44,15 @@ public class ContainerUI : MonoBehaviour
         }
         
       
+    }
+
+    void Update()
+    {
+        if(gameObject.activeSelf == true && isContainerChanged)
+        {
+            UpdateAll();
+            isContainerChanged = false;
+        }
     }
 
     public void MoveEmphasizedSlot(Transform trans)
@@ -95,5 +106,15 @@ public class ContainerUI : MonoBehaviour
     public void RemoveItem(Item item)
     {
         UpdateSlot(container.FindIndex(i => i.item == item), emptyItem);
+    }
+
+    //눈에 보이는 컨테이너의 내용물 순서를 containerItem과 맞춤
+    public void UpdateAll()
+    {
+        for(int i = 0; i < container.Count; i++)
+        {
+            Item item = containerItemScript.GetItem(i);
+            UpdateSlot(i, item);
+        }
     }
 }
