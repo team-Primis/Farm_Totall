@@ -95,7 +95,6 @@ public class SellingUI : MonoBehaviour
         if(isItemChanged && gameObject.activeSelf)
         {
             UpdateAllItem();
-            Debug.Log("아이템 업데이트");
             isItemChanged = false;
         }
         

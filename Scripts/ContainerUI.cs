@@ -51,7 +51,6 @@ public class ContainerUI : MonoBehaviour
         if(gameObject.activeSelf == true && isContainerChanged)
         {
             UpdateAll();
-            Debug.Log("보관상자 업데이트");
             isContainerChanged = false;
         }
     }

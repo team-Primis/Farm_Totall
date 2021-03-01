@@ -358,6 +358,7 @@ public class inventory : MonoBehaviour
         }
     }
 
+    //아이템 1개 분리하기
     public void DivideItem(int id)
     {
         Item itemToDivide = db.GetItem(id);
@@ -365,11 +366,38 @@ public class inventory : MonoBehaviour
         {
             if (itemToDivide.count > 1)
             {
-                Item dividedItem = new Item(itemToDivide.id, itemToDivide.Kname, itemToDivide.Ename, itemToDivide.description, itemToDivide.category);
-                dividedItem.count--;
+                //분리된 아이템 객체 생성. 원래 아이템을 복사하고, 갯수를 1개로 설정함.
+                Item dividedItem = new Item(itemToDivide.id, itemToDivide.Kname, itemToDivide.Ename, itemToDivide.description, itemToDivide.category);               
+                dividedItem.count = 1;
                 selectedItem.item = dividedItem;
                 selectedItem.UpdateItem(dividedItem);
+                Debug.Log(dividedItem.count + " 아이템을 1개 분리합니다.");
 
+                //원본 아이템 갯수 하나 줄이고 반영.
+
+                int slotToChange = 100; //원본이 들어있는 슬롯
+                for(int i = 0; i < characterItems.Count; i++)
+                {
+                    if(characterItems[i].id == itemToDivide.id)
+                    {
+                        slotToChange = i;
+                    }
+                }
+                if(slotToChange == 100)
+                {
+                    Debug.Log("해당 아이템은 인벤토리에 없습니다.");
+                }
+                else
+                {
+                    itemToDivide.count--;
+                    inventoryUI.UpdateSlot(slotToChange, itemToDivide);
+                }
+
+                
+            }
+            else
+            {
+                Debug.Log("아이템이 1개라 분리할 수 없습니다.");
             }
 
         }
