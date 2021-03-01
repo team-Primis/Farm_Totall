@@ -358,7 +358,7 @@ public class inventory : MonoBehaviour
         }
     }
 
-    //아이템 1개 분리하기
+    //아이템 1개 분리하기 : 진행 중
     public void DivideItem(int id)
     {
         Item itemToDivide = db.GetItem(id);
@@ -369,9 +369,10 @@ public class inventory : MonoBehaviour
                 //분리된 아이템 객체 생성. 원래 아이템을 복사하고, 갯수를 1개로 설정함.
                 Item dividedItem = new Item(itemToDivide.id, itemToDivide.Kname, itemToDivide.Ename, itemToDivide.description, itemToDivide.category);               
                 dividedItem.count = 1;
-                selectedItem.item = dividedItem;
-                selectedItem.UpdateItem(dividedItem);
+                
                 Debug.Log(dividedItem.count + " 아이템을 1개 분리합니다.");
+
+
 
                 //원본 아이템 갯수 하나 줄이고 반영.
 
