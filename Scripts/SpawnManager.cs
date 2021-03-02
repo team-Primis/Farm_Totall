@@ -30,12 +30,19 @@ public class SpawnManager : MonoBehaviour
     public List<float> geggYp = new List<float>();
     public bool GoOut = false;
 
+    // 집 출입 시 로딩 화면 관련
+    public bool GoIn = false;
+    public LoadingBar LBScript;
+    public int DoClearNum = 1; // 중복 방지 (밖->안)
+    public int DoLoadNum = 1; // 중복 방지 (안->밖)
+
     public GameManager GMScript; // timer 사용
 
     // Start is called before the first frame update
     void Start()
     {    
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>(); // timer 사용
+        LBScript = GameObject.Find("Canvas2").transform.Find("Loading").GetComponent<LoadingBar>();
     }
 
     // Update is called once per frame
@@ -44,23 +51,33 @@ public class SpawnManager : MonoBehaviour
         if(GoOut)
         {
             GoOut = false;
+            LBScript.ResetLoading();
+            LBScript.IngLoading(0.3f); // 집 안 → 밖 1/3
             Invoke("LoadSpawn", 1); // 씬 바꿀 시간 부여
+        }
+
+        if(GoIn)
+        {
+            GoIn = false;
+            
+            LBScript.IngLoading(0.4f); // 집 밖 → 안 2/3
+            Invoke("QuitLoadO2I", 1); // 씬 바꿀 시간 부여
         }
 
         if(SceneManager.GetActiveScene().name == "Inside")
         {
-            if(GMScript.timer <= 4) // 날 밝으면
+            if(GMScript.timer >= 420 && GMScript.timer <= 424) // 날 밝으면 (7시 기준 = 420)
             {
                 for(int i = 0; i < chickenCount; i++)
                 {
                     if(chickenCe[i] == false) // 한 번만
                     {
                         chickenCe[i] = true; // true
-                        Debug.Log(i+"번째 닭 알 낳을 준비 완료");
+                        //Debug.Log(i+"번째 닭 알 낳을 준비 완료");
                     }
                 }
             }
-            else if(GMScript.timer <= 8) // 그 다음에
+            else if(GMScript.timer > 424 && GMScript.timer <= 428) // 그 다음에
             {
                 for(int i = 0; i < chickenCount; i++)
                 {
@@ -68,11 +85,21 @@ public class SpawnManager : MonoBehaviour
                     {
                         chickenCe[i] = false; // false
                         LayEggIn(i); // 알 낳고
-                        Debug.Log(i+"번째 닭 알 낳기 완료");
+                        //Debug.Log(i+"번째 닭 알 낳기 완료");
                     }
                 }
             }
         }
+    }
+
+    void QuitLoadO2I() // 집 들어간 후 마무리
+    {
+        LBScript.IngLoading(0.25f); // 집 밖 → 안 3/3
+    }
+
+    void QuitLoadI2O() // 집 나온 후 마무리
+    {
+        LBScript.IngLoading(0.36f); // 집 안 → 밖 3/3
     }
 
     void LayEggIn(int i)
@@ -132,14 +159,19 @@ public class SpawnManager : MonoBehaviour
     // 집에서 나온 뒤 쓸 함수들
     public void LoadSpawn()
     {
+        DoLoadNum = 1;
+        LBScript.IngLoading(0.34f); // 집 안 → 밖 2/3
         LoadChicken();
         LoadEgg();
+        Invoke("QuitLoadI2O", 1);
     }
 
     // 집 들어갈 땐 닭과 달걀의 위치도 저장하기 & 닭과 달걀 다 삭제
     // 집 나올 땐 새로 스폰, 위치 불러오기
     public void ClearChicken() // 들어갈 떄
     {
+        LBScript.ResetLoading();
+
         // 위치 저장 후 리스트에서 삭제 (프리팹은 씬 이동하면 사라져서 굳이 파괴할 필요 없음)
         if(chickenList.Count > 0) // 오류 방지
         {
@@ -193,6 +225,8 @@ public class SpawnManager : MonoBehaviour
             }
             gEggList.Clear();
         }
+
+        LBScript.IngLoading(0.35f); // 집 밖 → 안 1/3
     }
     public void LoadEgg() // 나올 때
     {

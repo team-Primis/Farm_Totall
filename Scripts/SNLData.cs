@@ -53,4 +53,18 @@ public class SNLData // 모든 세이브 기록들 담을 곳
 
     public List<int> containerItemsID; // 보관템 ID
     public List<int> containerItemsCnt; // 보관템 개수
+
+    public List<float> dirtXP = new List<float>(); // dirt x좌표
+    public List<float> dirtYP = new List<float>(); // dirt y좌표
+    public List<float> plantXP = new List<float>(); // plant x좌표
+    public List<float> plantYP = new List<float>(); // plant y좌표
+    public List<float> plantTimer = new List<float>(); // plant 타이머
+    public List<bool> plantWater = new List<bool>(); // plant iswatered
+    public List<int> plantName = new List<int>(); // plant 종류 (이름과 비교)
+    public List<float> waterXP = new List<float>(); // water x좌표
+    public List<float> waterYP = new List<float>(); // water x좌표
+    // 지현이에게
+    // plantload에서 i랑 anim.SetInteger("One", i) 함수에 접근해야 할 것 같은데... 바꿔주세여...
+    // iswatered는 아직 변경 사항이 없나요...
+    // water는 사라지지 않나요?
 }

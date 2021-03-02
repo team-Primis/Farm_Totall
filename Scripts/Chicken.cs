@@ -80,14 +80,14 @@ public class Chicken : MonoBehaviour
         //chickTimer = GMScript.timer; // 헷갈릴까봐,,, (확인용)
         if(SceneManager.GetActiveScene().name == "OutSide")
         {
-            if(GMScript.timer <= 4) // 날 밝으면
+            if(GMScript.timer >= 420 && GMScript.timer <= 424) // 날 밝으면 (7시 기준 = 420)
             {
                 if(checkEgg == false) // 한 번만
                 {
                     checkEgg = true; // true
                 }
             }
-            else if(GMScript.timer <= 8) // 그 다음에
+            else if(GMScript.timer > 424 && GMScript.timer <= 428) // 그 다음에
             {
                 if(checkEgg == true) // 한 번만
                 {
