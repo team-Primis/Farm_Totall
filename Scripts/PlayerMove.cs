@@ -13,8 +13,8 @@ public class PlayerMove : MonoBehaviour
     public float speed = 1.0f;
     static public PlayerMove instance;//static: 이 스크립트를 사용하는 객체는 instance 변수를 공유하게 됨.
     public inventory Inven;
-    GameManager GMScript;
-  
+    public GameManager GMScript;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour
     void Update()
     {
         // from menucontrol - 일시정지 창 떠있으면 플레이어 정지
-        if(GMScript.isMenuOpen == false)
+        if(GMScript.isMenuOpen == false && GMScript.isSleepOpen==false)
         {
             Move();
         }

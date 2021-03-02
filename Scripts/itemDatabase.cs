@@ -80,10 +80,11 @@ public class itemDatabase : MonoBehaviour
 
             new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,
             new Dictionary<string, int>{
-                {"sellingPrice",3000},{"recovery",20}
+                {"sellingPrice",3000}, {"recovery", 20}
             }),
 
-            new Item(41, "파란꽃", "blueFlower", "아주 파랗다. 먹으면 쓰다.", Item.Category.item, new Dictionary<string, int>{ { "sellingPrice",  800}, {"recovery",  10} })
+            new Item(41, "파란꽃", "blueFlower", "아주 파랗다. 먹으면 쓰다.", Item.Category.item, new Dictionary<string, int>{ { "sellingPrice",  800}, {"recovery",  10} 
+            })
             
 
         };

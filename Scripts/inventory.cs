@@ -24,7 +24,7 @@ public class inventory : MonoBehaviour
     public NoticeText notice;
 
 
-
+    public Stemina stM;
     public static inventory instance = null;
 
 
@@ -35,7 +35,7 @@ public class inventory : MonoBehaviour
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
         container = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerDb>();
         sellingUI = GameObject.Find("Canvas2").transform.Find("sellingPanel").GetComponent<SellingUI>();
-
+        stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
         putInBtn.onClick.AddListener(PutInContainer);
         
         //테스트용으로 미리 인벤토리에 넣어놓은것들
@@ -295,6 +295,7 @@ public class inventory : MonoBehaviour
     public void UseItem(string name)
     {
         Item item = db.GetItem(name);
+        
         if (item != null && item.Ename != ""&&item.count>0)
         {
             RemoveItem(item.id);
@@ -302,7 +303,12 @@ public class inventory : MonoBehaviour
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
             notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
-
+            if(item.stats.ContainsKey("recovery"))
+            {
+                int recoveryint = item.stats["recovery"];
+                stM.FillHp((float)recoveryint);
+            }
+            
         }
     }
 

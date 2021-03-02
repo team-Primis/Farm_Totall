@@ -8,13 +8,14 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     public GameObject[] PlantPrefabs;//배열로 구현하여 인덱스가 0일 때 꽃, 1일 때 호박을 심도록 구현.
     public GameObject thePlayer;
     public inventory Inven;
+    public Stemina stM;
     // Start is called before the first frame update
     void Start()
     {
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
         //By미해 ( 이거 없으면 건물 안으로 들어왔다 나가면 null pointer 에러)
         thePlayer = GameObject.Find("Player").gameObject;
-
+        stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
     }
 
     // Update is called once per frame
@@ -55,7 +56,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
                         GameObject PlantedPlant = Instantiate(PlantPrefabs);//식물 생성
                         PlantedPlant.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.}
                         Inven.UseItem(1);
-
+                        stM.UseHp(4f);
                     }
 
 

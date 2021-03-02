@@ -52,15 +52,16 @@ public class SleepBed : MonoBehaviour
     {
         sleepUI.SetActive(true);
         GMscript.isTimerStoped = true;
-        canvass.SetActive(false);
-        
+        GMscript.isSleepOpen = true;
+
+
     }
 
     private void CloseMenu()
     {
         sleepUI.SetActive(false);
         GMscript.isTimerStoped = false;
-        canvass.SetActive(true);
+       GMscript.isSleepOpen = false;
 
     }
 

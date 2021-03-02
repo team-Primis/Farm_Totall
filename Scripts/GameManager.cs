@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     public float timer = 420;
     public bool isTimerStoped = false;//true일 때 멈춤 flase는 작동하는중.
-
+    public bool isSleepOpen = false;
 
     public GameObject[] staminaObj;
 

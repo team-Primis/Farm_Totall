@@ -8,13 +8,15 @@ public class SpawningDirt : MonoBehaviour
     public GameObject DirtPrefab;//파낸 검은 흙 오브젝트 필드 설정.
     public GameObject thePlayer;
     public inventory Inven;
+    public Stemina stM;
     // Start is called before the first frame update
     private void Awake()
     {
 
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
         thePlayer = GameObject.Find("Player").gameObject;
-        
+        stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
+
     }
 
     // Update is called once per frame
@@ -22,7 +24,7 @@ public class SpawningDirt : MonoBehaviour
 
  void Update()
     {
-        
+        SpawnDirt();
     }
    public void SpawnDirt()
     {
@@ -40,7 +42,7 @@ public class SpawningDirt : MonoBehaviour
                 {
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
                     RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-                    Debug.Log(hit.collider.tag);
+                    
                     if (hit.collider == null || hit.collider.CompareTag("Player")) 
                     {
                         
@@ -50,9 +52,19 @@ public class SpawningDirt : MonoBehaviour
 
                             GameObject DarkDirt = Instantiate(DirtPrefab);//식물 생성
                             DarkDirt.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
-
+                            stM.UseHp(7f);
                             }
                         
+                    }
+
+                    if(hit.collider!=null)
+                    {
+                        if(hit.collider.CompareTag("DarkDirt"))
+                        {
+                            GameObject responsedDarkDirt = hit.collider.gameObject;
+                            Destroy(responsedDarkDirt);
+                            stM.UseHp(5f);
+                        }
                     }
                         
                     
