@@ -6,12 +6,13 @@ public class SleepingLoad : MonoBehaviour
 {
     public Slider progressbar;
     
-    public GameObject thePlayer;
+    [SerializeField] public GameObject thePlayer;
     public GameObject sleepingLoadingUI;
     // Start is called before the first frame update
     void Start()
     {
-        
+        thePlayer = GameObject.Find("Player").gameObject;
+        sleepingLoadingUI = GameObject.Find("SleepLoading").gameObject;
     }
 
     // Update is called once per frame

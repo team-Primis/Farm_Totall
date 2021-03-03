@@ -7,13 +7,16 @@ public class PlantLoad : MonoBehaviour
 
     public float timer;
     public Animator anim;
-    private int i = 0;
+    public int i = 0;
     public GameObject watered;
     public int didItBloomed;
     public int toMuchWilted;
     public Transform thePlayer;
     public bool iswatered=false;
     public inventory Inven;
+    public PourWater pW;
+    public float growingRate;
+
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
     private void Awake()
@@ -31,37 +34,39 @@ public class PlantLoad : MonoBehaviour
         //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
 
         timer += Time.deltaTime;
-        
-        if (timer >= 6)
+
+        if(timer >=6)
         {
             timer = 0;
+            if(i<didItBloomed)
+            {
+                if (iswatered == true)
+                {
+                    i++;
+                    anim.SetInteger("One", i);
+                    iswatered = false;
+                }
+            }
 
 
+          else if(i>=didItBloomed && i<toMuchWilted)
+            {
+                Harvestit();
+                i++;
+                anim.SetInteger("One", i);
+            }
 
-            i++;
-            anim.SetInteger("One", i);
-            iswatered = false;
+          else if( i>=toMuchWilted)
+            {
+                Destroy(this.gameObject);
+            }
         }
-        if (i >= didItBloomed)
-        {
-            Harvestit();
-            
-
-        }
-
-        if (i >= toMuchWilted)//시든 지 너무 오래 지나면 파괴됨.
-        {
-            Destroy(this.gameObject);
-        }
-
-
-
-
-
-
-
     }
 
+   
+    
+        
+    
     void Harvestit()
     {
 
