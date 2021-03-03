@@ -25,8 +25,12 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
         if (collision.gameObject.name == "Player")
         {
             // 성현
-            SMScript.ClearChicken();
-            SMScript.ClearEgg();
+            if(SMScript.DoClearNum == 1)
+            {
+                SMScript.DoClearNum += 1;
+                SMScript.ClearChicken();
+                SMScript.ClearEgg();
+            }
             Invoke("NowGoIn", 1); // 씬 바뀌기 전에 닭이랑 알 저장할 시간 벌려고 지연시킴
 
             // 주석 묶은 부분은 지현이가 원래 쓴 부분
@@ -39,6 +43,9 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
     // 성현
     public void NowGoIn()
     {
+        SMScript.GoIn = true; // 성현 (02/25)
+        SMScript.DoClearNum = 1; // 성현 (02/28)
+
         thePlayer.currentMapName=transferMapName;
         SceneManager.LoadScene(transferMapName);
         // 지현이에게... starting point 좌표 조금만 옮겨주면 좋을 것 같아 너무 박혀서 시작하는 듯...☆

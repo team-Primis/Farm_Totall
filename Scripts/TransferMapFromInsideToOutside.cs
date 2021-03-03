@@ -25,7 +25,11 @@ public class TransferMapFromInsideToOutside : MonoBehaviour
         if (collision.gameObject.name == "Player")
         {
             // 성현
-            SMScript.GoOut = true; // 씬 바뀐 후 닭이랑 알 로드하려고
+            if(SMScript.DoLoadNum == 1)
+            {
+                SMScript.DoLoadNum += 1;
+                SMScript.GoOut = true; // 씬 바뀐 후 닭이랑 알 로드하려고
+            }
             
             thePlayer.currentMapName = transferMapName;
             SceneManager.LoadScene(transferMapName);

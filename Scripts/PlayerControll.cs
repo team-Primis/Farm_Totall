@@ -84,6 +84,8 @@ public class PlayerControll : MonoBehaviour
             else
             {
                 Debug.Log("GoodEgg Error");
+                // 이거 정식적으로 낳은 게 아니라 끌어다 임의로 만들었을 때 생기는 오류임!
+                // 그러니까 끌어다 놓은 거 먹은 거면 이 메세지 신경 안 써도 됨!
             }
 
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
@@ -110,6 +112,7 @@ public class PlayerControll : MonoBehaviour
             else
             {
                 Debug.Log("NormalEgg Error");
+                // 이것도 위랑 마찬가지!
             }
 
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
