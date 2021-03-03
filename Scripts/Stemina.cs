@@ -18,6 +18,8 @@ public class Stemina : MonoBehaviour
     public GameObject canvass;
     [SerializeField] public GameObject sleepUI;
     public bool zeroHp=false;
+    public Image imagePaint;
+    public GameObject canvasPaint;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,7 @@ public class Stemina : MonoBehaviour
         sleepUI = GameObject.Find("Canvassleep").transform.Find("SleepTight").transform.Find("SleepUI").gameObject;
         sleepingLoadingUI = GameObject.Find("Canvassleep").transform.Find("SleepLoading").gameObject;
         canvass = GameObject.Find("Canvas2").gameObject;//게임 내 유아이 
+       
     }
 
     // Update is called once per frame
@@ -41,8 +44,8 @@ public class Stemina : MonoBehaviour
             
            if(zeroHp==true)
             {
-                Invoke("hpIsZero", 2f);
-                zeroHp = false;
+               
+
             }
             
            
@@ -89,26 +92,7 @@ public class Stemina : MonoBehaviour
         }
     }
 
-    public void hpIsZero()
-    {
-        GMscript.isTimerStoped = true;
-        GMscript.isSleepOpen = true;
-        sleepUI.SetActive(false);
-        sleepingLoadingUI.SetActive(true);
-        canvass.SetActive(false);
+   
 
-        Invoke("wokeUp", 3f);
-        GMscript.timer += 7 * 60 * GMscript.speedUp;
-        curHp = maxHp;
-        thePlayer.transform.position = new Vector2(23.24f, 7f);
-    }
-
-    public void wokeUp()
-    {
-        sleepUI.SetActive(false);
-        sleepingLoadingUI.SetActive(false);
-        GMscript.isTimerStoped = false;
-        GMscript.isSleepOpen = false;
-        canvass.SetActive(true);
-    }
+    
 }
