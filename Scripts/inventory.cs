@@ -307,6 +307,12 @@ public class inventory : MonoBehaviour
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
             notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
+            if (item.stats.ContainsKey("recovery"))
+            {
+                int recoveryint = item.stats["recovery"];
+                stM.FillHp((float)recoveryint);
+                Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
+            }
         }
         
     }
@@ -329,6 +335,7 @@ public class inventory : MonoBehaviour
             {
                 int recoveryint = item.stats["recovery"];
                 stM.FillHp((float)recoveryint);
+                Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
             }
             
         }
@@ -344,6 +351,12 @@ public class inventory : MonoBehaviour
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
             notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
+            if (item.stats.ContainsKey("recovery"))
+            {
+                int recoveryint = item.stats["recovery"];
+                stM.FillHp((float)recoveryint);
+                Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
+            }
 
         }
     }
