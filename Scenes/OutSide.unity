@@ -5445,6 +5445,8 @@ MonoBehaviour:
   sleepingLoadingUI: {fileID: 0}
   canvass: {fileID: 0}
   stM: {fileID: 0}
+  wantedSleepTime: 7
+  theGap: 0
 --- !u!224 &652228252 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4495088193601889611, guid: 2fc893eefb7229f41a623d6ecd58ebe2,
@@ -7099,8 +7101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd72ff115fd84f14499425310a20b073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterPrefab: {fileID: 4639312193228100493, guid: 91eb02e3fbe28384283af143f6334704,
-    type: 3}
   thePlayer: {fileID: 0}
   Inven: {fileID: 0}
   stM: {fileID: 0}
@@ -7763,8 +7763,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1922986305
-  m_SortingLayer: 3
-  m_SortingOrder: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: be9ab108a0de64e43963ba35ee2face9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -65858,8 +65858,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlantPrefabs:
-  - {fileID: 6202862282424486260, guid: cc781b44883583243a816a8a0fea8e77, type: 3}
-  - {fileID: 1997553500209549104, guid: ee0c995ed3c98af449e5fb9c68c969ce, type: 3}
+  - {fileID: 7667501409103991036, guid: 24ec76b4b56d9bb4ebba5cd32d229fd8, type: 3}
+  - {fileID: 7069432430456874291, guid: ee0c995ed3c98af449e5fb9c68c969ce, type: 3}
   thePlayer: {fileID: 1995171693}
   Inven: {fileID: 0}
   stM: {fileID: 0}

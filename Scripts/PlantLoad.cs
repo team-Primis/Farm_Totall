@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlantLoad : MonoBehaviour
 {
 
-    public float timer;
+    public float plantTimer;
     public Animator anim;
     public int i = 0;
     public GameObject watered;
@@ -16,7 +16,10 @@ public class PlantLoad : MonoBehaviour
     public inventory Inven;
     public PourWater pW;
     public float growingRate;
-
+    public GameManager GMscript;
+    public int wantedGrowthValue;
+    public float growthTiming;
+    public SpriteRenderer wsr;
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
     private void Awake()
@@ -24,7 +27,11 @@ public class PlantLoad : MonoBehaviour
         anim = GetComponent<Animator>();
         thePlayer = GameObject.Find("Player").GetComponent<Transform>();
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
-
+        GMscript = GameObject.Find("GameManager").GetComponent<GameManager>();
+        plantTimer = GMscript.timer;
+        wsr = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
+        
+        
     }
 
     // Update is called once per frame
@@ -33,12 +40,13 @@ public class PlantLoad : MonoBehaviour
 
         //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
 
-        timer += Time.deltaTime;
+        
 
-        if(timer >=6)
+        if (GMscript.timer >=plantTimer+wantedGrowthValue)
         {
-            timer = 0;
-            if(i<didItBloomed)
+            plantTimer = GMscript.timer;
+            wsr.enabled = false;
+            if (i<didItBloomed)
             {
                 if (iswatered == true)
                 {
@@ -82,7 +90,8 @@ public class PlantLoad : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
             if (hit.collider != null)
             {
-                if (hit.collider.CompareTag("Plant"))
+
+                if (hit.collider.gameObject==this.gameObject)
                 {
 
                     if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
@@ -91,6 +100,7 @@ public class PlantLoad : MonoBehaviour
                         Debug.Log("수확함");
                         Destroy(this.gameObject);
                         Inven.putInventory(41, 1);
+                        
 
                     }
                 }
@@ -102,7 +112,7 @@ public class PlantLoad : MonoBehaviour
 
     }
 
-   
+ 
 
 
 
