@@ -424,6 +424,7 @@ MonoBehaviour:
   BuyChicken: {fileID: 0}
   isBuyOpen: 0
   isMenuOpen: 0
+  isWillSellOpen: 0
   didGameStart: 0
 --- !u!4 &16795483
 Transform:
@@ -474,22 +475,13 @@ MonoBehaviour:
   doLoadF1: 0
   doLoadF2: 0
   doNewGame: 0
-  XP: []
-  YP: []
-  pTimer: []
-  pWater: 
-  pName: 
-  theSpawningDirt: {fileID: 0}
-  theSpawningPlant: {fileID: 0}
-  thePlantLoad: {fileID: 0}
-  thePourWater: {fileID: 0}
   data:
     playerX: 0
     playerY: 0
     sceneName: 
     day: 0
     timer: 0
-    stamina: 0
+    currentHp: 0
     usedMoney: 0
     laborCount: 0
     chickenCount: 0
@@ -515,8 +507,10 @@ MonoBehaviour:
     plantTimer: []
     plantWater: 
     plantName: 
+    plantI: 
     waterXP: []
     waterYP: []
+    waterTimer: []
 --- !u!1 &20318676
 GameObject:
   m_ObjectHideFlags: 0
@@ -7763,7 +7757,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1922986305
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: be9ab108a0de64e43963ba35ee2face9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -65577,6 +65571,14 @@ MonoBehaviour:
   emptrans: {fileID: 962667184}
   notice: {fileID: 0}
   stM: {fileID: 0}
+  emptyItem:
+    id: 0
+    Kname: 
+    Ename: 
+    description: 
+    icon: {fileID: 0}
+    count: 0
+    category: 0
 --- !u!4 &850499616
 Transform:
   m_ObjectHideFlags: 0

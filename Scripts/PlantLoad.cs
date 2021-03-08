@@ -103,7 +103,26 @@ public class PlantLoad : MonoBehaviour
     }
 
    
-
-
+    // for SaveNLoad (0304 성현)
+    private int goalNum = 0;
+    private int nowNum = 0;
+    public void DoPlantAni(int goall)
+    {
+        if(goall > 0) // 저장 전 한 단계라도 진행됐을 때
+        {
+            goalNum = goall;
+            nowNum = 1; // nowNum 초기값은 1
+            DoAgain();
+        }
+    }
+    void DoAgain()
+    {
+        anim.SetInteger("One", nowNum);
+        if(goalNum > nowNum)
+        {
+            nowNum += 1;
+            Invoke("DoAgain", 0.2f);
+        }
+    }
 
 }

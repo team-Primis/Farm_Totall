@@ -27,7 +27,8 @@ public class inventory : MonoBehaviour
     public Stemina stM;
     public static inventory instance = null;
 
-    Item emptyItem;
+    //Item emptyItem;
+    public Item emptyItem; // 장착템 로드 때문에 public으로 바꿈 (0304 성현)
 
     private UIItem selectedItem;
     private ContainerItems containerItemAddScript; //컨테이너의 아이템과, 아이템 추가 스크립트

@@ -30,6 +30,9 @@ public class GameManager : MonoBehaviour
     // from menucontrol
     public bool isMenuOpen = false; // 일시정지 메뉴 관련
 
+    // from chicken
+    public bool isWillSellOpen = false; // 닭판매창이 켜져있는가
+
     // (성현) 게임을 시작하고, didGameStart가 false이면 OutSide -> Title (맨 처음 시작 화면)
     // 즉 게임 자체의 처음 화면은 OutSide이지만, 플레이 전 Title로 바로 옮겨 주기
     public bool didGameStart = false; // 초기값이 false (게임 켰을 당시에만 false이고 그 후는 true)

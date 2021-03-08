@@ -27,7 +27,8 @@ public class Chicken : MonoBehaviour
 
     Animator anim; // Animator 불러오기
 
-    public int theCount; // 닭 저장 및 로드를 위해 추가한 부분
+    public GameObject WillSell;
+    private PlayerControll thePlayerCtr; // for money
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +46,7 @@ public class Chicken : MonoBehaviour
 
         checkEgg = true; // 초기 설정
 
-        theCount = SMScript.chickenCount;
+        thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
     }
 
     // Update is called once per frame
@@ -108,12 +109,14 @@ public class Chicken : MonoBehaviour
 
         if(GMScript.isMenuOpen == true){   ChickenStop();  } // 일시정지면 닭들 정지
 
-        //장착 후 스페이스바 클릭 - 밥 주기
+        if(GMScript.isWillSellOpen == true){    ChickenStop();  } // 닭판매창 뜨면 닭 정지
+
+        // 장착 후 스페이스바 클릭 - 밥 주기
         if(Input.GetKeyDown(KeyCode.Space)) // 스페이스바 눌렀을 때 1번 판단
         {
             // 장착한 게 건초라면
             // (미해 : Inven.equippedItem != null 추가. (안그러면 아이템을 들고 있지 않을 때 오류))
-            if(Inven.equipedItem != null && Inven.equipedItem.Ename == "hay")
+            if(Inven.equipedItem.Ename == "hay")
             {
                 FeedHay();
             }
@@ -121,19 +124,63 @@ public class Chicken : MonoBehaviour
             // 장착한 게 씨앗이라면 - 현재 id 1~4가 씨앗임
             // (미해 : Inven.equippedItem!= null, Inven.equipedItem.id != 0 추가.
             // (아무것도 안들떄 초기 id가 0이라서 계속 먹임))
-            if(Inven.equipedItem != null && Inven.equipedItem.id != 0 && Inven.equipedItem.id < 5) // 
+            // (0304) 초기 id가 1000으로 변경됨, null 없어짐
+            if(Inven.equipedItem.id != 1000 && Inven.equipedItem.id < 5) // 
             {
                 FeedSeed();
             }
         }
+
+        // 닭 팔기 - 1
+        // Z(닭판매창), Yes버튼, X버튼
+        // 시간 정지, 닭 정지, 플레이어 정지
+        if(Input.GetKeyDown(KeyCode.Z)) // Z 눌렀을 때
+        {
+            dis = Vector2.Distance(PlayerTF.position,transform.position);
+            if(dis < 1.0f && Inven.equipedItem.id == 1000) // 가까이서 아무것도 안 들고 있으면
+            {
+                WillSell.SetActive(true);
+                WillSell.transform.position = Camera.main.WorldToScreenPoint(
+                        new Vector2(this.transform.position.x, this.transform.position.y + 1.5f));
+                GMScript.isWillSellOpen = true;
+                GMScript.isTimerStoped = true; // 시간 정지
+            }
+        }
     }
 
+    // 닭 팔기 - 2
+    // 직접 버튼에 함수 추가 필수!
+    public void WSYes()
+    {
+        thePlayerCtr.playerMoneyChange(200, true); // 돈 200원 증가
+        GMScript.isWillSellOpen = false;
+        GMScript.isTimerStoped = false; // 시간 흐르게
+        SMScript.chickenCount -= 1; // 개수 반영
+        int chnum = SMScript.chickenList.Count; // 여기부턴 닭 리스트에서 제거하는 과정
+        for (int i = 0; i < SMScript.chickenList.Count; i++)
+        {
+            if(SMScript.chickenList[i] == this.gameObject)
+            chnum = i;
+        }
+        if(chnum < SMScript.chickenList.Count) // index 찾았으면
+        {
+            SMScript.chickenList.RemoveAt(chnum);
+        }
+        Destroy(this.gameObject); // 파괴
+    }
+    public void WSNo()
+    {
+        WillSell.SetActive(false);
+        GMScript.isWillSellOpen = false;
+        GMScript.isTimerStoped = false; // 시간 흐르게
+    }
 
+    
     // 쓰다듬기 - 마우스 (좌)클릭
     void OnMouseDown() // 닭을 클릭했을 때
     {
         dis = Vector2.Distance(PlayerTF.position,transform.position);
-        if(dis < 1.5f) // Player가 가깝다면 쓰다듬기 가능
+        if(dis < 1.5f && Inven.equipedItem.id == 1000) // Player가 가깝다면 쓰다듬기 가능 + 아무것도 안 들고
         {
             happy += 1; // 행복도 1 증가
             Heart.SetActive(true); // 하트 나타나고
@@ -141,6 +188,7 @@ public class Chicken : MonoBehaviour
             Invoke("HideHeart", 1); // 1초 후 사라짐
         }
     }
+    
 
     void HideHeart() // 하트 사라지게
     {    Heart.SetActive(false);    }
