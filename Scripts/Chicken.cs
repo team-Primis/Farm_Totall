@@ -30,6 +30,8 @@ public class Chicken : MonoBehaviour
     public GameObject WillSell;
     private PlayerControll thePlayerCtr; // for money
 
+    public NoticeText notice; // 안내 메세지
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,6 +49,8 @@ public class Chicken : MonoBehaviour
         checkEgg = true; // 초기 설정
 
         thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
+
+        notice = GameObject.Find("Notice").GetComponent<NoticeText>(); // 안내 메세지
     }
 
     // Update is called once per frame
@@ -156,6 +160,7 @@ public class Chicken : MonoBehaviour
         GMScript.isWillSellOpen = false;
         GMScript.isTimerStoped = false; // 시간 흐르게
         SMScript.chickenCount -= 1; // 개수 반영
+        notice.WriteMessage("닭 판매 성공!");
         int chnum = SMScript.chickenList.Count; // 여기부턴 닭 리스트에서 제거하는 과정
         for (int i = 0; i < SMScript.chickenList.Count; i++)
         {

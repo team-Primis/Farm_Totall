@@ -10,6 +10,14 @@ public class SaveNLoad : MonoBehaviour
     // 현재 GameManager에 붙어있음
     // 근데 타이틀에도 있어야 함 - gamemanager를 파괴X
 
+    // 안내 메세지
+    public NoticeText notice;
+
+    void Start()
+    {
+        notice = GameObject.Find("Notice").GetComponent<NoticeText>(); // 안내 메세지
+    }
+
     public bool doLoadF1 = false;
     public bool doLoadF2 = false;
     public bool doNewGame = false;
@@ -124,6 +132,7 @@ public class SaveNLoad : MonoBehaviour
         // dirt, plant, water는 씬 바뀌면 파괴되어서 초기화할 필요 없음
 
         Debug.Log("새 게임 로드 완료");
+        notice.WriteMessage("새 게임 시작!");
     }
 
 

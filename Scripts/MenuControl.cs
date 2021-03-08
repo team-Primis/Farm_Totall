@@ -25,6 +25,9 @@ public class MenuControl : MonoBehaviour
     public SpawnManager SMScript;
     private PlayerControll thePlayerCtr; // for money
 
+    // 안내 메세지
+    public NoticeText notice;
+
     void Start()
     {
         GameObject canvas2 = GameObject.Find("Canvas2");
@@ -43,6 +46,9 @@ public class MenuControl : MonoBehaviour
         BuyChicken = canvas2.transform.Find("BuyChicken").gameObject;
         SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
         thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
+
+        // 안내 메세지
+        notice = GameObject.Find("Notice").GetComponent<NoticeText>();
     }
 
     void Update()
@@ -156,6 +162,7 @@ public class MenuControl : MonoBehaviour
     {
         theSaveNLoad.CallSaveF1(); // File 1 저장
         Debug.Log("File 1 저장 완료");
+        notice.WriteMessage("1번 위치에 저장 완료!");
         whereSave.SetActive(false);
         menuWindow.SetActive(false); // 메뉴 off
         GMScript.isTimerStoped = false; // 시간 흐르기 시작
@@ -164,6 +171,7 @@ public class MenuControl : MonoBehaviour
     {
         /*theSaveNLoad.CallSaveF2(); // 저장*/
         Debug.Log("File 2 저장 완료");
+        notice.WriteMessage("2번 위치에 저장 완료!");
         whereSave.SetActive(false);
         menuWindow.SetActive(false); // 메뉴 off
         GMScript.isTimerStoped = false; // 시간 흐르기 시작
@@ -192,6 +200,7 @@ public class MenuControl : MonoBehaviour
             thePlayerCtr.playerMoneyChange(500, false); // 돈 500원 감소
 
             Debug.Log("닭 구매 완료");
+            notice.WriteMessage("닭 구매 성공!");
             //howRich.GetComponent<Text>().text = "(보유 금액 : " + thePlayerCtr.money + "원)";
             SMScript.SpawnChicken(); // spawn chicken
             BuyChicken.SetActive(false);
