@@ -88,6 +88,7 @@ public class LoadingBar : MonoBehaviour
 
     public void ExitLoading() // 로딩창 종료하고 싶을 때
     {
+        loadSlider.value = 0.0f; // 나갈 때 full에서 시작하는 거 해결
         this.gameObject.SetActive(false);
     }
 }
