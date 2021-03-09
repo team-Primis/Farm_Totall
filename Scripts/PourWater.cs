@@ -9,7 +9,7 @@ public class PourWater : MonoBehaviour
     public GameObject thePlayer;
     public inventory Inven;
     public Stemina stM;
- 
+   
     // Start is called before the first frame update
     private void Awake()
     {

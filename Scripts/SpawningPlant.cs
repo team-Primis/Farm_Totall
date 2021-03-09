@@ -21,8 +21,8 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     // Update is called once per frame
     void Update()
     {
-
-        if (Inven.equipedItem != null)
+        
+        if (Inven.equipedItem.Ename != "empty")
         {
             if (Inven.equipedItem.Ename == "blueFlowerSeed")
             { SpawnPlant(PlantPrefabs[0]); }
@@ -55,7 +55,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
 
                         GameObject PlantedPlant = Instantiate(PlantPrefabs);//식물 생성
                         PlantedPlant.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.}
-                        Inven.UseItem(1);
+                        Inven.UseItem(Inven.equipedItem.id);
                         stM.UseHp(4f);
                     }
 

@@ -13,6 +13,7 @@ public class SleepTight : MonoBehaviour
     public Stemina stM;
     public int wantedSleepTime;
     public float theGap;
+    public float thisTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,19 +44,19 @@ public class SleepTight : MonoBehaviour
         canvass.SetActive(false);
         
         Invoke("ClickNo", 3f);
+        thisTime = GMscript.timer;
+        thisTime += wantedSleepTime * 60 * GMscript.speedUp;
+        if(thisTime<60*24)
+        {
+            GMscript.timer = thisTime;
+        }
+        else if(thisTime>=60*24)
+        {
+            GMscript.timer = (thisTime - 60 * 24);
+            GMscript.day += 1;
 
-       
-            if(theGap>=wantedSleepTime*60*GMscript.speedUp)
-            {
-                GMscript.timer += wantedSleepTime * 60 * GMscript.speedUp;
-            }
-            else if(theGap <= wantedSleepTime * 60 * GMscript.speedUp)
-            {
-                GMscript.timer += theGap;
-            if(GMscript.timer>=0)
-                GMscript.timer +=(wantedSleepTime * 60 * GMscript.speedUp - theGap);
-            }
-            
+        }
+    
         
         stM.curHp = stM.maxHp;
        thePlayer.transform.position=new Vector2(-7f, -3.6f);

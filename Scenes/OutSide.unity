@@ -5447,6 +5447,7 @@ MonoBehaviour:
   stM: {fileID: 0}
   wantedSleepTime: 7
   theGap: 0
+  thisTime: 0
 --- !u!224 &652228252 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4495088193601889611, guid: 2fc893eefb7229f41a623d6ecd58ebe2,
@@ -69266,6 +69267,8 @@ MonoBehaviour:
   canvasPaint: {fileID: 0}
   imagePaint: {fileID: 0}
   canvass: {fileID: 0}
+  thisTime: 0
+  wantedPaintTime: 2
 --- !u!114 &1285285141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81698,7 +81701,7 @@ PrefabInstance:
     - target: {fileID: 4677087801181713156, guid: afcdbd9f04a9837478f01357d76eb829,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4677087801181713156, guid: afcdbd9f04a9837478f01357d76eb829,
         type: 3}
