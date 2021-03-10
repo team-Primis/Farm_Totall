@@ -41,7 +41,6 @@ public class PlantLoad : MonoBehaviour
         //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
 
         plantTimer += Time.deltaTime*GMscript.speedUp;
-
         if (plantTimer >=thisTime+wantedGrowthValue*60)
         {
             plantTimer = GMscript.timer;
@@ -73,6 +72,7 @@ public class PlantLoad : MonoBehaviour
                 Destroy(this.gameObject);
             }
         }
+        
     }
 
    
@@ -81,7 +81,7 @@ public class PlantLoad : MonoBehaviour
     
     void Harvestit()
     {
-
+        Debug.Log("harvest 시작");
         
         Vector2 theplayerPosition = thePlayer.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
