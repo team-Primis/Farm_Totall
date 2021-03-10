@@ -25,8 +25,8 @@ public class PlayerControll : MonoBehaviour
     public int numNE = 0; // 보유 중인 보통 알의 개수*/
 
     private NoticeText notice; //(미해, 0223 추가)
-    // (성현, 0219 추가)
-    public SpawnManager SMScript;
+    
+    public SpawnManager SMScript; // (성현, 0219 추가)
 
     // Start is called before the first frame update
     void Start()
@@ -35,8 +35,8 @@ public class PlayerControll : MonoBehaviour
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
         notice = GameObject.Find("Notice").GetComponent<NoticeText>(); //(미해, 0222 추가)
-        // (성현, 0219 추가)
-        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        
+        SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>(); // (성현, 0219 추가)
     }
 
     //플레이어의 돈의 수량을 바꾸고, 그에 맞게 UI를 업데이트
@@ -89,6 +89,7 @@ public class PlayerControll : MonoBehaviour
             }
 
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
+            notice.WriteMessage("좋은 달걀 획득!");
 
             //미해가 씀 : 인벤에 넣기 : id 11  좋은 달걀 id 12 평범 달걀
             inven.putInventory(11);
@@ -116,6 +117,7 @@ public class PlayerControll : MonoBehaviour
             }
 
             Destroy(coll.gameObject); // 해당 알 화면에서 제거
+            notice.WriteMessage("평범한 달걀 획득!");
 
             inven.putInventory(12);
         }

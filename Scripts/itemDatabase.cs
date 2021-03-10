@@ -85,8 +85,23 @@ public class itemDatabase : MonoBehaviour
             }),
 
             new Item(41, "파란꽃", "blueFlower", "아주 파랗다. 먹으면 쓰다.", Item.Category.item, new Dictionary<string, int>{ { "sellingPrice",  800}, {"recovery",  10} 
-            })
+            }),
             
+            // trashitem (0304 성현)
+            new Item(1001, "쓰레기1", "trash1", " ", Item.Category.item),
+            new Item(1002, "쓰레기2", "trash2", " ", Item.Category.item),
+            new Item(1003, "쓰레기3", "trash3", " ", Item.Category.item),
+            new Item(1004, "쓰레기4", "trash4", " ", Item.Category.item),
+            new Item(1005, "쓰레기5", "trash5", " ", Item.Category.item),
+            new Item(1006, "쓰레기6", "trash6", " ", Item.Category.item),
+            new Item(1007, "쓰레기7", "trash7", " ", Item.Category.item),
+            new Item(1008, "쓰레기8", "trash8", " ", Item.Category.item),
+            new Item(1009, "쓰레기9", "trash9", " ", Item.Category.item),
+            new Item(1010, "쓰레기10", "trash10", " ", Item.Category.item),
+            new Item(1011, "쓰레기11", "trash11", " ", Item.Category.item),
+            new Item(1012, "쓰레기12", "trash12", " ", Item.Category.item),
+            new Item(1013, "쓰레기13", "trash13", " ", Item.Category.item),
+            new Item(1014, "쓰레기14", "trash14", " ", Item.Category.item)
 
         };
 

@@ -113,11 +113,11 @@ public class SpawnManager : MonoBehaviour
 
     public void SpawnChicken()
     {
-        chickenCount += 1; // 개수 및 고유 ID 반영
+        chickenCount += 1; // 개수 반영
         GameObject chicken = Instantiate(Chicken);
         chickenList.Add(chicken); // spawn 하면서 리스트에 추가
-        float chickenX = UnityEngine.Random.Range(-7.0f, 13.0f); // center 근처
-        float chickenY = UnityEngine.Random.Range(-4.0f, 4.0f);
+        float chickenX = UnityEngine.Random.Range(-3.0f, 16.0f);
+        float chickenY = UnityEngine.Random.Range(-6.0f, -1.0f);
         chicken.transform.position = new Vector2(chickenX, chickenY); // 닭 생성할 위치
     }
 
