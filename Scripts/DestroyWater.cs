@@ -5,18 +5,20 @@ using UnityEngine;
 public class DestroyWater : MonoBehaviour
 {
     public GameManager GMscript;
+    public PlantLoad pL;
     // Start is called before the first frame update
     void Start()
     {
         GMscript = GameObject.Find("GameManager").GetComponent<GameManager>();
+      
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(GMscript.timer >=7*60+10 )
+       /* if(GMscript.timer >=7*60+10 )
         {
             Destroy(this.gameObject);
-        }
+        }*/
     }
 }

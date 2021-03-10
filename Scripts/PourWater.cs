@@ -6,10 +6,10 @@ public class PourWater : MonoBehaviour
 {
     //!!!!!!!게임이 일시정지 아닐 때만 동작하게 설정해두기!!!!!!!
 
-    public GameObject waterPrefab;//물 주면 생성되는 프리펩.
     public GameObject thePlayer;
     public inventory Inven;
     public Stemina stM;
+   
     // Start is called before the first frame update
     private void Awake()
     {
@@ -52,13 +52,15 @@ public class PourWater : MonoBehaviour
                             if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
                             {
 
-                               GameObject notwateredplant = hit.collider.gameObject;
+                                GameObject notwateredplant = hit.collider.gameObject;
                                 PlantLoad pL = notwateredplant.GetComponent<PlantLoad>();
-                                Debug.Log(hit.collider.tag);
+                               GameObject watered = notwateredplant.transform.GetChild(0).gameObject;
+                                SpriteRenderer wsr = watered.GetComponent<SpriteRenderer>();
                                 pL.iswatered = true;
+
+                                wsr.enabled = true;
                                 stM.UseHp(3f);
-                              GameObject Watereded= Instantiate(waterPrefab);//식물 생성s
-                               Watereded.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
+                     
                                 
                               
                                 
@@ -79,11 +81,7 @@ public class PourWater : MonoBehaviour
         
     }
 
-    public void DestroyWatered(GameObject obj)
-    {
-       
-        Destroy(obj);
-    }
+    
 
    
 }

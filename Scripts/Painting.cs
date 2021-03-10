@@ -11,7 +11,8 @@ public class Painting : MonoBehaviour
     public GameObject canvasPaint;
     public Image imagePaint;
     public GameObject canvass;
-    
+    public float thisTime;
+    public float wantedPaintTime=2f;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,16 +35,28 @@ public class Painting : MonoBehaviour
 
     public void hpIsZero()
     {
-
+        stM.zeroHp = false;
         GMscript.isTimerStoped = true;
         GMscript.isSleepOpen = true;
         canvasPaint.SetActive(true);
         canvass.SetActive(false);
         StartCoroutine(Flickering());
+        thisTime = GMscript.timer;
+        thisTime += wantedPaintTime* 60 * GMscript.speedUp;
+        if (thisTime < 60 * 24)
+        {
+            GMscript.timer = thisTime;
+        }
+        else if (thisTime >= 60 * 24)
+        {
+            GMscript.timer = (thisTime - 60 * 24);
+            GMscript.day += 1;
+
+        }
         Invoke("cancelFlickering", 2.5f);
         Invoke("wokeUp", 3f);
+
         
-        GMscript.timer += 60 * GMscript.speedUp;
         stM.curHp = stM.maxHp / 4;
 
 
@@ -51,7 +64,7 @@ public class Painting : MonoBehaviour
 
     public void wokeUp()
     {
-        stM.zeroHp = false;
+        
         GMscript.isTimerStoped = false;
         GMscript.isSleepOpen = false;
         canvass.SetActive(true);
@@ -59,13 +72,14 @@ public class Painting : MonoBehaviour
 
     public IEnumerator Flickering()
     {
-        
+        for(int i=0; i<4; i++)
+        {
             imagePaint.color = Color.black;
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             imagePaint.color = new Color(0, 0, 0, 0.5f);
-            yield return new WaitForSeconds(1f);
-        
-
+            yield return new WaitForSeconds(0.5f);
+        }
+   
     }
 
     public void cancelFlickering()

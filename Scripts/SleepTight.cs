@@ -11,6 +11,9 @@ public class SleepTight : MonoBehaviour
     public GameObject sleepingLoadingUI;
     public GameObject canvass;
     public Stemina stM;
+    public int wantedSleepTime;
+    public float theGap;
+    public float thisTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,9 @@ public class SleepTight : MonoBehaviour
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
         sleepingLoadingUI = GameObject.Find("Canvassleep").transform.Find("SleepLoading").gameObject;
         canvass = GameObject.Find("Canvas2").gameObject;//게임 내 유아이 
+        theGap = 60 * 24 - GMscript.timer;
+
+
     }
 
     // Update is called once per frame
@@ -38,8 +44,20 @@ public class SleepTight : MonoBehaviour
         canvass.SetActive(false);
         
         Invoke("ClickNo", 3f);
+        thisTime = GMscript.timer;
+        thisTime += wantedSleepTime * 60 * GMscript.speedUp;
+        if(thisTime<60*24)
+        {
+            GMscript.timer = thisTime;
+        }
+        else if(thisTime>=60*24)
+        {
+            GMscript.timer = (thisTime - 60 * 24);
+            GMscript.day += 1;
+
+        }
+    
         
-        GMscript.timer += 7*60*GMscript.speedUp;
         stM.curHp = stM.maxHp;
        thePlayer.transform.position=new Vector2(-7f, -3.6f);
       

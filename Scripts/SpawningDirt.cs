@@ -36,7 +36,7 @@ public class SpawningDirt : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            if (Inven.equipedItem.Ename != "empty")
+            if (Inven.equipedItem != null)//(Inven.equipedItem.Ename != "empty")로 하니까 눌레퍼런스 그거 뜨길래 다시 바꿈.
             {
                 if (Inven.equipedItem.Ename == "sickle")
                 {

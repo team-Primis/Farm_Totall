@@ -50,6 +50,7 @@ public class SpawnManager : MonoBehaviour
     {    
         if(GoOut)
         {
+            
             GoOut = false;
             LBScript.ResetLoading();
             LBScript.IngLoading(0.3f); // 집 안 → 밖 1/3

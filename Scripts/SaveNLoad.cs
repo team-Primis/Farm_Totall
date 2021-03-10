@@ -243,7 +243,7 @@ public class SaveNLoad : MonoBehaviour
             thePlantLoad = obj2[i].gameObject.GetComponent<PlantLoad>(); // 각각 찾기
             data.plantXP.Add(obj2[i].gameObject.transform.position.x);
             data.plantYP.Add(obj2[i].gameObject.transform.position.y);
-            data.plantTimer.Add(thePlantLoad.timer);
+            data.plantTimer.Add(thePlantLoad.plantTimer); //timer 변수가 plantTimer로 바뀐 것 같아 반영합니당( 0310 미해)
             data.plantWater.Add(thePlantLoad.iswatered);
             if(obj2[i].gameObject.name == "Flower(Clone)")
             {
@@ -458,12 +458,13 @@ public class SaveNLoad : MonoBehaviour
                     GameObject plantt = Instantiate(theSpawningPlant.PlantPrefabs[data.plantName[i]]);
                     plantt.transform.position = new Vector2(data.plantXP[i], data.plantYP[i]);
                     thePlantLoad = plantt.GetComponent<PlantLoad>();
-                    thePlantLoad.timer = data.plantTimer[i];
+                    thePlantLoad.plantTimer = data.plantTimer[i]; //timer -> plantTimer로 바꾸었습니당 ( 지현이의 변수가 바뀐것 같아 따라서 바꾸었습니당) (0310 미해)
                     thePlantLoad.iswatered = data.plantWater[i];
                     thePlantLoad.i = data.plantI[i];
                     thePlantLoad.DoPlantAni(data.plantI[i]);
                 }
 
+                /* water을 더이상 prefab으로 생성하지 않아서 잠시 주석처리 했습니당! (0310 미해)
                 // water
                 for(int i = 0; i < data.waterXP.Count; i++)
                 {
@@ -471,6 +472,7 @@ public class SaveNLoad : MonoBehaviour
                     waterr.transform.position = new Vector2(data.waterXP[i], data.waterYP[i]);
                     // waterTimer 추가 필요
                 }
+                */
 
                 Debug.Log("File 1 로드 완료");
             }
