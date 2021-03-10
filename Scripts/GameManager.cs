@@ -66,16 +66,15 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("Title");
         }
 
-        changeStaminaUI(); //스태미나 감소
 
         DayUI(day); // 로드 때문에 여기로 옮겼음 (성현)
 
         //24시간 지나면 하루 지남 + UI 켰을때는 시간 안감
         if (!isTimerStoped)
         {
-            //timer += Time.deltaTime;
             timer += Time.deltaTime* speedUp; // 로드 등 확인 위해 임시로 시간 배속함 (성현)
         }
+        
         if (timer >= 60*24) //1시간 * 24 = 1일
         {
             timer = 0;
@@ -83,68 +82,15 @@ public class GameManager : MonoBehaviour
             // DayUI(day); // 위로 옮겼음 (성현)
         }
         DateUI(timer); //시간 표시
+        
 
         if (Input.GetKeyDown(KeyCode.T))
         {
             Debug.Log("날짜 : " + getDay());
         }
     }
-
-    //UI에서 스태미나 감소 : 관련 오브젝트를 일단 unable하게 만들고, 현재 스태미나 만큼 다시 setactive
-    void changeStaminaUI() {
-        if (isStaminaChanged)
-        {
-
-            for (int i = 0; i < staminaObj.Length; i++)
-            {
-                staminaObj[i].SetActive(false);
-            }
-
-            if (stamina >= 1)
-            {
-                staminaObj[0].SetActive(true);
-            }
-            if (stamina >= 2)
-            {
-                staminaObj[1].SetActive(true);
-            }
-            if (stamina >= 3)
-            {
-                staminaObj[2].SetActive(true);
-            }
-            if (stamina >= 4)
-            {
-                staminaObj[3].SetActive(true);
-            }
-            if (stamina >= 5)
-            {
-                staminaObj[4].SetActive(true);
-            }
-            if (stamina >= 6)
-            {
-                staminaObj[5].SetActive(true);
-            }
-            if (stamina >= 7)
-            {
-                staminaObj[6].SetActive(true);
-            }
-            if (stamina >= 8)
-            {
-                staminaObj[7].SetActive(true);
-            }
-            if (stamina >= 9)
-            {
-                staminaObj[8].SetActive(true);
-            }
-            if (stamina >= 10)
-            {
-                staminaObj[9].SetActive(true);
-            }
-            Debug.Log("your stamina is " + stamina);
-            isStaminaChanged = false;
-        }
-    }
-    
+   
+  
     //매개변수에 넣은 만큼 스태미나 줄여줌
     public void useStamina(int stam)
     {

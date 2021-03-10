@@ -69,6 +69,7 @@ public class PlantLoad : MonoBehaviour
     
     void Harvestit()
     {
+        Debug.Log("collider 없음");
 
         Vector2 theplayerPosition = thePlayer.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);

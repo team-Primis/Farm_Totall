@@ -45,7 +45,7 @@ public class itemDatabase : MonoBehaviour
             new Item(1,"파란꽃 씨앗","blueFlowerSeed","밤에 보면 더욱 예쁘다.",Item.Category.item,
             new Dictionary<string, int>
             {
-                {"cost",500 },{"watering",1},{"sellingPrice",600},{"dayToGrow",3},{"recovery",30}
+                {"cost",500 },{"watering",1},{"sellingPrice",600},{"dayToGrow",3}
             }),
             new Item(2,"감자 씨앗","potatoSeed","감자 그라탕 하기에 적합한 감자다.",Item.Category.item,
             new Dictionary<string, int>

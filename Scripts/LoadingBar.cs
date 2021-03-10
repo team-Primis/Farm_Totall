@@ -63,7 +63,7 @@ public class LoadingBar : MonoBehaviour
             plusNum = 0.0f;
 
             if(loadSlider.value == 1.0f)
-            {   Invoke("ExitLoading", 1);   }
+            {  Invoke("ExitLoading", 1);   }
         }
     }
 
@@ -88,6 +88,7 @@ public class LoadingBar : MonoBehaviour
 
     public void ExitLoading() // 로딩창 종료하고 싶을 때
     {
+        loadSlider.value = 0f;
         this.gameObject.SetActive(false);
     }
 }
