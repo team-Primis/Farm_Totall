@@ -129,13 +129,19 @@ public class PlantLoad : MonoBehaviour
     // for SaveNLoad (0304 성현)
     private int goalNum = 0;
     private int nowNum = 0;
-    public void DoPlantAni(int goall)
+    private bool addWater = false;
+    public void DoPlantAni(int goall, bool waterr)
     {
+        addWater = waterr;
         if(goall > 0) // 저장 전 한 단계라도 진행됐을 때
         {
             goalNum = goall;
             nowNum = 1; // nowNum 초기값은 1
             DoAgain();
+        }
+        else if(addWater) // 초기 그대로 but 물만 줌
+        {
+            Invoke("BringWater", 0.2f);
         }
     }
     void DoAgain()
@@ -146,6 +152,14 @@ public class PlantLoad : MonoBehaviour
             nowNum += 1;
             Invoke("DoAgain", 0.2f);
         }
+        else if(addWater) // 상태 반영 OK → 물 반영
+        {
+            Invoke("BringWater", 0.2f);
+        }
+    }
+    void BringWater()
+    {
+        wsr.enabled = true;
     }
 
 

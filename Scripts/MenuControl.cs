@@ -70,13 +70,6 @@ public class MenuControl : MonoBehaviour
             }
         }
 
-        /*// 임시 - 타이틀 버튼으로 옮길 예정
-        if(Input.GetKeyDown(KeyCode.F9))
-        {
-	        // 불러오기
-	        theSaveNLoad.CallLoadF1();
-        }*/
-
         // 메뉴 on → 시간(menucontrol), 닭(Chicken), 플레이어(playermove) 정지
         if(menuWindow.activeSelf)
         {
@@ -169,7 +162,7 @@ public class MenuControl : MonoBehaviour
     }
     public void GoFile2()
     {
-        /*theSaveNLoad.CallSaveF2(); // 저장*/
+        theSaveNLoad.CallSaveF2(); // 저장
         Debug.Log("File 2 저장 완료");
         notice.WriteMessage("2번 위치에 저장 완료!");
         whereSave.SetActive(false);

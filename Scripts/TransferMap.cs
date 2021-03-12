@@ -27,7 +27,7 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
             // 성현
             if(SMScript.DoClearNum == 1)
             {
-                SMScript.DoClearNum += 1;
+                SMScript.DoClearNum += 1; // 씬 바뀌는 거 대기하면서 충돌을 여러 번 하길래 추가함
                 SMScript.ClearChicken();
                 SMScript.ClearEgg();
             }
@@ -48,6 +48,5 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
 
         thePlayer.currentMapName=transferMapName;
         SceneManager.LoadScene(transferMapName);
-        // 지현이에게... starting point 좌표 조금만 옮겨주면 좋을 것 같아 너무 박혀서 시작하는 듯...☆
     }
 }

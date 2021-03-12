@@ -9,13 +9,20 @@ public class SaveNLoad : MonoBehaviour
 {
     // 현재 GameManager에 붙어있음
     // 근데 타이틀에도 있어야 함 - gamemanager를 파괴X
+    // 단순히 기능만 확인하고 싶으면 CallNewGame의 첫 줄 주석 처리하면 됨!
+    // 로딩화면 순서 >로로딩딩<으로 검색 (새게임/로딩1/로딩2)
 
     // 안내 메세지
-    public NoticeText notice;
+    private NoticeText notice;
+
+    // 로딩화면
+    private LoadingBar theLoadingBar;
 
     void Start()
     {
         notice = GameObject.Find("Notice").GetComponent<NoticeText>(); // 안내 메세지
+        theLoadingBar = GameObject.Find("Canvas2").transform.Find("Loading").
+                                                    GetComponent<LoadingBar>(); // 로딩화면
     }
 
     public bool doLoadF1 = false;
@@ -24,7 +31,6 @@ public class SaveNLoad : MonoBehaviour
 
      //그리고 합치니까 인게임 ui가 타이틀 화면 위로 올라오길래 canvas의 sortorder을 2로 바꾸었습니당
      //혹시 유니티 상에서 그렇게 뜬다면 바꿔주세용!
-     // 성현 - 그거 아마 scene 창에서만 그렇게 뜨고 플레이 창에선 괜찮았던 것 같아 나는 ㅜ
 
     void Update()
     {
@@ -42,9 +48,9 @@ public class SaveNLoad : MonoBehaviour
         }
         else if(doLoadF2 == true)
         {
-            //doLoadF2 = false;
-            //Debug.Log("File 2 로드 중");
-            //Invoke("RealLoadF2", 2); // 씬 바꿀 시간 기다림
+            doLoadF2 = false;
+            Debug.Log("File 2 로드 시작 - 1");
+            Invoke("RealLoadF2", 2); // 씬 바꿀 시간 기다림
         }
     }
 
@@ -61,13 +67,14 @@ public class SaveNLoad : MonoBehaviour
     private SpawningDirt theSpawningDirt; // dirt -------------------- load
     private SpawningPlant theSpawningPlant; // plant -------------------- load
     private PlantLoad thePlantLoad; // plant -------------------- load&save 내부
-    private PourWater thePourWater; // water -------------------- (일단은)load
 
     public SNLData data; // SNLData 이용할 것임
 
     public void CallNewGame()
     {
         doNewGame = true; // 단순히 기능 확인하고 싶으면 이거 주석처리하면 됨!
+
+        theLoadingBar.ResetLoading(); // 로로딩딩 새게임 - 리셋
 
         // 새로 시작하기 첫 씬은 OutSide
         Debug.Log("새 게임 씬 로드");
@@ -90,20 +97,21 @@ public class SaveNLoad : MonoBehaviour
         theMenuControl = FindObjectOfType<MenuControl>();
 
         Debug.Log("새 게임 로드 시작 - 2");
+        theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 새게임 - 1 (~0.2)
 
-        theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간아 흘러라
+        theGameManager.isTimerStoped = true; // 로드할 동안 시간 정지 (맨 아래 참고)
 
         thePlayerMove.transform.position = new Vector2(0, 0); // 플레이어 좌표 초기화
-
+        
         theGameManager.day = 1; // DAY 초기화
         theGameManager.timer = 420; // 타이머 초기화 (7시)
-
+        
         theStemina.curHp = 200f; // stemina 초기화
-
+        
         int pastMoney = thePlayerControll.money; // 돈 초기화 - 1
         thePlayerControll.playerMoneyChange(2000 - pastMoney, true); // 돈 초기화 - 2
         thePlayerControll.laborCount = 5; // laborCount 초기화
-
+        
         theSpawnManager.chickenList.Clear(); // 닭 목록 초기화
         theSpawnManager.chickenCount = 0; // 닭 개수 초기화
         // ----------------------------------------------
@@ -112,6 +120,8 @@ public class SaveNLoad : MonoBehaviour
         // ----------------------------------------------
         theSpawnManager.gEggList.Clear(); // 좋은 달걀 목록 초기화
         theSpawnManager.gEggCount = 0; // 좋은 달걀 개수 초기화
+
+        theLoadingBar.loadSlider.value += 0.3f; // 로로딩딩 새게임 - 2 (~0.5)
         
         for(int i = theInventory.characterItems.Count - 1; i >= 0 ; i--)
         {
@@ -126,17 +136,21 @@ public class SaveNLoad : MonoBehaviour
         theUIInventory.MakeSlotClear(); // 장착템 UI 초기화
         theInventory.equipedItem = theInventory.emptyItem; // 장착템 초기화
 
+        theLoadingBar.loadSlider.value += 0.3f; // 로로딩딩 새게임 - 3 (~0.8)
+
         theContainerItems.container.Clear(); // 보관상자 아이템 비우기 (보관상자 초기화)
         theContainerUI.isContainerChanged = true; // 보관상자 UI 업데이트
 
         // dirt, plant, water는 씬 바뀌면 파괴되어서 초기화할 필요 없음
 
+        theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간 흐르기 시작 (맨 위 참고)
+
+        theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 새게임 - 5 (~1.0)
         Debug.Log("새 게임 로드 완료");
         notice.WriteMessage("새 게임 시작!");
     }
 
 
-    // 나중에 CallSaveF2, CallLoadF2, RealLoadF2 만들 거임
     public void CallSaveF1()
     {
         thePlayerMove = FindObjectOfType<PlayerMove>();
@@ -245,7 +259,7 @@ public class SaveNLoad : MonoBehaviour
             data.plantYP.Add(obj2[i].gameObject.transform.position.y);
             data.plantTimer.Add(thePlantLoad.plantTimer); //timer 변수가 plantTimer로 바뀐 것 같아 반영합니당( 0310 미해)
             data.plantWater.Add(thePlantLoad.iswatered);
-            if(obj2[i].gameObject.name == "Flower(Clone)")
+            if(obj2[i].gameObject.name == "BlueFlower(Clone)")
             {
                 data.plantName.Add(0);
             }
@@ -255,17 +269,6 @@ public class SaveNLoad : MonoBehaviour
             }
             // 다른 작물 추가 필요
             data.plantI.Add(thePlantLoad.i);
-        }
-
-        GameObject[] obj3 = GameObject.FindGameObjectsWithTag("Water");
-        data.waterXP.Clear();
-        data.waterYP.Clear();
-        data.waterTimer.Clear();
-        for(int i = 0; i < obj3.Length; i++)
-        {
-            data.waterXP.Add(obj3[i].gameObject.transform.position.x);
-            data.waterYP.Add(obj3[i].gameObject.transform.position.y);
-            // data.waterTimer.Add(~) 추가 필요
         }
 
         // 물리적인 파일로 저장
@@ -278,6 +281,131 @@ public class SaveNLoad : MonoBehaviour
 
         Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
     }
+
+    public void CallSaveF2()
+    {
+        thePlayerMove = FindObjectOfType<PlayerMove>();
+        theGameManager = FindObjectOfType<GameManager>();
+        theStemina = FindObjectOfType<Stemina>();
+        thePlayerControll = FindObjectOfType<PlayerControll>();
+        theSpawnManager = FindObjectOfType<SpawnManager>();
+        theInventory = FindObjectOfType<inventory>();
+        theUIInventory = FindObjectOfType<UIInventory>();
+        theContainerItems = FindObjectOfType<ContainerItems>();
+
+        data.playerX = thePlayerMove.transform.position.x;
+        data.playerY = thePlayerMove.transform.position.y;
+        data.sceneName = thePlayerMove.currentMapName;
+        data.day = theGameManager.day;
+        data.timer = theGameManager.timer;
+        data.currentHp = theStemina.curHp;
+        data.usedMoney = 2000 - thePlayerControll.money;
+        data.laborCount = thePlayerControll.laborCount;
+
+        data.chickenCount = theSpawnManager.chickenCount;
+        data.happy.Clear();
+        data.checkEgg.Clear();
+        data.chickenXP.Clear();
+        data.chickenYP.Clear();
+        for(int i = 0; i < theSpawnManager.chickenCount; i++)
+        {
+            data.happy.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().happy);
+            data.checkEgg.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg);
+            data.chickenXP.Add(theSpawnManager.chickenList[i].transform.position.x);
+            data.chickenYP.Add(theSpawnManager.chickenList[i].transform.position.y);
+        }
+        
+        data.nEggCount = theSpawnManager.nEggCount;
+        data.nEggXP.Clear();
+        data.nEggYP.Clear();
+        for (int i = 0; i < theSpawnManager.nEggCount; i++)
+        {
+            data.nEggXP.Add(theSpawnManager.nEggList[i].transform.position.x);
+            data.nEggYP.Add(theSpawnManager.nEggList[i].transform.position.y);
+        }
+        
+        data.gEggCount = theSpawnManager.gEggCount;
+        data.gEggXP.Clear();
+        data.gEggYP.Clear();
+        for (int i = 0; i < theSpawnManager.gEggCount; i++)
+        {
+            data.gEggXP.Add(theSpawnManager.gEggList[i].transform.position.x);
+            data.gEggYP.Add(theSpawnManager.gEggList[i].transform.position.y);
+        }
+
+        data.characterItemsID.Clear();
+        data.characterItemsCnt.Clear();
+        for(int i = 0; i < theUIInventory.uiitems.Count; i++)
+        {
+            if(theUIInventory.uiitems[i].item.Ename != "empty")
+            {
+                data.characterItemsID.Add(theUIInventory.uiitems[i].item.id);
+                data.characterItemsCnt.Add(theUIInventory.uiitems[i].item.count);
+            }
+            else
+            {
+                data.characterItemsID.Add(1000);
+                data.characterItemsCnt.Add(0);
+            }
+        }
+        if(theInventory.equipedItem.Ename != "empty")
+        {   data.equipedItemID = theInventory.equipedItem.id;   }
+        else
+        {   data.equipedItemID = 1000; }
+
+        data.containerItemsID.Clear();
+        data.containerItemsCnt.Clear();
+        for(int i = 0; i < theContainerItems.container.Count; i++)
+        {
+            if(theContainerItems.container[i].Ename != "empty")
+            {
+                data.containerItemsID.Add(theContainerItems.container[i].id);
+                data.containerItemsCnt.Add(theContainerItems.container[i].count);
+            }
+        }
+
+        GameObject[] obj1 = GameObject.FindGameObjectsWithTag("DarkDirt");
+        data.dirtXP.Clear();
+        data.dirtYP.Clear();
+        for(int i = 0; i < obj1.Length; i++)
+        {
+            data.dirtXP.Add(obj1[i].gameObject.transform.position.x);
+            data.dirtYP.Add(obj1[i].gameObject.transform.position.y);
+        }
+
+        GameObject[] obj2 = GameObject.FindGameObjectsWithTag("Plant");
+        data.plantXP.Clear();
+        data.plantYP.Clear();
+        data.plantTimer.Clear();
+        data.plantWater.Clear();
+        data.plantName.Clear();
+        data.plantI.Clear();
+        for(int i = 0; i < obj2.Length; i++)
+        {
+            thePlantLoad = obj2[i].gameObject.GetComponent<PlantLoad>();
+            data.plantXP.Add(obj2[i].gameObject.transform.position.x);
+            data.plantYP.Add(obj2[i].gameObject.transform.position.y);
+            data.plantTimer.Add(thePlantLoad.plantTimer);
+            data.plantWater.Add(thePlantLoad.iswatered);
+            if(obj2[i].gameObject.name == "BlueFlower(Clone)")
+            {
+                data.plantName.Add(0);
+            }
+            else if(obj2[i].gameObject.name == "Pumpkin(Clone)")
+            {
+                data.plantName.Add(1);
+            }
+            // 다른 작물 추가 필요
+            data.plantI.Add(thePlantLoad.i);
+        }
+
+        BinaryFormatter bf = new BinaryFormatter();
+        FileStream file = File.Create(Application.dataPath + "/SaveFile2.txt");
+        bf.Serialize(file, data);
+        file.Close();
+        Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
+    }
+
 
     public void CallLoadF1() // 씬 로드
     {
@@ -294,6 +422,8 @@ public class SaveNLoad : MonoBehaviour
 
                 doLoadF1 = true;
 
+                theLoadingBar.ResetLoading(); // 로로딩딩 로딩1 - 리셋
+
                 // 씬 이동
                 Debug.Log("File 1 씬 로드");
                 SceneManager.LoadScene(data.sceneName);
@@ -302,12 +432,14 @@ public class SaveNLoad : MonoBehaviour
             else
             {
                 Debug.Log("File 1 비었음");
+                notice.WriteMessage("1번 데이터 없음!");
             }
             file.Close(); // 파일 닫기
         }
         else
         {
             Debug.Log("File 1 없음");
+            notice.WriteMessage("1번 파일이 없음!");
         }
     }
 
@@ -336,11 +468,11 @@ public class SaveNLoad : MonoBehaviour
                 theMenuControl = FindObjectOfType<MenuControl>();
                 theSpawningDirt = FindObjectOfType<SpawningDirt>(); // 0304ing
                 theSpawningPlant = FindObjectOfType<SpawningPlant>(); // 0304ing
-                thePourWater = FindObjectOfType<PourWater>(); //0304ing
 
                 Debug.Log("File 1 로드 시작 - 2");
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 1 (~0.2)
 
-                theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간아 흘러라
+                theGameManager.isTimerStoped = true; // 로드할 동안 시간 정지 (맨 아래 참고)
 
                 thePlayerMove.transform.position = new Vector2(data.playerX, data.playerY);
 
@@ -391,6 +523,8 @@ public class SaveNLoad : MonoBehaviour
                                                     new Vector2(data.gEggXP[i], data.gEggYP[i]);
                 }
 
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 2 (~0.4)
+
                 // 인벤
                 for(int i = theInventory.characterItems.Count - 1; i >= 0; i--)
                 {
@@ -431,6 +565,8 @@ public class SaveNLoad : MonoBehaviour
                     theInventory.equipedItem = theInventory.emptyItem;
                 } // 장착템 설정
 
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 3 (~0.6)
+
                 // 보관상자
                 theContainerItems.container.Clear(); // 보관상자 아이템 비우기
                 if(data.containerItemsID.Count > 0)
@@ -444,6 +580,8 @@ public class SaveNLoad : MonoBehaviour
                     }
                 } // 보관상자 저장템 넣기
                 theContainerUI.isContainerChanged = true; // 보관상자 UI 업데이트
+
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 4 (~0.8)
 
                 // dirt
                 for(int i = 0; i < data.dirtXP.Count; i++)
@@ -461,23 +599,204 @@ public class SaveNLoad : MonoBehaviour
                     thePlantLoad.plantTimer = data.plantTimer[i]; //timer -> plantTimer로 바꾸었습니당 ( 지현이의 변수가 바뀐것 같아 따라서 바꾸었습니당) (0310 미해)
                     thePlantLoad.iswatered = data.plantWater[i];
                     thePlantLoad.i = data.plantI[i];
-                    thePlantLoad.DoPlantAni(data.plantI[i]);
+                    thePlantLoad.DoPlantAni(data.plantI[i], data.plantWater[i]); // 이 함수 안에 water 포함
                 }
 
-                /* water을 더이상 prefab으로 생성하지 않아서 잠시 주석처리 했습니당! (0310 미해)
-                // water
-                for(int i = 0; i < data.waterXP.Count; i++)
-                {
-                    GameObject waterr = Instantiate(thePourWater.waterPrefab);
-                    waterr.transform.position = new Vector2(data.waterXP[i], data.waterYP[i]);
-                    // waterTimer 추가 필요
-                }
-                */
+                theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간 흐르기 시작 (맨 위 참고)
 
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 5 (~1.0)
                 Debug.Log("File 1 로드 완료");
+                notice.WriteMessage("File 1 이어하기!");
             }
             file.Close(); // 파일 닫기
         }
     }
 
+
+    public void CallLoadF2()
+    {
+        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        if (fileInfo.Exists)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.dataPath + "/SaveFile2.txt", FileMode.Open);
+            if(file.Length > 0)
+            {
+                data = (SNLData)bf.Deserialize(file);
+                doLoadF2 = true;
+                theLoadingBar.ResetLoading();
+                Debug.Log("File 2 씬 로드");
+                SceneManager.LoadScene(data.sceneName);
+            }
+            else
+            {
+                Debug.Log("File 2 비었음");
+                notice.WriteMessage("2번 데이터 없음!");
+            }
+            file.Close();
+        }
+        else
+        {
+            Debug.Log("File 2 없음");
+            notice.WriteMessage("2번 파일이 없음!");
+        }
+    }
+
+    public void RealLoadF2()
+    {
+        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        if (fileInfo.Exists)
+        {
+            BinaryFormatter bf = new BinaryFormatter();
+            FileStream file = File.Open(Application.dataPath + "/SaveFile2.txt", FileMode.Open);
+            if(file.Length > 0)
+            {
+                data = (SNLData)bf.Deserialize(file);
+
+                thePlayerMove = FindObjectOfType<PlayerMove>();
+                theGameManager = FindObjectOfType<GameManager>();
+                theStemina = FindObjectOfType<Stemina>();
+                thePlayerControll = FindObjectOfType<PlayerControll>();
+                theSpawnManager = FindObjectOfType<SpawnManager>();
+                theInventory = FindObjectOfType<inventory>();
+                theUIInventory = FindObjectOfType<UIInventory>();
+                theContainerUI = GameObject.Find("Canvas2").transform.Find("containerPanel").
+                                                                        GetComponent<ContainerUI>();
+                theContainerItems = FindObjectOfType<ContainerItems>();
+                theMenuControl = FindObjectOfType<MenuControl>();
+                theSpawningDirt = FindObjectOfType<SpawningDirt>();
+                theSpawningPlant = FindObjectOfType<SpawningPlant>();
+
+                Debug.Log("File 2 로드 시작 - 2");
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 1 (~0.2)
+                theGameManager.isTimerStoped = true;
+                thePlayerMove.transform.position = new Vector2(data.playerX, data.playerY);
+                theGameManager.day = data.day;
+                theGameManager.timer = data.timer;
+                theStemina.curHp = data.currentHp;
+                thePlayerControll.money = 2000;
+                thePlayerControll.playerMoneyChange(data.usedMoney, false);
+                thePlayerControll.laborCount = data.laborCount;
+            
+                theSpawnManager.chickenList.Clear();
+                theSpawnManager.chickenCount = 0;
+                for(int i = 0; i < data.chickenCount; i++)
+                {
+                    theSpawnManager.SpawnChicken();
+                }
+                for(int i = 0; i < data.chickenCount; i++)
+                {
+                    theSpawnManager.chickenList[i].GetComponent<Chicken>().happy = data.happy[i];
+                    theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg = data.checkEgg[i];
+                    theSpawnManager.chickenList[i].transform.position =
+                                                    new Vector2(data.chickenXP[i], data.chickenYP[i]);
+                }
+                
+                theSpawnManager.nEggList.Clear();
+                theSpawnManager.nEggCount = 0;
+                for(int i = 0; i < data.nEggCount; i++)
+                {
+                    theSpawnManager.SpawnNEgg();
+                }
+                for(int i = 0; i < data.nEggCount; i++)
+                {
+                    theSpawnManager.nEggList[i].transform.position =
+                                                    new Vector2(data.nEggXP[i], data.nEggYP[i]);
+                }
+                
+                theSpawnManager.gEggList.Clear();
+                theSpawnManager.gEggCount = 0;
+                for(int i = 0; i < data.gEggCount; i++)
+                {
+                    theSpawnManager.SpawnGEgg();
+                }
+                for(int i = 0; i < data.gEggCount; i++)
+                {
+                    theSpawnManager.gEggList[i].transform.position =
+                                                    new Vector2(data.gEggXP[i], data.gEggYP[i]);
+                }
+
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 2 (~0.4)
+
+                for(int i = theInventory.characterItems.Count - 1; i >= 0; i--)
+                {
+                    theInventory.RemoveAll(theInventory.characterItems[i].id);
+                }
+                theUIInventory.MakeSlotNull();
+                bool isEquipedOK = false;
+                int trashnum = 1001;
+                for(int i = 0; i < data.characterItemsID.Count; i++)
+                {
+                    if(data.characterItemsID[i] != 1000)
+                    {
+                        theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                        if(data.characterItemsID[i] == data.equipedItemID)
+                        {
+                            theInventory.equipedItem = theInventory.characterItems[i];
+                            theUIInventory.MoveEmphasizedSlot(theUIInventory.uiitems[i].transform);
+                            isEquipedOK = true;
+                        }
+                    }
+                    else
+                    {
+                        theInventory.putInventory(trashnum, 1);
+                        trashnum++;
+                    }
+                }
+                if(trashnum >= 1002)
+                {
+                    for(int i = 1001; i < trashnum; i++)
+                    {
+                        theInventory.RemoveAll(i);
+                    }
+                }
+                if(!isEquipedOK)
+                {
+                    theUIInventory.MakeSlotClear();
+                    theInventory.equipedItem = theInventory.emptyItem;
+                }
+
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 3 (~0.6)
+
+                theContainerItems.container.Clear();
+                if(data.containerItemsID.Count > 0)
+                {
+                    for(int i = 0; i < data.containerItemsID.Count; i++)
+                    {
+                        if(data.containerItemsID[i] > 0)
+                        {
+                            theContainerItems.PutInContainer(data.containerItemsID[i], data.containerItemsCnt[i]);
+                        }
+                    }
+                }
+                theContainerUI.isContainerChanged = true;
+
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 4 (~0.8)
+
+                for(int i = 0; i < data.dirtXP.Count; i++)
+                {
+                    GameObject dirtt = Instantiate(theSpawningDirt.DirtPrefab);
+                    dirtt.transform.position = new Vector2(data.dirtXP[i], data.dirtYP[i]);
+                }
+                
+                for(int i = 0; i < data.plantXP.Count; i++)
+                {
+                    GameObject plantt = Instantiate(theSpawningPlant.PlantPrefabs[data.plantName[i]]);
+                    plantt.transform.position = new Vector2(data.plantXP[i], data.plantYP[i]);
+                    thePlantLoad = plantt.GetComponent<PlantLoad>();
+                    thePlantLoad.plantTimer = data.plantTimer[i];
+                    thePlantLoad.iswatered = data.plantWater[i];
+                    thePlantLoad.i = data.plantI[i];
+                    thePlantLoad.DoPlantAni(data.plantI[i], data.plantWater[i]);
+                }
+
+                theMenuControl.WhenRestart();
+
+                theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 5 (~1.0)
+                Debug.Log("File 2 로드 완료");
+                notice.WriteMessage("File 2 이어하기!");
+            }
+            file.Close();
+        }
+    }
 }

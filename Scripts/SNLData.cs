@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class SNLData // 모든 세이브 기록들 담을 곳
 {
-    // 저장할 것 ~
-    // 땅 상태, 심어진 것, 농작물 상태
-
     // 포함 완료 ~
     // 플레이어 좌표, 씬 이름
     // 날짜(DAY), 시간(타이머)
@@ -20,8 +17,7 @@ public class SNLData // 모든 세이브 기록들 담을 곳
     // <인벤> 인벤템 ID, 인벤템 개수, 장착템 ID
     // <상자> 보관템 ID, 보관템 개수
     // <흙> dirt 좌표
-    // <식물> plant 좌표, plant 타이머, plant iswatered, plant 종류
-    // <물> water 좌표, water 타이머
+    // <식물> plant 좌표, plant 타이머, plant iswatered(+물), plant 종류
 
     // Vector3 등의 class는 직렬화가 안 됨 (자료형만 직렬화 가능)
         
@@ -64,11 +60,7 @@ public class SNLData // 모든 세이브 기록들 담을 곳
     public List<float> plantXP = new List<float>(); // plant x좌표
     public List<float> plantYP = new List<float>(); // plant y좌표
     public List<float> plantTimer = new List<float>(); // plant 타이머
-    public List<bool> plantWater = new List<bool>(); // plant iswatered
+    public List<bool> plantWater = new List<bool>(); // plant iswatered (물 포함)
     public List<int> plantName = new List<int>(); // plant 종류 (이름과 비교)
     public List<int> plantI = new List<int>(); // plant i값
-    // -----------------------------------------------------------------------------
-    public List<float> waterXP = new List<float>(); // water x좌표
-    public List<float> waterYP = new List<float>(); // water x좌표
-    public List<float> waterTimer = new List<float>(); // water 타이머
 }

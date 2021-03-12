@@ -185,7 +185,8 @@ public class Chicken : MonoBehaviour
     void OnMouseDown() // 닭을 클릭했을 때
     {
         dis = Vector2.Distance(PlayerTF.position,transform.position);
-        if(dis < 1.5f && Inven.equipedItem.id == 1000) // Player가 가깝다면 쓰다듬기 가능 + 아무것도 안 들고
+        // Player가 가깝고 + 아무것도 안 들고 있고 + 일시정지창이 켜져있지 않다면 = 쓰다듬기 가능
+        if(dis < 1.5f && Inven.equipedItem.id == 1000 && GMScript.isMenuOpen == false)
         {
             happy += 1; // 행복도 1 증가
             Heart.SetActive(true); // 하트 나타나고

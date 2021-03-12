@@ -50,19 +50,18 @@ public class SpawnManager : MonoBehaviour
     {    
         if(GoOut)
         {
-            
             GoOut = false;
-            LBScript.ResetLoading();
-            LBScript.IngLoading(0.3f); // 집 안 → 밖 1/3
-            Invoke("LoadSpawn", 1); // 씬 바꿀 시간 부여
+
+            LBScript.ResetLoading(); // 집 안 → 밖 0/3
+            Invoke("LoadSpawn", 0.4f); // 씬 바꿀 시간 부여
         }
 
         if(GoIn)
         {
             GoIn = false;
             
-            LBScript.IngLoading(0.4f); // 집 밖 → 안 2/3
-            Invoke("QuitLoadO2I", 1); // 씬 바꿀 시간 부여
+            LBScript.loadSlider.value += 0.35f; // 집 밖 → 안 1/3
+            Invoke("QuitLoadO2I", 0.4f); // 씬 바꿀 시간 부여
         }
 
         if(SceneManager.GetActiveScene().name == "Inside")
@@ -93,14 +92,24 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    void QuitLoadO2I() // 집 들어간 후 마무리
+    void QuitLoadO2I() // 집 들어간 후 마무리 - 1
     {
-        LBScript.IngLoading(0.25f); // 집 밖 → 안 3/3
+        LBScript.loadSlider.value += 0.4f; // 집 밖 → 안 2/3
+        Invoke("QLO2I", 0.2f);
+    }
+    void QLO2I() // 집 들어간 후 마무리 - 2
+    {
+        LBScript.loadSlider.value += 0.25f; // 집 밖 → 안 3/3
     }
 
-    void QuitLoadI2O() // 집 나온 후 마무리
+    void QuitLoadI2O() // 집 나온 후 마무리 - 1
     {
-        LBScript.IngLoading(0.36f); // 집 안 → 밖 3/3
+        LBScript.loadSlider.value += 0.34f; // 집 안 → 밖 2/3
+        Invoke("QLI2O", 0.2f);
+    }
+    void QLI2O()
+    {
+        LBScript.loadSlider.value += 0.36f; // 집 안 → 밖 3/3
     }
 
     void LayEggIn(int i)
@@ -161,17 +170,17 @@ public class SpawnManager : MonoBehaviour
     public void LoadSpawn()
     {
         DoLoadNum = 1;
-        LBScript.IngLoading(0.34f); // 집 안 → 밖 2/3
+        LBScript.loadSlider.value += 0.3f; // 집 안 → 밖 1/3
         LoadChicken();
         LoadEgg();
-        Invoke("QuitLoadI2O", 1);
+        Invoke("QuitLoadI2O", 0.4f);
     }
 
     // 집 들어갈 땐 닭과 달걀의 위치도 저장하기 & 닭과 달걀 다 삭제
     // 집 나올 땐 새로 스폰, 위치 불러오기
     public void ClearChicken() // 들어갈 떄
     {
-        LBScript.ResetLoading();
+        LBScript.ResetLoading(); // 집 밖 → 안 0/3
 
         // 위치 저장 후 리스트에서 삭제 (프리팹은 씬 이동하면 사라져서 굳이 파괴할 필요 없음)
         if(chickenList.Count > 0) // 오류 방지
@@ -226,8 +235,6 @@ public class SpawnManager : MonoBehaviour
             }
             gEggList.Clear();
         }
-
-        LBScript.IngLoading(0.35f); // 집 밖 → 안 1/3
     }
     public void LoadEgg() // 나올 때
     {
