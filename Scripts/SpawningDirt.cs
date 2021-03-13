@@ -103,6 +103,9 @@ public class SpawningDirt : MonoBehaviour
                         {
                             GameObject responsedDarkDirt = hit.collider.gameObject;
                             Destroy(responsedDarkDirt);
+                            createdDarkDirt.Remove(responsedDarkDirt);
+                            DarkDirtXp.Remove(responsedDarkDirt.transform.position.x);
+                            DarkDirtYp.Remove(responsedDarkDirt.transform.position.y);
                             stM.UseHp(5f);
                         }
                     }

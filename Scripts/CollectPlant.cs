@@ -8,12 +8,14 @@ public class CollectPlant : MonoBehaviour
     public Transform thePlayer;
     public inventory Inven;
     public Stemina stM;
+    public SpawningPlant sP;
     // Start is called before the first frame update
     void Start()
     {
         thePlayer = GameObject.Find("Player").GetComponent<Transform>();
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
+        sP = GameObject.Find("SpawningPlant").GetComponent<SpawningPlant>();
     }
 
     // Update is called once per frame
@@ -59,6 +61,9 @@ public class CollectPlant : MonoBehaviour
                             }
 
                             Destroy(notwateredplant);
+                            sP.createdPlant.Remove(notwateredplant);
+                            sP.PlantXp.Remove(notwateredplant.transform.position.x);
+                            sP.PlantYp.Remove(notwateredplant.transform.position.y);
                             stM.UseHp(3f);
                         }
 
