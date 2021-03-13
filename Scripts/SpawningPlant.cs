@@ -9,6 +9,15 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     public GameObject thePlayer;
     public inventory Inven;
     public Stemina stM;
+    public int number = 0;
+    public GameObject dontDestroy;
+    public static SpawningPlant instance = null;
+    public bool GoIn = false;
+    public bool GoOut = false;
+    public List<GameObject> createdPlant = new List<GameObject>();
+    public List<float> PlantXp = new List<float>();
+    public List<float> PlantYp = new List<float>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +25,16 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
         //By미해 ( 이거 없으면 건물 안으로 들어왔다 나가면 null pointer 에러)
         thePlayer = GameObject.Find("Player").gameObject;
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
+        dontDestroy = GameObject.Find("DonDestroyGameObject").gameObject;
+        if (instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
@@ -28,6 +47,18 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
             { SpawnPlant(PlantPrefabs[0]); }
             if (Inven.equipedItem.Ename == "pumpkinSeed")
             { SpawnPlant(PlantPrefabs[1]); }
+        }
+
+        if (GoIn)
+        {
+            GoIn = false;
+            mergePosition();
+        }
+
+        if (GoOut)
+        {
+            GoOut = false;
+            backPosition();
         }
     }
 
@@ -54,7 +85,11 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
                     {
 
                         GameObject PlantedPlant = Instantiate(PlantPrefabs);//식물 생성
-                        PlantedPlant.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.}
+                        PlantedPlant.transform.parent = dontDestroy.transform;
+                        PlantedPlant.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.]
+                        createdPlant.Add(PlantedPlant);
+                        PlantXp.Add(PlantedPlant.transform.position.x);
+                        PlantYp.Add(PlantedPlant.transform.position.y);
                         Inven.UseItem(Inven.equipedItem.id);
                         stM.UseHp(4f);
                     }
@@ -62,12 +97,36 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
 
 
                 }
+
             }
+
                             
                    
 
 
 
+        }
+    }
+
+    public void mergePosition()
+    {
+        if (createdPlant.Count > 0)
+        {
+            for (int i = 0; i < createdPlant.Count; i++)
+            {
+                createdPlant[i].transform.position = new Vector2(0f, 0f);
+            }
+        }
+    }
+
+    public void backPosition()
+    {
+        if (createdPlant.Count > 0)
+        {
+            for (int i = 0; i < createdPlant.Count; i++)
+            {
+                createdPlant[i].transform.position = new Vector2(PlantXp[i], PlantYp[i]);
+            }
         }
     }
 }

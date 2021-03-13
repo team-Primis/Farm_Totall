@@ -6,7 +6,8 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
 {
     public string transferMapName; //이동할 맵의 이름.
     private PlayerMove thePlayer;
-
+    public SpawningDirt sD;
+    public SpawningPlant sP;
     // 성현
     public SpawnManager SMScript;
 
@@ -17,6 +18,8 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
         
         // 성현
         SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>();
+        sD = GameObject.Find("SpawningDirt").GetComponent<SpawningDirt>();
+        sP = GameObject.Find("SpawningPlant").GetComponent<SpawningPlant>();
     }
 
     // Update is called once per frame
@@ -24,6 +27,7 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
     {
         if (collision.gameObject.name == "Player")
         {
+           
             // 성현
             if(SMScript.DoClearNum == 1)
             {
@@ -31,6 +35,8 @@ public class TransferMap : MonoBehaviour//플레이어가 일정 위치에 왔�
                 SMScript.ClearChicken();
                 SMScript.ClearEgg();
             }
+            sD.GoIn = true;
+            sP.GoIn = true;
             Invoke("NowGoIn", 1); // 씬 바뀌기 전에 닭이랑 알 저장할 시간 벌려고 지연시킴
 
             // 주석 묶은 부분은 지현이가 원래 쓴 부분

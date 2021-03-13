@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class SpawningDirt : MonoBehaviour
 {
@@ -9,6 +10,15 @@ public class SpawningDirt : MonoBehaviour
     public GameObject thePlayer;
     public inventory Inven;
     public Stemina stM;
+    public int number=0;
+    public List<float> DarkDirtXp = new List<float>();
+    public List<float> DarkDirtYp = new List<float>();
+    public int nDarkDirt = 0;
+    public List<GameObject> createdDarkDirt=new List<GameObject>();
+    public static SpawningDirt instance = null;
+    public bool GoIn=false;
+    public bool GoOut = false;
+    public GameObject dontDestroy;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -16,6 +26,17 @@ public class SpawningDirt : MonoBehaviour
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
         thePlayer = GameObject.Find("Player").gameObject;
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
+        dontDestroy = GameObject.Find("DonDestroyGameObject").gameObject;
+        
+        if (instance == null)
+        {
+            DontDestroyOnLoad(this.gameObject);
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this.gameObject);
+        }
 
     }
 
@@ -24,7 +45,22 @@ public class SpawningDirt : MonoBehaviour
 
  void Update()
     {
-        SpawnDirt();
+        if (SceneManager.GetActiveScene().name == "OutSide")
+        {
+            SpawnDirt();
+        }
+        if (GoIn)
+        {
+            GoIn = false;
+            mergePosition();
+        }
+
+        if (GoOut)
+        {
+            GoOut = false;
+            backPosition();
+        }
+
     }
    public void SpawnDirt()
     {
@@ -50,7 +86,12 @@ public class SpawningDirt : MonoBehaviour
                             {
 
                             GameObject DarkDirt = Instantiate(DirtPrefab);//식물 생성
+                            DarkDirt.transform.parent = dontDestroy.transform;
                             DarkDirt.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
+                            
+                            createdDarkDirt.Add(DarkDirt);
+                            DarkDirtXp.Add(DarkDirt.transform.position.x);
+                            DarkDirtYp.Add(DarkDirt.transform.position.y);
                             stM.UseHp(7f);
                             }
                         
@@ -65,14 +106,32 @@ public class SpawningDirt : MonoBehaviour
                             stM.UseHp(5f);
                         }
                     }
-                        
-                    
-
-
-
+             
                 }
             }
 
+        }
+    }
+
+   public void mergePosition()
+    {
+        if(createdDarkDirt.Count>0)
+        {
+            for(int i=0; i<createdDarkDirt.Count; i++)
+            {
+                createdDarkDirt[i].transform.position=new Vector2(0f, 0f);
+            }
+        }
+    }
+
+    public void backPosition()
+    {
+        if(createdDarkDirt.Count>0)
+        {
+            for(int i=0; i<createdDarkDirt.Count;i++)
+            {
+                createdDarkDirt[i].transform.position = new Vector2(DarkDirtXp[i], DarkDirtYp[i]);
+            }
         }
     }
 }

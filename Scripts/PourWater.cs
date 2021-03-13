@@ -54,7 +54,8 @@ public class PourWater : MonoBehaviour
 
                                 GameObject notwateredplant = hit.collider.gameObject;
                                 PlantLoad pL = notwateredplant.GetComponent<PlantLoad>();
-                               GameObject watered = notwateredplant.transform.GetChild(0).gameObject;
+
+                                GameObject watered = notwateredplant.transform.Find("watered").gameObject;
                                 SpriteRenderer wsr = watered.GetComponent<SpriteRenderer>();
                                 pL.iswatered = true;
 

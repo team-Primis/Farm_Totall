@@ -181,10 +181,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   plantTimer: 0
   anim: {fileID: 0}
-  i: 0
+  i: 1
   watered: {fileID: 0}
-  didItBloomed: 4
-  toMuchWilted: 9
+  didItBloomed: 5
+  toMuchWilted: 10
   thePlayer: {fileID: 0}
   iswatered: 0
   Inven: {fileID: 0}

@@ -7,7 +7,7 @@ public class PlantLoad : MonoBehaviour
 
     public float plantTimer;
     public Animator anim;
-    public int i = 0;
+    public int i = 1;
     public GameObject watered;
     public int didItBloomed;
     public int toMuchWilted;
@@ -18,11 +18,14 @@ public class PlantLoad : MonoBehaviour
     public int wantedGrowthValue;
     public SpriteRenderer wsr;
     public float thisTime;
+   
 
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
     private void Awake()
     {
+
+
         anim = GetComponent<Animator>();
         thePlayer = GameObject.Find("Player").GetComponent<Transform>();
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
@@ -30,8 +33,9 @@ public class PlantLoad : MonoBehaviour
         plantTimer = GMscript.timer;
         thisTime = GMscript.timer;
         wsr = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-        
-        
+
+       
+
     }
 
     // Update is called once per frame
@@ -45,9 +49,8 @@ public class PlantLoad : MonoBehaviour
         {
             plantTimer = GMscript.timer;
             thisTime = GMscript.timer;
-            
-          
             wsr.enabled = false;
+
             if (i<didItBloomed)
             {
                 if (iswatered == true)
@@ -61,7 +64,7 @@ public class PlantLoad : MonoBehaviour
 
           else if(i>=didItBloomed && i<toMuchWilted)
             {
-                Harvestit();
+                
                 iswatered = false;
                 i++;
                 anim.SetInteger("One", i);
@@ -73,13 +76,14 @@ public class PlantLoad : MonoBehaviour
             }
         }
         
+      
     }
 
    
     
         
     
-    void Harvestit()
+    /*void Harvestit()
     {
         Debug.Log("harvest 시작");
         
@@ -104,7 +108,7 @@ public class PlantLoad : MonoBehaviour
                     {
 
                         Debug.Log("수확함");
-                        if (hit.collider.gameObject.name == "Flower(Clone)")
+                        if (hit.collider.gameObject.name == "BlueFlower(Clone)")
                         {
                             Inven.putInventory(41, 1);
                         }
@@ -123,7 +127,7 @@ public class PlantLoad : MonoBehaviour
 
 
 
-    }
+    }*/
 
    
     // for SaveNLoad (0304 성현)

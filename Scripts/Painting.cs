@@ -13,6 +13,7 @@ public class Painting : MonoBehaviour
     public GameObject canvass;
     public float thisTime;
     public float wantedPaintTime=2f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +22,7 @@ public class Painting : MonoBehaviour
         imagePaint = GameObject.Find("Canvasspainted").transform.Find("PainLoading").GetComponent<Image>();
         canvasPaint = GameObject.Find("Canvasspainted").transform.Find("PainLoading").gameObject;
         canvass = GameObject.Find("Canvas2").gameObject;//게임 내 유아이 
+       
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class Painting : MonoBehaviour
         StartCoroutine(Flickering());
         thisTime = GMscript.timer;
         thisTime += wantedPaintTime* 60 * GMscript.speedUp;
+
         if (thisTime < 60 * 24)
         {
             GMscript.timer = thisTime;
