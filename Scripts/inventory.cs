@@ -287,6 +287,24 @@ public class inventory : MonoBehaviour
             Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
         }
     }
+
+    //바로 그 아이템 지우기 용
+    private void RemoveAll(Item item)
+    {
+        if(item != emptyItem)
+        {
+            item.count = 0;
+            characterItems.Remove(item);
+            inventoryUI.RemoveItem(item);
+            sellingUI.isItemChanged = true;
+        }
+        if (equipedItem != emptyItem && equipedItem.id == item.id)
+        {
+            equipedItem = emptyItem;
+            ClearSlot();
+        }
+    }
+
     //해당 id를 가진 아이템 1개 제거 : 아이템의 갯수를 1개씩 줄이기. 아이템이 1개-> 0개가 되었을때는 제거.
     public void RemoveItem(int id)
     {
@@ -310,6 +328,24 @@ public class inventory : MonoBehaviour
         else
         {
             Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
+        }
+    }
+    //바로 그 아이템을 지우기 위한 함수
+    private void RemoveItem(Item item)
+    {
+        if(item != emptyItem)
+        {
+            if (item.count == 1)
+            {
+                RemoveAll(item);
+
+            }
+            else
+            {
+                item.count--;
+                inventoryUI.UpdateItemNumUI(item);
+                //Debug.Log("Item 하나를 제거합니다. 현재 남은 갯수 : " + ItemToRemove.count+"개");
+            }
         }
     }
 
@@ -352,7 +388,7 @@ public class inventory : MonoBehaviour
         Item item = equipedItem;
         if(item != emptyItem && item.count > 0)
         {
-            RemoveItem(item.id);
+            RemoveItem(item);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
