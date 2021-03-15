@@ -241,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sleepUI: {fileID: 0}
   GMscript: {fileID: 0}
+  canvass: {fileID: 0}
 --- !u!483693784 &320185154
 TilemapRenderer:
   m_ObjectHideFlags: 0
@@ -2688,7 +2689,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   transferMapName: OutSide
+  sD: {fileID: 0}
   SMScript: {fileID: 0}
+  sP: {fileID: 0}
 --- !u!61 &864511479
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -18,8 +18,8 @@ public class PlantLoad : MonoBehaviour
     public int wantedGrowthValue;
     public SpriteRenderer wsr;
     public float thisTime;
-   
-
+    public SleepTight sT;
+    public Painting pT;
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
     private void Awake()
@@ -33,7 +33,8 @@ public class PlantLoad : MonoBehaviour
         plantTimer = GMscript.timer;
         thisTime = GMscript.timer;
         wsr = transform.GetChild(0).gameObject.GetComponent<SpriteRenderer>();
-
+        sT = GameObject.Find("Canvassleep").transform.Find("SleepTight").GetComponent<SleepTight>();
+        pT = GameObject.Find("Canvasspainted").GetComponent<Painting>();
        
 
     }
@@ -43,40 +44,63 @@ public class PlantLoad : MonoBehaviour
     {
 
         //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
-
-        plantTimer += Time.deltaTime*GMscript.speedUp;
-        if (plantTimer >=thisTime+wantedGrowthValue*60)
+        if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false)
         {
-            plantTimer = GMscript.timer;
-            thisTime = GMscript.timer;
-            wsr.enabled = false;
-
-            if (i<didItBloomed)
+            plantTimer += Time.deltaTime * GMscript.speedUp;
+            if(pT.plantIsGrowing==true)
             {
-                if (iswatered == true)
+                plantTimer += pT.wantedPaintTime * 60 * GMscript.speedUp;
+                pT.plantIsGrowing = false;
+            }
+            if (sT.plantIsGrowing == true)
+            {
+                plantTimer += sT.wantedSleepTime * 60 * GMscript.speedUp;
+                sT.plantIsGrowing = false;
+            }
+
+            if (plantTimer >= thisTime + wantedGrowthValue * 60)
+            {
+                if(plantTimer==thisTime+wantedGrowthValue*60)
                 {
+                    plantTimer = GMscript.timer;
+                    
+                }
+                else if(plantTimer>thisTime+wantedGrowthValue*60)
+                {
+                    plantTimer = GMscript.timer + (plantTimer-thisTime - wantedGrowthValue * 60 );
+
+                }
+                thisTime = GMscript.timer;
+                wsr.enabled = false;
+
+                if (i < didItBloomed)
+                {
+                    if (iswatered == true)
+                    {
+                        i++;
+                        anim.SetInteger("One", i);
+                        iswatered = false;
+                    }
+                }
+
+
+                else if (i >= didItBloomed && i < toMuchWilted)
+                {
+
+                    iswatered = false;
                     i++;
                     anim.SetInteger("One", i);
-                    iswatered = false;
+                }
+
+                else if (i >= toMuchWilted)
+                {
+                    Destroy(this.gameObject);
                 }
             }
 
-
-          else if(i>=didItBloomed && i<toMuchWilted)
-            {
-                
-                iswatered = false;
-                i++;
-                anim.SetInteger("One", i);
-            }
-
-          else if( i>=toMuchWilted)
-            {
-                Destroy(this.gameObject);
-            }
         }
-        
-      
+
+
     }
 
    

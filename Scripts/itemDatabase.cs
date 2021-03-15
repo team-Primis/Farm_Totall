@@ -74,9 +74,12 @@ public class itemDatabase : MonoBehaviour
             new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool,new Dictionary<string, int>{
                 {"sellingPrice",10 }
             }),
-            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있다.",Item.Category.tool, 
+            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있다.",Item.Category.tool,
             new Dictionary<string, int>{
                 {"sellingPrice",10 }
+            }),
+
+            new Item(102,"호미", "Hoe", "땅을 다시 덮는 데 유용하다.", Item.Category.tool, new Dictionary<string, int>{{"sellingPrice", 10}
             }),
 
             new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,

@@ -114,7 +114,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
         {
             for (int i = 0; i < createdPlant.Count; i++)
             {
-                createdPlant[i].transform.position = new Vector2(0f, 0f);
+                createdPlant[i].transform.position = new Vector2(20f, -8f);
             }
         }
     }
