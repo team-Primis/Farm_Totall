@@ -117,7 +117,7 @@ public class inventory : MonoBehaviour
             {
                 if (equipedItem.category == Item.Category.item)
                 {
-                    UseItem(equipedItem);
+                    UseItem();
                  
                 }
             }
@@ -127,7 +127,7 @@ public class inventory : MonoBehaviour
         {
             if (equipedItem.category == Item.Category.item)
             {
-                DivideItem(equipedItem.id);
+                PutSplitedItem(equipedItem.id);
             }
         }
 
@@ -154,7 +154,34 @@ public class inventory : MonoBehaviour
     {
         return equipedItem;
     }
+    public void PutSplitedItem(int id)
+    {
+        //db 확인
+        Item item = db.GetItem(id);
 
+        //없을경우
+        if (item == null)
+        {
+            Debug.Log("해당 item id가 데이터베이스에 없습니다.");
+            return;
+        }
+        if(item.count <= 1)
+        {
+            Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
+            return;
+        }
+        //어차피 인벤토리는 변하지 않고, 눈에 보이고 만지는 UI쪽만 바뀌는것.
+
+        item.count--;
+        inventoryUI.UpdateItemNumUI(item); //item 1개 갯수 준거 반영
+
+        Item itemToAdd = new Item(item.id, item.Kname, item.Ename, item.description, item.category);
+        itemToAdd.count = 1;
+        characterItems.Add(itemToAdd);
+        inventoryUI.AddNewItem(itemToAdd);
+        sellingUI.isItemChanged = true;
+
+    }
     //이 아이디를 가진 아이템을 인벤에 넣을떄 쓰는 함수.
     //해당 id가 아이템 데이터베이스에 존재하는지 확인하고 존재 시 인벤(characterItems)에 넣는다
     public void putInventory(int id, int plusNum = 1)
@@ -317,8 +344,28 @@ public class inventory : MonoBehaviour
         }
         
     }
+    //들고 있는 아이템 사용 용
+    //이거 원래 방식은, 같은 id를 가진 객체 찾아서 1개 사용하기였음.
+    //근데 분리기능을 넣으니까, 내가 선택한 바로 그 객체 말고 다른 객체가 없어질 수도 있다.
+    public void UseItem()
+    {
+        Item item = equipedItem;
+        if(item != emptyItem && item.count > 0)
+        {
+            RemoveItem(item.id);
+            //아이템 사용 효과 넣기~~
+            Debug.Log(item.Kname + "을 사용하셨습니다.");
+            sellingUI.isItemChanged = true;
+            notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
+            if (item.stats.ContainsKey("recovery"))
+            {
+                int recoveryint = item.stats["recovery"];
+                stM.FillHp((float)recoveryint);
+                Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
+            }
+        }
 
-    
+    }
    
     // 0개 이상이면 할거
     public void UseItem(string name)
@@ -379,54 +426,6 @@ public class inventory : MonoBehaviour
         }
     }
 
-    //아이템 1개 분리하기 : 진행 중
-    public void DivideItem(int id)
-    {
-        Item itemToDivide = db.GetItem(id);
-        if (itemToDivide != null)
-        {
-            if (itemToDivide.count > 1)
-            {
-                //분리된 아이템 객체 생성. 원래 아이템을 복사하고, 갯수를 1개로 설정함.
-                Item dividedItem = new Item(itemToDivide.id, itemToDivide.Kname, itemToDivide.Ename, itemToDivide.description, itemToDivide.category);               
-                dividedItem.count = 1;
-                
-                Debug.Log(dividedItem.count + " 아이템을 1개 분리합니다.");
-
-
-
-                //원본 아이템 갯수 하나 줄이고 반영.
-
-                int slotToChange = 100; //원본이 들어있는 슬롯
-                for(int i = 0; i < characterItems.Count; i++)
-                {
-                    if(characterItems[i].id == itemToDivide.id)
-                    {
-                        slotToChange = i;
-                    }
-                }
-                if(slotToChange == 100)
-                {
-                    Debug.Log("해당 아이템은 인벤토리에 없습니다.");
-                }
-                else
-                {
-                    itemToDivide.count--;
-                    inventoryUI.UpdateSlot(slotToChange, itemToDivide);
-                }
-
-                
-            }
-            else
-            {
-                Debug.Log("아이템이 1개라 분리할 수 없습니다.");
-            }
-
-        }
-        else
-        {
-            Debug.Log("id가 " + id + "인 아이템이 데이터베이스에 존재하지 않습니다.");
-        }
-    }
+   
     
 }
