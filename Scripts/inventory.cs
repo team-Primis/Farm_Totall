@@ -175,7 +175,7 @@ public class inventory : MonoBehaviour
         item.count--;
         inventoryUI.UpdateItemNumUI(item); //item 1개 갯수 준거 반영
 
-        Item itemToAdd = new Item(item.id, item.Kname, item.Ename, item.description, item.category);
+        Item itemToAdd = new Item(item.id, item.Kname, item.Ename, item.description, item.category,item.stats);
         itemToAdd.count = 1;
         characterItems.Add(itemToAdd);
         inventoryUI.AddNewItem(itemToAdd);
@@ -410,7 +410,7 @@ public class inventory : MonoBehaviour
         if (item != null && item.Ename != "empty" && item.count>0)
 
         {
-            RemoveItem(item.id);
+            RemoveItem(item);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
@@ -430,7 +430,7 @@ public class inventory : MonoBehaviour
         Item item = db.GetItem(id);
         if (item != null && item.Ename != "empty" && item.count > 0)
         {
-            RemoveItem(item.id);
+            RemoveItem(item);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
@@ -442,6 +442,10 @@ public class inventory : MonoBehaviour
                 Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
             }
 
+        }
+        else
+        {
+            Debug.Log("db에 해당 id가 없습니다.");
         }
     }
 

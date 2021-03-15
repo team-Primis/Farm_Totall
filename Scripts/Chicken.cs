@@ -204,7 +204,11 @@ public class Chicken : MonoBehaviour
         if(dis < 1.0f) // Player가 가깝다면 밥 주기 가능
         {
             // removeitem -> useitem
-            Inven.UseItem(Inven.equipedItem.id); // 해당 건초 개수 하나 감소
+
+            //(0316 미해 : useItem통일)
+            //Inven.UseItem(Inven.equipedItem.id); // 해당 건초 개수 하나 감소 (원래 코드)
+            Inven.UseItem(); //(바꾼 코드)
+
             happy += 4; // 행복도 4 증가
             Heart.SetActive(true); // 하트 나타나고
             Debug.Log("Give Hay (행복도: "+happy+"/4)");
@@ -212,12 +216,16 @@ public class Chicken : MonoBehaviour
         }
     }
 
+
     void FeedSeed()
     {
         dis = Vector2.Distance(PlayerTF.position,transform.position);
         if(dis < 1.0f) // Player가 가깝다면 밥 주기 가능
         {
-            Inven.UseItem(Inven.equipedItem.id); // 해당 씨앗 개수 하나 감소
+            //(0316 미해 : useItem통일)
+            //Inven.UseItem(Inven.equipedItem.id); // 해당 씨앗 개수 하나 감소(원래코드)
+            Inven.UseItem(); //바꾼코드
+
             happy += 2; // 행복도 2 증가
             Heart.SetActive(true); // 하트 나타나고
             Debug.Log("Give Seed (행복도: "+happy+"/4)");
