@@ -424,6 +424,8 @@ MonoBehaviour:
   BuyChicken: {fileID: 0}
   isBuyOpen: 0
   isMenuOpen: 0
+  LoadingWindow: {fileID: 0}
+  isLoadingOpen: 0
   isWillSellOpen: 0
   didGameStart: 0
 --- !u!4 &16795483
@@ -473,7 +475,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1b7c9bb0cfd644fbc5b6c67db7f234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notice: {fileID: 0}
   doLoadF1: 0
   doLoadF2: 0
   doNewGame: 0
@@ -510,9 +511,6 @@ MonoBehaviour:
     plantWater: 
     plantName: 
     plantI: 
-    waterXP: []
-    waterYP: []
-    waterTimer: []
 --- !u!1 &20318676
 GameObject:
   m_ObjectHideFlags: 0
@@ -7760,7 +7758,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1922986305
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: be9ab108a0de64e43963ba35ee2face9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -79832,8 +79830,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadSlider: {fileID: 1578793797}
   isReset: 0
-  plusNum: 0
-  plusBar: 0
 --- !u!1 &1910064258
 GameObject:
   m_ObjectHideFlags: 0
@@ -81705,12 +81701,12 @@ PrefabInstance:
     - target: {fileID: 4677087801181713156, guid: afcdbd9f04a9837478f01357d76eb829,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4677087801181713156, guid: afcdbd9f04a9837478f01357d76eb829,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4677087801181713156, guid: afcdbd9f04a9837478f01357d76eb829,
         type: 3}

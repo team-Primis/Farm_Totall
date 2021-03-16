@@ -126,11 +126,11 @@ public class Chicken : MonoBehaviour
                 FeedHay();
             }
 
-            // 장착한 게 씨앗이라면 - 현재 id 1~4가 씨앗임
+            // 장착한 게 씨앗이라면 - 현재 id 1~9가 씨앗임
             // (미해 : Inven.equippedItem!= null, Inven.equipedItem.id != 0 추가.
             // (아무것도 안들떄 초기 id가 0이라서 계속 먹임))
             // (0304) 초기 id가 1000으로 변경됨, null 없어짐
-            if(Inven.equipedItem.id != 1000 && Inven.equipedItem.id < 5) // 
+            if(Inven.equipedItem.id != 1000 && Inven.equipedItem.id < 10) // 
             {
                 FeedSeed();
             }

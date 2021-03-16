@@ -132,6 +132,7 @@ public class SaveNLoad : MonoBehaviour
         theInventory.putInventory(2); // 기본 인벤템
         theInventory.putInventory(100); // 기본 인벤템
         theInventory.putInventory(101); // 기본 인벤템
+        //theInventory.putInventory(102); // 기본 인벤템 (호미 0316 추가)
         theInventory.putInventory(99,3); // 기본 인벤템
         theUIInventory.MakeSlotClear(); // 장착템 UI 초기화
         theInventory.equipedItem = theInventory.emptyItem; // 장착템 초기화
