@@ -89,7 +89,7 @@ public class inventory : MonoBehaviour
         {
             containerItemAddScript.PutInContainer(equipedItem.id, equipedItem.count);
             equipedItem.count = 0;
-            RemoveAll(equipedItem.id);
+            RemoveAll(equipedItem);
             equipedItem = emptyItem;
             ClearSlot();
         }
@@ -264,7 +264,7 @@ public class inventory : MonoBehaviour
     {
         return characterItems.Find(item => item.Ename == name);
     }
-
+    
     public void RemoveAll(int id)
     {
         Item Item = CheckForItem(id);
@@ -289,7 +289,7 @@ public class inventory : MonoBehaviour
     }
 
     //바로 그 아이템 지우기 용
-    private void RemoveAll(Item item)
+    public void RemoveAll(Item item)
     {
         if(item != emptyItem)
         {
