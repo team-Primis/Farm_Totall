@@ -33,6 +33,9 @@ public class inventory : MonoBehaviour
     private UIItem selectedItem;
     private ContainerItems containerItemAddScript; //컨테이너의 아이템과, 아이템 추가 스크립트
 
+    AudioSource audioSource;
+    public AudioClip eatingSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +44,9 @@ public class inventory : MonoBehaviour
         sellingUI = GameObject.Find("Canvas2").transform.Find("sellingPanel").GetComponent<SellingUI>();
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
         putInBtn.onClick.AddListener(PutInContainer);
+
+        this.audioSource = GameObject.Find("AudioLittle").GetComponent<AudioSource>();
+       
         
         //테스트용으로 미리 인벤토리에 넣어놓은것들
         putInventory(1,3);
@@ -167,7 +173,7 @@ public class inventory : MonoBehaviour
         }
         if(item.count <= 1)
         {
-            Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
+          //  Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
             return;
         }
         //어차피 인벤토리는 변하지 않고, 눈에 보이고 만지는 UI쪽만 바뀌는것.
@@ -399,6 +405,8 @@ public class inventory : MonoBehaviour
                 stM.FillHp((float)recoveryint);
                 Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
             }
+            audioSource.clip = eatingSound;
+            audioSource.Play();
         }
 
     }
