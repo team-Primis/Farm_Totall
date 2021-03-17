@@ -32,6 +32,9 @@ public class inventory : MonoBehaviour
 
     private UIItem selectedItem;
     private ContainerItems containerItemAddScript; //컨테이너의 아이템과, 아이템 추가 스크립트
+    //소리추가
+    AudioSource audioSource;
+    public AudioClip eatingSound;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +44,9 @@ public class inventory : MonoBehaviour
         sellingUI = GameObject.Find("Canvas2").transform.Find("sellingPanel").GetComponent<SellingUI>();
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
         putInBtn.onClick.AddListener(PutInContainer);
+
+        this.audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
+       
         
         //테스트용으로 미리 인벤토리에 넣어놓은것들
         putInventory(1,3);
@@ -89,7 +95,7 @@ public class inventory : MonoBehaviour
         {
             containerItemAddScript.PutInContainer(equipedItem.id, equipedItem.count);
             equipedItem.count = 0;
-            RemoveAll(equipedItem.id);
+            RemoveAll(equipedItem);
             equipedItem = emptyItem;
             ClearSlot();
         }
@@ -117,7 +123,7 @@ public class inventory : MonoBehaviour
             {
                 if (equipedItem.category == Item.Category.item)
                 {
-                    UseItem(equipedItem);
+                    UseItem();
                  
                 }
             }
@@ -127,7 +133,7 @@ public class inventory : MonoBehaviour
         {
             if (equipedItem.category == Item.Category.item)
             {
-                DivideItem(equipedItem.id);
+                PutSplitedItem(equipedItem.id);
             }
         }
 
@@ -154,7 +160,34 @@ public class inventory : MonoBehaviour
     {
         return equipedItem;
     }
+    public void PutSplitedItem(int id)
+    {
+        //db 확인
+        Item item = db.GetItem(id);
 
+        //없을경우
+        if (item == null)
+        {
+            Debug.Log("해당 item id가 데이터베이스에 없습니다.");
+            return;
+        }
+        if(item.count <= 1)
+        {
+          //  Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
+            return;
+        }
+        //어차피 인벤토리는 변하지 않고, 눈에 보이고 만지는 UI쪽만 바뀌는것.
+
+        item.count--;
+        inventoryUI.UpdateItemNumUI(item); //item 1개 갯수 준거 반영
+
+        Item itemToAdd = new Item(item.id, item.Kname, item.Ename, item.description, item.category,item.stats);
+        itemToAdd.count = 1;
+        characterItems.Add(itemToAdd);
+        inventoryUI.AddNewItem(itemToAdd);
+        sellingUI.isItemChanged = true;
+
+    }
     //이 아이디를 가진 아이템을 인벤에 넣을떄 쓰는 함수.
     //해당 id가 아이템 데이터베이스에 존재하는지 확인하고 존재 시 인벤(characterItems)에 넣는다
     public void putInventory(int id, int plusNum = 1)
@@ -237,7 +270,7 @@ public class inventory : MonoBehaviour
     {
         return characterItems.Find(item => item.Ename == name);
     }
-
+    
     public void RemoveAll(int id)
     {
         Item Item = CheckForItem(id);
@@ -260,6 +293,24 @@ public class inventory : MonoBehaviour
             Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
         }
     }
+
+    //바로 그 아이템 지우기 용
+    public void RemoveAll(Item item)
+    {
+        if(item != emptyItem)
+        {
+            item.count = 0;
+            characterItems.Remove(item);
+            inventoryUI.RemoveItem(item);
+            sellingUI.isItemChanged = true;
+        }
+        if (equipedItem != emptyItem && equipedItem.id == item.id)
+        {
+            equipedItem = emptyItem;
+            ClearSlot();
+        }
+    }
+
     //해당 id를 가진 아이템 1개 제거 : 아이템의 갯수를 1개씩 줄이기. 아이템이 1개-> 0개가 되었을때는 제거.
     public void RemoveItem(int id)
     {
@@ -283,6 +334,24 @@ public class inventory : MonoBehaviour
         else
         {
             Debug.Log("아이디가 " + id + "인 아이템은 인벤토리에 존재하지 않습니다.");
+        }
+    }
+    //바로 그 아이템을 지우기 위한 함수
+    private void RemoveItem(Item item)
+    {
+        if(item != emptyItem)
+        {
+            if (item.count == 1)
+            {
+                RemoveAll(item);
+
+            }
+            else
+            {
+                item.count--;
+                inventoryUI.UpdateItemNumUI(item);
+                //Debug.Log("Item 하나를 제거합니다. 현재 남은 갯수 : " + ItemToRemove.count+"개");
+            }
         }
     }
 
@@ -317,8 +386,30 @@ public class inventory : MonoBehaviour
         }
         
     }
+    //들고 있는 아이템 사용 용
+    //이거 원래 방식은, 같은 id를 가진 객체 찾아서 1개 사용하기였음.
+    //근데 분리기능을 넣으니까, 내가 선택한 바로 그 객체 말고 다른 객체가 없어질 수도 있다.
+    public void UseItem()
+    {
+        Item item = equipedItem;
+        if(item != emptyItem && item.count > 0)
+        {
+            RemoveItem(item);
+            //아이템 사용 효과 넣기~~
+            Debug.Log(item.Kname + "을 사용하셨습니다.");
+            sellingUI.isItemChanged = true;
+            notice.WriteMessage(item.Kname + "을 사용하셨습니다.");
+            if (item.stats.ContainsKey("recovery"))
+            {
+                int recoveryint = item.stats["recovery"];
+                stM.FillHp((float)recoveryint);
+                Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
+            }
+            audioSource.clip = eatingSound;
+            audioSource.Play();
+        }
 
-    
+    }
    
     // 0개 이상이면 할거
     public void UseItem(string name)
@@ -327,7 +418,7 @@ public class inventory : MonoBehaviour
         if (item != null && item.Ename != "empty" && item.count>0)
 
         {
-            RemoveItem(item.id);
+            RemoveItem(item);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
@@ -347,7 +438,7 @@ public class inventory : MonoBehaviour
         Item item = db.GetItem(id);
         if (item != null && item.Ename != "empty" && item.count > 0)
         {
-            RemoveItem(item.id);
+            RemoveItem(item);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
@@ -359,6 +450,10 @@ public class inventory : MonoBehaviour
                 Debug.Log("체력이 " + recoveryint + "만큼 회복됩니다.");
             }
 
+        }
+        else
+        {
+            Debug.Log("db에 해당 id가 없습니다.");
         }
     }
 
@@ -379,54 +474,6 @@ public class inventory : MonoBehaviour
         }
     }
 
-    //아이템 1개 분리하기 : 진행 중
-    public void DivideItem(int id)
-    {
-        Item itemToDivide = db.GetItem(id);
-        if (itemToDivide != null)
-        {
-            if (itemToDivide.count > 1)
-            {
-                //분리된 아이템 객체 생성. 원래 아이템을 복사하고, 갯수를 1개로 설정함.
-                Item dividedItem = new Item(itemToDivide.id, itemToDivide.Kname, itemToDivide.Ename, itemToDivide.description, itemToDivide.category);               
-                dividedItem.count = 1;
-                
-                Debug.Log(dividedItem.count + " 아이템을 1개 분리합니다.");
-
-
-
-                //원본 아이템 갯수 하나 줄이고 반영.
-
-                int slotToChange = 100; //원본이 들어있는 슬롯
-                for(int i = 0; i < characterItems.Count; i++)
-                {
-                    if(characterItems[i].id == itemToDivide.id)
-                    {
-                        slotToChange = i;
-                    }
-                }
-                if(slotToChange == 100)
-                {
-                    Debug.Log("해당 아이템은 인벤토리에 없습니다.");
-                }
-                else
-                {
-                    itemToDivide.count--;
-                    inventoryUI.UpdateSlot(slotToChange, itemToDivide);
-                }
-
-                
-            }
-            else
-            {
-                Debug.Log("아이템이 1개라 분리할 수 없습니다.");
-            }
-
-        }
-        else
-        {
-            Debug.Log("id가 " + id + "인 아이템이 데이터베이스에 존재하지 않습니다.");
-        }
-    }
+   
     
 }
