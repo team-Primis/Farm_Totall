@@ -232,6 +232,9 @@ MonoBehaviour:
   wantedGrowthValue: 7
   wsr: {fileID: 0}
   thisTime: 0
+  sT: {fileID: 0}
+  pT: {fileID: 0}
+  plantGrow: 1
 --- !u!61 &6897758945251023831
 BoxCollider2D:
   m_ObjectHideFlags: 0

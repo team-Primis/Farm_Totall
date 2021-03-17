@@ -74,7 +74,7 @@ public class Painting : MonoBehaviour
         GMscript.isSleepOpen = false;
         canvass.SetActive(true);
         canvasPaint.SetActive(false);
-      
+       
     }
 
     public IEnumerator Flickering()

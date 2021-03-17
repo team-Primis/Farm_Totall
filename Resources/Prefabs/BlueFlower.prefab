@@ -192,6 +192,9 @@ MonoBehaviour:
   wantedGrowthValue: 6
   wsr: {fileID: 0}
   thisTime: 0
+  sT: {fileID: 0}
+  pT: {fileID: 0}
+  plantGrow: 1
 --- !u!95 &3765651001769421008
 Animator:
   serializedVersion: 3

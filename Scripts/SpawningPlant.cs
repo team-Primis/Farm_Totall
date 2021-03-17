@@ -17,7 +17,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     public List<GameObject> createdPlant = new List<GameObject>();
     public List<float> PlantXp = new List<float>();
     public List<float> PlantYp = new List<float>();
-
+    public GameManager GMscript;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +26,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
         thePlayer = GameObject.Find("Player").gameObject;
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
         dontDestroy = GameObject.Find("DonDestroyGameObject").gameObject;
+        GMscript = GameObject.Find("GameManager").GetComponent<GameManager>();
         if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -41,12 +42,16 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     void Update()
     {
         
-        if (Inven.equipedItem.Ename != "empty")
+        if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false)
         {
-            if (Inven.equipedItem.Ename == "blueFlowerSeed")
-            { SpawnPlant(PlantPrefabs[0]); }
-            if (Inven.equipedItem.Ename == "pumpkinSeed")
-            { SpawnPlant(PlantPrefabs[1]); }
+            if (Inven.equipedItem.Ename != "empty")
+            {
+                if (Inven.equipedItem.Ename == "blueFlowerSeed")
+                { SpawnPlant(PlantPrefabs[0]); }
+                if (Inven.equipedItem.Ename == "pumpkinSeed")
+                { SpawnPlant(PlantPrefabs[1]); }
+            }
+
         }
 
         if (GoIn)

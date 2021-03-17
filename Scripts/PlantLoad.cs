@@ -20,9 +20,10 @@ public class PlantLoad : MonoBehaviour
     public float thisTime;
     public SleepTight sT;
     public Painting pT;
+    public bool plantGrow=true;
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
-    private void Awake()
+    public void Awake()
     {
 
 
@@ -47,17 +48,16 @@ public class PlantLoad : MonoBehaviour
         if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false)
         {
             plantTimer += Time.deltaTime * GMscript.speedUp;
-            if(pT.plantIsGrowing==true)
+            if(pT.plantIsGrowing==true && plantGrow==true)
             {
-                plantTimer += pT.wantedPaintTime * 60 * GMscript.speedUp;
-                pT.plantIsGrowing = false;
+                plantTimer += pT.wantedPaintTime * 60*GMscript.speedUp;
+                plantGrow = false;
             }
-            if (sT.plantIsGrowing == true)
+            if(sT.plantIsGrowing==true && plantGrow==true)
             {
-                plantTimer += sT.wantedSleepTime * 60 * GMscript.speedUp;
-                sT.plantIsGrowing = false;
+                plantTimer += sT.wantedSleepTime * 60*GMscript.speedUp;
+                plantGrow = false;
             }
-
             if (plantTimer >= thisTime + wantedGrowthValue * 60)
             {
                 if(plantTimer==thisTime+wantedGrowthValue*60)
@@ -105,7 +105,6 @@ public class PlantLoad : MonoBehaviour
 
    
     
-        
     
     /*void Harvestit()
     {
