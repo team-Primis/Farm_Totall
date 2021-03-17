@@ -21,12 +21,16 @@ public class SellingUI : MonoBehaviour
 
     public bool shouldMakeEmpClear = false; //장착하고 있는 물건 팔때 강조창 없애기 용
 
+    public AudioClip moneySound;
+    AudioSource audioSource;
+
     void Awake() {
         foreach (GameObject itemSlot in GameObject.FindGameObjectsWithTag("sellingSlot"))
         {
             //itemSlotList가 List라는 자료형이므로, Add를 이용해서 배열 끝에 새로운 SUIItem을 추가할 수 있다.
             itemSlotList.Add(itemSlot.GetComponentInChildren<SUIItem>());
         }
+        audioSource = GameObject.Find("AudioLittle").GetComponent<AudioSource>();
     }
     void Start()
     {
@@ -62,6 +66,8 @@ public class SellingUI : MonoBehaviour
             shouldMakeEmpClear = false;
         }
 
+        audioSource.clip = moneySound;
+        audioSource.Play();
 
 
     }

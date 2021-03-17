@@ -32,7 +32,7 @@ public class inventory : MonoBehaviour
 
     private UIItem selectedItem;
     private ContainerItems containerItemAddScript; //컨테이너의 아이템과, 아이템 추가 스크립트
-
+    //소리추가
     AudioSource audioSource;
     public AudioClip eatingSound;
 
