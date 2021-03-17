@@ -424,6 +424,9 @@ MonoBehaviour:
   BuyChicken: {fileID: 0}
   isBuyOpen: 0
   isMenuOpen: 0
+  LoadingWindow: {fileID: 0}
+  isLoadingOpen: 0
+  isWillSellOpen: 0
   didGameStart: 0
 --- !u!4 &16795483
 Transform:
@@ -459,6 +462,7 @@ MonoBehaviour:
   AboutF2: {fileID: 0}
   BuyChicken: {fileID: 0}
   SMScript: {fileID: 0}
+  notice: {fileID: 0}
 --- !u!114 &16795485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,22 +478,13 @@ MonoBehaviour:
   doLoadF1: 0
   doLoadF2: 0
   doNewGame: 0
-  XP: []
-  YP: []
-  pTimer: []
-  pWater: 
-  pName: 
-  theSpawningDirt: {fileID: 0}
-  theSpawningPlant: {fileID: 0}
-  thePlantLoad: {fileID: 0}
-  thePourWater: {fileID: 0}
   data:
     playerX: 0
     playerY: 0
     sceneName: 
     day: 0
     timer: 0
-    stamina: 0
+    currentHp: 0
     usedMoney: 0
     laborCount: 0
     chickenCount: 0
@@ -515,8 +510,7 @@ MonoBehaviour:
     plantTimer: []
     plantWater: 
     plantName: 
-    waterXP: []
-    waterYP: []
+    plantI: 
 --- !u!1 &20318676
 GameObject:
   m_ObjectHideFlags: 0
@@ -5445,7 +5439,7 @@ MonoBehaviour:
   sleepingLoadingUI: {fileID: 0}
   canvass: {fileID: 0}
   stM: {fileID: 0}
-  wantedSleepTime: 7
+  wantedSleepTime: 0
   theGap: 0
   thisTime: 0
 --- !u!224 &652228252 stripped
@@ -7765,7 +7759,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1922986305
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: be9ab108a0de64e43963ba35ee2face9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -65578,6 +65572,14 @@ MonoBehaviour:
   emptrans: {fileID: 962667184}
   notice: {fileID: 0}
   stM: {fileID: 0}
+  emptyItem:
+    id: 0
+    Kname: 
+    Ename: 
+    description: 
+    icon: {fileID: 0}
+    count: 0
+    category: 0
 --- !u!4 &850499616
 Transform:
   m_ObjectHideFlags: 0
@@ -79828,8 +79830,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadSlider: {fileID: 1578793797}
   isReset: 0
-  plusNum: 0
-  plusBar: 0
 --- !u!1 &1910064258
 GameObject:
   m_ObjectHideFlags: 0
@@ -81706,7 +81706,7 @@ PrefabInstance:
     - target: {fileID: 4677087801181713156, guid: afcdbd9f04a9837478f01357d76eb829,
         type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4677087801181713156, guid: afcdbd9f04a9837478f01357d76eb829,
         type: 3}
