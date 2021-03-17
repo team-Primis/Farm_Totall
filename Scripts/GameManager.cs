@@ -28,7 +28,11 @@ public class GameManager : MonoBehaviour
     public bool isBuyOpen = false; // 닭구매창이 켜져있는가
 
     // from menucontrol
-    public bool isMenuOpen = false; // 일시정지 메뉴 관련
+    public bool isMenuOpen = false; // 일시정지메뉴가 켜져있는가
+
+    // from loadingbar
+    public GameObject LoadingWindow; // 로딩화면
+    public bool isLoadingOpen = false; // 로딩화면이 켜져있는가
 
     // from chicken
     public bool isWillSellOpen = false; // 닭판매창이 켜져있는가
@@ -57,6 +61,7 @@ public class GameManager : MonoBehaviour
 
         // 성현
         BuyChicken = GameObject.Find("Canvas2").transform.Find("BuyChicken").gameObject;
+        LoadingWindow = GameObject.Find("Canvas2").transform.Find("Loading").gameObject;
     }
 
     // Update is called once per frame
@@ -68,6 +73,8 @@ public class GameManager : MonoBehaviour
             didGameStart = true;
             SceneManager.LoadScene("Title");
         }
+        if (LoadingWindow.activeSelf){  isLoadingOpen = true;   }
+        else {  isLoadingOpen = false;  } // 로딩화면 켜져있으면 플레이어 움직이기 불가능
 
 
         DayUI(day); // 로드 때문에 여기로 옮겼음 (성현)

@@ -618,7 +618,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 68a0352b60bde42469cefb987786132e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -702,6 +702,7 @@ MonoBehaviour:
   checkEgg: 0
   Inven: {fileID: 0}
   WillSell: {fileID: 43159523304423427}
+  notice: {fileID: 0}
 --- !u!95 &2274530516153896466
 Animator:
   serializedVersion: 3

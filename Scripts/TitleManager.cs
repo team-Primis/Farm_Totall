@@ -140,6 +140,6 @@ public class TitleManager : MonoBehaviour
     public void OnClickC2()
     {
         Debug.Log("File 2 이어하기");
-        //theSaveNLoad.CallLoadF2();
+        theSaveNLoad.CallLoadF2();
     }
 }
