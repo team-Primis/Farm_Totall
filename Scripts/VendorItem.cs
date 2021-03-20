@@ -21,11 +21,7 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
         buyImg = GameObject.Find("seedImage").GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+  
 
     //각 아이템이 클릭되면, 태그에 맞는 db에 저장된 객체 가져옴!
     public void OnPointerClick(PointerEventData eventData)

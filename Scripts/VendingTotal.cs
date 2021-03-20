@@ -23,6 +23,8 @@ public class VendingTotal : MonoBehaviour
     public Button buyBtn;
     private CoinText coinTextScript;
 
+    private NoticeText notice;
+
     public GameObject rightSide; // 구매창이 있는 왼쪽부분
 
     // Start is called before the first frame update
@@ -34,47 +36,95 @@ public class VendingTotal : MonoBehaviour
         minusBtn.onClick.AddListener(SubBuyNum);
         buyBtn.onClick.AddListener(buySeed);
         coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
+        notice = GameObject.Find("Notice").GetComponent<NoticeText>();
 
-      
+        //처음 자판기 UI 초기화
+        ResetUI();
+
+
+    }
+
+    void OnEnable()
+    {
+        Debug.Log("enabled");
+    }
+
+    void OnDisable()
+    {
+        ResetUI();
+    }
+    public void ResetUI()
+    {
+        //처음 자판기 UI 초기화
+        seedNameText.text = "선택안함";
+        seedName = "none";
+        seedMoney = 0;
+        totalMoney = 0;
+        moneyText.text = 0.ToString() + "원";
+        buyNum = 1;
+        buyNumText.text = 1.ToString();
+
     }
     void AddBuyNum()
     {
-        if (buyNum < 99)
+        if (seedName != "none")
         {
-            buyNum++; //총 살 갯수
-            totalMoney = buyNum * seedMoney; //필요한 돈 총액
-                                             //UI반영
-            moneyText.text = totalMoney.ToString() + "원";
-            buyNumText.text = buyNum.ToString();
+            if (buyNum < 99)
+            {
+                buyNum++; //총 살 갯수
+                totalMoney = buyNum * seedMoney; //필요한 돈 총액
+                                                 //UI반영
+                moneyText.text = totalMoney.ToString() + "원";
+                buyNumText.text = buyNum.ToString();
+            }
+        }
+        else
+        {
+            notice.WriteMessage("아이템을 선택해주십시오");
         }
     }
 
     void SubBuyNum()
     {
-        if (buyNum > 1)
+        if (seedName != "none")
         {
-            buyNum--; //총 살 갯수
-            totalMoney = buyNum * seedMoney; //필요한 돈 총액
-                                             //UI반영
-            moneyText.text = totalMoney.ToString() + "원";
-            buyNumText.text = buyNum.ToString();
+            if (buyNum > 1)
+            {
+                buyNum--; //총 살 갯수
+                totalMoney = buyNum * seedMoney; //필요한 돈 총액
+                                                 //UI반영
+                moneyText.text = totalMoney.ToString() + "원";
+                buyNumText.text = buyNum.ToString();
+            }
+        }
+        else
+        {
+            notice.WriteMessage("아이템을 선택해주십시오");
+
         }
     }
 
     void buySeed()
     {
-        //잔액이 충분히 있다면, 잔액 감소해서 물품 구매, 감소한 돈 반영
-        if(playerScript.money >= totalMoney)
+        if (seedName != "none")
         {
-            playerScript.playerMoneyChange(totalMoney, false);
-            //인벤에 아이템 추가
-            //Debug.Log(totalMoney + "원을 사용하여 " + seedName + " " + buyNum + "개를 구매합니다. 잔액 : " + playerScript.money);
-            inven.putInventory(seedName, buyNum);
+            //잔액이 충분히 있다면, 잔액 감소해서 물품 구매, 감소한 돈 반영
+            if (playerScript.money >= totalMoney)
+            {
+                playerScript.playerMoneyChange(totalMoney, false);
+                //인벤에 아이템 추가
+                //Debug.Log(totalMoney + "원을 사용하여 " + seedName + " " + buyNum + "개를 구매합니다. 잔액 : " + playerScript.money);
+                inven.putInventory(seedName, buyNum);
+            }
+            else
+            {
+                playerScript.playerMoneyChange(totalMoney, false);
+
+            }
         }
         else
         {
-            playerScript.playerMoneyChange(totalMoney, false);
-    
+            notice.WriteMessage("아이템을 선택해주십시오");
         }
     }
 
