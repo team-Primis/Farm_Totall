@@ -64,8 +64,8 @@ public class SaveNLoad : MonoBehaviour
     private ContainerUI theContainerUI; // 상자 스프라이트 (for ContainerItems) - UI 업데이트
     private ContainerItems theContainerItems; // 보관템 ID, 보관템 개수
     private MenuControl theMenuControl; // 일시정지 창 꺼놓기 위해서 - Load(+New)에만 사용
-    private SpawningDirt theSpawningDirt; // dirt -------------------- load
-    private SpawningPlant theSpawningPlant; // plant -------------------- load
+    private SpawningDirt theSpawningDirt; // dirt -------------------- load&save&새게임
+    private SpawningPlant theSpawningPlant; // plant -------------------- load&save&새게임
     private PlantLoad thePlantLoad; // plant -------------------- load&save 내부
 
     public SNLData data; // SNLData 이용할 것임
@@ -95,6 +95,8 @@ public class SaveNLoad : MonoBehaviour
                                                                         GetComponent<ContainerUI>();
         theContainerItems = FindObjectOfType<ContainerItems>();
         theMenuControl = FindObjectOfType<MenuControl>();
+        theSpawningPlant = FindObjectOfType<SpawningPlant>();
+        theSpawningDirt = FindObjectOfType<SpawningDirt>();
 
         Debug.Log("새 게임 로드 시작 - 2");
         theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 새게임 - 1 (~0.2)
@@ -132,7 +134,7 @@ public class SaveNLoad : MonoBehaviour
         theInventory.putInventory(2); // 기본 인벤템
         theInventory.putInventory(100); // 기본 인벤템
         theInventory.putInventory(101); // 기본 인벤템
-        //theInventory.putInventory(102); // 기본 인벤템 (호미 0316 추가)
+        theInventory.putInventory(102); // 기본 인벤템 (호미 0316 추가)
         theInventory.putInventory(99,3); // 기본 인벤템
         theUIInventory.MakeSlotClear(); // 장착템 UI 초기화
         theInventory.equipedItem = theInventory.emptyItem; // 장착템 초기화
@@ -142,7 +144,22 @@ public class SaveNLoad : MonoBehaviour
         theContainerItems.container.Clear(); // 보관상자 아이템 비우기 (보관상자 초기화)
         theContainerUI.isContainerChanged = true; // 보관상자 UI 업데이트
 
-        // dirt, plant, water는 씬 바뀌면 파괴되어서 초기화할 필요 없음
+        // dirt, plant, water (0320 수정)
+        for(int i = theSpawningDirt.DarkDirtXp.Count - 1; i >= 0; i--)
+        {
+            Destroy(theSpawningDirt.createdDarkDirt[i]);
+        } // 돈디스트로이된 흙 전부 파괴
+        theSpawningDirt.DarkDirtXp.Clear(); // 흙 위치 목록 초기화(x)
+        theSpawningDirt.DarkDirtYp.Clear(); // 흙 위치 목록 초기화(y)
+        theSpawningDirt.createdDarkDirt.Clear(); // 다시 확인 (흙 목록 초기화)
+        // ----------------------------------------------
+        for(int i = theSpawningPlant.PlantXp.Count - 1; i >= 0; i--)
+        {
+            Destroy(theSpawningPlant.createdPlant[i]);
+        } // 돈디스트로이된 식물 전부 파괴
+        theSpawningPlant.PlantXp.Clear(); // 식물 위치 목록 초기화(x)
+        theSpawningPlant.PlantYp.Clear(); // 식물 위치 목록 초기화(y)
+        theSpawningPlant.createdPlant.Clear(); // 다시 확인 (식물 목록 초기화)
 
         theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간 흐르기 시작 (맨 위 참고)
 
@@ -162,6 +179,8 @@ public class SaveNLoad : MonoBehaviour
         theInventory = FindObjectOfType<inventory>();
         theUIInventory = FindObjectOfType<UIInventory>();
         theContainerItems = FindObjectOfType<ContainerItems>();
+        theSpawningDirt = FindObjectOfType<SpawningDirt>();
+        theSpawningPlant = FindObjectOfType<SpawningPlant>();
 
         data.playerX = thePlayerMove.transform.position.x;
         data.playerY = thePlayerMove.transform.position.y;
@@ -237,39 +256,37 @@ public class SaveNLoad : MonoBehaviour
             }
         }
 
-        GameObject[] obj1 = GameObject.FindGameObjectsWithTag("DarkDirt");
         data.dirtXP.Clear();
         data.dirtYP.Clear();
-        for(int i = 0; i < obj1.Length; i++)
+        for(int i = 0; i < theSpawningDirt.DarkDirtXp.Count; i++)
         {
-            data.dirtXP.Add(obj1[i].gameObject.transform.position.x);
-            data.dirtYP.Add(obj1[i].gameObject.transform.position.y);
+            data.dirtXP.Add(theSpawningDirt.DarkDirtXp[i]);
+            data.dirtYP.Add(theSpawningDirt.DarkDirtYp[i]);
         }
 
-        GameObject[] obj2 = GameObject.FindGameObjectsWithTag("Plant");
         data.plantXP.Clear();
         data.plantYP.Clear();
         data.plantTimer.Clear();
         data.plantWater.Clear();
         data.plantName.Clear();
         data.plantI.Clear();
-        for(int i = 0; i < obj2.Length; i++)
+        for(int i = 0; i < theSpawningPlant.PlantXp.Count; i++)
         {
-            thePlantLoad = obj2[i].gameObject.GetComponent<PlantLoad>(); // 각각 찾기
-            data.plantXP.Add(obj2[i].gameObject.transform.position.x);
-            data.plantYP.Add(obj2[i].gameObject.transform.position.y);
-            data.plantTimer.Add(thePlantLoad.plantTimer); //timer 변수가 plantTimer로 바뀐 것 같아 반영합니당( 0310 미해)
+            data.plantXP.Add(theSpawningPlant.PlantXp[i]);
+            data.plantYP.Add(theSpawningPlant.PlantYp[i]);
+            thePlantLoad = theSpawningPlant.createdPlant[i].GetComponent<PlantLoad>(); // 각각 찾기
+            data.plantTimer.Add(thePlantLoad.plantTimer);
             data.plantWater.Add(thePlantLoad.iswatered);
-            if(obj2[i].gameObject.name == "BlueFlower(Clone)")
+            data.plantI.Add(thePlantLoad.i);
+            if(theSpawningPlant.createdPlant[i].name == "BlueFlower(Clone)")
             {
                 data.plantName.Add(0);
             }
-            else if(obj2[i].gameObject.name == "Pumpkin(Clone)")
+            else if(theSpawningPlant.createdPlant[i].name == "Pumpkin(Clone)")
             {
                 data.plantName.Add(1);
             }
             // 다른 작물 추가 필요
-            data.plantI.Add(thePlantLoad.i);
         }
 
         // 물리적인 파일로 저장
@@ -293,6 +310,8 @@ public class SaveNLoad : MonoBehaviour
         theInventory = FindObjectOfType<inventory>();
         theUIInventory = FindObjectOfType<UIInventory>();
         theContainerItems = FindObjectOfType<ContainerItems>();
+        theSpawningDirt = FindObjectOfType<SpawningDirt>();
+        theSpawningPlant = FindObjectOfType<SpawningPlant>();
 
         data.playerX = thePlayerMove.transform.position.x;
         data.playerY = thePlayerMove.transform.position.y;
@@ -365,39 +384,37 @@ public class SaveNLoad : MonoBehaviour
             }
         }
 
-        GameObject[] obj1 = GameObject.FindGameObjectsWithTag("DarkDirt");
         data.dirtXP.Clear();
         data.dirtYP.Clear();
-        for(int i = 0; i < obj1.Length; i++)
+        for(int i = 0; i < theSpawningDirt.DarkDirtXp.Count; i++)
         {
-            data.dirtXP.Add(obj1[i].gameObject.transform.position.x);
-            data.dirtYP.Add(obj1[i].gameObject.transform.position.y);
+            data.dirtXP.Add(theSpawningDirt.DarkDirtXp[i]);
+            data.dirtYP.Add(theSpawningDirt.DarkDirtYp[i]);
         }
 
-        GameObject[] obj2 = GameObject.FindGameObjectsWithTag("Plant");
         data.plantXP.Clear();
         data.plantYP.Clear();
         data.plantTimer.Clear();
         data.plantWater.Clear();
         data.plantName.Clear();
         data.plantI.Clear();
-        for(int i = 0; i < obj2.Length; i++)
+        for(int i = 0; i < theSpawningPlant.PlantXp.Count; i++)
         {
-            thePlantLoad = obj2[i].gameObject.GetComponent<PlantLoad>();
-            data.plantXP.Add(obj2[i].gameObject.transform.position.x);
-            data.plantYP.Add(obj2[i].gameObject.transform.position.y);
+            data.plantXP.Add(theSpawningPlant.PlantXp[i]);
+            data.plantYP.Add(theSpawningPlant.PlantYp[i]);
+            thePlantLoad = theSpawningPlant.createdPlant[i].GetComponent<PlantLoad>(); // 각각 찾기
             data.plantTimer.Add(thePlantLoad.plantTimer);
             data.plantWater.Add(thePlantLoad.iswatered);
-            if(obj2[i].gameObject.name == "BlueFlower(Clone)")
+            data.plantI.Add(thePlantLoad.i);
+            if(theSpawningPlant.createdPlant[i].name == "BlueFlower(Clone)")
             {
                 data.plantName.Add(0);
             }
-            else if(obj2[i].gameObject.name == "Pumpkin(Clone)")
+            else if(theSpawningPlant.createdPlant[i].name == "Pumpkin(Clone)")
             {
                 data.plantName.Add(1);
             }
             // 다른 작물 추가 필요
-            data.plantI.Add(thePlantLoad.i);
         }
 
         BinaryFormatter bf = new BinaryFormatter();
@@ -584,20 +601,49 @@ public class SaveNLoad : MonoBehaviour
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 4 (~0.8)
 
-                // dirt
+                // for 흙, 식물
+                GameObject dontDestroy = GameObject.Find("DonDestroyGameObject").gameObject;
+                // 흙 초기화 및 로드
+                for(int i = theSpawningDirt.DarkDirtXp.Count - 1; i >= 0; i--)
+                {
+                    Destroy(theSpawningDirt.createdDarkDirt[i]);
+                }
+                theSpawningDirt.DarkDirtXp.Clear();
+                theSpawningDirt.DarkDirtYp.Clear();
+                theSpawningDirt.createdDarkDirt.Clear(); // 돈디스트로이된 흙 제거
                 for(int i = 0; i < data.dirtXP.Count; i++)
                 {
                     GameObject dirtt = Instantiate(theSpawningDirt.DirtPrefab);
-                    dirtt.transform.position = new Vector2(data.dirtXP[i], data.dirtYP[i]);
+                    dirtt.transform.parent = dontDestroy.transform;
+                    if(data.sceneName == "OutSide")
+                    {   dirtt.transform.position = new Vector2(data.dirtXP[i], data.dirtYP[i]);   }
+                    else if(data.sceneName == "Inside")
+                    {   dirtt.transform.position = new Vector2(20f, -8f);   }
+                    theSpawningDirt.createdDarkDirt.Add(dirtt);
+                    theSpawningDirt.DarkDirtXp.Add(data.dirtXP[i]);
+                    theSpawningDirt.DarkDirtYp.Add(data.dirtYP[i]);
                 }
-                
-                // plant
+                // 식물 초기화 및 로드
+                for(int i = theSpawningPlant.PlantXp.Count - 1; i >= 0; i--)
+                {
+                    Destroy(theSpawningPlant.createdPlant[i]);
+                }
+                theSpawningPlant.PlantXp.Clear();
+                theSpawningPlant.PlantYp.Clear();
+                theSpawningPlant.createdPlant.Clear(); // 돈디스트로이된 식물 제거
                 for(int i = 0; i < data.plantXP.Count; i++)
                 {
                     GameObject plantt = Instantiate(theSpawningPlant.PlantPrefabs[data.plantName[i]]);
-                    plantt.transform.position = new Vector2(data.plantXP[i], data.plantYP[i]);
+                    plantt.transform.parent = dontDestroy.transform;
+                    if(data.sceneName == "OutSide")
+                    {   plantt.transform.position = new Vector2(data.plantXP[i], data.plantYP[i]);   }
+                    else if(data.sceneName == "Inside")
+                    {   plantt.transform.position = new Vector2(20f, -8f);   }
+                    theSpawningPlant.createdPlant.Add(plantt);
+                    theSpawningPlant.PlantXp.Add(data.plantXP[i]);
+                    theSpawningPlant.PlantYp.Add(data.plantYP[i]);
                     thePlantLoad = plantt.GetComponent<PlantLoad>();
-                    thePlantLoad.plantTimer = data.plantTimer[i]; //timer -> plantTimer로 바꾸었습니당 ( 지현이의 변수가 바뀐것 같아 따라서 바꾸었습니당) (0310 미해)
+                    thePlantLoad.plantTimer = data.plantTimer[i];
                     thePlantLoad.iswatered = data.plantWater[i];
                     thePlantLoad.i = data.plantI[i];
                     thePlantLoad.DoPlantAni(data.plantI[i], data.plantWater[i]); // 이 함수 안에 water 포함
@@ -773,17 +819,47 @@ public class SaveNLoad : MonoBehaviour
                 theContainerUI.isContainerChanged = true;
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 4 (~0.8)
-
+                
+                GameObject dontDestroy = GameObject.Find("DonDestroyGameObject").gameObject;
+                
+                for(int i = theSpawningDirt.DarkDirtXp.Count - 1; i >= 0; i--)
+                {
+                    Destroy(theSpawningDirt.createdDarkDirt[i]);
+                }
+                theSpawningDirt.DarkDirtXp.Clear();
+                theSpawningDirt.DarkDirtYp.Clear();
+                theSpawningDirt.createdDarkDirt.Clear();
                 for(int i = 0; i < data.dirtXP.Count; i++)
                 {
                     GameObject dirtt = Instantiate(theSpawningDirt.DirtPrefab);
-                    dirtt.transform.position = new Vector2(data.dirtXP[i], data.dirtYP[i]);
+                    dirtt.transform.parent = dontDestroy.transform;
+                    if(data.sceneName == "OutSide")
+                    {   dirtt.transform.position = new Vector2(data.dirtXP[i], data.dirtYP[i]);   }
+                    else if(data.sceneName == "Inside")
+                    {   dirtt.transform.position = new Vector2(20f, -8f);   }
+                    theSpawningDirt.createdDarkDirt.Add(dirtt);
+                    theSpawningDirt.DarkDirtXp.Add(data.dirtXP[i]);
+                    theSpawningDirt.DarkDirtYp.Add(data.dirtYP[i]);
                 }
                 
+                for(int i = theSpawningPlant.PlantXp.Count - 1; i >= 0; i--)
+                {
+                    Destroy(theSpawningPlant.createdPlant[i]);
+                }
+                theSpawningPlant.PlantXp.Clear();
+                theSpawningPlant.PlantYp.Clear();
+                theSpawningPlant.createdPlant.Clear();
                 for(int i = 0; i < data.plantXP.Count; i++)
                 {
                     GameObject plantt = Instantiate(theSpawningPlant.PlantPrefabs[data.plantName[i]]);
-                    plantt.transform.position = new Vector2(data.plantXP[i], data.plantYP[i]);
+                    plantt.transform.parent = dontDestroy.transform;
+                    if(data.sceneName == "OutSide")
+                    {   plantt.transform.position = new Vector2(data.plantXP[i], data.plantYP[i]);   }
+                    else if(data.sceneName == "Inside")
+                    {   plantt.transform.position = new Vector2(20f, -8f);   }
+                    theSpawningPlant.createdPlant.Add(plantt);
+                    theSpawningPlant.PlantXp.Add(data.plantXP[i]);
+                    theSpawningPlant.PlantYp.Add(data.plantYP[i]);
                     thePlantLoad = plantt.GetComponent<PlantLoad>();
                     thePlantLoad.plantTimer = data.plantTimer[i];
                     thePlantLoad.iswatered = data.plantWater[i];
