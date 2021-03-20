@@ -60,8 +60,8 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
             }
             else
             {
-                Debug.Log(item.Ename + "은 비매품입니다.");
-                notice.WriteMessage(item.Ename + "은 비매품입니다.");
+                Debug.Log(item.Kname + "은 비매품입니다.");
+                notice.WriteMessage(item.Kname + "은(는) 비매품입니다.");
             }
         }
     }
