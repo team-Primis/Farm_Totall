@@ -42,6 +42,21 @@ public class SellingUI : MonoBehaviour
 
     }
 
+    void OnDisable()
+    {
+        ResetUI();
+    }
+
+    public void ResetUI()
+    {
+        resetMoney(); //돈 0원으로 바꿈
+        //아이템들을 구매 리스트에서 제거
+        foreach (SUIItem sellingItems in itemSlotList)
+        {
+            sellingItems.ResetUIOnly();
+        }
+    }
+
     void sellItems()
     {
         //판매 버튼을 누르면 플레이어 돈이 추가됨.

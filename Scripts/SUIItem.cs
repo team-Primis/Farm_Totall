@@ -82,6 +82,19 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void ResetUIOnly()
+    {
+        if (isAdded)
+        {
+            //겉에 보이는 모습 제거
+            sellingUI.sellingList.Remove(this.item);
+            isAdded = false;
+            //배경색제거
+            spriteBackground.color = new Color32(0, 0, 0, 100);
+
+        }
+    }
+
 
     //슬롯의 내용(아이템 객체) + 눈에 보이는 부분(이미지) 변경
     public void updateItem(Item item)
