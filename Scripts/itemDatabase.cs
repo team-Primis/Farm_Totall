@@ -65,7 +65,22 @@ public class itemDatabase : MonoBehaviour
             new Dictionary<string, int>{
                 {"sellingPrice",50 }
             }),
+            // 비타오백, 스누피우유, 박카스, 콜라, 사이다, 핫식스
 
+            new Item(20,"비타오백","vita500","마시면 피로가 5만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",100 },{"sellingPrice",50 },{"recovery",5 } }),
+            new Item(21,"스누피우유","snoopy","마시면 피로가 20만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",500 },{"sellingPrice",250 },{"recovery",20 } }),
+            new Item(22,"박카스","bakkas","마시면 피로가 30만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",700 },{"sellingPrice",350 },{"recovery",30 } }),
+            new Item(23,"콜라","cola","마시면 피로가 10만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",150 },{"sellingPrice",75 },{"recovery",10 } }),
+            new Item(24,"사이다","cidar","마시면 피로가 10만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",150 },{"sellingPrice",75 },{"recovery",10 } }),
+            new Item(25,"핫식스","hotsix","마시면 피로가 100만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",2000 },{"sellingPrice",1000 },{"recovery",100 } }),
+
+            new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,
+            new Dictionary<string, int>{
+                {"sellingPrice",3000}, {"recovery", 20}
+            }),
+
+            new Item(41, "파란꽃", "blueFlower", "아주 파랗다. 먹으면 쓰다.", Item.Category.item, new Dictionary<string, int>{ { "sellingPrice",  800}, {"recovery",  10}
+            }),
             new Item(99,"건초","hay","풀이 먹음직스럽게 말랐다.닭이 좋아하게 생겼다",Item.Category.item,
             new Dictionary<string, int>{
                 {"cost",20 }
@@ -82,13 +97,7 @@ public class itemDatabase : MonoBehaviour
             new Item(102,"호미", "Hoe", "땅을 다시 덮는 데 유용하다.", Item.Category.tool, new Dictionary<string, int>{
             }),
 
-            new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,
-            new Dictionary<string, int>{
-                {"sellingPrice",3000}, {"recovery", 20}
-            }),
-
-            new Item(41, "파란꽃", "blueFlower", "아주 파랗다. 먹으면 쓰다.", Item.Category.item, new Dictionary<string, int>{ { "sellingPrice",  800}, {"recovery",  10} 
-            }),
+            
             
             // trashitem (0304 성현)
             new Item(1001, "쓰레기1", "trash1", " ", Item.Category.item),
@@ -104,7 +113,8 @@ public class itemDatabase : MonoBehaviour
             new Item(1011, "쓰레기11", "trash11", " ", Item.Category.item),
             new Item(1012, "쓰레기12", "trash12", " ", Item.Category.item),
             new Item(1013, "쓰레기13", "trash13", " ", Item.Category.item),
-            new Item(1014, "쓰레기14", "trash14", " ", Item.Category.item)
+            new Item(1014, "쓰레기14", "trash14", " ", Item.Category.item),
+
 
         };
 
