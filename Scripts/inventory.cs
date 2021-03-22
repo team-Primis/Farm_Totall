@@ -181,6 +181,7 @@ public class inventory : MonoBehaviour
         }
         //어차피 인벤토리는 변하지 않고, 눈에 보이고 만지는 UI쪽만 바뀌는것.
 
+        
         item.count--;
         inventoryUI.UpdateItemNumUI(item); //item 1개 갯수 준거 반영
 
@@ -190,7 +191,45 @@ public class inventory : MonoBehaviour
         inventoryUI.AddNewItem(itemToAdd);
         sellingUI.isItemChanged = true;
 
+
     }
+    //바로 equippedItem을 split할거임 (DB 안건듦)
+    public void PutSplitedItem(Item item)
+    {
+        
+        if (item.count <= 1)
+        {
+            Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
+            return;
+        }
+
+
+        //기존의 인벤토리 아이템 삭제
+        characterItems.Remove(equipedItem);
+        inventoryUI.RemoveItem(equipedItem);
+
+        //clone만들어서 ( 1개 작은거) 원래 위치에 놓음
+        Item itemToAdd = new Item(item.id, item.Kname, item.Ename, item.description, item.category, item.stats);
+        itemToAdd.count = equipedItem.count-1;
+        characterItems.Add(itemToAdd);
+        inventoryUI.AddNewItem(itemToAdd);
+
+        //1개짜리 clone 만들어서 넣음
+        Item itemSplited = new Item(item.id, item.Kname, item.Ename, item.description, item.category, item.stats);
+        itemSplited.count = 1;
+        characterItems.Add(itemSplited);
+        inventoryUI.AddNewItem(itemSplited);
+
+        //장착 아이템 초기화
+        equipedItem = emptyItem;
+        ClearSlot();
+
+        sellingUI.isItemChanged = true;
+
+
+    }
+
+
     //이 아이디를 가진 아이템을 인벤에 넣을떄 쓰는 함수.
     //해당 id가 아이템 데이터베이스에 존재하는지 확인하고 존재 시 인벤(characterItems)에 넣는다
     public void putInventory(int id, int plusNum = 1)
