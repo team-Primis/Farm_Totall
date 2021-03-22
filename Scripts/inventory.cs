@@ -176,7 +176,7 @@ public class inventory : MonoBehaviour
         }
         if(item.count <= 1)
         {
-          //  Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
+            Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
             return;
         }
         //어차피 인벤토리는 변하지 않고, 눈에 보이고 만지는 UI쪽만 바뀌는것.
@@ -263,7 +263,36 @@ public class inventory : MonoBehaviour
 
     }
 
-    
+    //컨테이너에서 아이템 빼기 용
+    public void putInventory(Item item, int plusNum = 1)
+    {
+        //같은 id의 인벤아이템을 가져옴
+        Item invenItem = db.GetItem(item.id);
+
+        //처음 인벤토리에 넣을 때
+        if (CheckForItem(item.id) == null)
+        {
+            Debug.Log("해당 id를 가진 아이템이 인벤에 없으므로 추가합니다.");
+            invenItem.count = plusNum;
+            characterItems.Add(invenItem);
+            inventoryUI.AddNewItem(invenItem);
+
+        }
+
+        //나중에 인벤토리에 넣을때
+        //나중에 인벤토리에 넣을때
+        else
+        {
+            
+            Debug.Log("해당 id를 가진 아이템이 있으므로 갯수만 증가시킵니다.");
+            invenItem.count += plusNum;
+            inventoryUI.UpdateItemNumUI(invenItem);
+        }
+        sellingUI.isItemChanged = true;
+
+    }
+
+
     public Item CheckForItem(int id)
     {
         return characterItems.Find(item => item.id == id);

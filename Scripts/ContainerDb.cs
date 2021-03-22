@@ -40,7 +40,7 @@ public class ContainerDb : MonoBehaviour
     {
         if(selectedItem.Ename != "empty")
         {
-            inven.putInventory(selectedItem.id, selectedItem.count);
+            inven.putInventory(selectedItem, selectedItem.count);
             RemoveItem(selectedItem.id);
             selectedItem = emptyItem;
             ClearSlot();
