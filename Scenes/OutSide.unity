@@ -482,6 +482,8 @@ MonoBehaviour:
   BuyChicken: {fileID: 0}
   isBuyOpen: 0
   isMenuOpen: 0
+  LoadingWindow: {fileID: 0}
+  isLoadingOpen: 0
   isWillSellOpen: 0
   didGameStart: 0
 --- !u!4 &16795483
@@ -531,7 +533,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d1b7c9bb0cfd644fbc5b6c67db7f234, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  notice: {fileID: 0}
   doLoadF1: 0
   doLoadF2: 0
   doNewGame: 0
@@ -568,9 +569,6 @@ MonoBehaviour:
     plantWater: 
     plantName: 
     plantI: 
-    waterXP: []
-    waterYP: []
-    waterTimer: []
 --- !u!1 &20318676
 GameObject:
   m_ObjectHideFlags: 0
@@ -6124,18 +6122,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dae5eb67119ab84b9dcba5d9f5af069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  GMscript: {fileID: 0}
+  sPP: {fileID: 0}
+  audioSource: {fileID: 0}
+  sleepingSound: {fileID: 8300000, guid: b105f369e95d42142ba93a6e68f3438f, type: 3}
   sleepUI: {fileID: 187972614}
   thePlayer: {fileID: 0}
-  GMscript: {fileID: 0}
   sleepingLoadingUI: {fileID: 0}
   canvass: {fileID: 0}
   stM: {fileID: 0}
   wantedSleepTime: 7
-  theGap: 0
   thisTime: 0
   plantIsGrowing: 0
-  sPP: {fileID: 0}
+  setSoundOn: 0
 --- !u!224 &652228252 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4495088193601889611, guid: 2fc893eefb7229f41a623d6ecd58ebe2,
@@ -7851,6 +7850,7 @@ MonoBehaviour:
   thePlayer: {fileID: 0}
   Inven: {fileID: 0}
   stM: {fileID: 0}
+  wateringSound: {fileID: 8300000, guid: 7e9f12e3b18d3ae4aa8d3b99909a00c9, type: 3}
 --- !u!4 &790564872
 Transform:
   m_ObjectHideFlags: 0
@@ -66687,6 +66687,7 @@ MonoBehaviour:
   PlantXp: []
   PlantYp: []
   GMscript: {fileID: 0}
+  plantingPlant: {fileID: 8300000, guid: f3ba3442a3404ad48814f4d840f27269, type: 3}
 --- !u!4 &863375172
 Transform:
   m_ObjectHideFlags: 0
@@ -67938,6 +67939,7 @@ GameObject:
   - component: {fileID: 1995171699}
   - component: {fileID: 1995171700}
   - component: {fileID: 943619896}
+  - component: {fileID: 943619897}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -68096,6 +68098,9 @@ MonoBehaviour:
   Inven: {fileID: 0}
   GMScript: {fileID: 0}
   movingSpeed: 1
+  audioSource: {fileID: 0}
+  walkingSound: {fileID: 8300000, guid: d78149188b6828d4297f7b4967e73e06, type: 3}
+  setMoveSound: 0
 --- !u!114 &943619896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68113,6 +68118,102 @@ MonoBehaviour:
   anim: {fileID: 0}
   speed: 1
   hoe: {fileID: 1357165413}
+--- !u!82 &943619897
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943619889}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d78149188b6828d4297f7b4967e73e06, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 1
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &944800984
 GameObject:
   m_ObjectHideFlags: 0
@@ -68146,6 +68247,7 @@ MonoBehaviour:
   Inven: {fileID: 0}
   stM: {fileID: 0}
   sP: {fileID: 0}
+  collectingPlant: {fileID: 8300000, guid: 3bf0f25c8e6ffb1438bc6b2f9c9385df, type: 3}
 --- !u!4 &944800986
 Transform:
   m_ObjectHideFlags: 0
@@ -69053,6 +69155,7 @@ MonoBehaviour:
   GoOut: 0
   dontDestroy: {fileID: 0}
   GMscript: {fileID: 0}
+  grindingDirt: {fileID: 8300000, guid: bb3b4ec78e4772a42bb102d25d828955, type: 3}
 --- !u!224 &1070032760 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4495088193601889611, guid: 2fc893eefb7229f41a623d6ecd58ebe2,
@@ -69457,6 +69560,8 @@ MonoBehaviour:
   sD: {fileID: 0}
   sP: {fileID: 0}
   SMScript: {fileID: 0}
+  goingIn: {fileID: 8300000, guid: 8b6b47b4d00c55b4493e8bd046fb2027, type: 3}
+  goingOut: {fileID: 8300000, guid: b287cbcf206d02840b65b0c270fc94fb, type: 3}
 --- !u!4 &1142489825
 Transform:
   m_ObjectHideFlags: 0
@@ -71116,6 +71221,9 @@ MonoBehaviour:
   thisTime: 0
   wantedPaintTime: 2
   plantIsGrowing: 0
+  audioSource: {fileID: 0}
+  paintingSound: {fileID: 8300000, guid: 4520a8207a7854c41a37da53a0df6e1e, type: 3}
+  setSoundOn: 0
 --- !u!114 &1285285141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71903,7 +72011,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1359603188
 AudioSource:
   m_ObjectHideFlags: 0
@@ -72144,6 +72252,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360845740}
   m_CullTransparentMesh: 0
+--- !u!1 &1362421745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1362421746}
+  - component: {fileID: 1362421747}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1362421746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362421745}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 23.24, y: 7.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 21
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1362421747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1362421745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1b1529c5c9f65a42bb1be919c76d7ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkingSoundClip: []
 --- !u!1 &1379879860
 GameObject:
   m_ObjectHideFlags: 0
@@ -81123,8 +81275,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadSlider: {fileID: 1578793797}
   isReset: 0
-  plusNum: 0
-  plusBar: 0
 --- !u!1 &1910064258
 GameObject:
   m_ObjectHideFlags: 0
@@ -82024,7 +82174,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

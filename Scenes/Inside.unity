@@ -2692,6 +2692,8 @@ MonoBehaviour:
   sD: {fileID: 0}
   SMScript: {fileID: 0}
   sP: {fileID: 0}
+  goingIn: {fileID: 8300000, guid: 8b6b47b4d00c55b4493e8bd046fb2027, type: 3}
+  goingOut: {fileID: 8300000, guid: b287cbcf206d02840b65b0c270fc94fb, type: 3}
 --- !u!61 &864511479
 BoxCollider2D:
   m_ObjectHideFlags: 0

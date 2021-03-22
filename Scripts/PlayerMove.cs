@@ -7,19 +7,23 @@ public class PlayerMove : MonoBehaviour
 {
 
     public string currentMapName; //transferMap 스크립트에 있는 transferMapName 변수의 값을 저장.
-    private BoxCollider2D boxCollider;
+    private BoxCollider2D boxCollider;//박스콜라이더.
     //충돌할 때 통과 불가능한 레이어를 설정해줌.
-    public Animator anim;
-    public float speed = 1.0f;
+    public Animator anim;//애니메이터.
+    public float speed = 1.0f;//움직이는 속도 조정하려고 가져옴.
     static public PlayerMove instance;//static: 이 스크립트를 사용하는 객체는 instance 변수를 공유하게 됨.
-    public inventory Inven;
-    public GameManager GMScript;
-    public float movingSpeed = 1f;
+    public inventory Inven;//인벤토리.
+    public GameManager GMScript;//게임매니져.
+    public float movingSpeed = 1f;//움직이는 속도 조정하려고 가져옴.
+    public AudioSource audioSource;//플레이어에 오디오 소스 부착해둠.
+    public AudioClip walkingSound;//걷는 소리.
+    public bool setMoveSound = false;//움직이는 소리 키는 용도의 bool.
     // Start is called before the first frame update
     void Start()
     {
         GMScript = GameObject.Find("GameManager").GetComponent<GameManager>();
         Inven = GameObject.Find("Inventory").GetComponent<inventory>();
+        audioSource = GetComponent<AudioSource>();
         if (instance == null)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -42,80 +46,122 @@ public class PlayerMove : MonoBehaviour
         if(GMScript.isMenuOpen == false && GMScript.isWillSellOpen == false
                         && GMScript.isSleepOpen == false && GMScript.isLoadingOpen == false)
         {
-            Move();
+            Move();//플레이어 이동하는 함수.
+            MovingSFX();//이동할 때 음악 재생.
         }
-
-        Watering();
+        else
+        {
+            audioSource.Stop();//일시정지 창이나 씬 로딩 등에서도 자꾸 소리가 재생되길래 아예 소리를 꺼놓고 조건을 만족할 때에만 재생하도록 해둠.
+        }
+        Watering();//물 주는 모션인데 인게임에선.... 안 보여...
     }
 
-    void Move()
+    void Move()//플레이어 움직이게 하는 함수.
     {
-        float moveX = 0f;
-        float moveZ = 0f;
+        float moveX = 0f;//초기화.
+        float moveZ = 0f;//초기화.
 
-
-        if (Input.GetKey(KeyCode.W))
+    
+        if(Input.GetKey(KeyCode.W)|| Input.GetKey(KeyCode.S)|| Input.GetKey(KeyCode.A)|| Input.GetKey(KeyCode.D))
         {
-            anim.SetBool("BackWalk", true);
-            moveZ += movingSpeed;
-
+            setMoveSound = true;//움직일 때 소리 켬.
         }
         else
-            anim.SetBool("BackWalk", false);
-
-
-        if (Input.GetKey(KeyCode.S))
         {
-            anim.SetBool("FrontWalk", true);
-            moveZ -= movingSpeed;
+            setMoveSound = false;//아닌 경우에는 소리 끔.
+        }
+       
+        if (Input.GetKey(KeyCode.W))//입력이 W이면
+        {
+            
+            anim.SetBool("BackWalk", true);//위로 걷는 애니메이션 재생
+            moveZ += movingSpeed;//위로 좌표값 증가.
 
         }
-        else
-            anim.SetBool("FrontWalk", false);
-
-
-
-        if (Input.GetKey(KeyCode.A))
+        else//아닌 경우
         {
+            
+            anim.SetBool("BackWalk", false);//위로 걷는 애니메이션 중단.
+        }
+            
 
-            anim.SetBool("LeftWalk", true);
-            moveX -= movingSpeed;
+
+        if (Input.GetKey(KeyCode.S))//입력이 S인 경우
+        {
+            
+            
+            anim.SetBool("FrontWalk", true);//아래로 걷는 애니메이션 재생.
+            moveZ -= movingSpeed;//좌표값 위로 감소==아래로 증가.
+
 
         }
-        else
-            anim.SetBool("LeftWalk", false);
-
-        if (Input.GetKey(KeyCode.D))
+        else//아닌 경우
         {
-            anim.SetBool("RightWalk", true);
-            moveX += movingSpeed;
+            
+            anim.SetBool("FrontWalk", false);//아래로 걷는 애니메이션 중단.
+        }
+            
+
+
+
+        if (Input.GetKey(KeyCode.A))//입력이 A인 경우
+        {
+            
+            anim.SetBool("LeftWalk", true);//왼쪽으로 걷는 애니메이션 재생.
+            moveX -= movingSpeed;//왼쪽으로 좌표 증가==오른쪽으로 좌표 감소.
+
 
         }
-        else
-            anim.SetBool("RightWalk", false);
+        else//아닌 경우
+        {
+     
+            anim.SetBool("LeftWalk", false);//왼쪽으로 걷는 애니메이션 중단.
+        }
+            
 
+        if (Input.GetKey(KeyCode.D))//입력이 D인 경우
+        {
+           
+            anim.SetBool("RightWalk", true);//오른쪽으로 걷는 애니메이션 재생.
+            moveX += movingSpeed;//오른쪽으로 좌표값 증가.
 
-        transform.Translate(new Vector2(moveX, moveZ) * Time.deltaTime * speed);
-
-
-
+        }
+        else//아닌 경우
+        {
+            
+            anim.SetBool("RightWalk", false);//오른쪽으로 걷는 애니메이션 중단.
+        }
+   
+        transform.Translate(new Vector2(moveX, moveZ) * Time.deltaTime * speed);//플레이어의 좌표값 변경. 스피드 변수랑 타임 델타타임으로 속도 조정.
 
     }
+
+    public void MovingSFX()//걸을 때 소리 재생하는 함수.
+    {
+        if(setMoveSound==true)//이 bool이 트루일 때
+        {
+            if(!audioSource.isPlaying)//플레이어에 부착된 오디오 소스에서 소리가 재생되지 않는 경우면
+            audioSource.Play();//걷는 소리 재생.
+  
+        }
+        else//bool이 펄스일 때
+        {
+            audioSource.Stop();//걷는 소리 중단.
+        }
+    }
+
+ 
 
     void Watering()//물 주는 모션.
     {
 
-        anim.SetBool("Watering", false);
+        anim.SetBool("Watering", false);//기본값은 물 주는 애니메이션 중단.
         Vector2 theplayerPosition = this.transform.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);//게임플레이화면에서의 마우스 위치를 게임에디터에서의 Vector2 타입의 마우스 위치에 배정.
 
-        Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
-        Vector2 distance = theplayerPosition - mousePosition;
-
-
-        if (Inven.equipedItem != null)
+        if (Inven.equipedItem != null)//장비한 아이템이 빈칸이 아니고
         {
-            if (Inven.equipedItem.Ename == "waterSprinkle")
+            if (Inven.equipedItem.Ename == "waterSprinkle")//물뿌리개를 장착한 경우
             {
                 if (Input.GetMouseButton(0))//클릭하면 물 주는 애니메이션 재생.
                 {
