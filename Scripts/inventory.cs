@@ -110,15 +110,7 @@ public class inventory : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N)) //테스트용
-        {
-            putInventory(20, 1);
-            putInventory(21, 1);
-            putInventory(22, 1);
-            putInventory(23, 1);
-            putInventory(24, 1);
-            putInventory(25, 1);
-        }
+        
         //I키를 눌렀을때 열리고 닫히게 조절 가능
         if (Input.GetKeyDown(KeyCode.I))
         {

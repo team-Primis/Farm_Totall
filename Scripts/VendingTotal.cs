@@ -27,6 +27,15 @@ public class VendingTotal : MonoBehaviour
 
     public GameObject rightSide; // 구매창이 있는 왼쪽부분
 
+    private AudioSource audioSource;
+    public AudioClip buySound;
+    public AudioClip pushSound;
+    public AudioClip notEnoughSound;
+    public AudioClip notChosen;
+
+    public Image buyImg;
+    public Sprite emptyImage;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +46,12 @@ public class VendingTotal : MonoBehaviour
         buyBtn.onClick.AddListener(buySeed);
         coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
         notice = GameObject.Find("Notice").GetComponent<NoticeText>();
+        audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
+        buyImg = GameObject.Find("seedImage").GetComponent<Image>();
 
         //처음 자판기 UI 초기화
         ResetUI();
+
 
 
     }
@@ -63,6 +75,7 @@ public class VendingTotal : MonoBehaviour
         moneyText.text = 0.ToString() + "원";
         buyNum = 1;
         buyNumText.text = 1.ToString();
+        buyImg.sprite = emptyImage;
 
     }
     void AddBuyNum()
@@ -81,6 +94,8 @@ public class VendingTotal : MonoBehaviour
         else
         {
             notice.WriteMessage("아이템을 선택해주십시오");
+            audioSource.clip = notChosen;
+            audioSource.Play();
         }
     }
 
@@ -100,7 +115,8 @@ public class VendingTotal : MonoBehaviour
         else
         {
             notice.WriteMessage("아이템을 선택해주십시오");
-
+            audioSource.clip = notChosen;
+            audioSource.Play();
         }
     }
 
@@ -115,16 +131,23 @@ public class VendingTotal : MonoBehaviour
                 //인벤에 아이템 추가
                 //Debug.Log(totalMoney + "원을 사용하여 " + seedName + " " + buyNum + "개를 구매합니다. 잔액 : " + playerScript.money);
                 inven.putInventory(seedName, buyNum);
+                audioSource.clip = buySound;
+                audioSource.Play();
             }
             else
             {
-                playerScript.playerMoneyChange(totalMoney, false);
-
+                //playerScript.playerMoneyChange(totalMoney, false);
+                notice.WriteMessage("잔액이 부족합니다.");
+                audioSource.clip = notEnoughSound;
+                audioSource.Play();
+                
             }
         }
         else
         {
             notice.WriteMessage("아이템을 선택해주십시오");
+            audioSource.clip =notChosen;
+            audioSource.Play();
         }
     }
 

@@ -11,7 +11,8 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
 
     private Image buyImg;
 
-    
+    private AudioSource audioSource;
+    public AudioClip touchSound;
 
     // Start is called before the first frame update
     void Start()
@@ -19,6 +20,8 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
         vendingScript = GameObject.Find("vendingPanel").GetComponent<VendingTotal>();
         db = GameObject.Find("Database").GetComponent<itemDatabase>();
         buyImg = GameObject.Find("seedImage").GetComponent<Image>();
+        audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
+        touchSound = vendingScript.pushSound;
     }
 
   
@@ -56,6 +59,9 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
 
                 }
             }
+
+            audioSource.clip = touchSound;
+            audioSource.Play();
         }
     }
 }
