@@ -56,7 +56,7 @@ public class Painting : MonoBehaviour
         {
             GMscript.timer = (thisTime - 60 * 24);
             GMscript.day += 1;
-
+            GMscript.dayChanged = true; // (0320 성현)
         }
         
        

@@ -30,7 +30,7 @@ public class SaveNLoad : MonoBehaviour
     public bool doNewGame = false;
 
      //그리고 합치니까 인게임 ui가 타이틀 화면 위로 올라오길래 canvas의 sortorder을 2로 바꾸었습니당
-     //혹시 유니티 상에서 그렇게 뜬다면 바꿔주세용!
+     //혹시 유니티 상에서 그렇게 뜬다면 바꿔주세용! (미해)
 
     void Update()
     {
