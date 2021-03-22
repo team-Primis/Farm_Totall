@@ -142,4 +142,26 @@ public class TitleManager : MonoBehaviour
         Debug.Log("File 2 이어하기");
         theSaveNLoad.CallLoadF2();
     }
+
+    public void OnClickR1() // (0322)
+    {
+        FileInfo fileInfo1 = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        if (fileInfo1.Exists) // 파일이 존재하면
+        {
+            File.Delete(Application.dataPath + "/SaveFile1.txt");
+            File.Delete(Application.dataPath + "/SaveFile1.txt.meta");
+            F1Content.GetComponent<Text>().text = "NO FILE";
+        }
+    }
+
+    public void OnClickR2() // (0322)
+    {
+        FileInfo fileInfo2 = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        if (fileInfo2.Exists) // 파일이 존재하면
+        {
+            File.Delete(Application.dataPath + "/SaveFile2.txt");
+            File.Delete(Application.dataPath + "/SaveFile2.txt.meta");
+            F2Content.GetComponent<Text>().text = "NO FILE";
+        }
+    }
 }

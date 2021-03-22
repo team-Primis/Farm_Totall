@@ -59,7 +59,7 @@ public class SaveNLoad : MonoBehaviour
     private Stemina theStemina; // stamina
     private PlayerControll thePlayerControll; // 쓴 돈, laborCount
     private SpawnManager theSpawnManager; // 닭 개수/행복도/checkEgg/좌표, 달걀 개수/좌표
-    private inventory theInventory; // 인벤템 ID, 인벤템 개수, 장착템 ID
+    private inventory theInventory; // 인벤템 ID, 인벤템 개수, 장착템 ID, 장착템 인덱스
     private UIInventory theUIInventory; // 인벤 스프라이트 (for inventory) (+ 인벤 UI 상태: 수정 후 필요X)
     private ContainerUI theContainerUI; // 상자 스프라이트 (for ContainerItems) - UI 업데이트
     private ContainerItems theContainerItems; // 보관템 ID, 보관템 개수
@@ -241,9 +241,22 @@ public class SaveNLoad : MonoBehaviour
             }
         }
         if(theInventory.equipedItem.Ename != "empty")
-        {   data.equipedItemID = theInventory.equipedItem.id;   }
-        else
-        {   data.equipedItemID = 1000; }
+        {
+            for(int i = 0; i < theUIInventory.uiitems.Count; i++)
+            {
+                // 장착템에 해당하는 칸을 찾으면
+                if(theUIInventory.uiitems[i].item == theInventory.equipedItem)
+                {
+                    data.equipedItemID = theInventory.equipedItem.id;
+                    data.equipedItemIndex = i;
+                }
+            }
+        }
+        else // 장착템이 없다면 (empty)
+        {
+            data.equipedItemID = 1000;
+            data.equipedItemIndex = -1;
+        }
 
         data.containerItemsID.Clear();
         data.containerItemsCnt.Clear();
@@ -369,9 +382,21 @@ public class SaveNLoad : MonoBehaviour
             }
         }
         if(theInventory.equipedItem.Ename != "empty")
-        {   data.equipedItemID = theInventory.equipedItem.id;   }
+        {
+            for(int i = 0; i < theUIInventory.uiitems.Count; i++)
+            {
+                if(theUIInventory.uiitems[i].item == theInventory.equipedItem)
+                {
+                    data.equipedItemID = theInventory.equipedItem.id;
+                    data.equipedItemIndex = i;
+                }
+            }
+        }
         else
-        {   data.equipedItemID = 1000; }
+        {
+            data.equipedItemID = 1000;
+            data.equipedItemIndex = -1;
+        }
 
         data.containerItemsID.Clear();
         data.containerItemsCnt.Clear();
@@ -555,14 +580,23 @@ public class SaveNLoad : MonoBehaviour
                 {
                     if(data.characterItemsID[i] != 1000) // 인벤칸이 비어있지 않았다면
                     {
-                        theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
-                        if(data.characterItemsID[i] == data.equipedItemID)
+                        if(theInventory.CheckForItem(data.characterItemsID[i]) == null) // 아직 없다면
                         {
-                            // 인벤템과 저장된 장착템 ID가 같으면 장착 (인벤에 있는 거라면)
+                            theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                        }
+                        else // 이미 있다면 split
+                        {
+                            theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                            theInventory.PutSplitedItem(data.characterItemsID[i]); // 기존 거에 넣고 다시 분리
+                            // 현재 알고리즘 상 분리된 건 항상 개수가 1로 유지됨
+                            // 따라서 숫자 반영 안 함 but 2개 이상인 경우 발견하면 수정할 것!
+                        }
+                        if(data.characterItemsID[i] == data.equipedItemID && i == data.equipedItemIndex)
+                        {
                             theInventory.equipedItem = theInventory.characterItems[i];
                             theUIInventory.MoveEmphasizedSlot(theUIInventory.uiitems[i].transform); // 강조
                             isEquipedOK = true;
-                        }
+                        } // 인벤템과 저장된 장착템 ID, Index가 같으면 장착 (인벤에 있는 거라면)
                     }
                     else // 인벤칸이 비어있다면
                     {
@@ -776,8 +810,18 @@ public class SaveNLoad : MonoBehaviour
                 {
                     if(data.characterItemsID[i] != 1000)
                     {
-                        theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
-                        if(data.characterItemsID[i] == data.equipedItemID)
+                        if(theInventory.CheckForItem(data.characterItemsID[i]) == null)
+                        {
+                            theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                        }
+                        else
+                        {
+                            theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                            theInventory.PutSplitedItem(data.characterItemsID[i]);
+                            // 현재 알고리즘 상 분리된 건 항상 개수가 1로 유지됨
+                            // 따라서 숫자 반영 안 함 but 2개 이상인 경우 발견하면 수정할 것!
+                        }
+                        if(data.characterItemsID[i] == data.equipedItemID && i == data.equipedItemIndex)
                         {
                             theInventory.equipedItem = theInventory.characterItems[i];
                             theUIInventory.MoveEmphasizedSlot(theUIInventory.uiitems[i].transform);
