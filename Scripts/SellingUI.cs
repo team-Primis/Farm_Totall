@@ -59,31 +59,34 @@ public class SellingUI : MonoBehaviour
 
     void sellItems()
     {
-        //판매 버튼을 누르면 플레이어 돈이 추가됨.
-        playerScript.playerMoneyChange(totalMoney, true);
-
-        //판매창 리셋
-        //돈 다시 0원으로
-        resetMoney();
-        //아이템들을 구매 리스트에서 제거
-        foreach(SUIItem sellingItems in itemSlotList)
+        //돈이 있을때만 / 물건이 있을때만
+        if (totalMoney>0)
         {
-            sellingItems.ResetItemSlot();
+            //판매 버튼을 누르면 플레이어 돈이 추가됨.
+            playerScript.playerMoneyChange(totalMoney, true);
+
+            //판매창 리셋
+            //돈 다시 0원으로
+            resetMoney();
+            //아이템들을 구매 리스트에서 제거
+            foreach (SUIItem sellingItems in itemSlotList)
+            {
+                sellingItems.ResetItemSlot();
+            }
+            //판매창에 바뀐 것 적용
+            UpdateAllItem();
+
+            //만약 판매 아이템 목록 중 장착한 아이템이 있다면, 장착한 아이템에서도 해제한다.
+            if (shouldMakeEmpClear)
+            {
+                inven.ClearSlot(); //인벤 강조표시 제거
+                inven.equipedItem = emptyItem;
+                shouldMakeEmpClear = false;
+            }
+
+            audioSource.clip = moneySound;
+            audioSource.Play();
         }
-        //판매창에 바뀐 것 적용
-        UpdateAllItem();
-
-        //만약 판매 아이템 목록 중 장착한 아이템이 있다면, 장착한 아이템에서도 해제한다.
-        if (shouldMakeEmpClear)
-        {
-            inven.ClearSlot(); //인벤 강조표시 제거
-            inven.equipedItem = emptyItem;
-            shouldMakeEmpClear = false;
-        }
-
-        audioSource.clip = moneySound;
-        audioSource.Play();
-
 
     }
 
