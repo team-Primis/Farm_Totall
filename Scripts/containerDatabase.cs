@@ -36,7 +36,7 @@ public class containerDatabase : MonoBehaviour
              * 
              * 
              */
-            new Item(4,"호박 씨앗","pumpkinSeed","탐스러운 호박이 자란다",Item.Category.item,
+             new Item(4,"호박 씨앗","pumpkinSeed","탐스러운 호박이 자란다",Item.Category.item,
             new Dictionary<string, int>{
                 //구매가격, 물 주기 , 판매가격, 성장기간
                 {"cost",1000 },{"watering", 5},{"sellingPrice",2000},{"dayToGrow",5}
@@ -56,22 +56,64 @@ public class containerDatabase : MonoBehaviour
             {
                 {"cost",70 },{"watering",7},{"sellingPrice",150},{"dayToGrow",7}
             }),
-            new Item(11,"좋은 달걀","GoodEgg","황금색을 띄는 달걀이다.",Item.Category.item),
-            new Item(12,"평범한 달걀","NormalEgg","평범한 달걀이다. 그래도 먹어도 된다.",Item.Category.item),
+            new Item(11,"좋은 달걀","GoodEgg","황금색을 띄는 달걀이다. 아주 맛있다.",Item.Category.item,
+            new Dictionary<string, int>{
+                {"sellingPrice",100 }
+            }),
+            new Item(12,"평범한 달걀","NormalEgg","평범한 달걀이다. 누구나 아는 맛이다.",Item.Category.item,
+            new Dictionary<string, int>{
+                {"sellingPrice",50 }
+            }),
+            // 비타오백, 스누피우유, 박카스, 콜라, 사이다, 핫식스
 
+            new Item(20,"비타오백","vita500","마시면 피로가 5만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",100 },{"sellingPrice",50 },{"recovery",5 } }),
+            new Item(21,"스누피우유","snoopy","마시면 피로가 20만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",500 },{"sellingPrice",250 },{"recovery",20 } }),
+            new Item(22,"박카스","bakkas","마시면 피로가 30만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",700 },{"sellingPrice",350 },{"recovery",30 } }),
+            new Item(23,"콜라","cola","마시면 피로가 10만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",150 },{"sellingPrice",75 },{"recovery",10 } }),
+            new Item(24,"사이다","cidar","마시면 피로가 10만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",150 },{"sellingPrice",75 },{"recovery",10 } }),
+            new Item(25,"핫식스","hotsix","마시면 피로가 100만큼 회복된다.",Item.Category.item,new Dictionary<string, int>{{"cost",2000 },{"sellingPrice",1000 },{"recovery",100 } }),
+
+            new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,
+            new Dictionary<string, int>{
+                {"sellingPrice",3000}, {"recovery", 20}
+            }),
+
+            new Item(41, "파란꽃", "blueFlower", "아주 파랗다. 먹으면 쓰다.", Item.Category.item, new Dictionary<string, int>{ { "sellingPrice",  800}, {"recovery",  10}
+            }),
             new Item(99,"건초","hay","풀이 먹음직스럽게 말랐다.닭이 좋아하게 생겼다",Item.Category.item,
             new Dictionary<string, int>{
                 {"cost",20 }
             }), //나중에 상점 추가
 
-            new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool),
-            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있는 물뿌리개 이다.",Item.Category.tool),
+            new Item(100,"낫","sickle","딱 들기 좋은 크기의 낫이다.",Item.Category.tool,new Dictionary<string, int>{
 
-            new Item(40,"호박","pumpkin","탐스러운 호박이 자랐다",Item.Category.item,
+            }),
+            new Item(101,"물뿌리개","waterSprinkle","동시에 1개의 작물에 물을 줄 수 있다.",Item.Category.tool,
             new Dictionary<string, int>{
-                {"sellingPrice",3000},{"recovery",1}
-            })
+
+            }),
+
+            new Item(102,"호미", "Hoe", "땅을 다시 덮는 데 유용하다.", Item.Category.tool, new Dictionary<string, int>{
+            }),
+
             
+            
+            // trashitem (0304 성현)
+            new Item(1001, "쓰레기1", "trash1", " ", Item.Category.item),
+            new Item(1002, "쓰레기2", "trash2", " ", Item.Category.item),
+            new Item(1003, "쓰레기3", "trash3", " ", Item.Category.item),
+            new Item(1004, "쓰레기4", "trash4", " ", Item.Category.item),
+            new Item(1005, "쓰레기5", "trash5", " ", Item.Category.item),
+            new Item(1006, "쓰레기6", "trash6", " ", Item.Category.item),
+            new Item(1007, "쓰레기7", "trash7", " ", Item.Category.item),
+            new Item(1008, "쓰레기8", "trash8", " ", Item.Category.item),
+            new Item(1009, "쓰레기9", "trash9", " ", Item.Category.item),
+            new Item(1010, "쓰레기10", "trash10", " ", Item.Category.item),
+            new Item(1011, "쓰레기11", "trash11", " ", Item.Category.item),
+            new Item(1012, "쓰레기12", "trash12", " ", Item.Category.item),
+            new Item(1013, "쓰레기13", "trash13", " ", Item.Category.item),
+            new Item(1014, "쓰레기14", "trash14", " ", Item.Category.item),
+
 
         };
     }

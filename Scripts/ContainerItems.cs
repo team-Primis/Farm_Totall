@@ -50,6 +50,7 @@ public class ContainerItems : MonoBehaviour
             //Debug.Log(id + "라는 id를 가진 아이템을 " + num + "개 더 추가합니다.");
         }
     }
+    
 
 
     public Item CheckForItem(int id)

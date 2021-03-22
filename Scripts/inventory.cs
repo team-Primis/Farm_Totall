@@ -96,7 +96,7 @@ public class inventory : MonoBehaviour
         if (equipedItem != emptyItem)
         {
             containerItemAddScript.PutInContainer(equipedItem.id, equipedItem.count);
-            equipedItem.count = 0;
+            //equipedItem.count = 0 ;
             RemoveAll(equipedItem);
             equipedItem = emptyItem;
             ClearSlot();
@@ -136,7 +136,7 @@ public class inventory : MonoBehaviour
         {
             if (equipedItem.category == Item.Category.item)
             {
-                PutSplitedItem(equipedItem.id);
+                PutSplitedItem(equipedItem);
             }
         }
 
@@ -268,7 +268,7 @@ public class inventory : MonoBehaviour
         sellingUI.isItemChanged = true;
 
     }
-
+    //자판기에서 씨앗 이름으로 접근해야 해서 overloading
     public void putInventory(string name, int plusNum = 1)
     {
         //db 확인
@@ -302,31 +302,16 @@ public class inventory : MonoBehaviour
 
     }
 
+
     //컨테이너에서 아이템 빼기 용
     public void putInventory(Item item, int plusNum = 1)
     {
-        //같은 id의 인벤아이템을 가져옴
+        //같은 id의 인벤아이템을 가져와서, db의 갯수 늘려주고, 인벤에 아이템 그대로 추가
         Item invenItem = db.GetItem(item.id);
-
-        //처음 인벤토리에 넣을 때
-        if (CheckForItem(item.id) == null)
-        {
-            Debug.Log("해당 id를 가진 아이템이 인벤에 없으므로 추가합니다.");
-            invenItem.count = plusNum;
-            characterItems.Add(invenItem);
-            inventoryUI.AddNewItem(invenItem);
-
-        }
-
-        //나중에 인벤토리에 넣을때
-        //나중에 인벤토리에 넣을때
-        else
-        {
-            
-            Debug.Log("해당 id를 가진 아이템이 있으므로 갯수만 증가시킵니다.");
-            invenItem.count += plusNum;
-            inventoryUI.UpdateItemNumUI(invenItem);
-        }
+        invenItem.count = plusNum;
+        characterItems.Add(invenItem);
+        inventoryUI.AddNewItem(invenItem);
+        
         sellingUI.isItemChanged = true;
 
     }
