@@ -67,12 +67,12 @@ public class SpawnManager : MonoBehaviour
             Invoke("QuitLoadO2I", 0.4f); // 씬 바꿀 시간 부여
         }
 
-        if(SceneManager.GetActiveScene().name == "OutSide" && GMScript.dayChanged)
+        if(SceneManager.GetActiveScene().name == "OutSide" && GMScript.dayChanged && GMScript.timer >= 420)
         {
             GMScript.dayChanged = false; // 한 번만 체크를 위해 false로 변경
             for(int i = 0; i < chickenCount; i++)
             {
-                chickenList[i].GetComponent<Chicken>().dayChangedCH = true;
+                chickenList[i].GetComponent<Chicken>().checkEgg = true;
             }
         }
 

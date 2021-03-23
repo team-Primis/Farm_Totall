@@ -111,7 +111,7 @@ public class SaveNLoad : MonoBehaviour
         theStemina.curHp = 200f; // stemina 초기화
         
         int pastMoney = thePlayerControll.money; // 돈 초기화 - 1
-        thePlayerControll.playerMoneyChange(2000 - pastMoney, true); // 돈 초기화 - 2
+        thePlayerControll.playerMoneyChange(10000 - pastMoney, true); // 돈 초기화 - 2
         thePlayerControll.laborCount = 5; // laborCount 초기화
         
         theSpawnManager.chickenList.Clear(); // 닭 목록 초기화
@@ -130,12 +130,9 @@ public class SaveNLoad : MonoBehaviour
             theInventory.RemoveAll(theInventory.characterItems[i].id);
         } // 인벤 아이템 비우기 (인벤 초기화)
         theUIInventory.MakeSlotNull(); // 인벤 UI 비우기 (인벤 UI 초기화)
-        theInventory.putInventory(1,3); // 기본 인벤템
-        theInventory.putInventory(2); // 기본 인벤템
         theInventory.putInventory(100); // 기본 인벤템
         theInventory.putInventory(101); // 기본 인벤템
         theInventory.putInventory(102); // 기본 인벤템 (호미 0316 추가)
-        theInventory.putInventory(99,3); // 기본 인벤템
         theUIInventory.MakeSlotClear(); // 장착템 UI 초기화
         theInventory.equipedItem = theInventory.emptyItem; // 장착템 초기화
 
@@ -191,7 +188,7 @@ public class SaveNLoad : MonoBehaviour
 
         data.currentHp = theStemina.curHp;
 
-        data.usedMoney = 2000 - thePlayerControll.money; // 쓴 금액으로 2000은 기본값
+        data.usedMoney = 10000 - thePlayerControll.money; // 쓴 금액으로 10000은 기본값
         data.laborCount = thePlayerControll.laborCount;
 
         data.chickenCount = theSpawnManager.chickenCount;
@@ -199,30 +196,65 @@ public class SaveNLoad : MonoBehaviour
         data.checkEgg.Clear();
         data.chickenXP.Clear();
         data.chickenYP.Clear();
-        for(int i = 0; i < theSpawnManager.chickenCount; i++)
+        if(thePlayerMove.currentMapName == "OutSide")
+        {   
+            for(int i = 0; i < theSpawnManager.chickenCount; i++)
+            {
+                data.happy.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().happy);
+                data.checkEgg.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg);
+                data.chickenXP.Add(theSpawnManager.chickenList[i].transform.position.x);
+                data.chickenYP.Add(theSpawnManager.chickenList[i].transform.position.y);
+            }
+        }
+        else if(thePlayerMove.currentMapName == "Inside")
         {
-            data.happy.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().happy);
-            data.checkEgg.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg);
-            data.chickenXP.Add(theSpawnManager.chickenList[i].transform.position.x);
-            data.chickenYP.Add(theSpawnManager.chickenList[i].transform.position.y);
+            for(int i = 0; i < theSpawnManager.chickenCount; i++)
+            {
+                data.happy.Add(theSpawnManager.chickenHp[i]);
+                data.checkEgg.Add(theSpawnManager.chickenCe[i]);
+                data.chickenXP.Add(theSpawnManager.chickenXp[i]);
+                data.chickenYP.Add(theSpawnManager.chickenYp[i]);
+            }
         }
         // ----------------------------------------------
         data.nEggCount = theSpawnManager.nEggCount;
         data.nEggXP.Clear();
         data.nEggYP.Clear();
-        for (int i = 0; i < theSpawnManager.nEggCount; i++)
+        if(thePlayerMove.currentMapName == "OutSide")
         {
-            data.nEggXP.Add(theSpawnManager.nEggList[i].transform.position.x);
-            data.nEggYP.Add(theSpawnManager.nEggList[i].transform.position.y);
+            for (int i = 0; i < theSpawnManager.nEggCount; i++)
+            {
+                data.nEggXP.Add(theSpawnManager.nEggList[i].transform.position.x);
+                data.nEggYP.Add(theSpawnManager.nEggList[i].transform.position.y);
+            }
+        }
+        else if(thePlayerMove.currentMapName == "Inside")
+        {
+            for (int i = 0; i < theSpawnManager.nEggCount; i++)
+            {
+                data.nEggXP.Add(theSpawnManager.neggXp[i]);
+                data.nEggYP.Add(theSpawnManager.neggYp[i]);
+            }
         }
         // ----------------------------------------------
         data.gEggCount = theSpawnManager.gEggCount;
         data.gEggXP.Clear();
         data.gEggYP.Clear();
-        for (int i = 0; i < theSpawnManager.gEggCount; i++)
+        if(thePlayerMove.currentMapName == "OutSide")
         {
-            data.gEggXP.Add(theSpawnManager.gEggList[i].transform.position.x);
-            data.gEggYP.Add(theSpawnManager.gEggList[i].transform.position.y);
+            for (int i = 0; i < theSpawnManager.gEggCount; i++)
+            {
+                data.gEggXP.Add(theSpawnManager.gEggList[i].transform.position.x);
+                data.gEggYP.Add(theSpawnManager.gEggList[i].transform.position.y);
+            }
+        }
+        else if(thePlayerMove.currentMapName == "Inside")
+        {
+            for (int i = 0; i < theSpawnManager.gEggCount; i++)
+            {
+                data.gEggXP.Add(theSpawnManager.geggXp[i]);
+                data.gEggYP.Add(theSpawnManager.geggYp[i]);
+            }
         }
 
         data.characterItemsID.Clear();
@@ -332,7 +364,7 @@ public class SaveNLoad : MonoBehaviour
         data.day = theGameManager.day;
         data.timer = theGameManager.timer;
         data.currentHp = theStemina.curHp;
-        data.usedMoney = 2000 - thePlayerControll.money;
+        data.usedMoney = 10000 - thePlayerControll.money;
         data.laborCount = thePlayerControll.laborCount;
 
         data.chickenCount = theSpawnManager.chickenCount;
@@ -340,30 +372,65 @@ public class SaveNLoad : MonoBehaviour
         data.checkEgg.Clear();
         data.chickenXP.Clear();
         data.chickenYP.Clear();
-        for(int i = 0; i < theSpawnManager.chickenCount; i++)
+        if(thePlayerMove.currentMapName == "OutSide")
+        {   
+            for(int i = 0; i < theSpawnManager.chickenCount; i++)
+            {
+                data.happy.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().happy);
+                data.checkEgg.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg);
+                data.chickenXP.Add(theSpawnManager.chickenList[i].transform.position.x);
+                data.chickenYP.Add(theSpawnManager.chickenList[i].transform.position.y);
+            }
+        }
+        else if(thePlayerMove.currentMapName == "Inside")
         {
-            data.happy.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().happy);
-            data.checkEgg.Add(theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg);
-            data.chickenXP.Add(theSpawnManager.chickenList[i].transform.position.x);
-            data.chickenYP.Add(theSpawnManager.chickenList[i].transform.position.y);
+            for(int i = 0; i < theSpawnManager.chickenCount; i++)
+            {
+                data.happy.Add(theSpawnManager.chickenHp[i]);
+                data.checkEgg.Add(theSpawnManager.chickenCe[i]);
+                data.chickenXP.Add(theSpawnManager.chickenXp[i]);
+                data.chickenYP.Add(theSpawnManager.chickenYp[i]);
+            }
         }
         
         data.nEggCount = theSpawnManager.nEggCount;
         data.nEggXP.Clear();
         data.nEggYP.Clear();
-        for (int i = 0; i < theSpawnManager.nEggCount; i++)
+        if(thePlayerMove.currentMapName == "OutSide")
         {
-            data.nEggXP.Add(theSpawnManager.nEggList[i].transform.position.x);
-            data.nEggYP.Add(theSpawnManager.nEggList[i].transform.position.y);
+            for (int i = 0; i < theSpawnManager.nEggCount; i++)
+            {
+                data.nEggXP.Add(theSpawnManager.nEggList[i].transform.position.x);
+                data.nEggYP.Add(theSpawnManager.nEggList[i].transform.position.y);
+            }
         }
-        
+        else if(thePlayerMove.currentMapName == "Inside")
+        {
+            for (int i = 0; i < theSpawnManager.nEggCount; i++)
+            {
+                data.nEggXP.Add(theSpawnManager.neggXp[i]);
+                data.nEggYP.Add(theSpawnManager.neggYp[i]);
+            }
+        }
+
         data.gEggCount = theSpawnManager.gEggCount;
         data.gEggXP.Clear();
         data.gEggYP.Clear();
-        for (int i = 0; i < theSpawnManager.gEggCount; i++)
+        if(thePlayerMove.currentMapName == "OutSide")
         {
-            data.gEggXP.Add(theSpawnManager.gEggList[i].transform.position.x);
-            data.gEggYP.Add(theSpawnManager.gEggList[i].transform.position.y);
+            for (int i = 0; i < theSpawnManager.gEggCount; i++)
+            {
+                data.gEggXP.Add(theSpawnManager.gEggList[i].transform.position.x);
+                data.gEggYP.Add(theSpawnManager.gEggList[i].transform.position.y);
+            }
+        }
+        else if(thePlayerMove.currentMapName == "Inside")
+        {
+            for (int i = 0; i < theSpawnManager.gEggCount; i++)
+            {
+                data.gEggXP.Add(theSpawnManager.geggXp[i]);
+                data.gEggYP.Add(theSpawnManager.geggYp[i]);
+            }
         }
 
         data.characterItemsID.Clear();
@@ -524,46 +591,92 @@ public class SaveNLoad : MonoBehaviour
 
                 theStemina.curHp = data.currentHp;
 
-                thePlayerControll.money = 2000; // 돈 초기화
+                thePlayerControll.money = 10000; // 돈 초기화
                 thePlayerControll.playerMoneyChange(data.usedMoney, false); // 쓴 돈 빼서 업데이트
                 thePlayerControll.laborCount = data.laborCount;
                 
                 theSpawnManager.chickenList.Clear();
                 theSpawnManager.chickenCount = 0;
-                for(int i = 0; i < data.chickenCount; i++)
+                theSpawnManager.chickenHp.Clear();
+                theSpawnManager.chickenCe.Clear();
+                theSpawnManager.chickenXp.Clear();
+                theSpawnManager.chickenYp.Clear();
+                if(data.sceneName == "OutSide")
                 {
-                    theSpawnManager.SpawnChicken();
-                } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
-                for(int i = 0; i < data.chickenCount; i++)
+                    for(int i = 0; i < data.chickenCount; i++)
+                    {
+                        theSpawnManager.SpawnChicken();
+                    } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                    for(int i = 0; i < data.chickenCount; i++)
+                    {
+                        theSpawnManager.chickenList[i].GetComponent<Chicken>().happy = data.happy[i];
+                        theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg = data.checkEgg[i];
+                        theSpawnManager.chickenList[i].transform.position =
+                                                        new Vector2(data.chickenXP[i], data.chickenYP[i]);
+                    }
+                }
+                else if(data.sceneName == "Inside")
                 {
-                    theSpawnManager.chickenList[i].GetComponent<Chicken>().happy = data.happy[i];
-                    theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg = data.checkEgg[i];
-                    theSpawnManager.chickenList[i].transform.position =
-                                                    new Vector2(data.chickenXP[i], data.chickenYP[i]);
+                    theSpawnManager.chickenCount = data.chickenCount;
+                    for(int i = 0; i < data.chickenCount; i++)
+                    {
+                        theSpawnManager.chickenHp.Add(data.happy[i]);
+                        theSpawnManager.chickenCe.Add(data.checkEgg[i]);
+                        theSpawnManager.chickenXp.Add(data.chickenXP[i]);
+                        theSpawnManager.chickenYp.Add(data.chickenYP[i]);
+                    }
                 }
                 // ----------------------------------------------
                 theSpawnManager.nEggList.Clear();
                 theSpawnManager.nEggCount = 0;
-                for(int i = 0; i < data.nEggCount; i++)
+                theSpawnManager.neggXp.Clear();
+                theSpawnManager.neggYp.Clear();
+                if(data.sceneName == "OutSide")
                 {
-                    theSpawnManager.SpawnNEgg();
-                } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
-                for(int i = 0; i < data.nEggCount; i++)
+                    for(int i = 0; i < data.nEggCount; i++)
+                    {
+                        theSpawnManager.SpawnNEgg();
+                    } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                    for(int i = 0; i < data.nEggCount; i++)
+                    {
+                        theSpawnManager.nEggList[i].transform.position =
+                                                        new Vector2(data.nEggXP[i], data.nEggYP[i]);
+                    }
+                }
+                else if(data.sceneName == "Inside")
                 {
-                    theSpawnManager.nEggList[i].transform.position =
-                                                    new Vector2(data.nEggXP[i], data.nEggYP[i]);
+                    theSpawnManager.nEggCount = data.nEggCount;
+                    for(int i = 0; i < data.nEggCount; i++)
+                    {
+                        theSpawnManager.neggXp.Add(data.nEggXP[i]);
+                        theSpawnManager.neggYp.Add(data.nEggYP[i]);
+                    }
                 }
                 // ----------------------------------------------
                 theSpawnManager.gEggList.Clear();
                 theSpawnManager.gEggCount = 0;
-                for(int i = 0; i < data.gEggCount; i++)
+                theSpawnManager.geggXp.Clear();
+                theSpawnManager.geggYp.Clear();
+                if(data.sceneName == "OutSide")
                 {
-                    theSpawnManager.SpawnGEgg();
-                } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
-                for(int i = 0; i < data.gEggCount; i++)
+                    for(int i = 0; i < data.gEggCount; i++)
+                    {
+                        theSpawnManager.SpawnGEgg();
+                    } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                    for(int i = 0; i < data.gEggCount; i++)
+                    {
+                        theSpawnManager.gEggList[i].transform.position =
+                                                        new Vector2(data.gEggXP[i], data.gEggYP[i]);
+                    }
+                }
+                else if(data.sceneName == "Inside")
                 {
-                    theSpawnManager.gEggList[i].transform.position =
-                                                    new Vector2(data.gEggXP[i], data.gEggYP[i]);
+                    theSpawnManager.gEggCount = data.gEggCount;
+                    for(int i = 0; i < data.gEggCount; i++)
+                    {
+                        theSpawnManager.geggXp.Add(data.gEggXP[i]);
+                        theSpawnManager.geggYp.Add(data.gEggYP[i]);
+                    }
                 }
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 2 (~0.4)
@@ -586,10 +699,10 @@ public class SaveNLoad : MonoBehaviour
                         }
                         else // 이미 있다면 split
                         {
-                            theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                            theInventory.putInventory(data.characterItemsID[i], 1);
                             theInventory.PutSplitedItem(data.characterItemsID[i]); // 기존 거에 넣고 다시 분리
-                            // 현재 알고리즘 상 분리된 건 항상 개수가 1로 유지됨
-                            // 따라서 숫자 반영 안 함 but 2개 이상인 경우 발견하면 수정할 것!
+                            theInventory.characterItems[i].count += data.characterItemsCnt[i] - 1;
+                            theUIInventory.uiitems[i].UpdateNumUI(theUIInventory.uiitems[i].item);
                         }
                         if(data.characterItemsID[i] == data.equipedItemID && i == data.equipedItemIndex)
                         {
@@ -755,46 +868,92 @@ public class SaveNLoad : MonoBehaviour
                 theGameManager.day = data.day;
                 theGameManager.timer = data.timer;
                 theStemina.curHp = data.currentHp;
-                thePlayerControll.money = 2000;
+                thePlayerControll.money = 10000;
                 thePlayerControll.playerMoneyChange(data.usedMoney, false);
                 thePlayerControll.laborCount = data.laborCount;
             
                 theSpawnManager.chickenList.Clear();
                 theSpawnManager.chickenCount = 0;
-                for(int i = 0; i < data.chickenCount; i++)
+                theSpawnManager.chickenHp.Clear();
+                theSpawnManager.chickenCe.Clear();
+                theSpawnManager.chickenXp.Clear();
+                theSpawnManager.chickenYp.Clear();
+                if(data.sceneName == "OutSide")
                 {
-                    theSpawnManager.SpawnChicken();
+                    for(int i = 0; i < data.chickenCount; i++)
+                    {
+                        theSpawnManager.SpawnChicken();
+                    } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                    for(int i = 0; i < data.chickenCount; i++)
+                    {
+                        theSpawnManager.chickenList[i].GetComponent<Chicken>().happy = data.happy[i];
+                        theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg = data.checkEgg[i];
+                        theSpawnManager.chickenList[i].transform.position =
+                                                        new Vector2(data.chickenXP[i], data.chickenYP[i]);
+                    }
                 }
-                for(int i = 0; i < data.chickenCount; i++)
+                else if(data.sceneName == "Inside")
                 {
-                    theSpawnManager.chickenList[i].GetComponent<Chicken>().happy = data.happy[i];
-                    theSpawnManager.chickenList[i].GetComponent<Chicken>().checkEgg = data.checkEgg[i];
-                    theSpawnManager.chickenList[i].transform.position =
-                                                    new Vector2(data.chickenXP[i], data.chickenYP[i]);
+                    theSpawnManager.chickenCount = data.chickenCount;
+                    for(int i = 0; i < data.chickenCount; i++)
+                    {
+                        theSpawnManager.chickenHp.Add(data.happy[i]);
+                        theSpawnManager.chickenCe.Add(data.checkEgg[i]);
+                        theSpawnManager.chickenXp.Add(data.chickenXP[i]);
+                        theSpawnManager.chickenYp.Add(data.chickenYP[i]);
+                    }
                 }
                 
                 theSpawnManager.nEggList.Clear();
                 theSpawnManager.nEggCount = 0;
-                for(int i = 0; i < data.nEggCount; i++)
+                theSpawnManager.neggXp.Clear();
+                theSpawnManager.neggYp.Clear();
+                if(data.sceneName == "OutSide")
                 {
-                    theSpawnManager.SpawnNEgg();
+                    for(int i = 0; i < data.nEggCount; i++)
+                    {
+                        theSpawnManager.SpawnNEgg();
+                    } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                    for(int i = 0; i < data.nEggCount; i++)
+                    {
+                        theSpawnManager.nEggList[i].transform.position =
+                                                        new Vector2(data.nEggXP[i], data.nEggYP[i]);
+                    }
                 }
-                for(int i = 0; i < data.nEggCount; i++)
+                else if(data.sceneName == "Inside")
                 {
-                    theSpawnManager.nEggList[i].transform.position =
-                                                    new Vector2(data.nEggXP[i], data.nEggYP[i]);
+                    theSpawnManager.nEggCount = data.nEggCount;
+                    for(int i = 0; i < data.nEggCount; i++)
+                    {
+                        theSpawnManager.neggXp.Add(data.nEggXP[i]);
+                        theSpawnManager.neggYp.Add(data.nEggYP[i]);
+                    }
                 }
                 
                 theSpawnManager.gEggList.Clear();
                 theSpawnManager.gEggCount = 0;
-                for(int i = 0; i < data.gEggCount; i++)
+                theSpawnManager.geggXp.Clear();
+                theSpawnManager.geggYp.Clear();
+                if(data.sceneName == "OutSide")
                 {
-                    theSpawnManager.SpawnGEgg();
+                    for(int i = 0; i < data.gEggCount; i++)
+                    {
+                        theSpawnManager.SpawnGEgg();
+                    } // for문을 통해 스폰하면서 SM의 Count도 결정됨, 리스트에도 추가됨
+                    for(int i = 0; i < data.gEggCount; i++)
+                    {
+                        theSpawnManager.gEggList[i].transform.position =
+                                                        new Vector2(data.gEggXP[i], data.gEggYP[i]);
+                    }
                 }
-                for(int i = 0; i < data.gEggCount; i++)
+                else if(data.sceneName == "Inside")
                 {
-                    theSpawnManager.gEggList[i].transform.position =
-                                                    new Vector2(data.gEggXP[i], data.gEggYP[i]);
+                    theSpawnManager.gEggCount = data.gEggCount;
+                    for(int i = 0; i < data.gEggCount; i++)
+                    {
+                        theSpawnManager.geggXp.Add(data.gEggXP[i]);
+                        theSpawnManager.geggYp.Add(data.gEggYP[i]);
+                    }
                 }
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 2 (~0.4)
@@ -816,10 +975,10 @@ public class SaveNLoad : MonoBehaviour
                         }
                         else
                         {
-                            theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                            theInventory.putInventory(data.characterItemsID[i], 1);
                             theInventory.PutSplitedItem(data.characterItemsID[i]);
-                            // 현재 알고리즘 상 분리된 건 항상 개수가 1로 유지됨
-                            // 따라서 숫자 반영 안 함 but 2개 이상인 경우 발견하면 수정할 것!
+                            theInventory.characterItems[i].count += data.characterItemsCnt[i] - 1;
+                            theUIInventory.uiitems[i].UpdateNumUI(theUIInventory.uiitems[i].item);
                         }
                         if(data.characterItemsID[i] == data.equipedItemID && i == data.equipedItemIndex)
                         {

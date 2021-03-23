@@ -56,8 +56,6 @@ public class Chicken : MonoBehaviour
 
         anim = GetComponent<Animator>(); // anim 변수 선언
 
-        checkEgg = true; // 초기 설정
-
         thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
 
         notice = GameObject.Find("Notice").GetComponent<NoticeText>(); // 안내 메세지
@@ -99,15 +97,7 @@ public class Chicken : MonoBehaviour
         // 하루마다 달걀 낳기
         if(SceneManager.GetActiveScene().name == "OutSide")
         {
-            if(GMScript.timer >= 420 && dayChangedCH) // 날 밝으면 (7시 기준 = 420)
-            {
-                dayChangedCH = false; // 한 번만 체크를 위해 false로 변경
-                if(checkEgg == false) // 한 번만
-                {
-                    checkEgg = true; // true
-                }
-            }
-            else if(GMScript.timer >= 420 && checkEgg) // 그 다음에
+            if(GMScript.timer >= 420 && checkEgg) // 날 밝으면
             {
                 checkEgg = false; // false
                 LayEgg(); // 알 낳고

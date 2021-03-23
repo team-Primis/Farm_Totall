@@ -120,7 +120,7 @@ public class MenuControl : MonoBehaviour
             {
                 SNLData data1;
                 data1 = (SNLData)bf.Deserialize(file1); // 직렬화된 것을 Data 형식으로 바꿈
-                int moneyNow = 2000 - data1.usedMoney; // 기본값 2000
+                int moneyNow = 10000 - data1.usedMoney; // 기본값 10000
                 AboutF1.GetComponent<Text>().text = "FILE 1 : DAY " + data1.day +
                                                         " / " + moneyNow + "원" +
                                                         " / " + "닭 " + data1.chickenCount + "마리";
@@ -146,7 +146,7 @@ public class MenuControl : MonoBehaviour
             {
                 SNLData data2;
                 data2 = (SNLData)bf.Deserialize(file2); // 직렬화된 것을 Data 형식으로 바꿈
-                int moneyNow = 2000 - data2.usedMoney; // 기본값 2000
+                int moneyNow = 10000 - data2.usedMoney; // 기본값 10000
                 AboutF2.GetComponent<Text>().text = "FILE 2 : DAY " + data2.day +
                                                         " / " + moneyNow + "원" +
                                                         " / " + "닭 " + data2.chickenCount + "마리";
