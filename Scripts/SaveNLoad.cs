@@ -128,12 +128,13 @@ public class SaveNLoad : MonoBehaviour
             theInventory.RemoveAll(theInventory.characterItems[i].id);
         } // 인벤 아이템 비우기 (인벤 초기화)
         theUIInventory.MakeSlotNull(); // 인벤 UI 비우기 (인벤 UI 초기화)
-        theInventory.putInventory(1,3); // 기본 인벤템
-        theInventory.putInventory(2); // 기본 인벤템
+        //인벤 기본 아이템을 도구3종(낫,물뿌리개,호미) 말고는 없애줬습니당(0324 미해)
+        //theInventory.putInventory(1,3); // 기본 인벤템
+        //theInventory.putInventory(2); // 기본 인벤템
         theInventory.putInventory(100); // 기본 인벤템
         theInventory.putInventory(101); // 기본 인벤템
-        //theInventory.putInventory(102); // 기본 인벤템 (호미 0316 추가)
-        theInventory.putInventory(99,3); // 기본 인벤템
+        theInventory.putInventory(102); // 기본 인벤템 (호미 0316 추가)
+        //theInventory.putInventory(99,3); // 기본 인벤템
         theUIInventory.MakeSlotClear(); // 장착템 UI 초기화
         theInventory.equipedItem = theInventory.emptyItem; // 장착템 초기화
 
