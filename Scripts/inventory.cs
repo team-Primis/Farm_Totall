@@ -36,6 +36,7 @@ public class inventory : MonoBehaviour
     AudioSource audioSource;
     public AudioClip eatingSound;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -45,7 +46,7 @@ public class inventory : MonoBehaviour
         stM = GameObject.Find("Canvas2").transform.Find("Slider").GetComponent<Stemina>();
         putInBtn.onClick.AddListener(PutInContainer);
 
-        this.audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
+        audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
        
         
         //테스트용으로 미리 인벤토리에 넣어놓은것들

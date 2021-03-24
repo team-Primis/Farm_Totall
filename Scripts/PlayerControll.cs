@@ -14,7 +14,7 @@ public class PlayerControll : MonoBehaviour
     public int laborCount = 5;
     GameManager GMScript;
     private inventory inven;
-    
+
 
     public string item; //현재 손에 든 아이템
 
@@ -25,7 +25,7 @@ public class PlayerControll : MonoBehaviour
     public int numNE = 0; // 보유 중인 보통 알의 개수*/
 
     private NoticeText notice; //(미해, 0223 추가)
-    
+
     public SpawnManager SMScript; // (성현, 0219 추가)
 
     // Start is called before the first frame update
@@ -35,8 +35,17 @@ public class PlayerControll : MonoBehaviour
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         coinTextScript = GameObject.Find("haveMoney").GetComponent<CoinText>();
         notice = GameObject.Find("Notice").GetComponent<NoticeText>(); //(미해, 0222 추가)
-        
+
         SMScript = GameObject.Find("SpawnManager").GetComponent<SpawnManager>(); // (성현, 0219 추가)
+    }
+
+    void Update()
+    {
+        //테스트용 코드. M 키 누르면 1000원 추가
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            playerMoneyChange(1000, true);
+        }
     }
 
     //플레이어의 돈의 수량을 바꾸고, 그에 맞게 UI를 업데이트
