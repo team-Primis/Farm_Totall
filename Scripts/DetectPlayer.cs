@@ -31,7 +31,7 @@ public class DetectPlayer : MonoBehaviour
                 panelToOpen.SetActive(!panelToOpen.activeSelf);
                 GMScript.isTimerStoped = panelToOpen.activeSelf;
                 GMScript.isSleepOpen = panelToOpen.activeSelf;
-                isOpened = true;
+                isOpened = panelToOpen.activeSelf;
 
 
 
