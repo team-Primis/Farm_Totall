@@ -57,6 +57,7 @@ public class SleepTight : MonoBehaviour
         {
             GMscript.timer = (thisTime - 60 * 24);
             GMscript.day += 1;
+            GMscript.dayChanged = true; // (0320 성현)
 
         }
         plantIsGrowing = true;

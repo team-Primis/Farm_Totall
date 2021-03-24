@@ -72,7 +72,7 @@ public class TitleManager : MonoBehaviour
             {
                 SNLData data1;
                 data1 = (SNLData)bf.Deserialize(file1); // 직렬화된 것을 Data 형식으로 바꿈
-                int moneyNow = 2000 - data1.usedMoney; // 기본값 2000
+                int moneyNow = 10000 - data1.usedMoney; // 기본값 10000
                 F1Content.GetComponent<Text>().text = "DAY " + data1.day +
                                                         " / " + moneyNow + "원" +
                                                         " / " + "닭 " + data1.chickenCount + "마리";
@@ -98,7 +98,7 @@ public class TitleManager : MonoBehaviour
             {
                 SNLData data2;
                 data2 = (SNLData)bf.Deserialize(file2); // 직렬화된 것을 Data 형식으로 바꿈
-                int moneyNow = 2000 - data2.usedMoney; // 기본값 2000
+                int moneyNow = 10000 - data2.usedMoney; // 기본값 10000
                 F2Content.GetComponent<Text>().text = "DAY " + data2.day +
                                                         " / " + moneyNow + "원" +
                                                         " / " + "닭 " + data2.chickenCount + "마리";
@@ -141,5 +141,27 @@ public class TitleManager : MonoBehaviour
     {
         Debug.Log("File 2 이어하기");
         theSaveNLoad.CallLoadF2();
+    }
+
+    public void OnClickR1() // (0322)
+    {
+        FileInfo fileInfo1 = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        if (fileInfo1.Exists) // 파일이 존재하면
+        {
+            File.Delete(Application.dataPath + "/SaveFile1.txt");
+            File.Delete(Application.dataPath + "/SaveFile1.txt.meta");
+            F1Content.GetComponent<Text>().text = "NO FILE";
+        }
+    }
+
+    public void OnClickR2() // (0322)
+    {
+        FileInfo fileInfo2 = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        if (fileInfo2.Exists) // 파일이 존재하면
+        {
+            File.Delete(Application.dataPath + "/SaveFile2.txt");
+            File.Delete(Application.dataPath + "/SaveFile2.txt.meta");
+            F2Content.GetComponent<Text>().text = "NO FILE";
+        }
     }
 }

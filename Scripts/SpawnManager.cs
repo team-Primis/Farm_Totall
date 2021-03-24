@@ -36,6 +36,9 @@ public class SpawnManager : MonoBehaviour
     public int DoClearNum = 1; // 중복 방지 (밖->안)
     public int DoLoadNum = 1; // 중복 방지 (안->밖)
 
+    // 알 낳기 관련
+    bool checkOK = false;
+
     public GameManager GMScript; // timer 사용
 
     // Start is called before the first frame update
@@ -64,10 +67,20 @@ public class SpawnManager : MonoBehaviour
             Invoke("QuitLoadO2I", 0.4f); // 씬 바꿀 시간 부여
         }
 
+        if(SceneManager.GetActiveScene().name == "OutSide" && GMScript.dayChanged && GMScript.timer >= 420)
+        {
+            GMScript.dayChanged = false; // 한 번만 체크를 위해 false로 변경
+            for(int i = 0; i < chickenCount; i++)
+            {
+                chickenList[i].GetComponent<Chicken>().checkEgg = true;
+            }
+        }
+
         if(SceneManager.GetActiveScene().name == "Inside")
         {
-            if(GMScript.timer >= 420 && GMScript.timer <= 424) // 날 밝으면 (7시 기준 = 420)
+            if(GMScript.timer >= 420 && GMScript.dayChanged) // 날 밝으면 (7시 기준 = 420)
             {
+                GMScript.dayChanged = false; // 한 번만 체크를 위해 false로 변경
                 for(int i = 0; i < chickenCount; i++)
                 {
                     if(chickenCe[i] == false) // 한 번만
@@ -76,9 +89,11 @@ public class SpawnManager : MonoBehaviour
                         //Debug.Log(i+"번째 닭 알 낳을 준비 완료");
                     }
                 }
+                checkOK = true; // 알 낳을 준비 완료
             }
-            else if(GMScript.timer > 424 && GMScript.timer <= 428) // 그 다음에
+            else if(GMScript.timer >= 420 && checkOK) // 그 다음에
             {
+                checkOK = false; // 중복 방지
                 for(int i = 0; i < chickenCount; i++)
                 {
                     if(chickenCe[i] == true) // 한 번만

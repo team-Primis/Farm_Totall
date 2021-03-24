@@ -80,6 +80,7 @@ public class PlayerControll : MonoBehaviour
             if(num < SMScript.gEggList.Count) // index 찾았으면
             {
                 SMScript.gEggList.RemoveAt(num);
+                SMScript.gEggCount -= 1;
             }
             else
             {
@@ -109,6 +110,7 @@ public class PlayerControll : MonoBehaviour
             if(num < SMScript.nEggList.Count) // index 찾았으면
             {
                 SMScript.nEggList.RemoveAt(num);
+                SMScript.nEggCount -= 1;
             }
             else
             {
