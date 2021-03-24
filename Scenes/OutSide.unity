@@ -2988,8 +2988,6 @@ MonoBehaviour:
   canvass: {fileID: 0}
   sleepUI: {fileID: 0}
   zeroHp: 0
-  imagePaint: {fileID: 0}
-  canvasPaint: {fileID: 0}
 --- !u!114 &289152762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6330,18 +6328,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dae5eb67119ab84b9dcba5d9f5af069, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 0}
+  GMscript: {fileID: 0}
+  sPP: {fileID: 0}
+  audioSource: {fileID: 0}
+  sleepingSound: {fileID: 0}
   sleepUI: {fileID: 187972614}
   thePlayer: {fileID: 0}
-  GMscript: {fileID: 0}
   sleepingLoadingUI: {fileID: 0}
   canvass: {fileID: 0}
   stM: {fileID: 0}
   wantedSleepTime: 7
-  theGap: 0
   thisTime: 0
   plantIsGrowing: 0
-  sPP: {fileID: 0}
+  setSoundOn: 0
 --- !u!224 &652228252 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4495088193601889611, guid: 2fc893eefb7229f41a623d6ecd58ebe2,
@@ -8207,6 +8206,7 @@ MonoBehaviour:
   thePlayer: {fileID: 0}
   Inven: {fileID: 0}
   stM: {fileID: 0}
+  wateringSound: {fileID: 0}
 --- !u!4 &790564872
 Transform:
   m_ObjectHideFlags: 0
@@ -67036,7 +67036,6 @@ MonoBehaviour:
   thePlayer: {fileID: 943619889}
   Inven: {fileID: 0}
   stM: {fileID: 0}
-  number: 0
   dontDestroy: {fileID: 0}
   GoIn: 0
   GoOut: 0
@@ -67044,6 +67043,7 @@ MonoBehaviour:
   PlantXp: []
   PlantYp: []
   GMscript: {fileID: 0}
+  plantingPlant: {fileID: 0}
 --- !u!4 &863375172
 Transform:
   m_ObjectHideFlags: 0
@@ -68467,6 +68467,9 @@ MonoBehaviour:
   Inven: {fileID: 0}
   GMScript: {fileID: 0}
   movingSpeed: 1
+  audioSource: {fileID: 0}
+  walkingSound: {fileID: 0}
+  setMoveSound: 0
 --- !u!114 &943619896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68482,7 +68485,6 @@ MonoBehaviour:
   currentMapName: 
   Inven: {fileID: 0}
   anim: {fileID: 0}
-  speed: 1
   hoe: {fileID: 1357165413}
 --- !u!1 &944800984
 GameObject:
@@ -68517,6 +68519,7 @@ MonoBehaviour:
   Inven: {fileID: 0}
   stM: {fileID: 0}
   sP: {fileID: 0}
+  collectingPlant: {fileID: 0}
 --- !u!4 &944800986
 Transform:
   m_ObjectHideFlags: 0
@@ -69415,15 +69418,14 @@ MonoBehaviour:
   thePlayer: {fileID: 943619889}
   Inven: {fileID: 0}
   stM: {fileID: 0}
-  number: 0
   DarkDirtXp: []
   DarkDirtYp: []
-  nDarkDirt: 0
   createdDarkDirt: []
   GoIn: 0
   GoOut: 0
   dontDestroy: {fileID: 0}
   GMscript: {fileID: 0}
+  grindingDirt: {fileID: 0}
 --- !u!224 &1070032760 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4495088193601889611, guid: 2fc893eefb7229f41a623d6ecd58ebe2,
@@ -69828,6 +69830,8 @@ MonoBehaviour:
   sD: {fileID: 0}
   sP: {fileID: 0}
   SMScript: {fileID: 0}
+  goingIn: {fileID: 0}
+  goingOut: {fileID: 0}
 --- !u!4 &1142489825
 Transform:
   m_ObjectHideFlags: 0
@@ -71353,6 +71357,9 @@ MonoBehaviour:
   thisTime: 0
   wantedPaintTime: 2
   plantIsGrowing: 0
+  audioSource: {fileID: 0}
+  paintingSound: {fileID: 0}
+  setSoundOn: 0
 --- !u!114 &1285285141
 MonoBehaviour:
   m_ObjectHideFlags: 0

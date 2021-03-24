@@ -5,22 +5,21 @@ using UnityEngine;
 public class PlantLoad : MonoBehaviour
 {
 
-    public float plantTimer;
-    public Animator anim;
-    public int i = 1;
-    public GameObject watered;
-    public int didItBloomed;
-    public int toMuchWilted;
-    public Transform thePlayer;
-    public bool iswatered=false;
-    public inventory Inven;
-    public GameManager GMscript;
-    public int wantedGrowthValue;
-    public SpriteRenderer wsr;
-    public float thisTime;
-    public SleepTight sT;
-    public Painting pT;
-    public bool plantGrow=true;
+    public float plantTimer;//식물타이머.
+    public Animator anim;//식물 애니메이션.
+    public int i = 1;//식물 애니메이션 변화에 반영해줄 int.
+    public int didItBloomed;//식물이 다 자랐는지 확인.
+    public int toMuchWilted;//식물이 시드는지 확인.
+    public Transform thePlayer;//플레이어 위치 가져옴.
+    public bool iswatered=false;//물을 줬는지 안 줬는지 확인할 bool.
+    public inventory Inven;//인벤토리.
+    public GameManager GMscript;//게임매니져.
+    public int wantedGrowthValue;//식물이 다음 단계로 넘어갈 때까지 자라야 할 시간.
+    public SpriteRenderer wsr;//물 스프라이트 렌더러.
+    public float thisTime;//현재시간.
+    public SleepTight sT;//잠잘 때 시간 반영해주려고 스크립트 가져옴.
+    public Painting pT;//기절할 때 시간 반영해주려고 스크립트 가져옴.
+    public bool plantGrow=true;//잠/기절할 때 시간 반영해주기 위한 bool.
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
     public void Awake()
@@ -47,54 +46,54 @@ public class PlantLoad : MonoBehaviour
         //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
         if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false)
         {
-            plantTimer += Time.deltaTime * GMscript.speedUp;
-            if(pT.plantIsGrowing==true && plantGrow==true)
+            plantTimer += Time.deltaTime * GMscript.speedUp;//식물타이머는 기본적으로 게임매니져의 타이머와 같은 속도로 증가함.
+            if(pT.plantIsGrowing==true && plantGrow==true)//만약 기절한 경우
             {
-                plantTimer += pT.wantedPaintTime * 60*GMscript.speedUp;
-                plantGrow = false;
+                plantTimer += pT.wantedPaintTime * 60*GMscript.speedUp;//기절 시간을 반영해줌.
+                plantGrow = false;//얘를 펄스로 해줘야 이후에 또 기절할 때 시간이 반영됨.
             }
-            if(sT.plantIsGrowing==true && plantGrow==true)
+            if(sT.plantIsGrowing==true && plantGrow==true)//만약 잔 경우
             {
-                plantTimer += sT.wantedSleepTime * 60*GMscript.speedUp;
-                plantGrow = false;
+                plantTimer += sT.wantedSleepTime * 60*GMscript.speedUp;//잔 시간을 반영해줌.
+                plantGrow = false;//얘를 펄스로 해줘야 이후에 또 잘 때 시간이 반영됨.
             }
-            if (plantTimer >= thisTime + wantedGrowthValue * 60)
+            if (plantTimer >= thisTime + wantedGrowthValue * 60)//만약 식물 타이머가 현재시간에서 식물 성장 시간을 더한 것보다 커지면 성장시켜줘야지.
             {
-                if(plantTimer==thisTime+wantedGrowthValue*60)
+                if(plantTimer==thisTime+wantedGrowthValue*60)//근데 식물 타이머가 딱 현재시간에서 식물 성장 시간을 더한 것과 같다면
                 {
-                    plantTimer = GMscript.timer;
+                    plantTimer = GMscript.timer;//그냥 식물 타이머를 게임매니져의 현재 시간 타이머 값으로 선언해줌.
                     
                 }
-                else if(plantTimer>thisTime+wantedGrowthValue*60)
+                else if(plantTimer>thisTime+wantedGrowthValue*60)//근데 식물 타이머가 현재시간에서 식물 성장 시간을 더한 것보다 커지면
                 {
-                    plantTimer = GMscript.timer + (plantTimer-thisTime - wantedGrowthValue * 60 );
+                    plantTimer = GMscript.timer + (plantTimer-thisTime - wantedGrowthValue * 60 );//식물 타이머에 그 차이를 반영해줌.
 
                 }
-                thisTime = GMscript.timer;
-                wsr.enabled = false;
+                thisTime = GMscript.timer;//현재시간을 게임매니져의 현재시간으로 다시 선언해줌.
+                wsr.enabled = false;//물 오브젝트는 다시 끔.
 
-                if (i < didItBloomed)
+                if (i < didItBloomed)//이 모든 건 식물이 완전히 다 자라기 전에만 일어난다.
                 {
-                    if (iswatered == true)
+                    if (iswatered == true)//만약 물을 준 상태면
                     {
-                        i++;
-                        anim.SetInteger("One", i);
-                        iswatered = false;
+                        i++;//하나 키워서
+                        anim.SetInteger("One", i);//식물 애니메이션 변화를 시켜줌.
+                        iswatered = false;//물 줬음을 알려주는 bool을 초기화함.
                     }
                 }
 
 
-                else if (i >= didItBloomed && i < toMuchWilted)
+                else if (i >= didItBloomed && i < toMuchWilted)//만약 식물이 다 자랐는데 아직 시들기 전이면 
                 {
 
-                    iswatered = false;
-                    i++;
+                    iswatered = false;//다 자란 후에는 물 안 줘도 됨.
+                    i++;//시들 때까지 성장은 해야지.
                     anim.SetInteger("One", i);
                 }
 
-                else if (i >= toMuchWilted)
+                else if (i >= toMuchWilted)//식물이 시들면
                 {
-                    Destroy(this.gameObject);
+                    Destroy(this.gameObject);//없어짐.
                 }
             }
 
@@ -103,56 +102,6 @@ public class PlantLoad : MonoBehaviour
 
     }
 
-   
-    
-    
-    /*void Harvestit()
-    {
-        Debug.Log("harvest 시작");
-        
-        Vector2 theplayerPosition = thePlayer.position;//게임플레이화면에서의 마우스 위치를 Vector2 타입의 마우스 위치에 배정.
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        
-        Vector2 distance = theplayerPosition - mousePosition;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);
-            Debug.Log(hit.collider.gameObject);
-            if (hit.collider != null)
-            {
-                
-                if (hit.collider.CompareTag("Plant"))
-                {
-                   
-                    if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//마우스 왼클릭을 하는 중에는
-                    {
-
-                        Debug.Log("수확함");
-                        if (hit.collider.gameObject.name == "BlueFlower(Clone)")
-                        {
-                            Inven.putInventory(41, 1);
-                        }
-                        else if (hit.collider.gameObject.name == "Pumpkin(Clone)")
-                        {
-                            Inven.putInventory(40, 1);
-                        }
-                        
-                        Destroy(this.gameObject);
-
-                    }
-                }
-            }
-
-        }
-
-
-
-    }*/
-
-   
     // for SaveNLoad (0304 성현)
     private int goalNum = 0;
     private int nowNum = 0;
