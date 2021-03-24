@@ -62,8 +62,10 @@ public class SleepTight : MonoBehaviour
         }
         else if (thisTime >= 60 * 24)//만약에 자고 난 시간이 24시 이후이면
         {
-            GMscript.timer = (thisTime - 60 * 24);//자고 난 시간에서 24시간을 빼주고 게임매니져의 타이머에 지정해줌.
-            GMscript.day += 1;//24시가 지났으니 하루가 지난  걸 반영해줌.
+
+            GMscript.timer = (thisTime - 60 * 24);
+            GMscript.day += 1;
+            GMscript.dayChanged = true; // (0320 성현)
 
         }
         plantIsGrowing = true;//잠잔 시간을 식물 성장 타이머에 반영하기 위한 bool을 트루로 해줌.

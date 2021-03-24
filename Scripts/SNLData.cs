@@ -14,7 +14,7 @@ public class SNLData // 모든 세이브 기록들 담을 곳
     // 쓴 돈, laborCount
     // <닭> 닭 개수(theCount), 각 닭의 행복도, checkEgg, 닭 좌표
     // <달걀> 각 달걀 개수, 각 달걀 좌표
-    // <인벤> 인벤템 ID, 인벤템 개수, 장착템 ID
+    // <인벤> 인벤템 ID, 인벤템 개수, 장착템 ID, 장착템 인덱스
     // <상자> 보관템 ID, 보관템 개수
     // <흙> dirt 좌표
     // <식물> plant 좌표, plant 타이머, plant iswatered(+물), plant 종류
@@ -50,6 +50,7 @@ public class SNLData // 모든 세이브 기록들 담을 곳
     public List<int> characterItemsID; // 인벤템 ID
     public List<int> characterItemsCnt; // 인벤템 개수
     public int equipedItemID; // 장착템 ID
+    public int equipedItemIndex; // 장착템 인덱스 (0322 추가)
 
     public List<int> containerItemsID; // 보관템 ID
     public List<int> containerItemsCnt; // 보관템 개수

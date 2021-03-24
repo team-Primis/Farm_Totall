@@ -56,10 +56,7 @@ public class VendingTotal : MonoBehaviour
 
     }
 
-    void OnEnable()
-    {
-        Debug.Log("enabled");
-    }
+
 
     void OnDisable()
     {

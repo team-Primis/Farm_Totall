@@ -485,6 +485,7 @@ MonoBehaviour:
   LoadingWindow: {fileID: 0}
   isLoadingOpen: 0
   isWillSellOpen: 0
+  dayChanged: 0
   didGameStart: 0
 --- !u!4 &16795483
 Transform:
@@ -559,6 +560,7 @@ MonoBehaviour:
     characterItemsID: 
     characterItemsCnt: 
     equipedItemID: 0
+    equipedItemIndex: 0
     containerItemsID: 
     containerItemsCnt: 
     dirtXP: []
@@ -67540,7 +67542,7 @@ MonoBehaviour:
   GMscript: {fileID: 0}
   sPP: {fileID: 0}
   audioSource: {fileID: 0}
-  sleepingSound: {fileID: 8300000, guid: b105f369e95d42142ba93a6e68f3438f, type: 3}
+  sleepingSound: {fileID: 8300000, guid: 0e546b36ba083ae42914b7d2ea3b2ae1, type: 3}
   sleepUI: {fileID: 900247305}
   thePlayer: {fileID: 0}
   sleepingLoadingUI: {fileID: 0}
@@ -71478,7 +71480,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 75ea341f66c42034dbc46cc2eda61824, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.072
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 1
   Mute: 0

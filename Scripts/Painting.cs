@@ -58,9 +58,10 @@ public class Painting : MonoBehaviour
         }
         else if (thisTime >= 60 * 24)//현재 시간이 24시를 넘으면
         {
-            GMscript.timer = (thisTime - 60 * 24);//그 차이만큼을 게임매니져 타이머에 반영해줌.
-            GMscript.day += 1;//24시간이 지났으니 하루 증가시켜줌.
 
+            GMscript.timer = (thisTime - 60 * 24);
+            GMscript.day += 1;
+            GMscript.dayChanged = true; // (0320 성현)
         }
         
        

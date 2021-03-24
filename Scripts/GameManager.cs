@@ -37,6 +37,11 @@ public class GameManager : MonoBehaviour
     // from chicken
     public bool isWillSellOpen = false; // 닭판매창이 켜져있는가
 
+    // from spawnmanager
+    public bool dayChanged = false; // 하루에 <한 번만> 행복도 체크하기 위해 날이 바뀌면 true로 (0320 성현)
+    // dayChanged는 GMS와 SleepTight/Painting 안에 true가 되는 조건 들어있음
+    // dayChanged는 SMS에 false 되는 조건 들어있음
+
     // (성현) 게임을 시작하고, didGameStart가 false이면 OutSide -> Title (맨 처음 시작 화면)
     // 즉 게임 자체의 처음 화면은 OutSide이지만, 플레이 전 Title로 바로 옮겨 주기
     public bool didGameStart = false; // 초기값이 false (게임 켰을 당시에만 false이고 그 후는 true)
@@ -90,6 +95,7 @@ public class GameManager : MonoBehaviour
             timer = 0;
             day++;
             // DayUI(day); // 위로 옮겼음 (성현)
+            dayChanged = true; // (0320 성현)
         }
         DateUI(timer); //시간 표시
         

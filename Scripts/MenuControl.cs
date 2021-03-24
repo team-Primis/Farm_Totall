@@ -28,6 +28,12 @@ public class MenuControl : MonoBehaviour
     // 안내 메세지
     public NoticeText notice;
 
+    // for 일시정지창 ON/OFF 조건
+    GameObject SL;
+    GameObject CP;
+    GameObject VP;
+    GameObject SP;
+
     void Start()
     {
         GameObject canvas2 = GameObject.Find("Canvas2");
@@ -49,24 +55,36 @@ public class MenuControl : MonoBehaviour
 
         // 안내 메세지
         notice = GameObject.Find("Notice").GetComponent<NoticeText>();
+
+        // for 일시정지창 ON/OFF 조건
+        SL = GameObject.Find("Canvassleep").transform.Find("SleepLoading").gameObject;
+        CP = GameObject.Find("Canvas2").transform.Find("containerPanel").gameObject;
+        VP = GameObject.Find("Canvas2").transform.Find("vendingPanel").gameObject;
+        SP = GameObject.Find("Canvas2").transform.Find("sellingPanel").gameObject;
     }
 
     void Update()
     {
         if(Input.GetButtonDown("Cancel")) // esc 버튼
         {
-            if(menuWindow.activeSelf) // 켜져있을 때
+            // 로딩화면창, 닭구매창, 닭판매창, 기절창(잠선택창),
+            // 자는화면창, 보관상자, 자판기, 판매상자 꺼져있을 때 (0320 업데이트)
+            if(!GMScript.isLoadingOpen && !GMScript.isWillSellOpen && !GMScript.isBuyOpen && !GMScript.isSleepOpen 
+                    && !SL.activeSelf && !CP.activeSelf && !VP.activeSelf && !SP.activeSelf)
             {
-                if(!whereSave.activeSelf) // 저장하기 아닌 상태
+                if(menuWindow.activeSelf) // 켜져있을 때
                 {
-                    menuWindow.SetActive(false); // 메뉴 off
-                    GMScript.isTimerStoped = false; // 시간 흐르기 시작
+                    if(!whereSave.activeSelf) // 저장하기 아닌 상태
+                    {
+                        menuWindow.SetActive(false); // 메뉴 off
+                        GMScript.isTimerStoped = false; // 시간 흐르기 시작
+                    }
                 }
-            }
-            else // 꺼져있을 때
-            {
-                menuWindow.SetActive(true); // 메뉴 on
-                GMScript.isTimerStoped = true; // 시간 정지 시작
+                else // 꺼져있을 때
+                {
+                    menuWindow.SetActive(true); // 메뉴 on
+                    GMScript.isTimerStoped = true; // 시간 정지 시작
+                }
             }
         }
 
@@ -102,7 +120,7 @@ public class MenuControl : MonoBehaviour
             {
                 SNLData data1;
                 data1 = (SNLData)bf.Deserialize(file1); // 직렬화된 것을 Data 형식으로 바꿈
-                int moneyNow = 2000 - data1.usedMoney; // 기본값 2000
+                int moneyNow = 10000 - data1.usedMoney; // 기본값 10000
                 AboutF1.GetComponent<Text>().text = "FILE 1 : DAY " + data1.day +
                                                         " / " + moneyNow + "원" +
                                                         " / " + "닭 " + data1.chickenCount + "마리";
@@ -128,7 +146,7 @@ public class MenuControl : MonoBehaviour
             {
                 SNLData data2;
                 data2 = (SNLData)bf.Deserialize(file2); // 직렬화된 것을 Data 형식으로 바꿈
-                int moneyNow = 2000 - data2.usedMoney; // 기본값 2000
+                int moneyNow = 10000 - data2.usedMoney; // 기본값 10000
                 AboutF2.GetComponent<Text>().text = "FILE 2 : DAY " + data2.day +
                                                         " / " + moneyNow + "원" +
                                                         " / " + "닭 " + data2.chickenCount + "마리";

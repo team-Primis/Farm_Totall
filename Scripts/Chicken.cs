@@ -26,7 +26,8 @@ public class Chicken : MonoBehaviour
 
     public GameManager GMScript; // 시간 사용, 창 유무
     public SpawnManager SMScript; // 알 소환하려고
-    public bool checkEgg = false; // 중복 방지
+    public bool checkEgg = false; // 중복 방지 (내부)
+    public bool dayChangedCH = false; // 중복 방지 (외부) = 날이 바뀌었나
 
     public inventory Inven; // 건초 및 씨앗
 
@@ -36,6 +37,11 @@ public class Chicken : MonoBehaviour
     private PlayerControll thePlayerCtr; // for money
 
     public NoticeText notice; // 안내 메세지
+
+    // for 닭쓰다듬기 조건
+    GameObject CP;
+    GameObject VP;
+    GameObject SP;
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +56,14 @@ public class Chicken : MonoBehaviour
 
         anim = GetComponent<Animator>(); // anim 변수 선언
 
-        checkEgg = true; // 초기 설정
-
         thePlayerCtr = GameObject.Find("Player").GetComponent<PlayerControll>();
 
         notice = GameObject.Find("Notice").GetComponent<NoticeText>(); // 안내 메세지
+
+        // for 닭쓰다듬기 조건
+        CP = GameObject.Find("Canvas2").transform.Find("containerPanel").gameObject;
+        VP = GameObject.Find("Canvas2").transform.Find("vendingPanel").gameObject;
+        SP = GameObject.Find("Canvas2").transform.Find("sellingPanel").gameObject;
     }
 
     // Update is called once per frame
@@ -88,20 +97,10 @@ public class Chicken : MonoBehaviour
         // 하루마다 달걀 낳기
         if(SceneManager.GetActiveScene().name == "OutSide")
         {
-            if(GMScript.timer >= 420 && GMScript.timer <= 424) // 날 밝으면 (7시 기준 = 420)
+            if(GMScript.timer >= 420 && checkEgg) // 날 밝으면
             {
-                if(checkEgg == false) // 한 번만
-                {
-                    checkEgg = true; // true
-                }
-            }
-            else if(GMScript.timer > 424 && GMScript.timer <= 428) // 그 다음에
-            {
-                if(checkEgg == true) // 한 번만
-                {
-                    LayEgg(); // 알 낳고
-                    checkEgg = false; // false
-                }
+                checkEgg = false; // false
+                LayEgg(); // 알 낳고
             }
         }
         // INSIDE -> SPAWNMANAGER
@@ -180,15 +179,15 @@ public class Chicken : MonoBehaviour
         GMScript.isWillSellOpen = false;
         GMScript.isTimerStoped = false; // 시간 흐르게
     }
-
     
     // 쓰다듬기 - 마우스 (좌)클릭
     void OnMouseDown() // 닭을 클릭했을 때
     {
         dis = Vector2.Distance(PlayerTF.position,transform.position);
-        // 일시정지창, 로딩화면창, 닭구매창, 닭판매창, 자는화면창 없을 때 (0314 업데이트)
-        if(GMScript.isMenuOpen == false && GMScript.isLoadingOpen == false
-            && GMScript.isWillSellOpen == false && GMScript.isBuyOpen == false && GMScript.isSleepOpen == false)
+        // 일시정지창, 로딩화면창, 닭구매창, 닭판매창, 기절창(잠선택창) 없을 때 (0314 업데이트)
+        // 보관상자, 자판기, 판매상자 꺼져있을 때 (0320 업데이트)
+        if(!GMScript.isMenuOpen && !GMScript.isLoadingOpen && !GMScript.isWillSellOpen && !GMScript.isBuyOpen
+                && !GMScript.isSleepOpen && !CP.activeSelf && !VP.activeSelf && !SP.activeSelf)
         {
             // Player가 가깝고 + 아무것도 안 들고 있다면 = 쓰다듬기 가능
             if(dis < 1.5f && Inven.equipedItem.id == 1000)
