@@ -305,7 +305,7 @@ public class inventory : MonoBehaviour
     }
 
 
-    //컨테이너에서 아이템 빼기 용
+    //컨테이너에서 인벤토리로 아이템 보내기
     public void putInventory(Item item, int plusNum = 1)
     {
         //같은 id의 인벤아이템을 가져와서, db의 갯수 늘려주고, 인벤에 아이템 그대로 추가

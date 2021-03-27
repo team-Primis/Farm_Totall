@@ -33,6 +33,7 @@ public class ContainerDb : MonoBehaviour
 
         conUI = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerUI>();
         containerItem = GameObject.Find("ContainerItems").GetComponent<ContainerItems>();
+        selectedItem = emptyItem; //0327 처음에 emptyItem으로 초기화!
 
     }
     //보관상자 -> 인벤 이동
@@ -41,7 +42,7 @@ public class ContainerDb : MonoBehaviour
         if(selectedItem.Ename != "empty")
         {
             inven.putInventory(selectedItem, selectedItem.count);
-            RemoveItem(selectedItem.id);
+            RemoveItem(selectedItem.id); //containerItem의 list에서 해당 아이템 제거
             selectedItem = emptyItem;
             ClearSlot();
         }

@@ -72170,7 +72170,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d78149188b6828d4297f7b4967e73e06, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 93d2e39bd72c54f40899b7d30cf694f9, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -72184,7 +72184,7 @@ AudioSource:
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
-  BypassEffects: 0
+  BypassEffects: 1
   BypassListenerEffects: 1
   BypassReverbZones: 0
   rolloffCustomCurve:
@@ -78608,7 +78608,7 @@ MonoBehaviour:
   thePlayer: {fileID: 0}
   Inven: {fileID: 0}
   stM: {fileID: 0}
-  wateringSound: {fileID: 8300000, guid: 7e9f12e3b18d3ae4aa8d3b99909a00c9, type: 3}
+  wateringSound: {fileID: 8300000, guid: 0c6f7f556e8cbdb489c88da81dcbaa3b, type: 3}
 --- !u!4 &1609917502
 Transform:
   m_ObjectHideFlags: 0
