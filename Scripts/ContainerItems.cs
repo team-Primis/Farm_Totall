@@ -51,6 +51,34 @@ public class ContainerItems : MonoBehaviour
         }
     }
     
+    //바로 그 아이템을 보관상자에 넣음(0327 추가)
+    public void PutInContainer(Item item,int num=1)
+    {
+        if (item != emptyItem)
+        {
+            //아이템을 처음 넣을 경우
+            if (CheckForItem(item.id) == null)
+            {
+                //아이템을 container List에 추가해주고 UI반영
+                item.count = num;
+                container.Add(item);
+                conUI.isContainerChanged = true;
+
+            }
+            else
+            {
+                //컨테이너에 이미 있는 아이템 갯수를 증가시켜주고 UI반영
+                CheckForItem(item.id).count += item.count;
+                conUI.isContainerChanged = true;
+
+            }
+
+        }
+        else
+        {
+            Debug.Log("빈 아이템을 넣을 순 없습니다.");
+        }
+    }
 
 
     public Item CheckForItem(int id)

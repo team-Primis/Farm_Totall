@@ -89,18 +89,32 @@ public class inventory : MonoBehaviour
         }
     }
 
-  
-
-
+ 
      void PutInContainer()
     {
         if (equipedItem != emptyItem)
         {
-            containerItemAddScript.PutInContainer(equipedItem.id, equipedItem.count);
-            //equipedItem.count = 0 ;
-            RemoveAll(equipedItem);
+            //컨테이너에 넣으면 그만큼 인벤db의 갯수가 줄어든다.
+            //db의 갯수정보를 데려와서 장착된 아이템만큼 줄이기!
+            //컨테이너아이템에 해당 갯수만큼 아이템 추가
+            Item dbItem = db.GetItem(equipedItem.id);
+            Debug.Log("현재 db에 아이템은 " + dbItem.count + "개 존재합니다");
+
+            //컨테이너에 아이템 추가 : 새 아이템을 만들어서 넘겨야됨! (인벤토리의 아이템은 갯수를 0개로 바꿀거라서 / 별도의 객체라서)
+            Item item = new Item(equipedItem.id, equipedItem.Kname, equipedItem.Ename, equipedItem.description, equipedItem.category);
+            item.count = equipedItem.count;
+
+            containerItemAddScript.PutInContainer(item, item.count);
+            //인벤에서 아이템 삭제
+            characterItems.Remove(equipedItem);
+            inventoryUI.RemoveItem(equipedItem);
+            
+               // RemoveAll(equipedItem); //여기서 equpedItem의 갯수를 0으로 바꿔버리더라..
+            //인벤db에서 아이템 삭제
+            dbItem.count -= equipedItem.count;
             equipedItem = emptyItem;
             ClearSlot();
+            
         }
         else
         {
@@ -308,14 +322,27 @@ public class inventory : MonoBehaviour
     //컨테이너에서 인벤토리로 아이템 보내기
     public void putInventory(Item item, int plusNum = 1)
     {
-        //같은 id의 인벤아이템을 가져와서, db의 갯수 늘려주고, 인벤에 아이템 그대로 추가
         Item invenItem = db.GetItem(item.id);
-        invenItem.count = plusNum;
-        characterItems.Add(invenItem);
-        inventoryUI.AddNewItem(invenItem);
-        
-        sellingUI.isItemChanged = true;
 
+        //혹시 해당 아이템이 db에 아예 id조차 없다면 실행 안됨!
+        if (invenItem != null)
+        {
+            //해당 아이템이 인벤에 있든 없든 새로 추가하기.
+           
+            //db에 갯수 반영
+            //인벤토리 list에 다시 추가
+            //UI에도 반영
+                invenItem.count += plusNum;
+                characterItems.Add(item);
+                inventoryUI.AddNewItem(item);
+
+            //판매창에 인벤토리 UI변경 모습 반영
+            sellingUI.isItemChanged = true;
+        }
+        else
+        {
+            Debug.Log("해당 아이템은 db에 존재하지 않습니다.");
+        }
     }
 
 
@@ -412,6 +439,7 @@ public class inventory : MonoBehaviour
             }
         }
     }
+    
 
     public Item GetItem(int index)
     {

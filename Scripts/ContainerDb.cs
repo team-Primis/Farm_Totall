@@ -41,8 +41,11 @@ public class ContainerDb : MonoBehaviour
     {
         if(selectedItem.Ename != "empty")
         {
+            //인벤창에 아이템 추가
             inven.putInventory(selectedItem, selectedItem.count);
-            RemoveItem(selectedItem.id); //containerItem의 list에서 해당 아이템 제거
+            //RemoveItem(selectedItem.id); //containerItem의 list에서 해당 아이템 제거
+            containerItem.container.Remove(selectedItem);
+            conUI.isContainerChanged = true;
             selectedItem = emptyItem;
             ClearSlot();
         }
@@ -69,9 +72,14 @@ public class ContainerDb : MonoBehaviour
         Item itemToRemove = db.GetItem(id);
         if (itemToRemove != null )
         {
+            Debug.Log(itemToRemove.Kname + "아이템을 list에서 제거합니다");
             containerItem.container.Remove(itemToRemove);
             //conUI.RemoveItem(itemToRemove);
             conUI.isContainerChanged = true;
+        }
+        else
+        {
+            Debug.Log("해당 아이템은 db에 존재하지 않습니다");
         }
 
     }
