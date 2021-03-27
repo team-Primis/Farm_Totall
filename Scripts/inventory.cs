@@ -453,7 +453,7 @@ public class inventory : MonoBehaviour
             else
             {
                 item.count--;
-                inventoryUI.UpdateItemNumUI(item);
+                inventoryUI.UpdateItemNumUICount(item);
                 //Debug.Log("Item 하나를 제거합니다. 현재 남은 갯수 : " + ItemToRemove.count+"개");
             }
         }
