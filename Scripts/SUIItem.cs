@@ -15,6 +15,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
 
     private inventory inven;
     private NoticeText notice;
+    private itemDatabase db;
     Item emptyItem;
 
 
@@ -23,6 +24,7 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         updateItem(emptyItem);
         inven = GameObject.Find("Inventory").GetComponent<inventory>();
         notice = GameObject.Find("Notice").GetComponent<NoticeText>();
+        db = GameObject.Find("Database").GetComponent<itemDatabase>(); //0328 db추가
 
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -73,6 +75,9 @@ public class SUIItem : MonoBehaviour, IPointerClickHandler
         {
             
             inven.RemoveAll(this.item);
+            //판매한만큼 인벤토리db에서 제거
+            db.GetItem(this.item.id).count -= this.item.count;
+            Debug.Log(this.item.Kname + "의 갯수를 " + this.item.count + "개 줄입니다");
             //구매리스트에서 아이템 제거
             sellingUI.sellingList.Remove(this.item);
             //겉에 보이는 아이템 모습 제거 +item 객체 제거

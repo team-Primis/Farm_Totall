@@ -393,7 +393,7 @@ public class inventory : MonoBehaviour
     {
         if(item != emptyItem)
         {
-            item.count = 0;
+            //item.count = 0;
             characterItems.Remove(item);
             inventoryUI.RemoveItem(item);
             sellingUI.isItemChanged = true;
