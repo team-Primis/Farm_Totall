@@ -125,7 +125,8 @@ public class inventory : MonoBehaviour
         {
             if (equipedItem != emptyItem) // 장착된 상태 
             {
-                if (equipedItem.category == Item.Category.item)
+                //아이템의 id가 10보다 클때만 사용가능 ( 즉 씨앗 빼고 사용가능)
+                if (equipedItem.category == Item.Category.item &&equipedItem.id>10)
                 {
                     UseItem();
                  
