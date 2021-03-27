@@ -36,6 +36,9 @@ public class inventory : MonoBehaviour
     AudioSource audioSource;
     public AudioClip eatingSound;
 
+    private ContainerUI conUI;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +76,9 @@ public class inventory : MonoBehaviour
         //보관상자에 아이템 넣기 관련 스크립트
         containerItemAddScript = GameObject.Find("ContainerItems").GetComponent<ContainerItems>();
         equipedItem = emptyItem;
+
+        conUI = GameObject.Find("Canvas2").transform.Find("containerPanel").GetComponent<ContainerUI>();
+
     }
 
     void Awake()
@@ -101,16 +107,17 @@ public class inventory : MonoBehaviour
             Debug.Log("현재 db에 아이템은 " + dbItem.count + "개 존재합니다");
 
             //컨테이너에 아이템 추가 : 새 아이템을 만들어서 넘겨야됨! (인벤토리의 아이템은 갯수를 0개로 바꿀거라서 / 별도의 객체라서)
-            Item item = new Item(equipedItem.id, equipedItem.Kname, equipedItem.Ename, equipedItem.description, equipedItem.category);
+            Item item = new Item(equipedItem.id, equipedItem.Kname, equipedItem.Ename, equipedItem.description, equipedItem.category,equipedItem.stats);
             item.count = equipedItem.count;
 
             containerItemAddScript.PutInContainer(item, item.count);
             //인벤에서 아이템 삭제
             characterItems.Remove(equipedItem);
             inventoryUI.RemoveItem(equipedItem);
-            
+            conUI.isContainerChanged = true;
+
                // RemoveAll(equipedItem); //여기서 equpedItem의 갯수를 0으로 바꿔버리더라..
-            //인벤db에서 아이템 삭제
+               //인벤db에서 아이템 삭제
             dbItem.count -= equipedItem.count;
             equipedItem = emptyItem;
             ClearSlot();
@@ -333,8 +340,10 @@ public class inventory : MonoBehaviour
             //인벤토리 list에 다시 추가
             //UI에도 반영
                 invenItem.count += plusNum;
-                characterItems.Add(item);
-                inventoryUI.AddNewItem(item);
+            Item newItem = new Item(item.id, item.Kname, item.Ename, item.description, item.category,item.stats);
+            newItem.count = plusNum;
+                characterItems.Add(newItem);
+                inventoryUI.AddNewItem(newItem);
 
             //판매창에 인벤토리 UI변경 모습 반영
             sellingUI.isItemChanged = true;
