@@ -310,15 +310,23 @@ public class inventory : MonoBehaviour
         if (CheckForItem(name) == null)
         {
             itemToAdd.count += plusNum;
-            characterItems.Add(itemToAdd);
-            inventoryUI.AddNewItem(itemToAdd);
+            Item item = new Item(itemToAdd.id, itemToAdd.Kname, itemToAdd.Ename, itemToAdd.description, itemToAdd.category, itemToAdd.stats);
+            item.count = plusNum;
+            characterItems.Add(item);
+            inventoryUI.AddNewItem(item);
 
             // Debug.Log("아이템 " + itemToAdd.Kname+"을 "+itemToAdd.count+"개 추가합니다.");
         }
+        //해당 아이템 객체가 이미 있음
         else
         {
+            //db에 갯수추가
             itemToAdd.count += plusNum;
-            inventoryUI.UpdateItemNumUI(itemToAdd);
+
+            //첫번째로 위치한 아이템의 카운트 추가
+            Item item = CheckForItem(name);
+            item.count++;
+            inventoryUI.UpdateItemNumUI(item);
             //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
         }
         sellingUI.isItemChanged = true;
@@ -435,6 +443,7 @@ public class inventory : MonoBehaviour
     {
         if(item != emptyItem)
         {
+            db.GetItem(item.id).count--;
             if (item.count == 1)
             {
                 RemoveAll(item);
@@ -468,6 +477,7 @@ public class inventory : MonoBehaviour
         if (item != null&&item.Ename!= "empty" && item.count > 0)
         {
             RemoveItem(item.id);
+            
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;
@@ -489,6 +499,7 @@ public class inventory : MonoBehaviour
         Item item = equipedItem;
         if(item != emptyItem && item.count > 0)
         {
+           
             RemoveItem(item);
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
@@ -514,6 +525,7 @@ public class inventory : MonoBehaviour
 
         {
             RemoveItem(item);
+            
             //아이템 사용 효과 넣기~~
             Debug.Log(item.Kname + "을 사용하셨습니다.");
             sellingUI.isItemChanged = true;

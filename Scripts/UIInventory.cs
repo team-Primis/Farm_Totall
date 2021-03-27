@@ -92,4 +92,5 @@ public class UIInventory : MonoBehaviour
     {
        UpdateUI(uiitems.FindIndex(i => i.item.id== item.id), item);
     }
+
 }
