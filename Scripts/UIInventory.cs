@@ -93,4 +93,20 @@ public class UIInventory : MonoBehaviour
        UpdateUI(uiitems.FindIndex(i => i.item.id== item.id), item);
     }
 
+    //ui전부 카운트를 실제와 같게 맞춰주기
+    public void UpdateItemNumUICount(Item item)
+    {
+        //같은 id를 가진 아이템리스트 전부 찾기
+        List<UIItem> sameId = uiitems.FindAll(i => i.item.id == item.id);
+
+        //아이템리스트의 카운트와 실제 카운트가 다르면, 같게 맞춰주기!
+        for(int i = 0; i < sameId.Count; i++)
+        {
+            if(sameId[i].item.count != int.Parse(sameId[i].ItemCountText.text))
+            {
+                sameId[i].ItemCountText.text = sameId[i].item.count.ToString();
+            }
+        }
+    }
+
 }
