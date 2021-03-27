@@ -16,8 +16,10 @@ public class PlayerMove : MonoBehaviour
     public GameManager GMScript;//게임매니져.
     public float movingSpeed = 1f;//움직이는 속도 조정하려고 가져옴.
     public AudioSource audioSource;//플레이어에 오디오 소스 부착해둠.
-    public AudioClip walkingSound;//걷는 소리.
+    public AudioClip walkingSound_OutSide;//밖에서 걷는 소리
+    public AudioClip walkingSound_Inside;//안에서 걷는 소리.
     public bool setMoveSound = false;//움직이는 소리 키는 용도의 bool.
+
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +54,10 @@ public class PlayerMove : MonoBehaviour
         else
         {
             audioSource.Stop();//일시정지 창이나 씬 로딩 등에서도 자꾸 소리가 재생되길래 아예 소리를 꺼놓고 조건을 만족할 때에만 재생하도록 해둠.
+            anim.SetBool("BackWalk", false);
+            anim.SetBool("FrontWalk", false);
+            anim.SetBool("LeftWalk", false);
+            anim.SetBool("RightWalk", false);
         }
         Watering();//물 주는 모션인데 인게임에선.... 안 보여...
     }
@@ -138,8 +144,21 @@ public class PlayerMove : MonoBehaviour
 
     public void MovingSFX()//걸을 때 소리 재생하는 함수.
     {
-        if(setMoveSound==true)//이 bool이 트루일 때
+        if (SceneManager.GetActiveScene().name == "OutSide")//집밖에선 흙 밟는 소리남.
+
         {
+
+            audioSource.clip = walkingSound_OutSide;
+        }
+
+        else if (SceneManager.GetActiveScene().name == "Inside")//집안에선 바닥 밟는 소리남.
+        {
+            audioSource.clip = walkingSound_Inside;
+        }
+        if (setMoveSound==true)//이 bool이 트루일 때
+        {
+    
+
             if(!audioSource.isPlaying)//플레이어에 부착된 오디오 소스에서 소리가 재생되지 않는 경우면
             audioSource.Play();//걷는 소리 재생.
   

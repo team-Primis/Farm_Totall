@@ -1472,6 +1472,7 @@ Transform:
   - {fileID: 265843445}
   - {fileID: 440492725}
   - {fileID: 2023604156}
+  - {fileID: 1359603189}
   m_Father: {fileID: 0}
   m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6470,6 +6471,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkingSoundClip: []
+  audioSource: {fileID: 0}
+  GMscript: {fileID: 0}
+  DaySound: {fileID: 8300000, guid: 882367a1c9dd4cb4cb0c7f9444691737, type: 3}
+  NightSound: {fileID: 8300000, guid: 30d7c565f104be8418f0dd2ca5aaba2a, type: 3}
 --- !u!4 &669238606
 Transform:
   m_ObjectHideFlags: 0
@@ -6482,7 +6487,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 21
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &676877030
 GameObject:
@@ -71478,9 +71483,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 75ea341f66c42034dbc46cc2eda61824, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -71571,12 +71576,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359603187}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.012526, y: -0.9725096, z: -0.0050250585}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.8663564, y: -3.1376562, z: 0.6542299}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_Father: {fileID: 165204917}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1360845740
 GameObject:
@@ -72325,7 +72330,9 @@ MonoBehaviour:
   GMScript: {fileID: 0}
   movingSpeed: 1
   audioSource: {fileID: 0}
-  walkingSound: {fileID: 8300000, guid: d78149188b6828d4297f7b4967e73e06, type: 3}
+  walkingSound_OutSide: {fileID: 8300000, guid: 1c95f43c004db60499e99df0ccc17ecc,
+    type: 3}
+  walkingSound_Inside: {fileID: 8300000, guid: 75ee53f9c1aa2e343907a1d17420476d, type: 3}
   setMoveSound: 0
 --- !u!95 &1418834921
 Animator:
