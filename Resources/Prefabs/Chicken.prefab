@@ -704,6 +704,7 @@ MonoBehaviour:
   Inven: {fileID: 0}
   WillSell: {fileID: 43159523304423427}
   notice: {fileID: 0}
+  happySound: {fileID: 8300000, guid: ee4c44ae6d2b9884c88045dbf1f94bc7, type: 3}
 --- !u!95 &2274530516153896466
 Animator:
   serializedVersion: 3

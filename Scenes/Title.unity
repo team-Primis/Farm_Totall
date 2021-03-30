@@ -1616,6 +1616,8 @@ MonoBehaviour:
   F1Content: {fileID: 0}
   F2Content: {fileID: 0}
   theSaveNLoad: {fileID: 0}
+  theMenuControl: {fileID: 0}
+  BtnSound: {fileID: 8300000, guid: a35668a2af64e1848ae34aa23af14c16, type: 3}
 --- !u!4 &1422759800
 Transform:
   m_ObjectHideFlags: 0

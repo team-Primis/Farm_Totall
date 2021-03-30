@@ -34,6 +34,12 @@ public class MenuControl : MonoBehaviour
     GameObject VP;
     GameObject SP;
 
+    // for bgm ON/OFF (0327 추가)
+    public Image BGState; // 스피커 버튼의 이미지
+    public Sprite BGIsOn; // 켜져있음
+    public Sprite BGIsOff; // 꺼져있음
+    public AudioSource BGAudio;
+
     void Start()
     {
         GameObject canvas2 = GameObject.Find("Canvas2");
@@ -61,6 +67,11 @@ public class MenuControl : MonoBehaviour
         CP = GameObject.Find("Canvas2").transform.Find("containerPanel").gameObject;
         VP = GameObject.Find("Canvas2").transform.Find("vendingPanel").gameObject;
         SP = GameObject.Find("Canvas2").transform.Find("sellingPanel").gameObject;
+
+        // for bgm ON/OFF
+        BGState = canvas2.transform.Find("MenuWindow").transform.Find("PauseMenu").
+                transform.Find("SPBT").GetComponent<Image>();
+        BGAudio = GameObject.Find("bgm").GetComponent<AudioSource>();
     }
 
     void Update()
@@ -236,5 +247,22 @@ public class MenuControl : MonoBehaviour
     {
         menuWindow.SetActive(false); // 메뉴 off
         GMScript.isTimerStoped = false; // 시간 흐르기 시작
+    }
+
+
+    // for bgm ON/OFF
+    public void OnClickSPBT()
+    {
+        if(BGAudio.isPlaying && BGState.sprite == BGIsOn) // 끄기 위해 클릭 시
+        {
+            BGState.sprite = BGIsOff;
+            BGAudio.Stop();
+        }
+        else if(!BGAudio.isPlaying && BGState.sprite == BGIsOff) // 켜기 위해 클릭 시
+        {
+            BGState.sprite = BGIsOn;
+            BGAudio.Play();
+        }
+        // 새 게임 or 로딩해서 시작하면, sprite를 on으로 초기화, play로 초기화 해주기!!!
     }
 }

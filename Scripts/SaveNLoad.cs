@@ -159,6 +159,8 @@ public class SaveNLoad : MonoBehaviour
         theSpawningPlant.PlantYp.Clear(); // 식물 위치 목록 초기화(y)
         theSpawningPlant.createdPlant.Clear(); // 다시 확인 (식물 목록 초기화)
 
+        theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // 소리 onoff 이미지 초기화 (0327)
+        theMenuControl.BGAudio.Play(); // 소리 onoff 설정 초기화 (0327)
         theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간 흐르기 시작 (맨 위 참고)
 
         theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 새게임 - 5 (~1.0)
@@ -797,6 +799,8 @@ public class SaveNLoad : MonoBehaviour
                     thePlantLoad.DoPlantAni(data.plantI[i], data.plantWater[i]); // 이 함수 안에 water 포함
                 }
 
+                theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // 소리 onoff 이미지 초기화 (0327)
+                theMenuControl.BGAudio.Play(); // 소리 onoff 설정 초기화 (0327)
                 theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간 흐르기 시작 (맨 위 참고)
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 5 (~1.0)
@@ -1071,6 +1075,8 @@ public class SaveNLoad : MonoBehaviour
                     thePlantLoad.DoPlantAni(data.plantI[i], data.plantWater[i]);
                 }
 
+                theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // (0327)
+                theMenuControl.BGAudio.Play(); // (0327)
                 theMenuControl.WhenRestart();
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 5 (~1.0)

@@ -43,6 +43,10 @@ public class Chicken : MonoBehaviour
     GameObject VP;
     GameObject SP;
 
+    // 소리 추가 (0330) - 쓰다듬을 때
+    AudioSource audioSource;
+    public AudioClip happySound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -64,6 +68,8 @@ public class Chicken : MonoBehaviour
         CP = GameObject.Find("Canvas2").transform.Find("containerPanel").gameObject;
         VP = GameObject.Find("Canvas2").transform.Find("vendingPanel").gameObject;
         SP = GameObject.Find("Canvas2").transform.Find("sellingPanel").gameObject;
+
+        audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -194,6 +200,8 @@ public class Chicken : MonoBehaviour
             {
                 happy += 1; // 행복도 1 증가
                 Heart.SetActive(true); // 하트 나타나고
+                audioSource.clip = happySound;
+                audioSource.Play();
                 Debug.Log("Give Love (행복도: "+happy+"/4)");
                 Invoke("HideHeart", 1); // 1초 후 사라짐
             }

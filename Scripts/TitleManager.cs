@@ -21,11 +21,17 @@ public class TitleManager : MonoBehaviour
     public Text F2Content;
 
     public SaveNLoad theSaveNLoad;
+    public MenuControl theMenuControl;
+
+    // 소리 추가 (0330)
+    AudioSource audioSource;
+    public AudioClip BtnSound;
 
     // Start is called before the first frame update
     void Start()
     {   
         theSaveNLoad = GameObject.Find("GameManager").GetComponent<SaveNLoad>();
+        theMenuControl = GameObject.Find("GameManager").GetComponent<MenuControl>();
 
         GameObject canvas = GameObject.Find("Canvas");
         Choice = canvas.transform.Find("Choice").gameObject;
@@ -33,6 +39,10 @@ public class TitleManager : MonoBehaviour
                 transform.Find("F1Content").GetComponent<Text>();
         F2Content = canvas.transform.Find("Choice").transform.Find("Choice2BT").
                 transform.Find("F2Content").GetComponent<Text>();
+
+        theMenuControl.BGAudio.Stop(); // (0327)
+
+        audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>(); // (0330)
     }
 
     // Update is called once per frame
@@ -53,13 +63,19 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickNewGame()
     {
-        Debug.Log("새 게임");
+        // Debug.Log("새 게임");
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
         theSaveNLoad.CallNewGame();
     }
 
     public void OnClickContinue()
     {
-        Debug.Log("이어하기");
+        // Debug.Log("이어하기");
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
         Choice.SetActive(true); // 파일 선택 창 띄우기
 
         // Choice1BT
@@ -117,7 +133,15 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickQuit()
     {
-        Debug.Log("게임 종료");
+        // Debug.Log("게임 종료");
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
+        Invoke("QuitThis", 0.2f); // 소리 재생 때문에 delay 둠 (0330)
+    }
+
+    public void QuitThis()
+    {
 #if UNITY_EDITOR // 에디터에서 실행 중일 때는 플레이 상태 중단으로 대체
         UnityEditor.EditorApplication.isPlaying = false;
 #else        
@@ -127,24 +151,36 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickX()
     {
-        Debug.Log("이어하기 취소");
+        // Debug.Log("이어하기 취소");
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
         Choice.SetActive(false); // 파일 선택 창 끄기
     }
 
     public void OnClickC1()
     {
-        Debug.Log("File 1 이어하기");
+        // Debug.Log("File 1 이어하기");
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
         theSaveNLoad.CallLoadF1();
     }
 
     public void OnClickC2()
     {
-        Debug.Log("File 2 이어하기");
+        // Debug.Log("File 2 이어하기");
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
         theSaveNLoad.CallLoadF2();
     }
 
     public void OnClickR1() // (0322)
     {
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
         FileInfo fileInfo1 = new FileInfo(Application.dataPath + "/SaveFile1.txt");
         if (fileInfo1.Exists) // 파일이 존재하면
         {
@@ -156,6 +192,9 @@ public class TitleManager : MonoBehaviour
 
     public void OnClickR2() // (0322)
     {
+        audioSource.clip = BtnSound;
+        audioSource.Play();
+
         FileInfo fileInfo2 = new FileInfo(Application.dataPath + "/SaveFile2.txt");
         if (fileInfo2.Exists) // 파일이 존재하면
         {

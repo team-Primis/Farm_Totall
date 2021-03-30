@@ -56,7 +56,7 @@ public class SpawnManager : MonoBehaviour
             GoOut = false;
 
             LBScript.ResetLoading(); // 집 안 → 밖 0/3
-            Invoke("LoadSpawn", 0.4f); // 씬 바꿀 시간 부여
+            Invoke("LoadSpawn", 1.5f); // 씬 바꿀 시간 부여
         }
 
         if(GoIn)
@@ -64,7 +64,7 @@ public class SpawnManager : MonoBehaviour
             GoIn = false;
             
             LBScript.loadSlider.value += 0.35f; // 집 밖 → 안 1/3
-            Invoke("QuitLoadO2I", 0.4f); // 씬 바꿀 시간 부여
+            Invoke("QuitLoadO2I", 1.5f); // 씬 바꿀 시간 부여
         }
 
         if(SceneManager.GetActiveScene().name == "OutSide" && GMScript.dayChanged && GMScript.timer >= 420)
