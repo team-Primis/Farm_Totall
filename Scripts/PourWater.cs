@@ -42,7 +42,7 @@ public class PourWater : MonoBehaviour
             {
                 if (Inven.equipedItem.Ename == "waterSprinkle")//장착한 아이템이 물뿌리개인 경우
                 {
-
+                    SoundManager.instance.SFXPlay("Planting", wateringSound);//물 주는 소리 재생.
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
                     RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한인 레이져 쏘는 거일걸.
 
@@ -60,7 +60,7 @@ public class PourWater : MonoBehaviour
                                 pL.iswatered = true;//물을 줬음을 표시함.
 
                                 wsr.enabled = true;//물을 줬음을 표시함.
-                                SoundManager.instance.SFXPlay("Planting", wateringSound);//물 주는 소리 재생.
+                                
                                 stM.UseHp(3f);//스태미나 소모.
 
 
