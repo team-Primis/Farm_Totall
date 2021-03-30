@@ -44,8 +44,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 일시정지창, 닭판매창, 자는화면, 로딩화면 떠있으면 플레이어 정지
-        if(GMScript.isMenuOpen == false && GMScript.isWillSellOpen == false
+        // 일시정지창, 닭판매창, 닭구매창(0324), 자는화면, 로딩화면 떠있으면 플레이어 정지
+        if(GMScript.isMenuOpen == false && GMScript.isWillSellOpen == false && GMScript.isBuyOpen == false
                         && GMScript.isSleepOpen == false && GMScript.isLoadingOpen == false)
         {
             Move();//플레이어 이동하는 함수.
