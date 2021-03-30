@@ -99,7 +99,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
                         createdPlant.Add(PlantedPlant);//리스트에 추가.
                         PlantXp.Add(PlantedPlant.transform.position.x);//좌표값 저장하는 리스트에 추가.
                         PlantYp.Add(PlantedPlant.transform.position.y);//좌표값 저장하는 리스트에 추가.
-                        Inven.UseItem(Inven.equipedItem.id);//인벤에서 아이템 사용하는 함수로 씨앗을 써줌.
+                        Inven.UseItem();//인벤에서 아이템 사용하는 함수로 씨앗을 써줌.
                         SoundManager.instance.SFXPlay("Planting", plantingPlant);//심을 때 소리나게 해줌.
                         stM.UseHp(4f);//스태미나 소모.
                     }

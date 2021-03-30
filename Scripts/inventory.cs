@@ -266,27 +266,29 @@ public class inventory : MonoBehaviour
             Debug.Log("해당 item id가 데이터베이스에 없습니다.");
             return;
         }
-
-        //있을 경우
-        //캐릭터 인벤에 아이템 추가, 외부 인벤에 그림 바꿈(빈 객체가 있는 칸을 해당 객체의 그림으로 바꿈)
-
         //해당 아이템을 처음 추가하는 경우 : 인벤토리를 확인했을 때 해당 객체가 없음
         if (CheckForItem(id) == null)
         {
-
-            
             itemToAdd.count += plusNum;
-            characterItems.Add(itemToAdd);
-            inventoryUI.AddNewItem(itemToAdd);
+            Item item = new Item(itemToAdd.id, itemToAdd.Kname, itemToAdd.Ename, itemToAdd.description, itemToAdd.category, itemToAdd.stats);
+            item.count = plusNum;
+            characterItems.Add(item);
+            inventoryUI.AddNewItem(item);
 
-
-           // Debug.Log("아이템 " + itemToAdd.Kname+"을 "+itemToAdd.count+"개 추가합니다.");
+            // Debug.Log("아이템 " + itemToAdd.Kname+"을 "+itemToAdd.count+"개 추가합니다.");
         }
+        //해당 아이템 객체가 이미 있음
         else
         {
+            //db에 갯수추가
             itemToAdd.count += plusNum;
-            inventoryUI.UpdateItemNumUI(itemToAdd);
-         //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
+
+            //첫번째로 위치한 아이템의 카운트 추가
+            Item item = CheckForItem(id);
+            item.count++;
+            Debug.Log(item.Kname + "을 " + item.count + "개로 만듭니다");
+            inventoryUI.UpdateItemNumUICount(item);
+            //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
         }
         sellingUI.isItemChanged = true;
 
