@@ -253,7 +253,7 @@ public class MenuControl : MonoBehaviour
     // for bgm ON/OFF
     public void OnClickSPBT()
     {
-        if(BGAudio.isPlaying && BGState.sprite == BGIsOn) // 끄기 위해 클릭 시
+        if(BGAudio.isPlaying ) // 끄기 위해 클릭 시
         {
             BGState.sprite = BGIsOff;
             BGAudio.Stop();

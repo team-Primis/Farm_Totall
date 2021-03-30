@@ -51,16 +51,7 @@ public class inventory : MonoBehaviour
 
         audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>();
        
-        
-        //테스트용으로 미리 인벤토리에 넣어놓은것들
-        putInventory(1,3);
-
-        putInventory(2);
-        putInventory(100);
-        putInventory(101);
-
-        putInventory(99,3); // 닭 밥 테스트용 건초
-
+      
         
 
         //안내사항 띄우고 싶을땐 이렇게 쓰기
