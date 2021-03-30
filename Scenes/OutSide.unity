@@ -6475,6 +6475,7 @@ MonoBehaviour:
   GMscript: {fileID: 0}
   DaySound: {fileID: 8300000, guid: 882367a1c9dd4cb4cb0c7f9444691737, type: 3}
   NightSound: {fileID: 8300000, guid: 30d7c565f104be8418f0dd2ca5aaba2a, type: 3}
+  InsideSound: {fileID: 8300000, guid: ca1b1f7dfa7d5ca4d9f22ee4a9b69af2, type: 3}
 --- !u!4 &669238606
 Transform:
   m_ObjectHideFlags: 0
@@ -71485,7 +71486,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.055
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -78615,7 +78616,7 @@ MonoBehaviour:
   thePlayer: {fileID: 0}
   Inven: {fileID: 0}
   stM: {fileID: 0}
-  wateringSound: {fileID: 8300000, guid: 7e9f12e3b18d3ae4aa8d3b99909a00c9, type: 3}
+  wateringSound: {fileID: 8300000, guid: bd4cc40bf9e2ef94784a35d1cfed3a74, type: 3}
 --- !u!4 &1609917502
 Transform:
   m_ObjectHideFlags: 0

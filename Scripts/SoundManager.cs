@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     public GameManager GMscript;//게임매니져.
     public AudioClip DaySound;//낮소리.
     public AudioClip NightSound;//밤소리.
+    public AudioClip InsideSound;//집안에서 나는 소리.
 
     // Start is called before the first frame update
     public void Awake()
@@ -32,20 +33,14 @@ public class SoundManager : MonoBehaviour
     void Update()
     {
        
-            SelectBgmClip();
-        if(SceneManager.GetActiveScene().name == "OutSide")
-        {
-            if (!audioSource.isPlaying)
-                audioSource.Play();
-
-        }
-        else
-        {
-            audioSource.Stop();
-        }
-       
-       
+        SelectBgmClipOutside();
+        SelectBgmClipInside();
         
+            
+     
+
+
+
     }
     //원래는 미해가 만들어둔 오디오 소스로 할라고 했는데 연속으로 마우스를 클릭하니까 소리가 씹히는 경우가 잦아서 마우스 클릭 각각에 반응하도록 이 방법으로 함.
     public void SFXPlay(string sfxName, AudioClip clip)//음악 재생 함수..
@@ -57,22 +52,37 @@ public class SoundManager : MonoBehaviour
         Destroy(go, clip.length);//소리가 끝나면 이 오브젝트를 없애줌.
     }
 
-    public void SelectBgmClip()
+    public void SelectBgmClipOutside()//집밖에서 들리는 소리 정하기.
     {
 
-       
-            if (5 < GMscript.minute && GMscript.minute < 19)
+        if (SceneManager.GetActiveScene().name == "OutSide")
+        {
+            if (5 < GMscript.minute && GMscript.minute < 19)//낮시간에는
             {
-                audioSource.clip = DaySound;
+                audioSource.clip = DaySound;//낮 소리 플레이.
+                
             }
             else
             {
-                audioSource.clip = NightSound;
+                audioSource.clip = NightSound;//밤에는 밤 소리 플레이.
             }
-      
+           
+        }
+        if (!audioSource.isPlaying)
+            audioSource.Play();
 
     }
 
-    
+    public void SelectBgmClipInside()//집안에서 들리는 소리 정하기.
+    {
+        if (SceneManager.GetActiveScene().name == "Inside")
+        {
+            audioSource.clip = InsideSound;//집안 소리 플레이.
+           
+        }
+        
+        if (!audioSource.isPlaying)
+            audioSource.Play();
+    }
  
 }
