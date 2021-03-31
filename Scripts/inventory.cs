@@ -244,6 +244,29 @@ public class inventory : MonoBehaviour
     }
 
 
+    //다시 로드용. id가 같아도 따로 생성
+    public void putAgainInventory(int id, int num = 1)
+    {
+        //db 확인
+        Item itemToAdd = db.GetItem(id);
+
+        //없을경우
+        if (itemToAdd == null)
+        {
+            Debug.Log("해당 item id가 데이터베이스에 없습니다.");
+            return;
+        }
+        //db에 갯수추가
+        itemToAdd.count += num;
+
+     
+        Item item = new Item(itemToAdd.id, itemToAdd.Kname, itemToAdd.Ename, itemToAdd.description, itemToAdd.category, itemToAdd.stats);
+        item.count = num;
+        characterItems.Add(item);
+        inventoryUI.AddNewItem(item);
+    }
+
+
     //이 아이디를 가진 아이템을 인벤에 넣을떄 쓰는 함수.
     //해당 id가 아이템 데이터베이스에 존재하는지 확인하고 존재 시 인벤(characterItems)에 넣는다
     public void putInventory(int id, int plusNum = 1)

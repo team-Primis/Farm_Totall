@@ -278,6 +278,8 @@ public class SaveNLoad : MonoBehaviour
             {
                 data.characterItemsID.Add(theUIInventory.uiitems[i].item.id);
                 data.characterItemsCnt.Add(theUIInventory.uiitems[i].item.count);
+                //0331미해 지울것
+                Debug.Log(i+"번째 칸의 아이템 " + theUIInventory.uiitems[i].item.Kname + " "+theUIInventory.uiitems[i].item.count+"개를 파일에 저장합니다.");
             }
             else // UI 칸이 비어있으면
             {
@@ -591,7 +593,7 @@ public class SaveNLoad : MonoBehaviour
                 theMenuControl = FindObjectOfType<MenuControl>();
                 theSpawningDirt = FindObjectOfType<SpawningDirt>(); // 0304ing
                 theSpawningPlant = FindObjectOfType<SpawningPlant>(); // 0304ing
-                theItemDatabase = FindObjectOfType<itemDatabase>();
+                theItemDatabase = FindObjectOfType<itemDatabase>(); //0331미해
 
                 Debug.Log("File 1 로드 시작 - 2");
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 1 (~0.2)
@@ -711,9 +713,14 @@ public class SaveNLoad : MonoBehaviour
                 {
                     if(data.characterItemsID[i] != 1000) // 인벤칸이 비어있지 않았다면
                     {
+                        theInventory.putAgainInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                        Debug.Log(theItemDatabase.GetItem(data.characterItemsID[i]).Kname + "이 인벤토리에 추가됩니다.");
+                        /*
                         if(theInventory.CheckForItem(data.characterItemsID[i]) == null) // 아직 없다면
                         {
+                            
                             theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                            Debug.Log(theItemDatabase.GetItem(data.characterItemsID[i]).Kname + "이 처음 인벤토리에 추가됩니다.");
                         }
                         else // 이미 있다면 split
                         {
@@ -721,8 +728,10 @@ public class SaveNLoad : MonoBehaviour
                             theInventory.PutSplitedItem(data.characterItemsID[i]); // 기존 거에 넣고 다시 분리
                             theInventory.characterItems[i].count += data.characterItemsCnt[i] - 1;
                             theUIInventory.uiitems[i].UpdateNumUI(theUIInventory.uiitems[i].item);
+                            Debug.Log(theItemDatabase.GetItem(data.characterItemsID[i]).Kname + "이 이미 있으므로 인벤토리 갯수만 추가합니다.");
                         }
-                        if(data.characterItemsID[i] == data.equipedItemID && i == data.equipedItemIndex)
+                        */
+                        if (data.characterItemsID[i] == data.equipedItemID && i == data.equipedItemIndex)
                         {
                             theInventory.equipedItem = theInventory.characterItems[i];
                             theUIInventory.MoveEmphasizedSlot(theUIInventory.uiitems[i].transform); // 강조
