@@ -9226,6 +9226,7 @@ MonoBehaviour:
   BGIsOn: {fileID: 21300000, guid: 2896fc72b11d48642881322d242d3a73, type: 3}
   BGIsOff: {fileID: 21300000, guid: d6d6ee42937778840863a265eb8bdd9b, type: 3}
   BGAudio: {fileID: 0}
+  soundManagerScript: {fileID: 0}
 --- !u!114 &834879654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69684,6 +69685,7 @@ MonoBehaviour:
   DaySound: {fileID: 8300000, guid: 882367a1c9dd4cb4cb0c7f9444691737, type: 3}
   NightSound: {fileID: 8300000, guid: 30d7c565f104be8418f0dd2ca5aaba2a, type: 3}
   InsideSound: {fileID: 8300000, guid: ca1b1f7dfa7d5ca4d9f22ee4a9b69af2, type: 3}
+  audioStopClicked: 0
 --- !u!4 &1066742165
 Transform:
   m_ObjectHideFlags: 0
