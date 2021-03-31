@@ -12,6 +12,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip NightSound;//밤소리.
     public AudioClip InsideSound;//집안에서 나는 소리.
 
+    //0331 미해 merge 추가 : MenuControl 소통용
+    public bool audioStopClicked;
+
     // Start is called before the first frame update
     public void Awake()
     {
@@ -26,6 +29,8 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);//씬 이동 시 없애줌.
         }
+        //0331 미해 merge 추가 : MenuControl 소통용
+        audioStopClicked = false;
 
     }
 
@@ -68,9 +73,17 @@ public class SoundManager : MonoBehaviour
             }
            
         }
+        /*0331 미해 수정
+        지현이의 원래 코드 :
         if (!audioSource.isPlaying)
             audioSource.Play();
+          */
 
+        //바뀐 코드
+        //(원래 코드는 배경음이 플레이 안되고 있으면, 바로 플레이를 시켜서 성현이의 일시정지 기능이 실행되지 않았습니당! 그래서 bool 추가했습니당)
+        if (!audioSource.isPlaying &&!audioStopClicked)
+            audioSource.Play();
+            
     }
 
     public void SelectBgmClipInside()//집안에서 들리는 소리 정하기.
@@ -80,9 +93,21 @@ public class SoundManager : MonoBehaviour
             audioSource.clip = InsideSound;//집안 소리 플레이.
            
         }
-        
+
+        /*0331 미해 수정
+         * 지현이의 원래 코드 :
         if (!audioSource.isPlaying)
             audioSource.Play();
+          */
+
+        //바뀐 코드
+        //(원래 코드는 배경음이 플레이 안되고 있으면, 바로 플레이를 시켜서 성현이의 일시정지 기능이 실행되지 않았습니당! 그래서 bool 추가했습니당)
+        if (!audioStopClicked && !audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
+        
+       
     }
  
 }

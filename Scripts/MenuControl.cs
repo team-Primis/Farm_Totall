@@ -40,6 +40,9 @@ public class MenuControl : MonoBehaviour
     public Sprite BGIsOff; // 꺼져있음
     public AudioSource BGAudio;
 
+    //(0331 미해 merge : bgm 관련 soundmanager 소통용 추가)
+    public SoundManager soundManagerScript;
+
     void Start()
     {
         GameObject canvas2 = GameObject.Find("Canvas2");
@@ -72,6 +75,9 @@ public class MenuControl : MonoBehaviour
         BGState = canvas2.transform.Find("MenuWindow").transform.Find("PauseMenu").
                 transform.Find("SPBT").GetComponent<Image>();
         BGAudio = GameObject.Find("bgm").GetComponent<AudioSource>();
+
+        //0331 미해 추가
+        soundManagerScript = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -255,13 +261,18 @@ public class MenuControl : MonoBehaviour
     {
         if(BGAudio.isPlaying ) // 끄기 위해 클릭 시
         {
+            
             BGState.sprite = BGIsOff;
+            //0331 미해 추가 ( SoundManager에 bool을 넘겨주는 것을 추가했습니당)
+            soundManagerScript.audioStopClicked = true;
             BGAudio.Stop();
         }
         else if(!BGAudio.isPlaying && BGState.sprite == BGIsOff) // 켜기 위해 클릭 시
         {
             BGState.sprite = BGIsOn;
-            BGAudio.Play();
+            //0331 미해 추가
+            soundManagerScript.audioStopClicked = false;
+            //BGAudio.Play(); ( 오디오를 플레이하는 역할은 지현이의 SoundManager로 넘기고, 얘는 stop 하는 역할만 남겼습니당)
         }
         // 새 게임 or 로딩해서 시작하면, sprite를 on으로 초기화, play로 초기화 해주기!!!
     }
