@@ -278,8 +278,7 @@ public class SaveNLoad : MonoBehaviour
             {
                 data.characterItemsID.Add(theUIInventory.uiitems[i].item.id);
                 data.characterItemsCnt.Add(theUIInventory.uiitems[i].item.count);
-                //0331미해 지울것
-                Debug.Log(i+"번째 칸의 아이템 " + theUIInventory.uiitems[i].item.Kname + " "+theUIInventory.uiitems[i].item.count+"개를 파일에 저장합니다.");
+                
             }
             else // UI 칸이 비어있으면
             {
@@ -713,9 +712,10 @@ public class SaveNLoad : MonoBehaviour
                 {
                     if(data.characterItemsID[i] != 1000) // 인벤칸이 비어있지 않았다면
                     {
+                        //0331 미해 변경 ( putInventory 말고 putAgainInventory를 만들어서 아이템 id가 같아도 별도로 생기게 했습니당! -> 완벽반영!)
                         theInventory.putAgainInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
-                        Debug.Log(theItemDatabase.GetItem(data.characterItemsID[i]).Kname + "이 인벤토리에 추가됩니다.");
-                        /*
+                        //Debug.Log(theItemDatabase.GetItem(data.characterItemsID[i]).Kname + "이 인벤토리에 추가됩니다.");
+                        /* 성현이의 원래 코드
                         if(theInventory.CheckForItem(data.characterItemsID[i]) == null) // 아직 없다면
                         {
                             
@@ -1003,7 +1003,12 @@ public class SaveNLoad : MonoBehaviour
                 {
                     if(data.characterItemsID[i] != 1000)
                     {
-                        if(theInventory.CheckForItem(data.characterItemsID[i]) == null)
+                        //0331 미해 변경 ( putInventory 말고 putAgainInventory를 만들어서 아이템 id가 같아도 별도로 생기게 했습니당! -> 완벽반영!)
+                        theInventory.putAgainInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
+                        //Debug.Log(theItemDatabase.GetItem(data.characterItemsID[i]).Kname + "이 인벤토리에 추가됩니다.");
+
+                        /*성현이 원래 코드
+                        if (theInventory.CheckForItem(data.characterItemsID[i]) == null)
                         {
                             theInventory.putInventory(data.characterItemsID[i], data.characterItemsCnt[i]);
                         }
@@ -1014,6 +1019,7 @@ public class SaveNLoad : MonoBehaviour
                             theInventory.characterItems[i].count += data.characterItemsCnt[i] - 1;
                             theUIInventory.uiitems[i].UpdateNumUI(theUIInventory.uiitems[i].item);
                         }
+                        */
                         if(data.characterItemsID[i] == data.equipedItemID && i == data.equipedItemIndex)
                         {
                             theInventory.equipedItem = theInventory.characterItems[i];
