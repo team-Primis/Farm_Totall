@@ -191,6 +191,7 @@ public class SaveNLoad : MonoBehaviour
         theSpawningDirt = FindObjectOfType<SpawningDirt>();
         theSpawningPlant = FindObjectOfType<SpawningPlant>();
 
+
         data.playerX = thePlayerMove.transform.position.x;
         data.playerY = thePlayerMove.transform.position.y;
         data.sceneName = thePlayerMove.currentMapName;
@@ -590,6 +591,7 @@ public class SaveNLoad : MonoBehaviour
                 theMenuControl = FindObjectOfType<MenuControl>();
                 theSpawningDirt = FindObjectOfType<SpawningDirt>(); // 0304ing
                 theSpawningPlant = FindObjectOfType<SpawningPlant>(); // 0304ing
+                theItemDatabase = FindObjectOfType<itemDatabase>();
 
                 Debug.Log("File 1 로드 시작 - 2");
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 1 (~0.2)
@@ -878,6 +880,7 @@ public class SaveNLoad : MonoBehaviour
                 theMenuControl = FindObjectOfType<MenuControl>();
                 theSpawningDirt = FindObjectOfType<SpawningDirt>();
                 theSpawningPlant = FindObjectOfType<SpawningPlant>();
+                theItemDatabase = FindObjectOfType<itemDatabase>();
 
                 Debug.Log("File 2 로드 시작 - 2");
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 1 (~0.2)
