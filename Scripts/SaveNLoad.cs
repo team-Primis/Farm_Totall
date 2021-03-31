@@ -699,6 +699,10 @@ public class SaveNLoad : MonoBehaviour
                     theInventory.RemoveAll(theInventory.characterItems[i].id);
                 } // 인벤 아이템 비우기
                 theUIInventory.MakeSlotNull(); // 인벤 UI 비우기
+                //________________________________________________________
+                //0331 미해 ( 데이터베이스 비워주기)
+                theItemDatabase.DeleteDatabaseCount();
+                //_________________________________________________
                 bool isEquipedOK = false;
                 int trashnum = 1001; // 초기값
                 for(int i = 0; i < data.characterItemsID.Count; i++) // 인벤템 불러오기
@@ -977,6 +981,10 @@ public class SaveNLoad : MonoBehaviour
                     theInventory.RemoveAll(theInventory.characterItems[i].id);
                 }
                 theUIInventory.MakeSlotNull();
+                //________________________________________________________
+                //0331 미해 ( 데이터베이스 비워주기)
+                theItemDatabase.DeleteDatabaseCount();
+                //_________________________________________________
                 bool isEquipedOK = false;
                 int trashnum = 1001;
                 for(int i = 0; i < data.characterItemsID.Count; i++)
