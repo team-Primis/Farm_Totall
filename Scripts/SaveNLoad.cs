@@ -68,6 +68,10 @@ public class SaveNLoad : MonoBehaviour
     private SpawningPlant theSpawningPlant; // plant -------------------- load&save&새게임
     private PlantLoad thePlantLoad; // plant -------------------- load&save 내부
 
+
+    //0331 미해 추가  : itemDatabase
+    private itemDatabase theItemDatabase; // ____________저장시 갯수 초기화 용
+
     public SNLData data; // SNLData 이용할 것임
 
     public void CallNewGame()
@@ -97,6 +101,8 @@ public class SaveNLoad : MonoBehaviour
         theMenuControl = FindObjectOfType<MenuControl>();
         theSpawningPlant = FindObjectOfType<SpawningPlant>();
         theSpawningDirt = FindObjectOfType<SpawningDirt>();
+
+        theItemDatabase = FindObjectOfType<itemDatabase>();
 
         Debug.Log("새 게임 로드 시작 - 2");
         theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 새게임 - 1 (~0.2)
@@ -130,7 +136,10 @@ public class SaveNLoad : MonoBehaviour
             theInventory.RemoveAll(theInventory.characterItems[i].id);
         } // 인벤 아이템 비우기 (인벤 초기화)
         theUIInventory.MakeSlotNull(); // 인벤 UI 비우기 (인벤 UI 초기화)
-
+        //______________________________________________________________
+        //0331 미해 추가 ( 데이터베이스의 아이템 갯수 초기화)
+        theItemDatabase.DeleteDatabaseCount(); //-------------데이터베이스의 아이템 갯수를  전부 없애줌 : 이래야 새게임 로드할때 아이템 갯수가 1개로 찍힘
+        //___________________________________________________________
         theInventory.putInventory(100); // 기본 인벤템
         theInventory.putInventory(101); // 기본 인벤템
         theInventory.putInventory(102); // 기본 인벤템 (호미 0316 추가)

@@ -21,6 +21,14 @@ public class itemDatabase : MonoBehaviour
         return items.Find(item => item.Ename == name);
     }
 
+    public void DeleteDatabaseCount()
+    {
+        for(int i = 0; i < items.Count; i++)
+        {
+            items[i].count = 0;
+        }
+    }
+
     //인게임의 모든 아이템을 여기에 쓸것. 특성은 마음대로 정해도 됨! 쓸게 없으면 특성은 비워도 됌!
     private void BuildDataBase()
     {
