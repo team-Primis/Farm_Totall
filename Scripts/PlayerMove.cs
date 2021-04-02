@@ -47,9 +47,11 @@ public class PlayerMove : MonoBehaviour
         // 일시정지창, 닭판매창, 닭구매창(0324), 자는화면, 로딩화면 떠있으면 플레이어 정지
         // (0402 성현) SleepLoading 관련 조건 추가 (찐 자는 화면)
         // (0402 성현) isSleepOpen은 기절 및 잠 선택창 관련
+        // (0402 성현) Title 화면에서도 플레이어 정지
         if(GMScript.isMenuOpen == false && GMScript.isWillSellOpen == false && GMScript.isBuyOpen == false
                         && GMScript.isSleepOpen == false && GMScript.isLoadingOpen == false
-                        && GameObject.Find("Canvassleep").transform.Find("SleepLoading").gameObject.activeSelf == false)
+                        && GameObject.Find("Canvassleep").transform.Find("SleepLoading").gameObject.activeSelf == false
+                        && SceneManager.GetActiveScene().name != "Title")
         {
             Move();//플레이어 이동하는 함수.
             MovingSFX();//이동할 때 음악 재생.
