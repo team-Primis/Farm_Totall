@@ -184,6 +184,7 @@ public class MenuControl : MonoBehaviour
     {
         SceneManager.LoadScene("Title");
     }
+    
 
     // WhereSave UI의 버튼들
     public void GoFile1()
@@ -259,10 +260,10 @@ public class MenuControl : MonoBehaviour
     // for bgm ON/OFF
     public void OnClickSPBT()
     {
-        if(BGAudio.isPlaying ) // 끄기 위해 클릭 시
+        if(BGAudio.isPlaying && BGState.sprite == BGIsOn) // 끄기 위해 클릭 시
         {
-            
             BGState.sprite = BGIsOff;
+
             //0331 미해 추가 ( SoundManager에 bool을 넘겨주는 것을 추가했습니당)
             soundManagerScript.audioStopClicked = true;
             BGAudio.Stop();
@@ -270,6 +271,7 @@ public class MenuControl : MonoBehaviour
         else if(!BGAudio.isPlaying && BGState.sprite == BGIsOff) // 켜기 위해 클릭 시
         {
             BGState.sprite = BGIsOn;
+
             //0331 미해 추가
             soundManagerScript.audioStopClicked = false;
             //BGAudio.Play(); ( 오디오를 플레이하는 역할은 지현이의 SoundManager로 넘기고, 얘는 stop 하는 역할만 남겼습니당)
