@@ -75,6 +75,7 @@ public class GameManager : MonoBehaviour
         // 성현
         if (!didGameStart) // 게임 시작 전에는 타이틀로 이동
         {
+            GameObject.Find("Canvasbs").transform.Find("beforestart").gameObject.SetActive(true); // (0405)
             didGameStart = true;
             SceneManager.LoadScene("Title");
         }
