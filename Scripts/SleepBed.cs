@@ -29,9 +29,10 @@ public class SleepBed : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))//충돌한 오브젝트의 태그가 "플레이어"인 경우
         {
-            
+            if (!GMscript.isLoadingOpen) // 로딩 시 오류 방지 (0405 성현)
+            {
                 CallMenu();//"잠을 잘까요?" 캔버스를 뜨게 한다.
-                
+            }
         }
 
         else//만약 충돌한 오브젝트의 태그가 "플레이어"가 아닌 경우
