@@ -43,6 +43,8 @@ public class TitleManager : MonoBehaviour
         theMenuControl.BGAudio.Stop(); // (0327)
 
         audioSource = GameObject.Find("SoundEffect").GetComponent<AudioSource>(); // (0330)
+
+        GameObject.Find("Canvasbs").transform.Find("beforestart").gameObject.SetActive(false); // (0405)
     }
 
     // Update is called once per frame

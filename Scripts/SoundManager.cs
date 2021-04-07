@@ -1,3 +1,4 @@
+
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class SoundManager : MonoBehaviour
 
     //0331 미해 merge 추가 : MenuControl 소통용
     public bool audioStopClicked;
+
 
     // Start is called before the first frame update
     public void Awake()
@@ -81,8 +83,22 @@ public class SoundManager : MonoBehaviour
 
         //바뀐 코드
         //(원래 코드는 배경음이 플레이 안되고 있으면, 바로 플레이를 시켜서 성현이의 일시정지 기능이 실행되지 않았습니당! 그래서 bool 추가했습니당)
-        if (!audioSource.isPlaying &&!audioStopClicked)
-            audioSource.Play();
+        /*if (!audioSource.isPlaying &&!audioStopClicked)
+            audioSource.Play();*/
+        // (0402 성현 주석처리)
+        // 아래는 바뀐 코드! (성현) - 맨 아래 참고
+        if(SceneManager.GetActiveScene().name == "OutSide")
+        {
+            if (!audioStopClicked && !audioSource.isPlaying && !GMscript.isLoadingOpen)
+            {
+                audioSource.Play();
+            }
+
+            if (GMscript.isLoadingOpen)
+            {
+                audioSource.Stop();
+            }
+        }
             
     }
 
@@ -102,12 +118,37 @@ public class SoundManager : MonoBehaviour
 
         //바뀐 코드
         //(원래 코드는 배경음이 플레이 안되고 있으면, 바로 플레이를 시켜서 성현이의 일시정지 기능이 실행되지 않았습니당! 그래서 bool 추가했습니당)
-        if (!audioStopClicked && !audioSource.isPlaying)
+        /*if (!audioStopClicked && !audioSource.isPlaying)
         {
             audioSource.Play();
+        }*/
+        // (0402 성현 주석처리)
+        // 아래는 바뀐 코드! (성현) - 맨 아래 참고
+        if(SceneManager.GetActiveScene().name == "Inside")
+        {
+            if (!audioStopClicked && !audioSource.isPlaying
+                && !GMscript.isLoadingOpen
+                && !GameObject.Find("Canvassleep").transform.Find("SleepLoading").gameObject.activeSelf)
+            {
+                audioSource.Play();
+            }
+
+            if (GMscript.isLoadingOpen
+                || GameObject.Find("Canvassleep").transform.Find("SleepLoading").gameObject.activeSelf)
+            {
+                audioSource.Stop();
+            }
         }
-        
        
     }
  
 }
+
+// 0402 성현 수정~
+// (1)
+// if (!audioStopClicked && !audioSource.isPlaying) { audioSource.Play(); }
+// 이 부분 둘 다 조건문에 넣었습니당
+// 미해가 바꾼 건 타이틀 갈 때 stop 했더니 씬 상관없이 계속 다시 재생 시키더라고
+// 그래서 타이틀에 노래 계속 나오는 것 같아서 바꿨고 해결됐슴니당
+// (2)
+// 침대에서 자는 화면(SleepLoading.activeSelf) 및 로딩 화면(isLoadingOpen)에선 BGM 정지!

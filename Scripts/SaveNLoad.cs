@@ -168,12 +168,13 @@ public class SaveNLoad : MonoBehaviour
         theSpawningPlant.PlantYp.Clear(); // 식물 위치 목록 초기화(y)
         theSpawningPlant.createdPlant.Clear(); // 다시 확인 (식물 목록 초기화)
 
-        theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // 소리 onoff 이미지 초기화 (0327)
-        theMenuControl.BGAudio.Play(); // 소리 onoff 설정 초기화 (0327)
         theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간 흐르기 시작 (맨 위 참고)
 
         theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 새게임 - 5 (~1.0)
-        Debug.Log("새 게임 로드 완료");
+
+        theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // 소리 onoff 이미지 초기화 (0327)
+        theMenuControl.soundManagerScript.audioStopClicked = false; // 소리 onoff 설정 초기화 (0402)
+        // Debug.Log("새 게임 로드 완료");
         notice.WriteMessage("새 게임 시작!");
     }
 
@@ -190,7 +191,6 @@ public class SaveNLoad : MonoBehaviour
         theContainerItems = FindObjectOfType<ContainerItems>();
         theSpawningDirt = FindObjectOfType<SpawningDirt>();
         theSpawningPlant = FindObjectOfType<SpawningPlant>();
-
 
         data.playerX = thePlayerMove.transform.position.x;
         data.playerY = thePlayerMove.transform.position.y;
@@ -555,14 +555,14 @@ public class SaveNLoad : MonoBehaviour
             }
             else
             {
-                Debug.Log("File 1 비었음");
+                //Debug.Log("File 1 비었음");
                 notice.WriteMessage("1번 데이터 없음!");
             }
             file.Close(); // 파일 닫기
         }
         else
         {
-            Debug.Log("File 1 없음");
+            //Debug.Log("File 1 없음");
             notice.WriteMessage("1번 파일이 없음!");
         }
     }
@@ -823,12 +823,13 @@ public class SaveNLoad : MonoBehaviour
                     thePlantLoad.DoPlantAni(data.plantI[i], data.plantWater[i]); // 이 함수 안에 water 포함
                 }
 
-                theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // 소리 onoff 이미지 초기화 (0327)
-                theMenuControl.BGAudio.Play(); // 소리 onoff 설정 초기화 (0327)
                 theMenuControl.WhenRestart(); // 일시정지 창 끄기 & 시간 흐르기 시작 (맨 위 참고)
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩1 - 5 (~1.0)
-                Debug.Log("File 1 로드 완료");
+
+                theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // 소리 onoff 이미지 초기화 (0327)
+                theMenuControl.soundManagerScript.audioStopClicked = false; // 소리 onoff 설정 초기화 (0402)
+                // Debug.Log("File 1 로드 완료");
                 notice.WriteMessage("File 1 이어하기!");
             }
             file.Close(); // 파일 닫기
@@ -853,14 +854,14 @@ public class SaveNLoad : MonoBehaviour
             }
             else
             {
-                Debug.Log("File 2 비었음");
+                //Debug.Log("File 2 비었음");
                 notice.WriteMessage("2번 데이터 없음!");
             }
             file.Close();
         }
         else
         {
-            Debug.Log("File 2 없음");
+            //Debug.Log("File 2 없음");
             notice.WriteMessage("2번 파일이 없음!");
         }
     }
@@ -1110,12 +1111,13 @@ public class SaveNLoad : MonoBehaviour
                     thePlantLoad.DoPlantAni(data.plantI[i], data.plantWater[i]);
                 }
 
-                theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // (0327)
-                theMenuControl.BGAudio.Play(); // (0327)
                 theMenuControl.WhenRestart();
 
                 theLoadingBar.loadSlider.value += 0.2f; // 로로딩딩 로딩2 - 5 (~1.0)
-                Debug.Log("File 2 로드 완료");
+
+                theMenuControl.BGState.sprite = theMenuControl.BGIsOn; // (0327)
+                theMenuControl.soundManagerScript.audioStopClicked = false; // (0402)
+                // Debug.Log("File 2 로드 완료");
                 notice.WriteMessage("File 2 이어하기!");
             }
             file.Close();
