@@ -59,9 +59,11 @@ public class VendorItem : MonoBehaviour, IPointerClickHandler
 
                 }
             }
-
+            SoundManager.instance.SFXPlay("Pushing", touchSound);//심을 때 소리나게 해줌.
+            /*
             audioSource.clip = touchSound;
             audioSource.Play();
+            */
         }
     }
 }
