@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3765651001769421008}
   - component: {fileID: 5578199222669821901}
   - component: {fileID: 6113266586472718399}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: BlueFlower
   m_TagString: Plant
   m_Icon: {fileID: 0}
@@ -194,6 +194,8 @@ MonoBehaviour:
   sT: {fileID: 0}
   pT: {fileID: 0}
   plantGrow: 1
+  plantPauseTimer: 0
+  PauseGmTimer: 0
 --- !u!95 &3765651001769421008
 Animator:
   serializedVersion: 3
