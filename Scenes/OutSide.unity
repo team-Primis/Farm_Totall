@@ -256,7 +256,7 @@ GameObject:
   m_Component:
   - component: {fileID: 14236372}
   - component: {fileID: 14236371}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (8)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -1025,7 +1025,7 @@ GameObject:
   - component: {fileID: 67248553}
   - component: {fileID: 67248552}
   - component: {fileID: 67248554}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (2)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -1103,7 +1103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 72802109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1389,7 +1389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 157332715}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1560,7 +1560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 187551804}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2030,7 +2030,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 235360015}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2181,7 +2181,7 @@ GameObject:
   - component: {fileID: 237914064}
   - component: {fileID: 237914063}
   - component: {fileID: 237914065}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (4)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -2421,7 +2421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2824,7 +2824,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 301786741}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2854,7 +2854,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 305818589}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3305,7 +3305,7 @@ GameObject:
   m_Component:
   - component: {fileID: 345083749}
   - component: {fileID: 345083750}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (14)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -3604,7 +3604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 406875273}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4000,7 +4000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -4325,7 +4325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 485195837}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5009,7 +5009,7 @@ GameObject:
   m_Component:
   - component: {fileID: 504532870}
   - component: {fileID: 504532869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (9)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -5072,7 +5072,7 @@ GameObject:
   m_Component:
   - component: {fileID: 514646832}
   - component: {fileID: 514646833}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (24)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -5575,7 +5575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 574994795}
   - component: {fileID: 574994796}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (22)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -7578,15 +7578,15 @@ RectTransform:
   m_GameObject: {fileID: 731128023}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.42, y: 0.42, z: 1}
   m_Children: []
   m_Father: {fileID: 1409740851}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -256, y: -56}
-  m_SizeDelta: {x: -1760, y: -1050}
+  m_AnchoredPosition: {x: -149.1, y: -38.3}
+  m_SizeDelta: {x: -792.3232, y: -458.75586}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731128025
 MonoBehaviour:
@@ -7671,7 +7671,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -606.9392, w: 0}
+  m_margin: {x: 37.784607, y: 0, z: -850.1215, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8503,7 +8503,7 @@ GameObject:
   m_Component:
   - component: {fileID: 778232707}
   - component: {fileID: 778232708}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (16)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -8644,7 +8644,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 813261727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9154,7 +9154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 830193862}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67951,7 +67951,7 @@ GameObject:
   - component: {fileID: 888171274}
   - component: {fileID: 888171273}
   - component: {fileID: 888171275}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (3)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -68176,7 +68176,7 @@ RectTransform:
   m_GameObject: {fileID: 900247305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5.6125, y: 3.3578675, z: 1}
+  m_LocalScale: {x: 3, y: 2, z: 1}
   m_Children:
   - {fileID: 958595014}
   - {fileID: 1671103739}
@@ -68617,7 +68617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 912703033}
   - component: {fileID: 912703034}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (25)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -69112,7 +69112,7 @@ GameObject:
   m_Component:
   - component: {fileID: 975196207}
   - component: {fileID: 975196206}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (7)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -69169,7 +69169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 977905267}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69331,7 +69331,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1039167583}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69361,7 +69361,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1039169632}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69391,7 +69391,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1039462410}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69496,7 +69496,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1046556588}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69527,7 +69527,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1046754072}
   - component: {fileID: 1046754071}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt(5)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -69963,7 +69963,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1099609417}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69994,7 +69994,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1112734136}
   - component: {fileID: 1112734135}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (5)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -70217,7 +70217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1165275634}
   - component: {fileID: 1165275635}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (13)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -70393,7 +70393,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1176758839}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70423,7 +70423,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1183693038}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70586,7 +70586,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1187654043}
   - component: {fileID: 1187654044}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (21)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -70731,7 +70731,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1195556062}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -70938,7 +70938,7 @@ GameObject:
   - component: {fileID: 1220635973}
   - component: {fileID: 1220635972}
   - component: {fileID: 1220635974}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -72001,7 +72001,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1379879861}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72337,7 +72337,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1414110271}
   - component: {fileID: 1414110272}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (23)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -72508,7 +72508,7 @@ RectTransform:
   m_GameObject: {fileID: 1419408564}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.42, y: 0.42, z: 1}
   m_Children: []
   m_Father: {fileID: 1409740851}
   m_RootOrder: 0
@@ -72909,7 +72909,7 @@ RectTransform:
   m_GameObject: {fileID: 1461191612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 1}
   m_Children: []
   m_Father: {fileID: 440492725}
   m_RootOrder: 0
@@ -73310,7 +73310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1492922500}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73650,7 +73650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1528259771}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78610,7 +78610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1600597203}
   - component: {fileID: 1600597204}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (20)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -78668,7 +78668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1603775333}
   - component: {fileID: 1603775334}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (18)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -78856,7 +78856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1616268823}
   - component: {fileID: 1616268824}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (17)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -80962,7 +80962,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1827849360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81191,7 +81191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1851127702}
   - component: {fileID: 1851127703}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (10)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -81249,7 +81249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1856239945}
   - component: {fileID: 1856239944}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (6)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -81801,7 +81801,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1880956165}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81831,7 +81831,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1882105481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81862,7 +81862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1884055352}
   - component: {fileID: 1884055353}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (19)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -82476,7 +82476,7 @@ GameObject:
   - component: {fileID: 1941095514}
   - component: {fileID: 1941095513}
   - component: {fileID: 1941095515}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (1)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -82638,7 +82638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1962477685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlockDirtSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82696,7 +82696,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1963087469}
   - component: {fileID: 1963087470}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (12)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -83322,7 +83322,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2045028241}
   - component: {fileID: 2045028242}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (11)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -83875,7 +83875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2103174569}
   - component: {fileID: 2103174570}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DontSpawnDirt (15)
   m_TagString: DontGrind
   m_Icon: {fileID: 0}
@@ -83938,7 +83938,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2131315780}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}

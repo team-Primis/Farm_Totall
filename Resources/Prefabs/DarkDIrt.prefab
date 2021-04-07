@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7507590657787878581}
   - component: {fileID: -2426948901569372066}
   - component: {fileID: 411232371245930763}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DarkDIrt
   m_TagString: DarkDirt
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ BoxCollider2D:
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
@@ -107,7 +107,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.9, y: 0.9}
   m_EdgeRadius: 0
 --- !u!50 &411232371245930763
 Rigidbody2D:

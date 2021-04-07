@@ -44,7 +44,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
     void Update()
     {
         
-        if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false)//일시정지창, 구매창, 잠자기 창이 모두 열려 있지 않을 때만 작동.
+        if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false || GMscript.isBuyOpen)//일시정지창, 구매창, 잠자기 창이 모두 열려 있지 않을 때만 작동.
         {
             if (Inven.equipedItem.Ename != "empty")//장비 칸의 아이템 이름이 "empty"가 아닌 경우
             {
@@ -83,26 +83,30 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
         {
             //Debug.Log(distance);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한인 레이져 쏘는 거일걸.
-         
-                if (hit.collider != null)//만약 발사한 레이저가 어디에 맞았는데
+            RaycastHit2D hit1 = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << LayerMask.NameToLayer("PlantLayer"));//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한/"플랜트레이어" 레이어에 있는 오브젝트만 인식하는 레이져 쏘는 거일걸.
+            RaycastHit2D hit2 = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << LayerMask.NameToLayer("DarkDirt"));//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한/"다크덜트" 레이어에 있는 오브젝트만 인식하는 레이져 쏘는 거일걸.
+            if (hit1.collider == null)//만약 플랜트레이어에 있는 오브젝트만 인식하는 레이저가 어디에 맞았는데 비었고
            
             {
-                if (hit.collider.CompareTag("DarkDirt"))//그 물체가 어두운 흙이면
+                if(hit2.collider != null)//다크덜트 레이어에 있는 오브젝트만 인식하는 레어저가 어디에 맞았는데
                 {
-                    if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//플레이어의 위치를 기준으로 x 거리는 타일 1.5칸, y 거리는 타일 2칸 이하에서
+                    if (hit2.collider.CompareTag("DarkDirt"))//그 물체가 어두운 흙이면
                     {
+                        if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//플레이어의 위치를 기준으로 x 거리는 타일 1.5칸, y 거리는 타일 2칸 이하에서
+                        {
 
-                        GameObject PlantedPlant = Instantiate(PlantPrefabs);//식물 생성.
-                        PlantedPlant.transform.parent = dontDestroy.transform;//식물을 돈디스트로이 오브젝트의 자식으로 배치해줌.
-                        PlantedPlant.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
-                        createdPlant.Add(PlantedPlant);//리스트에 추가.
-                        PlantXp.Add(PlantedPlant.transform.position.x);//좌표값 저장하는 리스트에 추가.
-                        PlantYp.Add(PlantedPlant.transform.position.y);//좌표값 저장하는 리스트에 추가.
-                        Inven.UseItem();//인벤에서 아이템 사용하는 함수로 씨앗을 써줌.
-                        SoundManager.instance.SFXPlay("Planting", plantingPlant);//심을 때 소리나게 해줌.
-                        stM.UseHp(4f);//스태미나 소모.
+                            GameObject PlantedPlant = Instantiate(PlantPrefabs);//식물 생성.
+                            PlantedPlant.transform.parent = dontDestroy.transform;//식물을 돈디스트로이 오브젝트의 자식으로 배치해줌.
+                            PlantedPlant.transform.position = themousePosition;//생성한 식물을 마우스 위치와 같은 곳에 배치함.
+                            createdPlant.Add(PlantedPlant);//리스트에 추가.
+                            PlantXp.Add(PlantedPlant.transform.position.x);//좌표값 저장하는 리스트에 추가.
+                            PlantYp.Add(PlantedPlant.transform.position.y);//좌표값 저장하는 리스트에 추가.
+                            Inven.UseItem();//인벤에서 아이템 사용하는 함수로 씨앗을 써줌.
+                            SoundManager.instance.SFXPlay("Planting", plantingPlant);//심을 때 소리나게 해줌.
+                            stM.UseHp(4f);//스태미나 소모.
+                        }
                     }
+                
 
 
 
@@ -123,7 +127,7 @@ public class SpawningPlant : MonoBehaviour//식물 spawning하는 클래스
         {
             for (int i = 0; i < createdPlant.Count; i++)//그 길이만큼 반복
             {
-                createdPlant[i].transform.position = new Vector2(20f, -8f);//리스트 내 모든 식물의 위치를 한 곳으로 모아줌.
+                createdPlant[i].transform.position = new Vector2(30f, -16f);//리스트 내 모든 식물의 위치를 한 곳으로 모아줌.
             }
         }
     }

@@ -20,6 +20,8 @@ public class PlantLoad : MonoBehaviour
     public SleepTight sT;//잠잘 때 시간 반영해주려고 스크립트 가져옴.
     public Painting pT;//기절할 때 시간 반영해주려고 스크립트 가져옴.
     public bool plantGrow=true;//잠/기절할 때 시간 반영해주기 위한 bool.
+    public float plantPauseTimer;//plantTimer로 기절/잠 시간 반영하니까 도중에 Timer.deltaTime으로 시간 반영이 애매해지는 것 같아서 지정해줌.
+    public float PauseGmTimer;//얘도 위와 같은 이유로
     //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
     // Start is called before the first frame update
     public void Awake()
@@ -44,31 +46,29 @@ public class PlantLoad : MonoBehaviour
     {
 
         //일시정지 창 등등이 켜져 있지 않을 때만 돌아가도록 설정
-        if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false)
+        if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false || GMscript.isBuyOpen)
         {
-            plantTimer += Time.deltaTime * GMscript.speedUp;//식물타이머는 기본적으로 게임매니져의 타이머와 같은 속도로 증가함.
+            if (plantTimer <thisTime + wantedGrowthValue * 60)
+                plantTimer += Time.deltaTime * GMscript.speedUp;//식물타이머는 기본적으로 게임매니져의 타이머와 같은 속도로 증가함.
+
             if(pT.plantIsGrowing==true && plantGrow==true)//만약 기절한 경우
             {
                 plantTimer += pT.wantedPaintTime * 60*GMscript.speedUp;//기절 시간을 반영해줌.
                 plantGrow = false;//얘를 펄스로 해줘야 이후에 또 기절할 때 시간이 반영됨.
             }
-            if(sT.plantIsGrowing==true && plantGrow==true)//만약 잔 경우
+          if(sT.plantIsGrowing==true && plantGrow==true)//만약 잔 경우
             {
                 plantTimer += sT.wantedSleepTime * 60*GMscript.speedUp;//잔 시간을 반영해줌.
                 plantGrow = false;//얘를 펄스로 해줘야 이후에 또 잘 때 시간이 반영됨.
             }
+
             if (plantTimer >= thisTime + wantedGrowthValue * 60)//만약 식물 타이머가 현재시간에서 식물 성장 시간을 더한 것보다 커지면 성장시켜줘야지.
             {
-                if(plantTimer==thisTime+wantedGrowthValue*60)//근데 식물 타이머가 딱 현재시간에서 식물 성장 시간을 더한 것과 같다면
-                {
-                    plantTimer = GMscript.timer;//그냥 식물 타이머를 게임매니져의 현재 시간 타이머 값으로 선언해줌.
-                    
-                }
-                else if(plantTimer>thisTime+wantedGrowthValue*60)//근데 식물 타이머가 현재시간에서 식물 성장 시간을 더한 것보다 커지면
-                {
-                    plantTimer = GMscript.timer + (plantTimer-thisTime - wantedGrowthValue * 60 );//식물 타이머에 그 차이를 반영해줌.
+                plantPauseTimer = plantTimer;
+                PauseGmTimer = GMscript.timer;
+                plantPauseTimer = PauseGmTimer + (plantPauseTimer - thisTime - wantedGrowthValue * 60);//식물 타이머에 그 차이를 반영해줌.
+                plantTimer = plantPauseTimer;//식물 타이머에 그 차이를 반영해줌.
 
-                }
                 thisTime = GMscript.timer;//현재시간을 게임매니져의 현재시간으로 다시 선언해줌.
                 wsr.enabled = false;//물 오브젝트는 다시 끔.
 
@@ -96,6 +96,8 @@ public class PlantLoad : MonoBehaviour
                     Destroy(this.gameObject);//없어짐.
                 }
             }
+
+
 
         }
 
