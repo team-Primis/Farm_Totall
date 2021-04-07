@@ -38,6 +38,8 @@ public class inventory : MonoBehaviour
 
     private ContainerUI conUI;
 
+    public int invenCount = 14;
+
 
 
     // Start is called before the first frame update
@@ -214,6 +216,11 @@ public class inventory : MonoBehaviour
         if (item.count <= 1)
         {
             Debug.Log("1개 미만이라 쪼갤 수 없습니다.");
+            return;
+        }
+        if(characterItems.Count >= invenCount)
+        {
+            Debug.Log("인벤토리에 빈 공간이 없어서 쪼갤 수 없습니다.");
             return;
         }
 

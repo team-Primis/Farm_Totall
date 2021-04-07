@@ -91,8 +91,8 @@ public class VendingTotal : MonoBehaviour
         else
         {
             notice.WriteMessage("아이템을 선택해주십시오");
-            audioSource.clip = notChosen;
-            audioSource.Play();
+            SoundManager.instance.SFXPlay("notChosen", notChosen);//심을 때 소리나게 해줌.
+            
         }
     }
 
@@ -112,8 +112,8 @@ public class VendingTotal : MonoBehaviour
         else
         {
             notice.WriteMessage("아이템을 선택해주십시오");
-            audioSource.clip = notChosen;
-            audioSource.Play();
+            SoundManager.instance.SFXPlay("notChosen", notChosen);//심을 때 소리나게 해줌.
+
         }
     }
 
@@ -129,15 +129,15 @@ public class VendingTotal : MonoBehaviour
                 //인벤에 아이템 추가
                 //Debug.Log(totalMoney + "원을 사용하여 " + seedName + " " + buyNum + "개를 구매합니다. 잔액 : " + playerScript.money);
                 inven.putInventory(seedName, buyNum);
-                audioSource.clip = buySound;
-                audioSource.Play();
+                SoundManager.instance.SFXPlay("buying", buySound);//심을 때 소리나게 해줌.
+                ;
             }
             else
             {
                 //playerScript.playerMoneyChange(totalMoney, false);
                 notice.WriteMessage("잔액이 부족합니다.");
-                audioSource.clip = notEnoughSound;
-                audioSource.Play();
+                SoundManager.instance.SFXPlay("notEnough", notEnoughSound);//심을 때 소리나게 해줌.
+
                 
             }
         }
@@ -145,7 +145,7 @@ public class VendingTotal : MonoBehaviour
         {
             notice.WriteMessage("아이템을 선택해주십시오");
             audioSource.clip =notChosen;
-            audioSource.Play();
+            SoundManager.instance.SFXPlay("notChosen", notChosen);//심을 때 소리나게 해줌.
         }
     }
 
