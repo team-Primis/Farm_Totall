@@ -41,7 +41,7 @@ public class CollectPlant : MonoBehaviour
         if (Input.GetMouseButtonDown(0))//마우스 왼클릭 시
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
-            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한인 레이져 쏘는 거일걸.
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << LayerMask.NameToLayer("PlantLayer"));//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한/"플랜트레이어"에 있는 오브젝트만 인식하는 레이져 쏘는 거일걸.
 
             if (hit.collider != null)//레이져에 물체가 맞았는데
             {

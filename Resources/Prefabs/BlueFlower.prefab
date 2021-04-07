@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3765651001769421008}
   - component: {fileID: 5578199222669821901}
   - component: {fileID: 6113266586472718399}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BlueFlower
   m_TagString: Plant
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.2, y: 1.2}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &6113266586472718399
 Rigidbody2D:

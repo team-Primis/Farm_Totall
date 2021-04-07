@@ -47,7 +47,7 @@ public class SpawningDirt : MonoBehaviour
 
  void Update()
     {
-      if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false)//일시정지창, 구매창, 잠자기 창이 모두 열려 있지 않을 때만 작동.
+      if(GMscript.isMenuOpen == false && GMscript.isWillSellOpen == false && GMscript.isSleepOpen == false || GMscript.isBuyOpen)//일시정지창, 구매창, 잠자기 창이 모두 열려 있지 않을 때만 작동.
         {
             if (SceneManager.GetActiveScene().name == "OutSide")//현재 씬이 집 밖일 때만 작동.
             {
@@ -75,18 +75,17 @@ public class SpawningDirt : MonoBehaviour
 
         Vector2 themousePosition = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));//타일 크기마다 이동하는 것처럼 보이기 위해 올림하여 마우스 위치 재설정.
         Vector2 distance = theplayerPosition - mousePosition;//플레이어와 마우스 사이의 거리 선언.
-
-        if (Input.GetMouseButtonDown(0))//마우스 왼클릭 시
+        if(Inven.equipedItem !=null)
         {
-            if (Inven.equipedItem != null)//(Inven.equipedItem.Ename != "empty")로 하니까 눌레퍼런스 그거 뜨길래 다시 바꿈.
+            if (Inven.equipedItem.Ename == "sickle")
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
-                RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity);//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한인 레이져 쏘는 거일걸.
-                if (Inven.equipedItem.Ename == "sickle")//장착한 아이템이 낫이고 
+                if (Input.GetMouseButtonDown(0))
+
                 {
-
-
-                    if (hit.collider == null || hit.collider.CompareTag("Player"))//레이져에 맞은 오브젝트가 없거나 플레이어인 경우
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
+                    RaycastHit2D hit1 = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << LayerMask.NameToLayer("PlantLayer"));//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한/"플랜트레이어"에 있는 오브젝트만 인식하는 레이져 쏘는 거일걸.
+                    RaycastHit2D hit2 = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << LayerMask.NameToLayer("DarkDirt"));//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한/"다크덜트"에 있는 오브젝트만 인식하는 레이져 쏘는 거일걸.
+                    if (hit1.collider == null && hit2.collider==null)//레이져에 맞은 오브젝트가 없거나 플레이어인 경우
                     {
 
                         if (Mathf.Abs(distance.x) <= 1.5f && Mathf.Abs(distance.y) <= 2f)//플레이어의 위치를 기준으로 x 거리는 타일 1.5칸, y 거리는 타일 2칸 이하에서
@@ -105,29 +104,35 @@ public class SpawningDirt : MonoBehaviour
 
                     }
                 }
-
-                if(Inven.equipedItem.Ename=="Hoe")//만약 장착한 아이템이 호미고
+            }
+            else if (Inven.equipedItem.Ename == "Hoe")
+            {
+                if (Input.GetMouseButtonDown(0))//마우스 왼클릭 시
                 {
-                    if (hit.collider != null)//레이져에 맞은 아이템이
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);//카메라에서 레이저를 스크린상에서의 마우스 위치에서 발사함.
+                    RaycastHit2D hit1 = Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << LayerMask.NameToLayer("PlantLayer"));//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한/"플랜트레이어"에 존재하는 오브젝트만 인식하는 레이져 쏘는 거일걸.
+                    RaycastHit2D hit2= Physics2D.Raycast(ray.origin, ray.direction, Mathf.Infinity, 1 << LayerMask.NameToLayer("DarkDirt"));//이거 아마 마우스 위치에서/카메라가 보고 있는 방향으로/길이 무한/"다크덜트"에 존재하는 오브젝트만 인식하는 레이져 쏘는 거일걸.
+                    if (hit1.collider == null)//레이져에 맞은 플랜트레이어에 존재하는 아이템이 없고
                     {
-                        if (hit.collider.CompareTag("DarkDirt"))//어두운 흙이면
+                        if(hit2.collider!=null)//레이져에 맞은 다크덜트 레이어에 존재하는 아이템이 있는데
                         {
-                            GameObject responsedDarkDirt = hit.collider.gameObject;//일단 레이져에 맞은 오브젝트를 게임오브젝트로 선언해주고
-                            Destroy(responsedDarkDirt);//그 오브젝트를 없애준 뒤
-                            createdDarkDirt.Remove(responsedDarkDirt);//리스트에서도 삭제.
-                            DarkDirtXp.Remove(responsedDarkDirt.transform.position.x);//좌표 리스트에서도 삭제.
-                            DarkDirtYp.Remove(responsedDarkDirt.transform.position.y);
-                            SoundManager.instance.SFXPlay("Planting", grindingDirt);//흙 없애는 소리 재생.
-                            stM.UseHp(5f);//스태미나 소모.
+                            if (hit2.collider.CompareTag("DarkDirt"))//그게 어두운 흙이면
+                            {
+                                GameObject responsedDarkDirt = hit2.collider.gameObject;//일단 레이져에 맞은 오브젝트를 게임오브젝트로 선언해주고
+                                Destroy(responsedDarkDirt);//그 오브젝트를 없애준 뒤
+                                createdDarkDirt.Remove(responsedDarkDirt);//리스트에서도 삭제.
+                                DarkDirtXp.Remove(responsedDarkDirt.transform.position.x);//좌표 리스트에서도 삭제.
+                                DarkDirtYp.Remove(responsedDarkDirt.transform.position.y);
+                                SoundManager.instance.SFXPlay("Planting", grindingDirt);//흙 없애는 소리 재생.
+                                stM.UseHp(5f);//스태미나 소모.
+                            }
                         }
+                       
                     }
                 }
-                   
-             
-                
             }
-
         }
+       
     }
 
    public void mergePosition()//집안으로 들어갈 때 식물 위치를 집안에서 보이지 않게 해주는 함수.
@@ -136,7 +141,7 @@ public class SpawningDirt : MonoBehaviour
         {
             for(int i=0; i<createdDarkDirt.Count; i++)//그 길이만큼 반복
             {
-                createdDarkDirt[i].transform.position=new Vector2(20f, -8f);//리스트 내 모든 식물의 위치를 한 곳으로 모아줌.
+                createdDarkDirt[i].transform.position=new Vector2(30f, -16f);//리스트 내 모든 식물의 위치를 한 곳으로 모아줌.
             }
         }
     }
