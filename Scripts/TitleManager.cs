@@ -81,11 +81,11 @@ public class TitleManager : MonoBehaviour
         Choice.SetActive(true); // 파일 선택 창 띄우기
 
         // Choice1BT
-        FileInfo fileInfo1 = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        FileInfo fileInfo1 = new FileInfo(Application.persistentDataPath + "/SaveFile1.txt");
         if (fileInfo1.Exists) // 파일이 존재하면
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file1 = File.Open(Application.dataPath + "/SaveFile1.txt", FileMode.Open);
+            FileStream file1 = File.Open(Application.persistentDataPath + "/SaveFile1.txt", FileMode.Open);
             if(file1.Length > 0) // 내용이 있을 때
             {
                 SNLData data1;
@@ -107,11 +107,11 @@ public class TitleManager : MonoBehaviour
         }
 
         // Choice2BT
-        FileInfo fileInfo2 = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        FileInfo fileInfo2 = new FileInfo(Application.persistentDataPath + "/SaveFile2.txt");
         if (fileInfo2.Exists) // 파일이 존재하면
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file2 = File.Open(Application.dataPath + "/SaveFile2.txt", FileMode.Open);
+            FileStream file2 = File.Open(Application.persistentDataPath + "/SaveFile2.txt", FileMode.Open);
             if(file2.Length > 0) // 내용이 있을 때
             {
                 SNLData data2;
@@ -183,11 +183,11 @@ public class TitleManager : MonoBehaviour
         audioSource.clip = BtnSound;
         audioSource.Play();
 
-        FileInfo fileInfo1 = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        FileInfo fileInfo1 = new FileInfo(Application.persistentDataPath + "/SaveFile1.txt");
         if (fileInfo1.Exists) // 파일이 존재하면
         {
-            File.Delete(Application.dataPath + "/SaveFile1.txt");
-            File.Delete(Application.dataPath + "/SaveFile1.txt.meta");
+            File.Delete(Application.persistentDataPath + "/SaveFile1.txt");
+            File.Delete(Application.persistentDataPath + "/SaveFile1.txt.meta");
             F1Content.GetComponent<Text>().text = "NO FILE";
         }
     }
@@ -197,11 +197,11 @@ public class TitleManager : MonoBehaviour
         audioSource.clip = BtnSound;
         audioSource.Play();
 
-        FileInfo fileInfo2 = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        FileInfo fileInfo2 = new FileInfo(Application.persistentDataPath + "/SaveFile2.txt");
         if (fileInfo2.Exists) // 파일이 존재하면
         {
-            File.Delete(Application.dataPath + "/SaveFile2.txt");
-            File.Delete(Application.dataPath + "/SaveFile2.txt.meta");
+            File.Delete(Application.persistentDataPath + "/SaveFile2.txt");
+            File.Delete(Application.persistentDataPath + "/SaveFile2.txt.meta");
             F2Content.GetComponent<Text>().text = "NO FILE";
         }
     }

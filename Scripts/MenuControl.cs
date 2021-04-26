@@ -128,11 +128,11 @@ public class MenuControl : MonoBehaviour
         // 저장 완료 후 whereSave를 다시 false로 바꾼 후 menuWindow false로 바꾸기!
 
         // Choice1BT
-        FileInfo fileInfo1 = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        FileInfo fileInfo1 = new FileInfo(Application.persistentDataPath + "/SaveFile1.txt");
         if (fileInfo1.Exists) // 파일이 존재하면
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file1 = File.Open(Application.dataPath + "/SaveFile1.txt", FileMode.Open);
+            FileStream file1 = File.Open(Application.persistentDataPath + "/SaveFile1.txt", FileMode.Open);
             if(file1.Length > 0) // 내용이 있을 때
             {
                 SNLData data1;
@@ -154,11 +154,11 @@ public class MenuControl : MonoBehaviour
         }
 
         // Choice2BT
-        FileInfo fileInfo2 = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        FileInfo fileInfo2 = new FileInfo(Application.persistentDataPath + "/SaveFile2.txt");
         if (fileInfo2.Exists) // 파일이 존재하면
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file2 = File.Open(Application.dataPath + "/SaveFile2.txt", FileMode.Open);
+            FileStream file2 = File.Open(Application.persistentDataPath + "/SaveFile2.txt", FileMode.Open);
             if(file2.Length > 0) // 내용이 있을 때
             {
                 SNLData data2;

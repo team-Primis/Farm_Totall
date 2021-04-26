@@ -350,13 +350,13 @@ public class SaveNLoad : MonoBehaviour
 
         // 물리적인 파일로 저장
         BinaryFormatter bf = new BinaryFormatter(); // 2진 파일로 변환
-        FileStream file = File.Create(Application.dataPath + "/SaveFile1.txt");
+        FileStream file = File.Create(Application.persistentDataPath + "/SaveFile1.txt");
         // FileStream : 파일 입출력기 - 이 프로젝트가 설치된 폴더에 (= Asset 폴더)
         // 경로 + 파일 이름 (확장자는 아무렇게나 써도 됨)
         bf.Serialize(file, data); // data class에 담긴 정보를 file 파일에 기록하고 직렬화
         file.Close();
 
-        Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
+        Debug.Log(Application.persistentDataPath + "의 위치에 저장했습니다.");
     }
 
     public void CallSaveF2()
@@ -524,21 +524,21 @@ public class SaveNLoad : MonoBehaviour
         }
 
         BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.dataPath + "/SaveFile2.txt");
+        FileStream file = File.Create(Application.persistentDataPath + "/SaveFile2.txt");
         bf.Serialize(file, data);
         file.Close();
-        Debug.Log(Application.dataPath + "의 위치에 저장했습니다.");
+        Debug.Log(Application.persistentDataPath + "의 위치에 저장했습니다.");
     }
 
 
     public void CallLoadF1() // 씬 로드
     {
         // Save와 순서 반대로
-        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        FileInfo fileInfo = new FileInfo(Application.persistentDataPath + "/SaveFile1.txt");
         if (fileInfo.Exists) // 파일이 존재하면
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.dataPath + "/SaveFile1.txt", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/SaveFile1.txt", FileMode.Open);
             // 원래) if(file != null && file.Length > 0)
             if(file.Length > 0) // 내용이 있을 때
             {
@@ -569,11 +569,11 @@ public class SaveNLoad : MonoBehaviour
 
     public void RealLoadF1() // 파일 로드
     {
-        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile1.txt");
+        FileInfo fileInfo = new FileInfo(Application.persistentDataPath + "/SaveFile1.txt");
         if (fileInfo.Exists) // 파일이 존재하면
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.dataPath + "/SaveFile1.txt", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/SaveFile1.txt", FileMode.Open);
             // 원래) if(file != null && file.Length > 0)
             if(file.Length > 0) // 내용이 있을 때
             {
@@ -839,11 +839,11 @@ public class SaveNLoad : MonoBehaviour
 
     public void CallLoadF2()
     {
-        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        FileInfo fileInfo = new FileInfo(Application.persistentDataPath + "/SaveFile2.txt");
         if (fileInfo.Exists)
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.dataPath + "/SaveFile2.txt", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/SaveFile2.txt", FileMode.Open);
             if(file.Length > 0)
             {
                 data = (SNLData)bf.Deserialize(file);
@@ -868,11 +868,11 @@ public class SaveNLoad : MonoBehaviour
 
     public void RealLoadF2()
     {
-        FileInfo fileInfo = new FileInfo(Application.dataPath + "/SaveFile2.txt");
+        FileInfo fileInfo = new FileInfo(Application.persistentDataPath + "/SaveFile2.txt");
         if (fileInfo.Exists)
         {
             BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.dataPath + "/SaveFile2.txt", FileMode.Open);
+            FileStream file = File.Open(Application.persistentDataPath + "/SaveFile2.txt", FileMode.Open);
             if(file.Length > 0)
             {
                 data = (SNLData)bf.Deserialize(file);
