@@ -3,7 +3,7 @@
   <img width="700" src="https://user-images.githubusercontent.com/39826053/118353702-7a881480-b5a2-11eb-83be-6202c852fb10.JPG" alt="Game Scene"><br><br>
   <b>농사짓고 닭을 쓰다듬는, 농부 시뮬레이션 게임</b>
 </p><br>
-<p align="center"><a href="#how-to-play">플레이 방법</a> 🍀 <a href="#download"> 다운로드</a> 🍀 <a href="#develop"> 개발 정보</a> 🍀 <a href="#develop"> 개발 일지 및 상세 특징 보기</a></p>
+<p align="center"><a href="#how-to-play">플레이 방법</a> 🍀 <a href="#download"> 다운로드</a> 🍀 <a href="#develop"> 개발 정보</a> 🍀 <a href="https://github.com/team-Primis/Farm_Totall/wiki"> 개발 일지 및 상세 특징 보기</a></p>
 
 <hr>
 <h2 id="how-to-play">🎮플레이 방법</h1>
