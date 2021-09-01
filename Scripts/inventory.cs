@@ -306,7 +306,7 @@ public class inventory : MonoBehaviour
 
             //첫번째로 위치한 아이템의 카운트 추가
             Item item = CheckForItem(id);
-            item.count++;
+            item.count += plusNum;
             Debug.Log(item.Kname + "을 " + item.count + "개로 만듭니다");
             inventoryUI.UpdateItemNumUICount(item);
             //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
@@ -348,7 +348,7 @@ public class inventory : MonoBehaviour
 
             //첫번째로 위치한 아이템의 카운트 추가
             Item item = CheckForItem(name);
-            item.count++;
+            item.count+= plusNum;
             Debug.Log(item.Kname + "을 " + item.count + "개로 만듭니다");
             inventoryUI.UpdateItemNumUICount(item);
             //   Debug.Log("아이템" + itemToAdd.Kname + "의 갯수를 "+plusNum+"개 추가해서 현재 갯수는 " + itemToAdd.count+"개 입니다.");
